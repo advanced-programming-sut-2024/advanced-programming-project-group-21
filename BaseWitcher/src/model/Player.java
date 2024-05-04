@@ -1,5 +1,9 @@
 package model;
 
+import model.Commanders.Commander;
+import model.Factions.Faction;
+import model.Spells.Spell;
+
 import java.util.ArrayList;
 
 public class Player extends User {
@@ -111,5 +115,13 @@ public class Player extends User {
 
     public void setRoundsWon(int roundsWon) {
         this.roundsWon = roundsWon;
+    }
+
+    public static void addToDeck(String cardName, int count) {
+
+    }
+
+    public static void deleteFromDeck(int cardNumber, int count) {
+
     }
 }

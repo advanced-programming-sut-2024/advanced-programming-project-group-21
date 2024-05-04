@@ -138,7 +138,7 @@ public class User {
         this.email = email;
     }
 
-    public static User getUserByName(String username) {
+    public static User getUserByUsername(String username) {
         User intendedUser = null;
         for (User item : users) {
             if (item.getUsername().equals(username)) {
@@ -147,5 +147,24 @@ public class User {
         }
         return intendedUser;
     }
+
+    public static void changeUsername(String newUsername) {
+        loggedInUser.setUsername(newUsername);
+    }
+
+    public static void changeNickname(String newNickname) {
+        loggedInUser.setNickname(newNickname);
+    }
+
+    public static void changeEmail(String newEmail) {
+        loggedInUser.setEmail(newEmail);
+    }
+
+    public static void changePassword(String newPassword) {
+        loggedInUser.setPassword(newPassword);
+    }
+
+
+
 
 }

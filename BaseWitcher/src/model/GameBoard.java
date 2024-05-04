@@ -1,5 +1,8 @@
 package model;
 
+import model.Commanders.Commander;
+import model.Spells.Spell;
+
 import java.util.ArrayList;
 
 public class GameBoard {
