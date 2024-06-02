@@ -30,6 +30,9 @@ public class User {
         return users;
     }
 
+    public static void addUserToUsers(User user) {
+        users.add(user);
+    }
     public static void setUsers(ArrayList<User> users) {
         User.users = users;
     }
@@ -46,7 +49,7 @@ public class User {
 
     }
 
-    public static void setUsersToJson(){
+    public static void saveUsersToJson(){
 
     }
 

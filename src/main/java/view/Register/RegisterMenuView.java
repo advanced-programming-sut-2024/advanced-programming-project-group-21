@@ -4,6 +4,7 @@ import controller.ApplicationController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -23,7 +24,7 @@ public class RegisterMenuView extends Application {
         ApplicationController.setStage(stage);
         FXMLLoader fxmlLoader = new FXMLLoader();
         URL url = RegisterMenu.class.getResource("/FXML/Register.fxml");
-        BorderPane root = fxmlLoader.load(url);
+        AnchorPane root = fxmlLoader.load(url);
         controller = fxmlLoader.getController();
         Scene scene = new Scene(root);
         stage.setScene(scene);
