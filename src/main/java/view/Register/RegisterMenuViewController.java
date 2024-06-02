@@ -1,11 +1,15 @@
 package view.Register;
 
+import controller.ApplicationController;
 import controller.LoginMenuController;
 import controller.RegisterMenuController;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import model.User.User;
+import view.Login.LoginMenuView;
+import view.Main.MainMenuView;
 
 public class RegisterMenuViewController {
     public TextField usernameField;
@@ -47,46 +51,46 @@ public class RegisterMenuViewController {
                 passwordMismatchError(alert);
             }
         } else {
-            // TODO: Login
+            enterMainMenu();
         }
     }
 
-    private void emptyUsernameError(Alert alert){
+    private void emptyUsernameError(Alert alert) {
         alert.setTitle("Username field is empty");
         alert.setHeaderText("Username empty");
         alert.setContentText("Please fill username");
         alert.show();
     }
 
-    private void emptyPasswordError(Alert alert){
+    private void emptyPasswordError(Alert alert) {
         alert.setTitle("Password field is empty");
         alert.setHeaderText("Password empty");
         alert.setContentText("Please fill password");
         alert.show();
     }
 
-    private void emptyNicknameError(Alert alert){
+    private void emptyNicknameError(Alert alert) {
         alert.setTitle("Nickname field is empty");
         alert.setHeaderText("Nickname empty");
         alert.setContentText("Please fill nickname");
         alert.show();
     }
 
-    private void emptyEmailError(Alert alert){
+    private void emptyEmailError(Alert alert) {
         alert.setTitle("Email field is empty");
         alert.setHeaderText("Email empty");
         alert.setContentText("Please fill email");
         alert.show();
     }
 
-    private void emptyConfirmPasswordError(Alert alert){
+    private void emptyConfirmPasswordError(Alert alert) {
         alert.setTitle("Confirm password field is empty");
         alert.setHeaderText("Confirm password empty");
         alert.setContentText("Please fill confirm password");
         alert.show();
     }
 
-    private void usernameExistsError(Alert alert){
+    private void usernameExistsError(Alert alert) {
         alert.setTitle("Username already exists");
         alert.setHeaderText("User exists");
         alert.setContentText("Please choose another username, a new username has been generated for you.");
@@ -94,10 +98,26 @@ public class RegisterMenuViewController {
         usernameField.setText(controller.createNewUsername(usernameField.getText()));
     }
 
-    private void passwordMismatchError(Alert alert){
+    private void passwordMismatchError(Alert alert) {
         alert.setTitle("Password mismatch");
         alert.setHeaderText("Password mismatch");
         alert.setContentText("Please enter matching passwords with your confirm password");
         alert.show();
+    }
+
+    private void enterMainMenu(){
+        try {
+            new MainMenuView().start(ApplicationController.getStage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void goBackToLoginMenu(MouseEvent mouseEvent) {
+        try {
+            new LoginMenuView().start(ApplicationController.getStage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
