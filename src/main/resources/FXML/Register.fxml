@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Register.RegisterMenuViewController">
+   <children>
+      <VBox alignment="CENTER" layoutX="196.0" prefHeight="400.0" prefWidth="208.0" spacing="15.0">
+         <children>
+            <Label text="Register" />
+            <VBox alignment="TOP_CENTER" prefHeight="59.0" prefWidth="208.0" spacing="5.0">
+               <children>
+                  <TextField fx:id="nicknameField" alignment="CENTER" promptText="Nickname" />
+                  <TextField fx:id="usernameField" alignment="CENTER" promptText="Username" />
+                  <TextField fx:id="emailField" alignment="CENTER" promptText="Email" />
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="8.0" prefWidth="208.0" spacing="5.0">
+               <children>
+                  <PasswordField fx:id="passwordField" alignment="CENTER" promptText="Password" />
+                  <TextField fx:id="confirmPasswordField" alignment="CENTER" promptText="Confirm password" />
+                  <Hyperlink onMouseClicked="#generateStrongPassword" text="Generate strong password" />
+               </children>
+            </VBox>
+            <Button mnemonicParsing="false" onMouseClicked="#register" text="Register" />
+         </children></VBox>
+   </children>
+</AnchorPane>
