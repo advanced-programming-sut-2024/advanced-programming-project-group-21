@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Login.LoginMenuViewController">
+    <center>
+        <VBox alignment="CENTER" maxWidth="200" prefHeight="331.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+            <Label fx:id="topText" text="Welcome" />
+            <TextField fx:id="usernameField" alignment="CENTER" promptText="Enter username" />
+            <PasswordField fx:id="passwordField" alignment="CENTER" promptText="Enter password" />
+         <VBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0" spacing="5.0">
+            <children>
+                    <Button mnemonicParsing="false" onMouseClicked="#loginClicked" prefWidth="60.0" text="Login" />
+               <Hyperlink onMouseClicked="#goToQuestion" text="Forgot password" />
+            </children>
+         </VBox>
+            <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="40.0" text="Not a user?" />
+         <Hyperlink onMouseClicked="#goToRegister" text="Register as a new user..." />
+            <BorderPane.margin>
+                <Insets />
+            </BorderPane.margin>
+        </VBox>
+    </center>
+</BorderPane>
