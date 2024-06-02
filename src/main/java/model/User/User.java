@@ -1,14 +1,14 @@
 package model.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class User {
     private String username;
     private String nickname;
     private String password;
     private String email;
-    private int questionNumber;
-    private String questionAnswer;
+    private HashMap<String, String> questions = new HashMap<>();
     private int rank;
     private double highestScore;
     private int gamesPlayed = 0;
@@ -33,6 +33,7 @@ public class User {
     public static void addUserToUsers(User user) {
         users.add(user);
     }
+
     public static void setUsers(ArrayList<User> users) {
         User.users = users;
     }
@@ -49,7 +50,7 @@ public class User {
 
     }
 
-    public static void saveUsersToJson(){
+    public static void saveUsersToJson() {
 
     }
 
@@ -99,22 +100,6 @@ public class User {
 
     public void setRank(int rank) {
         this.rank = rank;
-    }
-
-    public String getQuestionAnswer() {
-        return questionAnswer;
-    }
-
-    public void setQuestionAnswer(String questionAnswer) {
-        this.questionAnswer = questionAnswer;
-    }
-
-    public int getQuestionNumber() {
-        return questionNumber;
-    }
-
-    public void setQuestionNumber(int questionNumber) {
-        this.questionNumber = questionNumber;
     }
 
     public String getUsername() {
@@ -175,7 +160,15 @@ public class User {
         loggedInUser.setPassword(newPassword);
     }
 
+    public void addToQuestionAnswers(String question, String answer) {
+        questions.put(question, answer);
+    }
 
+    public String getAnswer(String question) {
+        return questions.get(question);
+    }
 
-
+    public boolean containsQuestion(String question) {
+        return questions.containsKey(question);
+    }
 }
