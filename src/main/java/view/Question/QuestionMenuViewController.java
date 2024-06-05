@@ -9,6 +9,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import model.User.User;
+import view.Login.LoginMenuView;
 import view.Main.MainMenuView;
 
 public class QuestionMenuViewController {
@@ -112,5 +113,13 @@ public class QuestionMenuViewController {
         alert.setHeaderText("Wrong answer");
         alert.setContentText("Please enter the correct answer");
         alert.show();
+    }
+
+    public void goBackToLogin(MouseEvent mouseEvent) {
+        try {
+            new LoginMenuView().start(ApplicationController.getStage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

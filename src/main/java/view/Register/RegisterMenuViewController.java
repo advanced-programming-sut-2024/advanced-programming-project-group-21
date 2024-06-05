@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import model.User.User;
 import view.Login.LoginMenuView;
 import view.Main.MainMenuView;
+import view.Question.QuestionMenuView;
 
 public class RegisterMenuViewController {
     public TextField usernameField;
@@ -51,7 +52,7 @@ public class RegisterMenuViewController {
                 passwordMismatchError(alert);
             }
         } else {
-            enterMainMenu();
+            enterQuestionMenu();
         }
     }
 
@@ -105,9 +106,9 @@ public class RegisterMenuViewController {
         alert.show();
     }
 
-    private void enterMainMenu(){
+    private void enterQuestionMenu(){
         try {
-            new MainMenuView().start(ApplicationController.getStage());
+            new QuestionMenuView().start(ApplicationController.getStage());
         } catch (Exception e) {
             e.printStackTrace();
         }

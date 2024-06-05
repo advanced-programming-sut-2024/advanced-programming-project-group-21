@@ -6,9 +6,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Question.QuestionMenuViewController">
-    <ChoiceBox fx:id="securityQuestionChoiceBox" layoutX="100.0" layoutY="138.0" prefWidth="400.0" />
-    <TextField fx:id="securityAnswerField" layoutX="225.0" layoutY="187.0" promptText="Enter your answer" />
-   <Button layoutX="274.0" layoutY="243.0" mnemonicParsing="false" onMouseClicked="#submitAnswer" text="Button" />
-   <TextField alignment="CENTER" layoutX="226.0" layoutY="79.0" promptText="Username" />
+    <ChoiceBox fx:id="securityQuestionChoiceBox" layoutX="100.0" layoutY="168.0" prefWidth="400.0" />
+    <TextField fx:id="securityAnswerField" layoutX="225.0" layoutY="229.0" promptText="Enter your answer" />
+   <Button layoutX="268.0" layoutY="276.0" mnemonicParsing="false" onMouseClicked="#submitAnswer" text="Submit" />
+   <TextField alignment="CENTER" layoutX="225.0" layoutY="109.0" promptText="Username" />
+   <Button layoutX="511.0" layoutY="38.0" mnemonicParsing="false" onMouseClicked="#goBackToLogin" text="Back" />
 
 </AnchorPane>
