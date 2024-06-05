@@ -3,6 +3,7 @@ package view.ForgetPassword;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -21,7 +22,7 @@ public class ForgetPasswordMenuView extends Application {
         stage.centerOnScreen();
         FXMLLoader fxmlLoader = new FXMLLoader();
         URL url = ForgetPasswordMenuView.class.getResource("/FXML/ForgetPassword.fxml");
-        BorderPane root = fxmlLoader.load(url);
+        AnchorPane root = fxmlLoader.load(url);
         controller = fxmlLoader.getController();
         Scene scene = new Scene(root);
         stage.setScene(scene);
