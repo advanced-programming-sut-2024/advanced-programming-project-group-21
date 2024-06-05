@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import model.User.User;
 import view.Main.MainMenuView;
-import view.Question.QuestionMenuView;
+import view.ForgetPassword.ForgetPasswordMenuView;
 import view.Register.RegisterMenuView;
 
 import java.io.IOException;
@@ -64,7 +64,7 @@ public class LoginMenuViewController {
 
     public void goToQuestion(MouseEvent mouseEvent) {
         try {
-            new QuestionMenuView().start(ApplicationController.getStage());
+            new ForgetPasswordMenuView().start(ApplicationController.getStage());
         } catch (Exception e) {
             e.printStackTrace();
         }

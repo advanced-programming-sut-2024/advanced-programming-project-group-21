@@ -1,16 +1,13 @@
 package view.Register;
 
 import controller.ApplicationController;
-import controller.LoginMenuController;
 import controller.RegisterMenuController;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import model.User.User;
 import view.Login.LoginMenuView;
-import view.Main.MainMenuView;
-import view.Question.QuestionMenuView;
+import view.ForgetPassword.ForgetPasswordMenuView;
 
 public class RegisterMenuViewController {
     public TextField usernameField;
@@ -108,7 +105,7 @@ public class RegisterMenuViewController {
 
     private void enterQuestionMenu(){
         try {
-            new QuestionMenuView().start(ApplicationController.getStage());
+            new ForgetPasswordMenuView().start(ApplicationController.getStage());
         } catch (Exception e) {
             e.printStackTrace();
         }
