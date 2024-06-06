@@ -18,5 +18,9 @@ module witcher {
     opens view.Register to javafx.fxml;
     exports view.Profile;
     opens view.Profile to javafx.fxml;
+    exports view.Question;
+    opens view.Question to javafx.fxml;
+    exports view.ForgetPassword;
+    opens view.ForgetPassword to javafx.fxml;
     opens model.User to com.fasterxml.jackson.databind;
 }

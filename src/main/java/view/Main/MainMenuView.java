@@ -3,6 +3,7 @@ package view.Main;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -18,13 +19,13 @@ public class MainMenuView extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setResizable(false);
-        stage.centerOnScreen();
         FXMLLoader fxmlLoader = new FXMLLoader();
         URL url = MainMenuView.class.getResource("/FXML/Main.fxml");
-        BorderPane root = fxmlLoader.load(url);
+        AnchorPane root = fxmlLoader.load(url);
         controller = fxmlLoader.getController();
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.show();
     }
 }

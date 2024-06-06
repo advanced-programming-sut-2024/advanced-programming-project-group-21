@@ -4,8 +4,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Login.LoginMenuViewController">
-        <VBox alignment="CENTER" maxWidth="200" prefHeight="331.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+
+<AnchorPane prefHeight="750" prefWidth="1500" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Login.LoginMenuViewController">
+        <VBox alignment="CENTER" maxWidth="200" prefHeight="331.0" prefWidth="200.0" spacing="10.0">
             <Label fx:id="topText" text="Welcome" />
             <TextField fx:id="usernameField" alignment="CENTER" promptText="Enter username" />
             <PasswordField fx:id="passwordField" alignment="CENTER" promptText="Enter password" />
@@ -17,8 +18,5 @@
          </VBox>
             <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="40.0" text="Not a user?" />
          <Hyperlink onMouseClicked="#goToRegister" text="Register as a new user..." />
-            <BorderPane.margin>
-                <Insets />
-            </BorderPane.margin>
         </VBox>
 </AnchorPane>

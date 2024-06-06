@@ -21,7 +21,6 @@ public class ProfileMenuView extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setResizable(false);
-        stage.centerOnScreen();
         ApplicationController.setStage(stage);
         FXMLLoader fxmlLoader = new FXMLLoader();
         URL url = RegisterMenu.class.getResource("/FXML/Profile.fxml");
@@ -29,6 +28,7 @@ public class ProfileMenuView extends Application {
         controller = fxmlLoader.getController();
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.show();
     }
 }
