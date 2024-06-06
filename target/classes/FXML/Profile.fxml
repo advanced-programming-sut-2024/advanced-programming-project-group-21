@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="pane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Profile.ProfileMenuViewController">
+   <children>
+      <VBox fx:id="vbox" layoutX="230.0" layoutY="67.0" prefHeight="200.0" prefWidth="138.0" spacing="40.0">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="164.0" prefWidth="148.0" spacing="20.0">
+               <children>
+                  <Label text="Change info" />
+                  <VBox alignment="TOP_CENTER" prefHeight="106.0" prefWidth="148.0" spacing="7.0">
+                     <children>
+                        <Button fx:id="usernameButton" mnemonicParsing="false" onMouseClicked="#openChangeUsername" text="Change username" />
+                        <Button fx:id="nicknameButton" mnemonicParsing="false" onMouseClicked="#openChangeNickname" text="Change nickname" />
+                        <Button fx:id="emailButton" mnemonicParsing="false" onMouseClicked="#openChangeEmail" text="Change email" />
+                        <Button fx:id="passwordButton" mnemonicParsing="false" onMouseClicked="#openChangePassword" text="Change password" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+               <children>
+                  <Label text="Answer security questions" />
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="7.0">
+                     <children>
+                        <Button mnemonicParsing="false" onMouseClicked="#goToQuestionMenu" text="Enter menu" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+      <Button layoutX="501.0" layoutY="31.0" mnemonicParsing="false" onMouseClicked="#goToMainMenu" text="Back" />
+   </children>
+</AnchorPane>
