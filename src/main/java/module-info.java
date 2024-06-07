@@ -23,4 +23,6 @@ module witcher {
     exports view.ForgetPassword;
     opens view.ForgetPassword to javafx.fxml;
     opens model.User to com.fasterxml.jackson.databind;
+    exports view.Pregame;
+    opens view.Pregame to javafx.fxml;
 }
