@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class PregameMenuViewController {
     public VBox preGameVBox;
     public VBox deckVBox;
+    public AnchorPane commanderCard;
     PreGameController controller = new PreGameController();
 
 

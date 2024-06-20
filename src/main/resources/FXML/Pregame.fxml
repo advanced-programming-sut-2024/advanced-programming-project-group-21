@@ -70,14 +70,14 @@
       </VBox>
       <VBox alignment="TOP_CENTER" layoutX="640.0" layoutY="154.0" prefHeight="550.0" prefWidth="212.0" spacing="20.0">
          <children>
-            <VBox alignment="TOP_CENTER" prefHeight="162.0" prefWidth="212.0" spacing="10.0">
+            <VBox alignment="TOP_CENTER" prefHeight="222.0" prefWidth="212.0" spacing="10.0">
                <children>
                   <Label text="Leader">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="134.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true" />
+                  <AnchorPane fx:id="commanderCard" maxHeight="135.0" maxWidth="72.0" minHeight="135.0" minWidth="72.0" prefHeight="135.0" prefWidth="72.0" />
                </children>
             </VBox>
             <VBox prefHeight="392.0" prefWidth="212.0" spacing="10.0">
