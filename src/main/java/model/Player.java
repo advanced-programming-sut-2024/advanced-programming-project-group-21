@@ -2,7 +2,6 @@ package model;
 
 import model.Commanders.Commander;
 import model.Factions.Faction;
-import model.Spells.Spell;
 import model.User.User;
 
 import java.util.ArrayList;
@@ -11,7 +10,6 @@ public class Player extends User {
     private static ArrayList<Card> hand = new ArrayList<>();
     private static ArrayList<Card> deck = new ArrayList<>();
     private static ArrayList<Card> discardPile = new ArrayList<>();
-    private static ArrayList<Spell> spellCards = new ArrayList<>();
     private static User user;
     private int availableCards = 0;
     private Commander commander;
@@ -48,14 +46,6 @@ public class Player extends User {
 
     public static void setDiscardPile(ArrayList<Card> discardPile) {
         Player.discardPile = discardPile;
-    }
-
-    public static ArrayList<Spell> getSpellCards() {
-        return spellCards;
-    }
-
-    public static void setSpellCards(ArrayList<Spell> spellCards) {
-        Player.spellCards = spellCards;
     }
 
     public static User getUser() {
