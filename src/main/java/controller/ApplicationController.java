@@ -2,6 +2,7 @@ package controller;
 
 import javafx.stage.Stage;
 import model.Game;
+import model.PreGame;
 import model.User.User;
 
 import java.util.Random;
@@ -12,6 +13,7 @@ public class ApplicationController {
     private static boolean UserAGuest;
     public static final Random random = new Random();
     public static Game game = null;
+    public static PreGame preGame = null;
 
     public static Stage getStage() {
         return stage;

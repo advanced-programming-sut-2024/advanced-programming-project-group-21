@@ -1,5 +1,12 @@
 package controller;
 
+import enums.Card.CardEnum;
+import enums.Card.Factions;
+import model.Card;
+import model.PreGame;
+
+import java.util.ArrayList;
+
 public class PreGameController {
     public void showCurrentMenu(){
 
@@ -73,5 +80,30 @@ public class PreGameController {
 
     }
 
+    public ArrayList<Card> loadPregameCards(Factions faction){
+        deletePreGameCards(); // Clear the preGameCards list
+        ArrayList<Card> cards = new ArrayList<>();
 
+        for(CardEnum cardEnum : CardEnum.values()){
+            if(cardEnum.getFaction().equals(faction) || cardEnum.getFaction().equals(Factions.NEUTRAL)){
+                for(int i = 0; i < cardEnum.getPreGameCount(); i++){
+                    Card card = new Card(cardEnum);
+                    cards.add(card);
+                    ApplicationController.preGame.addCardToPreGameCards(card);
+                }
+            }
+        }
+
+        return cards;
+    }
+
+    public void initialize(){
+        PreGame preGame = new PreGame();
+        ApplicationController.preGame = preGame;
+    }
+
+    private void deletePreGameCards(){
+        ApplicationController.preGame.setPreGameCards(new ArrayList<>());
+        ApplicationController.preGame.setPreGameHBoxList(new ArrayList<>());
+    }
 }

@@ -1,27 +1,41 @@
 package view.Pregame;
 
-import enums.Card.CardEnum;
+import controller.ApplicationController;
+import controller.PreGameController;
 import enums.Card.Factions;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import model.Card;
+import model.PreGame;
+
+import java.util.ArrayList;
 
 public class PregameMenuViewController {
-    public void initialize(){
+    PreGameController controller = new PreGameController();
+
+    public void initialize() {
 
     }
 
-    private void loadPreGameCards(Factions faction){
-        // search in CardEnum for faction
-        for(CardEnum cardEnum : CardEnum.values()){
-            if(cardEnum.getFaction().equals(faction)){
-                for(int i = 0; i < cardEnum.getPreGameCount(); i++){
-                    Card card = new Card(cardEnum);
-                    addCardToPreGameCards(card);
-                }
+    public void loadPregameCards(Factions faction) {
+        ArrayList<Card> cards = controller.loadPregameCards(faction);
+        PreGame preGame = ApplicationController.preGame;
+        for (Card card : cards) {
+            HBox cardHBox = preGame.getPreGameHBoxList().get(preGame.getPreGameHBoxList().size() - 1);
+            if (preGame.getPreGameHBoxList().isEmpty() ||
+                    cardHBox.getChildren().size() >= 3) {
+                cardHBox = createCardHBox();
+                preGame.getPreGameHBoxList().add(cardHBox);
             }
+
         }
+
     }
 
-    private void addCardToPreGameCards(Card card){
-        // add card to pregame list
+    private HBox createCardHBox() {
+        HBox cardHBox = new HBox();
+        return null;
     }
+
+
 }
