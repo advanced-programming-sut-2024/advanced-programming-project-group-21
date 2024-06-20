@@ -27,4 +27,8 @@ public class Card{
         this.inGameImage = cardEnum.getInGameImage();
 
     }
+
+    public String getPreGameImage() {
+        return preGameImage;
+    }
 }

@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -16,7 +17,7 @@
          <children>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="248.0" spacing="20.0">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                   <Label text="xwqlndwqlkl">
                      <font>
                         <Font size="22.0" />
@@ -50,21 +51,32 @@
             </HBox>
          </children>
       </VBox>
-      <VBox layoutX="81.0" layoutY="156.0" prefHeight="543.0" prefWidth="527.0">
+      <VBox layoutX="81.0" layoutY="156.0" maxHeight="543.0" maxWidth="527.0" minHeight="543.0" minWidth="527.0" prefHeight="543.0" prefWidth="527.0">
          <children>
-            <ScrollPane prefHeight="614.0" prefWidth="527.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-              </content>
+            <ScrollPane maxHeight="543.0" maxWidth="527.0" minHeight="543.0" minWidth="527.0" prefHeight="543.0" prefWidth="527.0">
+               <content>
+                  <VBox fx:id="preGameVBox" maxWidth="525.0" minWidth="525.0" prefHeight="537.0" prefWidth="525.0" spacing="20.0">
+                     <children>
+                        <HBox alignment="CENTER" maxHeight="260.0" maxWidth="525.0" minHeight="260.0" minWidth="525.0" prefHeight="260.0" prefWidth="525.0" spacing="20.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="260.0" stroke="BLACK" strokeType="INSIDE" width="161.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="260.0" stroke="BLACK" strokeType="INSIDE" width="161.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="260.0" stroke="BLACK" strokeType="INSIDE" width="161.0" />
+                           </children>
+                        </HBox>
+                        <HBox maxHeight="260.0" maxWidth="525.0" minHeight="260.0" minWidth="526.0" prefHeight="260.0" prefWidth="526.0" />
+                     </children>
+                  </VBox>
+               </content>
             </ScrollPane>
          </children>
       </VBox>
-      <VBox layoutX="892.0" layoutY="156.0" prefHeight="543.0" prefWidth="527.0">
+      <VBox layoutX="892.0" layoutY="156.0" maxHeight="543.0" maxWidth="527.0" minHeight="543.0" minWidth="527.0" prefHeight="543.0" prefWidth="527.0">
          <children>
-            <ScrollPane prefHeight="650.0" prefWidth="527.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-              </content>
+            <ScrollPane maxHeight="543.0" maxWidth="527.0" minHeight="543.0" minWidth="527.0" prefHeight="543.0" prefWidth="527.0">
+               <content>
+                  <VBox maxWidth="525.0" minWidth="525.0" prefHeight="200.0" prefWidth="525.0" />
+               </content>
             </ScrollPane>
          </children>
       </VBox>
@@ -77,7 +89,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="138.0" stroke="BLACK" strokeType="INSIDE" width="128.0" />
+                  <ImageView fitHeight="134.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </VBox>
             <VBox prefHeight="392.0" prefWidth="212.0" spacing="10.0">
@@ -89,7 +101,7 @@
                               <Label text="Label" />
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                  <children>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
                                     <Label text="Label" />
                                  </children>
                               </HBox>
@@ -100,7 +112,7 @@
                               <Label text="Label" />
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                  <children>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
                                     <Label text="Label" />
                                  </children>
                               </HBox>
@@ -111,7 +123,7 @@
                               <Label text="Label" />
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                  <children>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
                                     <Label text="Label" />
                                  </children>
                               </HBox>
@@ -122,7 +134,7 @@
                               <Label text="Label" />
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                  <children>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
                                     <Label text="Label" />
                                  </children>
                               </HBox>
@@ -133,7 +145,7 @@
                               <Label text="Label" />
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                  <children>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
                                     <Label text="Label" />
                                  </children>
                               </HBox>
@@ -141,9 +153,9 @@
                         </VBox>
                      </children>
                   </VBox>
-                  <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+                  <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                      <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                         <Button mnemonicParsing="false" text="Button" />
                      </children>
                   </VBox>
