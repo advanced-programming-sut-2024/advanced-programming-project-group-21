@@ -181,6 +181,9 @@ public class PregameMenuViewController {
                 if (node.getId().equals(cardAnchorPane.getId())) {
                     if (((Text) cardAnchorPane.getChildren().get(2)).getText().equals("1")) {
                         hbox.getChildren().remove(node);
+                        if(preGame.getDeckHBoxList().indexOf(hbox) < preGame.getDeckHBoxList().size()-1){
+                            resortDeckCards(preGame.getDeckHBoxList().indexOf(hbox));
+                        }
                         if (hbox.getChildren().size() == 0) {
                             deckVBox.getChildren().remove(hbox);
                             preGame.getDeckHBoxList().remove(hbox);
@@ -194,6 +197,19 @@ public class PregameMenuViewController {
         }
     }
 
+    private void resortDeckCards(int indexOf) {
+        ArrayList<HBox> deckHBoxList = ApplicationController.preGame.getDeckHBoxList();
+        for(int i=indexOf;i<deckHBoxList.size()-1;i++){
+            Node node = deckHBoxList.get(i+1).getChildren().get(0);
+            deckHBoxList.get(i+1).getChildren().remove(0);
+            deckHBoxList.get(i).getChildren().add(node);
+            if(deckHBoxList.get(i+1).getChildren().isEmpty()){
+                deckVBox.getChildren().remove(deckHBoxList.get(i+1));
+                deckHBoxList.remove(i+1);
+            }
+        }
+    }
+
     private void removeFromPreGame(AnchorPane cardAnchorPane) {
         PreGame preGame = ApplicationController.preGame;
         for (HBox hbox : preGame.getPreGameHBoxList()) {
@@ -201,6 +217,9 @@ public class PregameMenuViewController {
                 if (node.getId().equals(cardAnchorPane.getId())) {
                     if (((Text) cardAnchorPane.getChildren().get(2)).getText().equals("1")) {
                         hbox.getChildren().remove(node);
+                        if(preGame.getPreGameHBoxList().indexOf(hbox) < preGame.getPreGameHBoxList().size()-1){
+                            resortPregameCards(preGame.getPreGameHBoxList().indexOf(hbox));
+                        }
                         if (hbox.getChildren().size() == 0) {
                             preGameVBox.getChildren().remove(hbox);
                             preGame.getPreGameHBoxList().remove(hbox);
@@ -210,6 +229,19 @@ public class PregameMenuViewController {
                     }
                     return;
                 }
+            }
+        }
+    }
+
+    private void resortPregameCards(int indexOf) {
+        ArrayList<HBox> preGameHBoxList = ApplicationController.preGame.getPreGameHBoxList();
+        for(int i=indexOf;i<preGameHBoxList.size()-1;i++){
+            Node node = preGameHBoxList.get(i+1).getChildren().get(0);
+            preGameHBoxList.get(i+1).getChildren().remove(0);
+            preGameHBoxList.get(i).getChildren().add(node);
+            if(preGameHBoxList.get(i+1).getChildren().isEmpty()){
+                preGameVBox.getChildren().remove(preGameHBoxList.get(i+1));
+                preGameHBoxList.remove(i+1);
             }
         }
     }
