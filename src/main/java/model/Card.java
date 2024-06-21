@@ -26,9 +26,14 @@ public class Card{
         this.preGameImage = cardEnum.getPreGameImage();
         this.inGameImage = cardEnum.getInGameImage();
 
+
     }
 
     public String getPreGameImage() {
         return preGameImage;
+    }
+
+    public String getName() {
+        return name;
     }
 }

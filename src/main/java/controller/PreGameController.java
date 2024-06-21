@@ -106,4 +106,9 @@ public class PreGameController {
         ApplicationController.preGame.setPreGameCards(new ArrayList<>());
         ApplicationController.preGame.setPreGameHBoxList(new ArrayList<>());
     }
+
+    public void moveCardToDeck(Card card) {
+        ApplicationController.preGame.addCardToDeckCards(card);
+        ApplicationController.preGame.getPreGameCards().remove(card);
+    }
 }

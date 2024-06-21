@@ -4,7 +4,11 @@ public enum CardEnum {
     // name, id, faction, type, power, ability, hero, preGameImage, inGameImage, preGameCount
 
     // Skelliege
-    MARDOEME("Mardroeme", 1, Factions.SKELLIGE, CardType.SPELL, 0, CardAbility.MARDOEME, true, "mardroeme.png", "mardroeme.png", 3);
+    MARDOEME("Mardroeme", 1, Factions.SKELLIGE, CardType.SPELL, 0, CardAbility.MARDOEME, true, "C:\\Users\\asus\\Pictures\\Roblox\\RobloxScreenShot20230413_160547132.png", "receipt-1716645588760.png", 3),
+    MARDOEMEE("Mardroemee", 1, Factions.SKELLIGE, CardType.SPELL, 0, CardAbility.MARDOEME, true, "C:\\Users\\asus\\Pictures\\Roblox\\RobloxScreenShot20230413_160547132.png", "receipt-1716645588760.png", 3),
+    MARDOEMEEE("Mardroemeee", 1, Factions.SKELLIGE, CardType.SPELL, 0, CardAbility.MARDOEME, true, "C:\\Users\\asus\\Pictures\\Roblox\\RobloxScreenShot20230413_160547132.png", "receipt-1716645588760.png", 3),
+    MARDOEMEEEEE("Mardroemeeeee", 1, Factions.SKELLIGE, CardType.SPELL, 0, CardAbility.MARDOEME, true, "C:\\Users\\asus\\Pictures\\Roblox\\RobloxScreenShot20230413_160547132.png", "receipt-1716645588760.png", 3),
+    MARDOEMEEEE("Mardroemeeee", 1, Factions.SKELLIGE, CardType.SPELL, 0, CardAbility.MARDOEME, true, "C:\\Users\\asus\\Pictures\\Roblox\\RobloxScreenShot20230413_160547132.png", "receipt-1716645588760.png", 3);
 
     private String name;
     private int id;

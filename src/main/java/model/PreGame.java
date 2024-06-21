@@ -9,6 +9,8 @@ public class PreGame {
     private ArrayList<Card> deckCards = new ArrayList<>();
     private ArrayList<HBox> preGameHBoxList = new ArrayList<>();
 
+    private ArrayList<HBox> deckHBoxList = new ArrayList<>();
+
     public void addCardToPreGameCards(Card card){
         preGameCards.add(card);
     }
@@ -35,5 +37,17 @@ public class PreGame {
 
     public ArrayList<HBox> getPreGameHBoxList() {
         return preGameHBoxList;
+    }
+
+    public ArrayList<HBox> getDeckHBoxList() {
+        return deckHBoxList;
+    }
+
+    public void setDeckCards(ArrayList<Card> deckCards) {
+        this.deckCards = deckCards;
+    }
+
+    public void setDeckHBoxList(ArrayList<HBox> deckHBoxList) {
+        this.deckHBoxList = deckHBoxList;
     }
 }

@@ -1,7 +1,6 @@
 package model;
 
 import model.Commanders.Commander;
-import model.Spells.Spell;
 
 import java.util.ArrayList;
 
@@ -14,7 +13,6 @@ public class GameBoard {
     private static ArrayList<Card> player2FirstRow = new ArrayList<>();
     private static ArrayList<Card> player2SecondRow = new ArrayList<>();
     private static ArrayList<Card> player3ThirdRow = new ArrayList<>();
-    private static ArrayList<Spell> spellCards = new ArrayList<>();
     private static Commander player1Commander;
     private static Commander player2Commander;
 
@@ -96,13 +94,5 @@ public class GameBoard {
 
     public static void setPlayer2(Player player2) {
         GameBoard.player2 = player2;
-    }
-
-    public static ArrayList<Spell> getSpellCards() {
-        return spellCards;
-    }
-
-    public static void setSpellCards(ArrayList<Spell> spellCards) {
-        GameBoard.spellCards = spellCards;
     }
 }

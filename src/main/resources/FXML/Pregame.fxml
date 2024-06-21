@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="750.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Pregame.PregameMenuViewController">
@@ -53,29 +52,18 @@
       </VBox>
       <VBox layoutX="81.0" layoutY="156.0" maxHeight="543.0" maxWidth="527.0" minHeight="543.0" minWidth="527.0" prefHeight="543.0" prefWidth="527.0">
          <children>
-            <ScrollPane maxHeight="543.0" maxWidth="527.0" minHeight="543.0" minWidth="527.0" prefHeight="543.0" prefWidth="527.0">
+            <ScrollPane hbarPolicy="NEVER" maxHeight="543.0" maxWidth="527.0" minHeight="543.0" minWidth="527.0" prefHeight="543.0" prefWidth="527.0" vbarPolicy="ALWAYS">
                <content>
-                  <VBox fx:id="preGameVBox" maxWidth="525.0" minWidth="525.0" prefHeight="537.0" prefWidth="525.0" spacing="20.0">
-                     <children>
-                        <HBox alignment="CENTER" maxHeight="260.0" maxWidth="525.0" minHeight="260.0" minWidth="525.0" prefHeight="260.0" prefWidth="525.0" spacing="20.0">
-                           <children>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="260.0" stroke="BLACK" strokeType="INSIDE" width="161.0" />
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="260.0" stroke="BLACK" strokeType="INSIDE" width="161.0" />
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="260.0" stroke="BLACK" strokeType="INSIDE" width="161.0" />
-                           </children>
-                        </HBox>
-                        <HBox maxHeight="260.0" maxWidth="525.0" minHeight="260.0" minWidth="526.0" prefHeight="260.0" prefWidth="526.0" />
-                     </children>
-                  </VBox>
+                  <VBox fx:id="preGameVBox" alignment="TOP_CENTER" maxWidth="525.0" minWidth="525.0" prefHeight="537.0" prefWidth="525.0" spacing="20.0" />
                </content>
             </ScrollPane>
          </children>
       </VBox>
       <VBox layoutX="892.0" layoutY="156.0" maxHeight="543.0" maxWidth="527.0" minHeight="543.0" minWidth="527.0" prefHeight="543.0" prefWidth="527.0">
          <children>
-            <ScrollPane maxHeight="543.0" maxWidth="527.0" minHeight="543.0" minWidth="527.0" prefHeight="543.0" prefWidth="527.0">
+            <ScrollPane hbarPolicy="NEVER" maxHeight="543.0" maxWidth="527.0" minHeight="543.0" minWidth="527.0" prefHeight="543.0" prefWidth="527.0" vbarPolicy="ALWAYS">
                <content>
-                  <VBox maxWidth="525.0" minWidth="525.0" prefHeight="200.0" prefWidth="525.0" />
+                  <VBox fx:id="deckVBox" maxWidth="525.0" minWidth="525.0" prefHeight="200.0" prefWidth="525.0" />
                </content>
             </ScrollPane>
          </children>
