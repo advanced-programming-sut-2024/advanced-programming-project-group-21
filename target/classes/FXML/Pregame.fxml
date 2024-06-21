@@ -17,14 +17,14 @@
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="248.0" spacing="20.0">
                <children>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label text="xwqlndwqlkl">
+                  <Label text="Faction name">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </Label>
                </children>
             </HBox>
-            <Label text="Label">
+            <Label text="Faction ability">
                <font>
                   <Font size="14.0" />
                </font>
@@ -54,7 +54,7 @@
          <children>
             <ScrollPane hbarPolicy="NEVER" maxHeight="543.0" maxWidth="527.0" minHeight="543.0" minWidth="527.0" prefHeight="543.0" prefWidth="527.0" vbarPolicy="ALWAYS">
                <content>
-                  <VBox fx:id="preGameVBox" alignment="TOP_CENTER" maxWidth="525.0" minWidth="525.0" prefHeight="537.0" prefWidth="525.0" spacing="20.0" />
+                  <VBox fx:id="preGameVBox" maxWidth="525.0" minWidth="525.0" prefHeight="537.0" prefWidth="525.0" spacing="20.0" />
                </content>
             </ScrollPane>
          </children>
@@ -86,55 +86,55 @@
                      <children>
                         <VBox alignment="TOP_CENTER" prefHeight="42.0" prefWidth="212.0">
                            <children>
-                              <Label text="Label" />
+                              <Label text="Total cards in deck" />
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                  <children>
                                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Label text="Label" />
+                                    <Label text="0" />
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
                         <VBox alignment="TOP_CENTER" prefHeight="42.0" prefWidth="212.0">
                            <children>
-                              <Label text="Label" />
+                              <Label text="Number of Unit Cards" />
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                  <children>
                                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Label text="Label" />
+                                    <Label text="0/22" />
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
                         <VBox alignment="TOP_CENTER" prefHeight="42.0" prefWidth="212.0">
                            <children>
-                              <Label text="Label" />
+                              <Label text="Special Cards" />
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                  <children>
                                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Label text="Label" />
+                                    <Label text="0/10" />
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
                         <VBox alignment="TOP_CENTER" prefHeight="42.0" prefWidth="212.0">
                            <children>
-                              <Label text="Label" />
+                              <Label text="Total Unit Card Strength" />
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                  <children>
                                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Label text="Label" />
+                                    <Label text="0" />
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
                         <VBox alignment="TOP_CENTER" prefHeight="42.0" prefWidth="212.0">
                            <children>
-                              <Label text="Label" />
+                              <Label text="Hero Cards" />
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                  <children>
                                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Label text="Label" />
+                                    <Label text="0" />
                                  </children>
                               </HBox>
                            </children>
@@ -144,7 +144,7 @@
                   <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
-                        <Button mnemonicParsing="false" text="Button" />
+                        <Button mnemonicParsing="false" text="Start game" />
                      </children>
                   </VBox>
                </children>
