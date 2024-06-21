@@ -111,4 +111,9 @@ public class PreGameController {
         ApplicationController.preGame.addCardToDeckCards(card);
         ApplicationController.preGame.getPreGameCards().remove(card);
     }
+
+    public void moveCardToPreGame(Card card) {
+        ApplicationController.preGame.addCardToPreGameCards(card);
+        ApplicationController.preGame.getDeckCards().remove(card);
+    }
 }

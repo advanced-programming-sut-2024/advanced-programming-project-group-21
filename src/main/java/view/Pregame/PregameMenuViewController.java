@@ -38,27 +38,25 @@ public class PregameMenuViewController {
                 cardHBox = createCardHBox();
                 preGame.getPreGameHBoxList().add(cardHBox);
                 preGameVBox.getChildren().add(cardHBox);
-            }
-            else{
+            } else {
                 cardHBox = preGame.getPreGameHBoxList().get(preGame.getPreGameHBoxList().size() - 1);
             }
             AnchorPane preGameCardPane = getPreGameCard(card.getName());
-            if(preGameCardPane == null){
-                preGameCardPane = createCard(card);
+            if (preGameCardPane == null) {
+                preGameCardPane = createCard(card, false);
                 cardHBox.getChildren().add(preGameCardPane);
-            }
-            else{
+            } else {
                 increaseCountText(preGameCardPane);
             }
         }
 
     }
 
-    private AnchorPane getPreGameCard(String name){
+    private AnchorPane getPreGameCard(String name) {
         PreGame preGame = ApplicationController.preGame;
-        for(HBox hbox: preGame.getPreGameHBoxList()){
-            for(Node node : hbox.getChildren()){
-                if(node.getId().equals(name)){
+        for (HBox hbox : preGame.getPreGameHBoxList()) {
+            for (Node node : hbox.getChildren()) {
+                if (node.getId().equals(name)) {
                     return (AnchorPane) node;
                 }
             }
@@ -66,11 +64,11 @@ public class PregameMenuViewController {
         return null;
     }
 
-    private AnchorPane getDeckCard(String name){
+    private AnchorPane getDeckCard(String name) {
         PreGame preGame = ApplicationController.preGame;
-        for(HBox hbox: preGame.getPreGameHBoxList()){
-            for(Node node : hbox.getChildren()){
-                if(node.getId().equals(name)){
+        for (HBox hbox : preGame.getDeckHBoxList()) {
+            for (Node node : hbox.getChildren()) {
+                if (node.getId().equals(name)) {
                     return (AnchorPane) node;
                 }
             }
@@ -92,7 +90,7 @@ public class PregameMenuViewController {
         return cardHBox;
     }
 
-    private AnchorPane createCard(Card card) {
+    private AnchorPane createCard(Card card, boolean isFordeck) {
         AnchorPane cardAnchorPane = new AnchorPane();
         cardAnchorPane.setId(card.getName());
 
@@ -109,53 +107,126 @@ public class PregameMenuViewController {
         ImageView countImageView = getCountImageView(card);
         cardAnchorPane.getChildren().add(countImageView);
 
-        Text countText = getCountText(card);
+        Text countText = getCountText1(card);
         cardAnchorPane.getChildren().add(countText);
 
-        cardAnchorPane.setOnMouseClicked(event -> {
-            controller.moveCardToDeck(card);
-            moveCardToDeck(cardAnchorPane);
-        });
+        if (!isFordeck)
+            cardAnchorPane.setOnMouseClicked(event -> {
+                controller.moveCardToDeck(card);
+                moveCardToDeck(cardAnchorPane, card);
+            });
+        else {
+            cardAnchorPane.setOnMouseClicked(event -> {
+                controller.moveCardToPreGame(card);
+                moveCardToPreGame(cardAnchorPane, card);
+            });
+        }
         return cardAnchorPane;
     }
 
-    private void moveCardToDeck(AnchorPane cardAnchorPane){
+    private void moveCardToDeck(AnchorPane cardAnchorPane, Card card) {
         PreGame preGame = ApplicationController.preGame;
         HBox cardHBox = new HBox();
-            if (preGame.getDeckHBoxList().isEmpty() ||
-                    cardHBox.getChildren().size() >= 3) {
-                cardHBox = createCardHBox();
-                preGame.getDeckHBoxList().add(cardHBox);
-                deckVBox.getChildren().add(cardHBox);
-            }
-            else{
-                cardHBox = preGame.getDeckHBoxList().get(preGame.getDeckHBoxList().size() - 1);
-            }
-            if(preGameCardPane == null){
-                preGameCardPane = createCard(card);
-                cardHBox.getChildren().add(preGameCardPane);
-            }
-            else{
-                increaseCountText(preGameCardPane);
-            }
+        if (preGame.getDeckHBoxList().size() > 0) {
+            cardHBox = preGame.getDeckHBoxList().get(preGame.getDeckHBoxList().size() - 1);
+        }
+        AnchorPane deckCardPane = getDeckCard(cardAnchorPane.getId());
+        if (preGame.getDeckHBoxList().isEmpty() ||
+                (cardHBox.getChildren().size() >= 3 && deckCardPane == null)) {
+            cardHBox = createCardHBox();
+            preGame.getDeckHBoxList().add(cardHBox);
+            deckVBox.getChildren().add(cardHBox);
+            System.out.println("a");
+        }
+        removeFromPreGame(cardAnchorPane);
+        if (deckCardPane == null) {
+            deckCardPane = createCard(card, true);
+            cardHBox.getChildren().add(deckCardPane);
+        } else {
+            increaseCountText(deckCardPane);
+        }
+        System.out.println("Deck size: " + preGame.getDeckCards().size());
+        System.out.println("Pregame size: " + preGame.getPreGameCards().size());
+    }
 
+    private void moveCardToPreGame(AnchorPane cardAnchorPane, Card card) {
+        PreGame preGame = ApplicationController.preGame;
+        HBox cardHBox = new HBox();
+        if (preGame.getPreGameHBoxList().size() > 0) {
+            cardHBox = preGame.getPreGameHBoxList().get(preGame.getPreGameHBoxList().size() - 1);
+        }
+        AnchorPane preGameCardPane = getPreGameCard(cardAnchorPane.getId());
+        if (preGame.getPreGameHBoxList().isEmpty() ||
+                (cardHBox.getChildren().size() >= 3 && preGameCardPane == null)) {
+            cardHBox = createCardHBox();
+            preGame.getPreGameHBoxList().add(cardHBox);
+            preGameVBox.getChildren().add(cardHBox);
+        }
+        removeFromDeck(cardAnchorPane);
+        if (preGameCardPane == null) {
+            preGameCardPane = createCard(card, false);
+            cardHBox.getChildren().add(preGameCardPane);
+        } else {
+            increaseCountText(preGameCardPane);
+        }
+        System.out.println("Deck size: " + preGame.getDeckCards().size());
+        System.out.println("Pregame size: " + preGame.getPreGameCards().size());
 
     }
 
-    private ImageView getCardImageView(Card card){
+    private void removeFromDeck(AnchorPane cardAnchorPane) {
+        PreGame preGame = ApplicationController.preGame;
+        for (HBox hbox : preGame.getDeckHBoxList()) {
+            for (Node node : hbox.getChildren()) {
+                if (node.getId().equals(cardAnchorPane.getId())) {
+                    if (((Text) cardAnchorPane.getChildren().get(2)).getText().equals("1")) {
+                        hbox.getChildren().remove(node);
+                        if (hbox.getChildren().size() == 0) {
+                            deckVBox.getChildren().remove(hbox);
+                            preGame.getDeckHBoxList().remove(hbox);
+                        }
+                    } else {
+                        decreaseCountText(cardAnchorPane);
+                    }
+                    return;
+                }
+            }
+        }
+    }
+
+    private void removeFromPreGame(AnchorPane cardAnchorPane) {
+        PreGame preGame = ApplicationController.preGame;
+        for (HBox hbox : preGame.getPreGameHBoxList()) {
+            for (Node node : hbox.getChildren()) {
+                if (node.getId().equals(cardAnchorPane.getId())) {
+                    if (((Text) cardAnchorPane.getChildren().get(2)).getText().equals("1")) {
+                        hbox.getChildren().remove(node);
+                        if (hbox.getChildren().size() == 0) {
+                            preGameVBox.getChildren().remove(hbox);
+                            preGame.getPreGameHBoxList().remove(hbox);
+                        }
+                    } else {
+                        decreaseCountText(cardAnchorPane);
+                    }
+                    return;
+                }
+            }
+        }
+    }
+
+    private ImageView getCardImageView(Card card) {
         ImageView cardImageView = new ImageView();
         cardImageView.setFitHeight(260);
         cardImageView.setFitWidth(138);
         cardImageView.setPickOnBounds(true);
         cardImageView.setPreserveRatio(true);
-        System.out.println(card.getPreGameImage());
         Image cardImage = new Image(card.getPreGameImage());
         cardImageView.setImage(cardImage);
 
         return cardImageView;
     }
 
-    private ImageView getCountImageView(Card card){
+    private ImageView getCountImageView(Card card) {
         ImageView countImageView = new ImageView();
         countImageView.setFitHeight(20);
         countImageView.setFitWidth(20);
@@ -169,11 +240,13 @@ public class PregameMenuViewController {
         return countImageView;
     }
 
-    private Text getCountText(Card card){
+    private Text getCountText1(Card card) {
         Text countText = new Text();
         countText.setLayoutX(124);
         countText.setLayoutY(200);
         countText.setText("1");
+
+        return countText;
     }
 
     private void increaseCountText(AnchorPane anchorPane) {

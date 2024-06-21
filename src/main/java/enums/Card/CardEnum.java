@@ -8,6 +8,8 @@ public enum CardEnum {
     MARDOEMEE("Mardroemee", 1, Factions.SKELLIGE, CardType.SPELL, 0, CardAbility.MARDOEME, true, "C:\\Users\\asus\\Pictures\\Roblox\\RobloxScreenShot20230413_160547132.png", "receipt-1716645588760.png", 3),
     MARDOEMEEE("Mardroemeee", 1, Factions.SKELLIGE, CardType.SPELL, 0, CardAbility.MARDOEME, true, "C:\\Users\\asus\\Pictures\\Roblox\\RobloxScreenShot20230413_160547132.png", "receipt-1716645588760.png", 3),
     MARDOEMEEEEE("Mardroemeeeee", 1, Factions.SKELLIGE, CardType.SPELL, 0, CardAbility.MARDOEME, true, "C:\\Users\\asus\\Pictures\\Roblox\\RobloxScreenShot20230413_160547132.png", "receipt-1716645588760.png", 3),
+    MARDOEMEEEEEE("Mardroemeeeeee", 1, Factions.SKELLIGE, CardType.SPELL, 0, CardAbility.MARDOEME, true, "C:\\Users\\asus\\Pictures\\Roblox\\RobloxScreenShot20230413_160547132.png", "receipt-1716645588760.png", 3),
+    MARDOEMEEEEEEE("Mardroemeeeeeee", 1, Factions.SKELLIGE, CardType.SPELL, 0, CardAbility.MARDOEME, true, "C:\\Users\\asus\\Pictures\\Roblox\\RobloxScreenShot20230413_160547132.png", "receipt-1716645588760.png", 3),
     MARDOEMEEEE("Mardroemeeee", 1, Factions.SKELLIGE, CardType.SPELL, 0, CardAbility.MARDOEME, true, "C:\\Users\\asus\\Pictures\\Roblox\\RobloxScreenShot20230413_160547132.png", "receipt-1716645588760.png", 3);
 
     private String name;
