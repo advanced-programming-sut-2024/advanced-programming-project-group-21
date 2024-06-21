@@ -90,6 +90,7 @@ public class PreGameController {
                     Card card = new Card(cardEnum);
                     cards.add(card);
                     ApplicationController.preGame.addCardToPreGameCards(card);
+                    System.out.println(cardEnum.getName() + " is " + card);
                 }
             }
         }
@@ -107,12 +108,26 @@ public class PreGameController {
         ApplicationController.preGame.setPreGameHBoxList(new ArrayList<>());
     }
 
-    public void moveCardToDeck(Card card) {
+    public void moveCardToDeck(Card inputCard) {
+        Card card = null;
+        for(Card tempCard : ApplicationController.preGame.getPreGameCards()){
+            if(tempCard.getName().equals(inputCard.getName())){
+                card = tempCard;
+                break;
+            }
+        }
         ApplicationController.preGame.addCardToDeckCards(card);
         ApplicationController.preGame.getPreGameCards().remove(card);
     }
 
-    public void moveCardToPreGame(Card card) {
+    public void moveCardToPreGame(Card inputCard) {
+        Card card = null;
+        for(Card tempCard : ApplicationController.preGame.getDeckCards()){
+            if(tempCard.getName().equals(inputCard.getName())){
+                card = tempCard;
+                break;
+            }
+        }
         ApplicationController.preGame.addCardToPreGameCards(card);
         ApplicationController.preGame.getDeckCards().remove(card);
     }

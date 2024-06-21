@@ -90,7 +90,7 @@ public class PregameMenuViewController {
         return cardHBox;
     }
 
-    private AnchorPane createCard(Card card, boolean isFordeck) {
+    private AnchorPane createCard(Card card, boolean isForDeck) {
         AnchorPane cardAnchorPane = new AnchorPane();
         cardAnchorPane.setId(card.getName());
 
@@ -110,7 +110,7 @@ public class PregameMenuViewController {
         Text countText = getCountText1(card);
         cardAnchorPane.getChildren().add(countText);
 
-        if (!isFordeck)
+        if (!isForDeck)
             cardAnchorPane.setOnMouseClicked(event -> {
                 controller.moveCardToDeck(card);
                 moveCardToDeck(cardAnchorPane, card);
