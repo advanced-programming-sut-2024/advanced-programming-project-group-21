@@ -6,6 +6,7 @@ module witcher {
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.core;
     requires jackson.annotations;
+    requires com.google.gson;
 
     exports view;
     opens view to javafx.fxml;

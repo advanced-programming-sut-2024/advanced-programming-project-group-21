@@ -23,29 +23,28 @@ public class LoginMenuViewController {
     public void loginClicked(MouseEvent mouseEvent) {
         String username = usernameField.getText();
         String password = passwordField.getText();
-        int loginAns = loginMenuController.loginUser(username,password);
-        if(loginAns!=0){
+        int loginAns = loginMenuController.loginUser(username, password);
+        if (loginAns != 0) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            if(loginAns==3){
+            if (loginAns == 3) {
                 alert.setTitle("Username field is empty");
                 alert.setHeaderText("Username empty");
                 alert.setContentText("Please fill username");
-                alert.show();
+                alert.showAndWait();
             }
-            if(loginAns==2){
+            if (loginAns == 2) {
                 alert.setTitle("User was not found");
                 alert.setHeaderText("User doesn't exist");
                 alert.setContentText("Please enter valid username");
-                alert.show();
+                alert.showAndWait();
             }
-            if(loginAns==1){
+            if (loginAns == 1) {
                 alert.setTitle("Wrong password");
                 alert.setHeaderText("Password was incorrect");
                 alert.setContentText("Please enter correct password");
-                alert.show();
+                alert.showAndWait();
             }
-        }
-        else{
+        } else {
             try {
                 new MainMenuView().start(ApplicationController.getStage());
             } catch (Exception e) {
@@ -76,5 +75,9 @@ public class LoginMenuViewController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void Exit(MouseEvent mouseEvent) {
+        System.exit(0);
     }
 }

@@ -5,6 +5,7 @@ import controller.QuestionMenuController;
 import enums.SecurityQuestions;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -13,11 +14,16 @@ import view.Main.MainMenuView;
 
 public class ForgetPasswordMenuViewController {
     @FXML
+    private Button submitAnswer;
+    @FXML
+    private Button Back;
+    @FXML
     private ChoiceBox<String> securityQuestionChoiceBox;
     @FXML
     private TextField securityAnswerField;
     @FXML
     private TextField usernameField;
+
 
     QuestionMenuController controller = new QuestionMenuController();
 
