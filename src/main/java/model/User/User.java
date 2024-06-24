@@ -28,7 +28,6 @@ public class User {
     private static ArrayList<User> users = new ArrayList<>();
     public static final String USERS_DATABASE_PATH = "src/main/java/model/User/users.json";
 
-
     public User(String username, String nickname, String password, String email) {
         this.username = username;
         this.nickname = nickname;
@@ -62,8 +61,9 @@ public class User {
             String text = new String(Files.readAllBytes(Paths.get(USERS_DATABASE_PATH)));
             ArrayList<User> users = gson.fromJson(text, new TypeToken<List<User>>() {
             }.getType());
-
-            User.setUsers(users);
+            if (users != null) {
+                User.setUsers(users);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -74,7 +74,7 @@ public class User {
         try {
             fileWriter = new FileWriter(USERS_DATABASE_PATH);
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            String json = gson.toJson(User.getUsers());
+            String json = gson.toJson(users);
             fileWriter.write(json);
             fileWriter.close();
         } catch (IOException e) {
@@ -164,6 +164,9 @@ public class User {
 
     public static User getUserByUsername(String username) {
         User intendedUser = null;
+        if (users == null) {
+            return null;
+        }
         for (User item : users) {
             if (item.getUsername().equals(username)) {
                 intendedUser = item;

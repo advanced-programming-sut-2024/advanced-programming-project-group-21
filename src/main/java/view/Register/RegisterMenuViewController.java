@@ -49,7 +49,7 @@ public class RegisterMenuViewController {
                 passwordMismatchError(alert);
             }
         } else {
-            enterQuestionMenu();
+            enterLoginMenu();
         }
     }
 
@@ -103,9 +103,9 @@ public class RegisterMenuViewController {
         alert.show();
     }
 
-    private void enterQuestionMenu(){
+    private void enterLoginMenu(){
         try {
-            new ForgetPasswordMenuView().start(ApplicationController.getStage());
+            new LoginMenuView().start(ApplicationController.getStage());
         } catch (Exception e) {
             e.printStackTrace();
         }

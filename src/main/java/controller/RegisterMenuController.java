@@ -17,9 +17,7 @@ public class RegisterMenuController {
     }
 
     private boolean isUsernameMade(String username) {
-        if (User.getUserByUsername(username) != null)
-            return true;
-        return false;
+        return User.getUserByUsername(username) != null;
     }
 
     public int register(String nickname, String username, String email, String password, String confirmPassword) {
