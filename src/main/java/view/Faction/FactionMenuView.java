@@ -1,5 +1,6 @@
 package view.Faction;
 
+import controller.ApplicationController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,6 +18,8 @@ public class FactionMenuView extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setResizable(false);
+        stage.centerOnScreen();
+        ApplicationController.setStage(stage);
         FXMLLoader fxmlLoader = new FXMLLoader();
         URL url = FactionMenuView.class.getResource("/FXML/Faction.fxml");
         AnchorPane root = fxmlLoader.load(url);

@@ -84,8 +84,7 @@ public class PreGameController {
         deletePreGameCards(faction); // Clear the preGameCards list
         ArrayList<Card> cards = new ArrayList<>();
         for (CardEnum cardEnum : CardEnum.values()) {
-            if (cardEnum.getFaction().equals(faction) ||
-                    cardEnum.getFaction().equals(FactionsEnum.NEUTRAL) ||
+            if ((cardEnum.getFaction().equals(faction) || cardEnum.getFaction().equals(FactionsEnum.NEUTRAL)) &&
                     !ApplicationController.preGame.getPreGameCards().stream().anyMatch(card -> card.getName().equals(cardEnum.getName()))) {
                 for (int i = 0; i < cardEnum.getPreGameCount(); i++) {
                     Card card = new Card(cardEnum);

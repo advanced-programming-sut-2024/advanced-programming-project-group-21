@@ -8,12 +8,15 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import model.Card;
 import model.PreGame;
+import view.Faction.FactionMenu;
+import view.Faction.FactionMenuView;
 
 import java.util.ArrayList;
 
@@ -25,8 +28,9 @@ public class PregameMenuViewController {
 
 
     public void initialize() {
-        PreGame preGame = new PreGame();
-        ApplicationController.preGame = preGame;
+//        PreGame preGame = new PreGame();
+//        ApplicationController.preGame = preGame;
+        PreGame preGame = ApplicationController.preGame;
         loadPregameCards(preGame.getFaction());
     }
 
@@ -319,4 +323,11 @@ public class PregameMenuViewController {
     }
 
 
+    public void goToFaction(MouseEvent mouseEvent) {
+        try {
+            new FactionMenuView().start(ApplicationController.getStage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

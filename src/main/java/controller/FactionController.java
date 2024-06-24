@@ -18,4 +18,5 @@ public class FactionController {
             return null;
         }
     }
+
 }
