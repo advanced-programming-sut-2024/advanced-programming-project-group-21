@@ -2,7 +2,9 @@ package enums.Card;
 
 public enum CommandersEnum {
     // name, id, faction, leader ability description, preGameImage, inGameImage
-    CRACHE_AN_CRAITE("Crache an Craite", 1, FactionsEnum.SKELLIGE, "Spawn a Clan an Craite Warrior on each side of this unit.", "..\\..\\..\\resources\\Images\\CommandersDetailed\\skellige_crach_an_craite.jpg", "..\\..\\..\\resources\\Images\\CommandersDetailed\\skellige_crach_an_craite.jpg");
+
+    // Skellige
+    CRACHE_AN_CRAITE("Crache an Craite", 1, FactionsEnum.SKELLIGE, "Spawn a Clan an Craite Warrior on each side of this unit.", "file:src/main/resources/Images/CommandersDetailed/skellige_crach_an_craite.jpg", "file:src/main/resources/Images/CommandersDetailed/skellige_crach_an_craite.jpg");
 
 
     private String name;

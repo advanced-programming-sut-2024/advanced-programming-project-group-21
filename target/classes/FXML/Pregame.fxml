@@ -36,7 +36,7 @@
                         <Font size="16.0" />
                      </font>
                   </Hyperlink>
-                  <Hyperlink text="Change faction">
+                  <Hyperlink onMouseClicked="#goToFaction" text="Change faction">
                      <font>
                         <Font size="16.0" />
                      </font>

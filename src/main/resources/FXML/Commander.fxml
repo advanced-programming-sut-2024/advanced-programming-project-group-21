@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="750.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Commander.CommanderMenuViewController"/>
+<AnchorPane prefHeight="750.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Commander.CommanderMenuViewController">
+   <children>
+      <VBox layoutX="81.0" layoutY="66.0" maxHeight="640.0" maxWidth="764.0" minHeight="640.0" minWidth="764.0" prefHeight="640.0" prefWidth="764.0" spacing="60.0">
+         <children>
+            <HBox fx:id="firstHBox" alignment="BOTTOM_CENTER" maxHeight="300.0" maxWidth="764.0" minHeight="300.0" minWidth="764.0" prefHeight="300.0" prefWidth="764.0" spacing="60.0" />
+            <HBox fx:id="secondHBox" alignment="TOP_CENTER" maxHeight="300.0" maxWidth="764.0" minHeight="300.0" minWidth="764.0" prefHeight="300.0" prefWidth="764.0" spacing="60.0" />
+         </children>
+      </VBox>
+      <VBox fx:id="infoVBox" alignment="CENTER" layoutX="946.0" layoutY="60.0" prefHeight="644.0" prefWidth="499.0" spacing="30.0">
+         <children>
+            <AnchorPane fx:id="commanderCard" maxHeight="438.0" maxWidth="231.0" minHeight="438.0" minWidth="231.0" prefHeight="438.0" prefWidth="231.0">
+               <children>
+                  <ImageView fitHeight="438.0" fitWidth="231.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/CommandersDetailed/skellige_crach_an_craite.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+               <children>
+                  <Label text="Commander Ability">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="abilityLabel" alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="222.0" prefWidth="499.0" text="This is an example of a long description that is gonna be changed in menu controller." textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
