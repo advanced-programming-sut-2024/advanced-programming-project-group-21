@@ -15,7 +15,7 @@
          <children>
             <HBox alignment="BOTTOM_CENTER" maxHeight="300.0" maxWidth="764.0" minHeight="300.0" minWidth="764.0" prefHeight="300.0" prefWidth="764.0" spacing="60.0">
                <children>
-                  <AnchorPane fx:id="monstersCard" maxHeight="240.0" maxWidth="160.0" minHeight="240.0" minWidth="160.0" prefHeight="240.0" prefWidth="160.0">
+                  <AnchorPane fx:id="monstersCard" maxHeight="240.0" maxWidth="160.0" minHeight="240.0" minWidth="160.0" onMouseClicked="#factionClicked" onMouseEntered="#factionEntered" onMouseExited="#factionExited" prefHeight="240.0" prefWidth="160.0">
                      <children>
                         <ImageView fitHeight="240.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -24,7 +24,7 @@
                         </ImageView>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="nilfgaardCard" maxHeight="240.0" maxWidth="160.0" minHeight="240.0" minWidth="160.0" prefHeight="240.0" prefWidth="160.0">
+                  <AnchorPane fx:id="nilfgaardCard" maxHeight="240.0" maxWidth="160.0" minHeight="240.0" minWidth="160.0" onMouseClicked="#factionClicked" onMouseEntered="#factionEntered" onMouseExited="#factionExited" prefHeight="240.0" prefWidth="160.0">
                      <children>
                         <ImageView fitHeight="240.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -33,7 +33,7 @@
                         </ImageView>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="realmsCard" maxHeight="240.0" maxWidth="160.0" minHeight="240.0" minWidth="160.0" prefHeight="240.0" prefWidth="160.0">
+                  <AnchorPane fx:id="realmsCard" maxHeight="240.0" maxWidth="160.0" minHeight="240.0" minWidth="160.0" onMouseClicked="#factionClicked" onMouseEntered="#factionEntered" onMouseExited="#factionExited" prefHeight="240.0" prefWidth="160.0">
                      <children>
                         <ImageView fitHeight="240.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -46,7 +46,7 @@
             </HBox>
             <HBox alignment="TOP_CENTER" maxHeight="300.0" maxWidth="764.0" minHeight="300.0" minWidth="764.0" prefHeight="300.0" prefWidth="764.0" spacing="60.0">
                <children>
-                  <AnchorPane fx:id="scoiataelCard" maxHeight="240.0" maxWidth="160.0" minHeight="240.0" minWidth="160.0" prefHeight="240.0" prefWidth="160.0">
+                  <AnchorPane fx:id="scoiataelCard" maxHeight="240.0" maxWidth="160.0" minHeight="240.0" minWidth="160.0" onMouseClicked="#factionClicked" onMouseEntered="#factionEntered" onMouseExited="#factionExited" prefHeight="240.0" prefWidth="160.0">
                      <children>
                         <ImageView fitHeight="240.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -55,7 +55,7 @@
                         </ImageView>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="skelligeCard" maxHeight="240.0" maxWidth="160.0" minHeight="240.0" minWidth="160.0" prefHeight="240.0" prefWidth="160.0">
+                  <AnchorPane fx:id="skelligeCard" maxHeight="240.0" maxWidth="160.0" minHeight="240.0" minWidth="160.0" onMouseClicked="#factionClicked" onMouseEntered="#factionEntered" onMouseExited="#factionExited" prefHeight="240.0" prefWidth="160.0">
                      <children>
                         <ImageView fitHeight="240.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -68,7 +68,7 @@
             </HBox>
          </children>
       </VBox>
-      <VBox alignment="CENTER" layoutX="936.0" layoutY="50.0" prefHeight="644.0" prefWidth="499.0" spacing="60.0">
+      <VBox fx:id="infoVBox" alignment="CENTER" layoutX="936.0" layoutY="50.0" prefHeight="644.0" prefWidth="499.0" spacing="60.0" visible="false">
          <children>
             <AnchorPane fx:id="factionCard" maxHeight="300.0" maxWidth="200.0" minHeight="300.0" minWidth="200.0" prefHeight="300.0" prefWidth="200.0">
                <children>
