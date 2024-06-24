@@ -78,6 +78,7 @@ public class LoginMenuViewController {
     }
 
     public void Exit(MouseEvent mouseEvent) {
+        User.saveUsersToJson();
         System.exit(0);
     }
 }

@@ -6,7 +6,7 @@
 <AnchorPane prefHeight="750" prefWidth="1500" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Register.RegisterMenuViewController">
    <children>
       <Button layoutX="14.0" layoutY="706.0" mnemonicParsing="false" onMouseClicked="#goBackToLoginMenu" prefHeight="30.0" prefWidth="90.0" text="Back" />
-      <VBox alignment="CENTER" layoutX="646.0" layoutY="175.0" prefHeight="500.0" prefWidth="300.0" spacing="20.0">
+      <VBox alignment="CENTER" layoutX="600.0" layoutY="125.0" prefHeight="500.0" prefWidth="300.0" spacing="20.0">
          <children>
             <Label text="Register" />
             <VBox alignment="TOP_CENTER" prefHeight="59.0" prefWidth="208.0" spacing="5.0">
