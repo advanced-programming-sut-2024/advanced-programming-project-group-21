@@ -1,5 +1,6 @@
 package model;
 
+import enums.Card.FactionsEnum;
 import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
@@ -10,6 +11,8 @@ public class PreGame {
     private ArrayList<HBox> preGameHBoxList = new ArrayList<>();
 
     private ArrayList<HBox> deckHBoxList = new ArrayList<>();
+    private FactionsEnum faction;
+
 
     public void addCardToPreGameCards(Card card){
         preGameCards.add(card);
@@ -49,5 +52,13 @@ public class PreGame {
 
     public void setDeckHBoxList(ArrayList<HBox> deckHBoxList) {
         this.deckHBoxList = deckHBoxList;
+    }
+
+    public FactionsEnum getFaction() {
+        return faction;
+    }
+
+    public void setFaction(FactionsEnum faction) {
+        this.faction = faction;
     }
 }

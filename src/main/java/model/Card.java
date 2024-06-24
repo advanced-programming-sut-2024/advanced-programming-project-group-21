@@ -3,12 +3,12 @@ package model;
 import enums.Card.CardAbility;
 import enums.Card.CardEnum;
 import enums.Card.CardType;
-import enums.Card.Factions;
+import enums.Card.FactionsEnum;
 
 public class Card{
     private String name;
     private int id;
-    private Factions faction;
+    private FactionsEnum faction;
     private CardType type;
     private int power;
     private CardAbility ability;

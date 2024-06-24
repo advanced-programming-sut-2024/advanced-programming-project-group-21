@@ -2,7 +2,7 @@ package view.Pregame;
 
 import controller.ApplicationController;
 import controller.PreGameController;
-import enums.Card.Factions;
+import enums.Card.FactionsEnum;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -26,10 +26,10 @@ public class PregameMenuViewController {
     public void initialize() {
         PreGame preGame = new PreGame();
         ApplicationController.preGame = preGame;
-        loadPregameCards(Factions.SKELLIGE);
+        loadPregameCards(FactionsEnum.SKELLIGE);
     }
 
-    public void loadPregameCards(Factions faction) {
+    public void loadPregameCards(FactionsEnum faction) {
         ArrayList<Card> cards = controller.loadPregameCards(faction);
         PreGame preGame = ApplicationController.preGame;
         HBox cardHBox = new HBox();

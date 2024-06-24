@@ -3,18 +3,20 @@ package enums.Card;
 public enum CardEnum {
     // name, id, faction, type, power, ability, hero, preGameImage, inGameImage, preGameCount
 
+    // Neutral
+
     // Skelliege
-    MARDOEME("Mardroeme", 1, Factions.SKELLIGE, CardType.SPELL, 0, CardAbility.MARDOEME, true, "C:\\Users\\asus\\Pictures\\Roblox\\RobloxScreenShot20230413_160547132.png", "receipt-1716645588760.png", 3),
-    MARDOEMEE("Mardroemee", 1, Factions.SKELLIGE, CardType.SPELL, 0, CardAbility.MARDOEME, true, "C:\\Users\\asus\\Pictures\\Roblox\\RobloxScreenShot20230413_160547132.png", "receipt-1716645588760.png", 3),
-    MARDOEMEEE("Mardroemeee", 1, Factions.SKELLIGE, CardType.SPELL, 0, CardAbility.MARDOEME, true, "C:\\Users\\asus\\Pictures\\Roblox\\RobloxScreenShot20230413_160547132.png", "receipt-1716645588760.png", 3),
-    MARDOEMEEEEE("Mardroemeeeee", 1, Factions.SKELLIGE, CardType.SPELL, 0, CardAbility.MARDOEME, true, "C:\\Users\\asus\\Pictures\\Roblox\\RobloxScreenShot20230413_160547132.png", "receipt-1716645588760.png", 3),
-    MARDOEMEEEEEE("Mardroemeeeeee", 1, Factions.SKELLIGE, CardType.SPELL, 0, CardAbility.MARDOEME, true, "C:\\Users\\asus\\Pictures\\Roblox\\RobloxScreenShot20230413_160547132.png", "receipt-1716645588760.png", 3),
-    MARDOEMEEEEEEE("Mardroemeeeeeee", 1, Factions.SKELLIGE, CardType.SPELL, 0, CardAbility.MARDOEME, true, "C:\\Users\\asus\\Pictures\\Roblox\\RobloxScreenShot20230413_160547132.png", "receipt-1716645588760.png", 3),
-    MARDOEMEEEE("Mardroemeeee", 1, Factions.SKELLIGE, CardType.SPELL, 0, CardAbility.MARDOEME, true, "C:\\Users\\asus\\Pictures\\Roblox\\RobloxScreenShot20230413_160547132.png", "receipt-1716645588760.png", 3);
+    MARDOEME("Mardroeme", 1, FactionsEnum.SKELLIGE, CardType.SPELL, 0, CardAbility.MARDOEME, true, "C:\\Users\\asus\\Pictures\\Roblox\\RobloxScreenShot20230413_160547132.png", "receipt-1716645588760.png", 3),
+    MARDOEMEE("Mardroemee", 1, FactionsEnum.SKELLIGE, CardType.SPELL, 0, CardAbility.MARDOEME, true, "C:\\Users\\asus\\Pictures\\Roblox\\RobloxScreenShot20230413_160547132.png", "receipt-1716645588760.png", 3),
+    MARDOEMEEE("Mardroemeee", 1, FactionsEnum.SKELLIGE, CardType.SPELL, 0, CardAbility.MARDOEME, true, "C:\\Users\\asus\\Pictures\\Roblox\\RobloxScreenShot20230413_160547132.png", "receipt-1716645588760.png", 3),
+    MARDOEMEEEEE("Mardroemeeeee", 1, FactionsEnum.SKELLIGE, CardType.SPELL, 0, CardAbility.MARDOEME, true, "C:\\Users\\asus\\Pictures\\Roblox\\RobloxScreenShot20230413_160547132.png", "receipt-1716645588760.png", 3),
+    MARDOEMEEEEEE("Mardroemeeeeee", 1, FactionsEnum.SKELLIGE, CardType.SPELL, 0, CardAbility.MARDOEME, true, "C:\\Users\\asus\\Pictures\\Roblox\\RobloxScreenShot20230413_160547132.png", "receipt-1716645588760.png", 3),
+    MARDOEMEEEEEEE("Mardroemeeeeeee", 1, FactionsEnum.SKELLIGE, CardType.SPELL, 0, CardAbility.MARDOEME, true, "C:\\Users\\asus\\Pictures\\Roblox\\RobloxScreenShot20230413_160547132.png", "receipt-1716645588760.png", 3),
+    MARDOEMEEEE("Mardroemeeee", 1, FactionsEnum.SKELLIGE, CardType.SPELL, 0, CardAbility.MARDOEME, true, "C:\\Users\\asus\\Pictures\\Roblox\\RobloxScreenShot20230413_160547132.png", "receipt-1716645588760.png", 3);
 
     private String name;
     private int id;
-    private Factions faction;
+    private FactionsEnum faction;
     private CardType type;
     private int power;
     private CardAbility ability;
@@ -23,7 +25,7 @@ public enum CardEnum {
     private String inGameImage;
     private int preGameCount;
 
-    CardEnum(String name, int id, Factions faction, CardType type, int power, CardAbility ability, boolean hero, String preGameImage, String inGameImage, int preGameCount) {
+    CardEnum(String name, int id, FactionsEnum faction, CardType type, int power, CardAbility ability, boolean hero, String preGameImage, String inGameImage, int preGameCount) {
         this.name = name;
         this.id = id;
         this.faction = faction;
@@ -44,7 +46,7 @@ public enum CardEnum {
         return id;
     }
 
-    public Factions getFaction() {
+    public FactionsEnum getFaction() {
         return faction;
     }
 

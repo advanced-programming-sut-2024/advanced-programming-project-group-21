@@ -1,10 +1,11 @@
 package enums.Card;
 
-public enum Factions {
+public enum FactionsEnum {
     SKELLIGE,
     NORTHERN_REALMS,
     NILFGAARD,
     MONSTERS,
     SCOIATAEL,
     NEUTRAL;
+
 }
