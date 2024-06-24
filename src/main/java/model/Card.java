@@ -15,6 +15,7 @@ public class Card{
     private boolean hero;
     private String preGameImage;
     private String inGameImage;
+    private CardEnum cardEnum;
     public Card(CardEnum cardEnum) {
         this.name = cardEnum.getName();
         this.id = cardEnum.getId();
@@ -25,7 +26,7 @@ public class Card{
         this.hero = cardEnum.isHero();
         this.preGameImage = cardEnum.getPreGameImage();
         this.inGameImage = cardEnum.getInGameImage();
-
+        this.cardEnum = cardEnum;
 
     }
 
@@ -35,5 +36,9 @@ public class Card{
 
     public String getName() {
         return name;
+    }
+
+    public CardEnum getCardEnum() {
+        return cardEnum;
     }
 }

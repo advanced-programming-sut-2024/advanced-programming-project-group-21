@@ -2,6 +2,7 @@ package view.Pregame;
 
 import controller.ApplicationController;
 import controller.PreGameController;
+import enums.Card.CardEnum;
 import enums.Card.FactionsEnum;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -26,12 +27,13 @@ public class PregameMenuViewController {
     public void initialize() {
         PreGame preGame = new PreGame();
         ApplicationController.preGame = preGame;
-        loadPregameCards(FactionsEnum.SKELLIGE);
+        loadPregameCards(preGame.getFaction());
     }
 
     public void loadPregameCards(FactionsEnum faction) {
         ArrayList<Card> cards = controller.loadPregameCards(faction);
         PreGame preGame = ApplicationController.preGame;
+        clearCardsForNewFactionLoaded(faction);
         HBox cardHBox = new HBox();
         for (Card card : cards) {
             if (preGame.getPreGameHBoxList().isEmpty() ||
@@ -50,7 +52,28 @@ public class PregameMenuViewController {
                 increaseCountText(preGameCardPane);
             }
         }
+    }
 
+    private void clearCardsForNewFactionLoaded(FactionsEnum faction){
+        PreGame preGame = ApplicationController.preGame;
+        for(HBox hbox : preGame.getPreGameHBoxList()){
+            for(Node preGameCardPane : hbox.getChildren()){
+                if((CardEnum.valueOf(((AnchorPane) preGameCardPane).getId()).getFaction()).equals(faction) ||
+                        (CardEnum.valueOf(((AnchorPane) preGameCardPane).getId()).getFaction()).equals(FactionsEnum.NEUTRAL)){
+                    continue;
+                }
+                removeFromPreGame((AnchorPane) preGameCardPane);
+            }
+        }
+        for(HBox hbox : preGame.getDeckHBoxList()){
+            for(Node deckCardPane : hbox.getChildren()){
+                if((CardEnum.valueOf(((AnchorPane) deckCardPane).getId()).getFaction()).equals(faction) ||
+                        (CardEnum.valueOf(((AnchorPane) deckCardPane).getId()).getFaction()).equals(FactionsEnum.NEUTRAL)){
+                    continue;
+                }
+                removeFromDeck((AnchorPane) deckCardPane);
+            }
+        }
     }
 
     private AnchorPane getPreGameCard(String name) {
@@ -93,7 +116,7 @@ public class PregameMenuViewController {
 
     private AnchorPane createCard(Card card, boolean isForDeck) {
         AnchorPane cardAnchorPane = new AnchorPane();
-        cardAnchorPane.setId(card.getName());
+        cardAnchorPane.setId(card.getCardEnum().name());
 
         cardAnchorPane.setPrefHeight(260);
         cardAnchorPane.setMinHeight(260);

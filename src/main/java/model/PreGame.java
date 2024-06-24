@@ -11,7 +11,7 @@ public class PreGame {
     private ArrayList<HBox> preGameHBoxList = new ArrayList<>();
 
     private ArrayList<HBox> deckHBoxList = new ArrayList<>();
-    private FactionsEnum faction;
+    private FactionsEnum faction = FactionsEnum.SKELLIGE;
 
 
     public void addCardToPreGameCards(Card card){
@@ -61,4 +61,6 @@ public class PreGame {
     public void setFaction(FactionsEnum faction) {
         this.faction = faction;
     }
+
+    public void getPreGameCardByName(){};
 }
