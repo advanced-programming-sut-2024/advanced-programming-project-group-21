@@ -41,4 +41,8 @@ public class Card{
     public CardEnum getCardEnum() {
         return cardEnum;
     }
+
+    public FactionsEnum getFaction() {
+        return faction;
+    }
 }

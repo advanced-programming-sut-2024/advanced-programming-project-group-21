@@ -32,8 +32,8 @@ public class PregameMenuViewController {
 
     public void loadPregameCards(FactionsEnum faction) {
         ArrayList<Card> cards = controller.loadPregameCards(faction);
-        PreGame preGame = ApplicationController.preGame;
         clearCardsForNewFactionLoaded(faction);
+        PreGame preGame = ApplicationController.preGame;
         HBox cardHBox = new HBox();
         for (Card card : cards) {
             if (preGame.getPreGameHBoxList().isEmpty() ||
@@ -44,7 +44,7 @@ public class PregameMenuViewController {
             } else {
                 cardHBox = preGame.getPreGameHBoxList().get(preGame.getPreGameHBoxList().size() - 1);
             }
-            AnchorPane preGameCardPane = getPreGameCard(card.getName());
+            AnchorPane preGameCardPane = getPreGameCard(card.getCardEnum().getName());
             if (preGameCardPane == null) {
                 preGameCardPane = createCard(card, false);
                 cardHBox.getChildren().add(preGameCardPane);
@@ -58,8 +58,8 @@ public class PregameMenuViewController {
         PreGame preGame = ApplicationController.preGame;
         for(HBox hbox : preGame.getPreGameHBoxList()){
             for(Node preGameCardPane : hbox.getChildren()){
-                if((CardEnum.valueOf(((AnchorPane) preGameCardPane).getId()).getFaction()).equals(faction) ||
-                        (CardEnum.valueOf(((AnchorPane) preGameCardPane).getId()).getFaction()).equals(FactionsEnum.NEUTRAL)){
+                if((CardEnum.valueOf(((AnchorPane) preGameCardPane).getId()).getFaction()).equals(faction)||
+                (CardEnum.valueOf(((AnchorPane) preGameCardPane).getId()).getFaction()).equals(FactionsEnum.NEUTRAL)){
                     continue;
                 }
                 removeFromPreGame((AnchorPane) preGameCardPane);
@@ -67,14 +67,15 @@ public class PregameMenuViewController {
         }
         for(HBox hbox : preGame.getDeckHBoxList()){
             for(Node deckCardPane : hbox.getChildren()){
-                if((CardEnum.valueOf(((AnchorPane) deckCardPane).getId()).getFaction()).equals(faction) ||
-                        (CardEnum.valueOf(((AnchorPane) deckCardPane).getId()).getFaction()).equals(FactionsEnum.NEUTRAL)){
+                if((CardEnum.valueOf(((AnchorPane) deckCardPane).getId()).getFaction()).equals(faction)||
+                (CardEnum.valueOf(((AnchorPane) deckCardPane).getId()).getFaction()).equals(FactionsEnum.NEUTRAL)){
                     continue;
                 }
                 removeFromDeck((AnchorPane) deckCardPane);
             }
         }
     }
+
 
     private AnchorPane getPreGameCard(String name) {
         PreGame preGame = ApplicationController.preGame;
@@ -116,7 +117,7 @@ public class PregameMenuViewController {
 
     private AnchorPane createCard(Card card, boolean isForDeck) {
         AnchorPane cardAnchorPane = new AnchorPane();
-        cardAnchorPane.setId(card.getCardEnum().name());
+        cardAnchorPane.setId(card.getCardEnum().getName());
 
         cardAnchorPane.setPrefHeight(260);
         cardAnchorPane.setMinHeight(260);
