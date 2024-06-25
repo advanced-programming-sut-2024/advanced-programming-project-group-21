@@ -14,6 +14,8 @@ public class PreGame {
     private ArrayList<HBox> deckHBoxList = new ArrayList<>();
     private FactionsEnum faction = FactionsEnum.SKELLIGE;
     private CommandersEnum commander = null;
+    private boolean enoughUnits = false;
+    private boolean validSpecials = true;
 
 
     public void addCardToPreGameCards(Card card){
@@ -72,5 +74,25 @@ public class PreGame {
 
     public void setCommander(CommandersEnum commander) {
         this.commander = commander;
+    }
+
+    public boolean isEnoughUnits() {
+        return enoughUnits;
+    }
+
+    public void setEnoughUnits(boolean enoughUnits) {
+        this.enoughUnits = enoughUnits;
+    }
+
+    public boolean isValidSpecials() {
+        return validSpecials;
+    }
+
+    public void setValidSpecials(boolean validSpecials) {
+        this.validSpecials = validSpecials;
+    }
+
+    public boolean canStartGame() {
+        return enoughUnits && validSpecials;
     }
 }

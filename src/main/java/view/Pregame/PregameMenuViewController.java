@@ -38,6 +38,7 @@ public class PregameMenuViewController {
     public Label factionLabel;
     public Label factionAbility;
     public Label outOf22;
+    public Label outOf10;
     PreGameController controller = new PreGameController();
 
 
@@ -58,23 +59,55 @@ public class PregameMenuViewController {
     }
 
     private void loadStats() {
-        totalDeck.setText(Integer.toString(ApplicationController.preGame.getDeckCards().size()));
-        for (Card card : ApplicationController.preGame.getDeckCards()) {
-            if (card.isHero()) {
-                totalHero.setText(Integer.toString(Integer.parseInt(totalHero.getText()) + 1));
+        PreGame preGame = ApplicationController.preGame;
+        totalDeck.setText(Integer.toString(preGame.getDeckCards().size()));
+        totalHero.setText("0");
+        totalSpecial.setText("0");
+        totalUnit.setText("0");
+        totalStrength.setText("0");
+        for (Card card : preGame.getDeckCards()) {
+            loadStat(card);
+        }
+    }
+
+    private void loadStat(Card card){
+        PreGame preGame = ApplicationController.preGame;
+        if (card.isHero()) {
+            totalHero.setText(Integer.toString(Integer.parseInt(totalHero.getText()) + 1));
+        }
+        if (card.getType().equals(CardType.SPELL) || card.getType().equals(CardType.WEATHER)) {
+            totalSpecial.setText(Integer.toString(Integer.parseInt(totalSpecial.getText()) + 1));
+            if(Integer.parseInt(totalSpecial.getText()) > 10){
+                // TODO: set outOf10 and totalSpecial color to red
+                preGame.setValidSpecials(false);
             }
-            if (card.getType().equals(CardType.SPELL) || card.getType().equals(CardType.WEATHER)) {
-                totalSpecial.setText(Integer.toString(Integer.parseInt(totalSpecial.getText()) + 1));
-            } else {
-                totalUnit.setText(Integer.toString(Integer.parseInt(totalUnit.getText()) + 1));
-                totalStrength.setText(Integer.toString(Integer.parseInt(totalStrength.getText()) + card.getPower()));
+            else{
+                // TODO: set outOf10 and totalSpecial color to default
+                preGame.setValidSpecials(true);
+            }
+        } else {
+            totalUnit.setText(Integer.toString(Integer.parseInt(totalUnit.getText()) + 1));
+            totalStrength.setText(Integer.toString(Integer.parseInt(totalStrength.getText()) + card.getPower()));
+            if(Integer.parseInt(totalUnit.getText()) >= 22){
+                preGame.setEnoughUnits(true);
+                outOf22.setVisible(false);
+            }
+            else{
+                preGame.setEnoughUnits(false);
+                outOf22.setVisible(true);
             }
         }
     }
 
     private void loadCommander(CommandersEnum commander) {
-        if (commander == null) {
-            // TODO
+        if (commander == null || !commander.getFaction().equals(ApplicationController.preGame.getFaction())){
+            for(CommandersEnum commandersEnum : CommandersEnum.values()){
+                if(commandersEnum.getFaction().equals(ApplicationController.preGame.getFaction())){
+                    commander = commandersEnum;
+                    ApplicationController.preGame.setCommander(commander);
+                    break;
+                }
+            }
         }
         commanderImage.setImage(new Image(commander.getPreGameImage()));
     }
@@ -198,11 +231,13 @@ public class PregameMenuViewController {
             cardAnchorPane.setOnMouseClicked(event -> {
                 controller.moveCardToDeck(card);
                 moveCardToDeck(cardAnchorPane, card);
+                loadStats();
             });
         else {
             cardAnchorPane.setOnMouseClicked(event -> {
                 controller.moveCardToPreGame(card);
                 moveCardToPreGame(cardAnchorPane, card);
+                loadStats();
             });
         }
         return cardAnchorPane;
