@@ -1,5 +1,6 @@
 package model;
 
+import enums.Card.CommandersEnum;
 import enums.Card.FactionsEnum;
 import javafx.scene.layout.HBox;
 
@@ -12,6 +13,7 @@ public class PreGame {
 
     private ArrayList<HBox> deckHBoxList = new ArrayList<>();
     private FactionsEnum faction = FactionsEnum.SKELLIGE;
+    private CommandersEnum commander = null;
 
 
     public void addCardToPreGameCards(Card card){
@@ -63,4 +65,12 @@ public class PreGame {
     }
 
     public void getPreGameCardByName(){};
+
+    public CommandersEnum getCommander() {
+        return commander;
+    }
+
+    public void setCommander(CommandersEnum commander) {
+        this.commander = commander;
+    }
 }

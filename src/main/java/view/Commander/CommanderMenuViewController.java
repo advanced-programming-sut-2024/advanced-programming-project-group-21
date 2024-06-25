@@ -4,19 +4,23 @@ import controller.ApplicationController;
 import controller.CommanderController;
 import enums.Card.CommandersEnum;
 import enums.Card.FactionsEnum;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import model.PreGame;
+import view.Pregame.PregameMenuView;
 
 public class CommanderMenuViewController {
     public HBox firstHBox;
     public HBox secondHBox;
     public AnchorPane commanderCard;
     public Label abilityLabel;
+    public VBox infoVBox;
     CommanderController controller = new CommanderController();
 
     public void initialize() {
@@ -43,7 +47,7 @@ public class CommanderMenuViewController {
 
     private AnchorPane createCommander(CommandersEnum commander){
         AnchorPane commanderPane = new AnchorPane();
-        commanderCard.setId(commander.getName());
+        commanderPane.setId(commander.getName());
         commanderPane.setOnMouseEntered(event -> commanderEntered(event));
         commanderPane.setOnMouseExited(event -> commanderExited(event));
         commanderPane.setOnMouseClicked(event -> commanderClicked(event));
@@ -70,17 +74,35 @@ public class CommanderMenuViewController {
     }
 
     private void commanderClicked(MouseEvent mouseEvent) {
+        Node node = (Node) mouseEvent.getTarget();
+        Node parent = node.getParent();
+        AnchorPane commanderPane = (AnchorPane) parent;
+        CommandersEnum commander = controller.getCommander(commanderPane.getId());
+        ApplicationController.preGame.setCommander(commander);
+        goToPreGame();
+    }
+
+    private void goToPreGame() {
+        try {
+            new PregameMenuView().start(ApplicationController.getStage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void commanderExited(MouseEvent mouseEvent) {
+        infoVBox.setVisible(false);
     }
 
     private void commanderEntered(MouseEvent mouseEvent) {
-        AnchorPane factionPane = (AnchorPane) mouseEvent.getTarget();
-       // FactionsEnum faction = controller.getFaction(factionPane.getId());
-       // showFactionInfo(faction);
+        AnchorPane commanderPane = (AnchorPane) mouseEvent.getTarget();
+        CommandersEnum commander = controller.getCommander(commanderPane.getId());
+        showCommanderInfo(commander);
     }
 
-    private void showFactionInfo(FactionsEnum faction) {
+    private void showCommanderInfo(CommandersEnum commander) {
+        abilityLabel.setText(commander.getLeaderAbilityDescription());
+        ((ImageView)(commanderCard.getChildren().get(0))).setImage(new Image(commander.getPreGameImage()));
+        infoVBox.setVisible(true);
     }
 }

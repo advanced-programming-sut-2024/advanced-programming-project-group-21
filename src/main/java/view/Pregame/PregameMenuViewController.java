@@ -3,6 +3,7 @@ package view.Pregame;
 import controller.ApplicationController;
 import controller.PreGameController;
 import enums.Card.CardEnum;
+import enums.Card.CommandersEnum;
 import enums.Card.FactionsEnum;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -32,6 +33,11 @@ public class PregameMenuViewController {
 //        ApplicationController.preGame = preGame;
         PreGame preGame = ApplicationController.preGame;
         loadPregameCards(preGame.getFaction());
+        loadCommander(preGame.getCommander());
+    }
+
+    private void loadCommander(CommandersEnum commander) {
+        
     }
 
     public void loadPregameCards(FactionsEnum faction) {
