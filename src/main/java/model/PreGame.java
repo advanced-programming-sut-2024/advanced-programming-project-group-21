@@ -16,6 +16,7 @@ public class PreGame {
     private CommandersEnum commander = null;
     private boolean enoughUnits = false;
     private boolean validSpecials = true;
+    private Player currentPlayer;
 
 
     public void addCardToPreGameCards(Card card){

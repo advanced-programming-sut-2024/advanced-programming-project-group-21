@@ -60,6 +60,9 @@ public class PregameMenuViewController {
 
     private void loadStats() {
         PreGame preGame = ApplicationController.preGame;
+        factionAbility.setText(preGame.getFaction().getDescription());
+        factionLabel.setText(preGame.getFaction().getName());
+        shieldImage.setImage(new Image(preGame.getFaction().getShield()));
         totalDeck.setText(Integer.toString(preGame.getDeckCards().size()));
         totalHero.setText("0");
         totalSpecial.setText("0");
@@ -427,5 +430,8 @@ public class PregameMenuViewController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void nextPhase(MouseEvent mouseEvent) {
     }
 }

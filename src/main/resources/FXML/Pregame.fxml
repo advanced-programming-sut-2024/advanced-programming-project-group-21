@@ -13,11 +13,14 @@
 
 <AnchorPane prefHeight="750.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Pregame.PregameMenuViewController">
    <children>
-      <VBox alignment="TOP_CENTER" layoutX="491.0" layoutY="16.0" prefHeight="130.0" prefWidth="526.0" spacing="10.0">
+      <VBox alignment="TOP_CENTER" layoutX="491.0" layoutY="16.0" prefHeight="135.0" prefWidth="526.0">
          <children>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="248.0" spacing="20.0">
                <children>
-                  <ImageView fx:id="shieldImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="shieldImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/Icons/deck_shield_skellige.png" />
+                     </image></ImageView>
                   <Label fx:id="factionLabel" text="Faction name">
                      <font>
                         <Font size="22.0" />
@@ -25,12 +28,12 @@
                   </Label>
                </children>
             </HBox>
-            <Label fx:id="factionAbility" text="Faction ability">
+            <Label fx:id="factionAbility" alignment="CENTER" prefHeight="46.0" prefWidth="706.0" text="Faction ability" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+            <HBox alignment="CENTER" prefHeight="22.0" prefWidth="526.0" spacing="30.0">
                <children>
                   <Hyperlink text="Upload deck">
                      <font>
@@ -173,7 +176,7 @@
                   <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
-                        <Button mnemonicParsing="false" text="Start game" />
+                        <Button mnemonicParsing="false" onMouseClicked="#nextPhase" text="Start game" />
                      </children>
                   </VBox>
                </children>
