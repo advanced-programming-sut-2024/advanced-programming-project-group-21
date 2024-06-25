@@ -3,10 +3,12 @@ package view.Pregame;
 import controller.ApplicationController;
 import controller.PreGameController;
 import enums.Card.CardEnum;
+import enums.Card.CardType;
 import enums.Card.CommandersEnum;
 import enums.Card.FactionsEnum;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -16,6 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import model.Card;
 import model.PreGame;
+import view.Commander.CommanderMenuView;
 import view.Faction.FactionMenu;
 import view.Faction.FactionMenuView;
 
@@ -25,65 +28,111 @@ public class PregameMenuViewController {
     public VBox preGameVBox;
     public VBox deckVBox;
     public AnchorPane commanderCard;
+    public ImageView commanderImage;
+    public Label totalDeck;
+    public Label totalUnit;
+    public Label totalSpecial;
+    public Label totalStrength;
+    public Label totalHero;
+    public ImageView shieldImage;
+    public Label factionLabel;
+    public Label factionAbility;
+    public Label outOf22;
     PreGameController controller = new PreGameController();
 
 
     public void initialize() {
-//        PreGame preGame = new PreGame();
-//        ApplicationController.preGame = preGame;
         PreGame preGame = ApplicationController.preGame;
+        if (preGame == null) {
+            preGame = new PreGame();
+            // TODO: set default faction and commander
+            preGame.setFaction(FactionsEnum.SKELLIGE);
+            preGame.setCommander(CommandersEnum.CRACHE_AN_CRAITE);
+            ApplicationController.preGame = preGame;
+        }
+        clearCardsForNewFactionLoaded(preGame.getFaction());
         loadPregameCards(preGame.getFaction());
+        loadDeckCards(preGame.getFaction());
         loadCommander(preGame.getCommander());
+        loadStats();
+    }
+
+    private void loadStats() {
+        totalDeck.setText(Integer.toString(ApplicationController.preGame.getDeckCards().size()));
+        for (Card card : ApplicationController.preGame.getDeckCards()) {
+            if (card.isHero()) {
+                totalHero.setText(Integer.toString(Integer.parseInt(totalHero.getText()) + 1));
+            }
+            if (card.getType().equals(CardType.SPELL) || card.getType().equals(CardType.WEATHER)) {
+                totalSpecial.setText(Integer.toString(Integer.parseInt(totalSpecial.getText()) + 1));
+            } else {
+                totalUnit.setText(Integer.toString(Integer.parseInt(totalUnit.getText()) + 1));
+                totalStrength.setText(Integer.toString(Integer.parseInt(totalStrength.getText()) + card.getPower()));
+            }
+        }
     }
 
     private void loadCommander(CommandersEnum commander) {
-        
+        if (commander == null) {
+            // TODO
+        }
+        commanderImage.setImage(new Image(commander.getPreGameImage()));
     }
 
     public void loadPregameCards(FactionsEnum faction) {
-        ArrayList<Card> cards = controller.loadPregameCards(faction);
-        clearCardsForNewFactionLoaded(faction);
+        controller.loadPregameCards(faction);
         PreGame preGame = ApplicationController.preGame;
+        ArrayList<Card> preGameCards = preGame.getPreGameCards();
+        System.out.println(preGameCards.size());
         HBox cardHBox = new HBox();
-        for (Card card : cards) {
+        for (Card card : preGameCards) {
             if (preGame.getPreGameHBoxList().isEmpty() ||
-                    cardHBox.getChildren().size() >= 3) {
+                    cardHBox.getChildren().size() >= 3) { // TODO: this line creates an extra hbox when last card is > 1
                 cardHBox = createCardHBox();
                 preGame.getPreGameHBoxList().add(cardHBox);
                 preGameVBox.getChildren().add(cardHBox);
             } else {
                 cardHBox = preGame.getPreGameHBoxList().get(preGame.getPreGameHBoxList().size() - 1);
             }
-            AnchorPane preGameCardPane = getPreGameCard(card.getCardEnum().getName());
+            AnchorPane preGameCardPane = getPreGameCard(card.getCardEnum().name());
             if (preGameCardPane == null) {
                 preGameCardPane = createCard(card, false);
                 cardHBox.getChildren().add(preGameCardPane);
             } else {
                 increaseCountText(preGameCardPane);
             }
+            System.out.println(preGame.getPreGameHBoxList().size() + " " + cardHBox.getChildren().size() + " " + card.getCardEnum().name());
         }
     }
 
-    private void clearCardsForNewFactionLoaded(FactionsEnum faction){
+    private void loadDeckCards(FactionsEnum faction) {
         PreGame preGame = ApplicationController.preGame;
-        for(HBox hbox : preGame.getPreGameHBoxList()){
-            for(Node preGameCardPane : hbox.getChildren()){
-                if((CardEnum.valueOf(((AnchorPane) preGameCardPane).getId()).getFaction()).equals(faction)||
-                (CardEnum.valueOf(((AnchorPane) preGameCardPane).getId()).getFaction()).equals(FactionsEnum.NEUTRAL)){
-                    continue;
-                }
-                removeFromPreGame((AnchorPane) preGameCardPane);
+        ArrayList<Card> deckCards = preGame.getDeckCards();
+        HBox cardHBox = new HBox();
+        for (Card card : deckCards) {
+            if (preGame.getDeckHBoxList().isEmpty() ||
+                    cardHBox.getChildren().size() >= 3) {
+                cardHBox = createCardHBox();
+                preGame.getDeckHBoxList().add(cardHBox);
+                deckVBox.getChildren().add(cardHBox);
+            } else {
+                cardHBox = preGame.getDeckHBoxList().get(preGame.getDeckHBoxList().size() - 1);
             }
-        }
-        for(HBox hbox : preGame.getDeckHBoxList()){
-            for(Node deckCardPane : hbox.getChildren()){
-                if((CardEnum.valueOf(((AnchorPane) deckCardPane).getId()).getFaction()).equals(faction)||
-                (CardEnum.valueOf(((AnchorPane) deckCardPane).getId()).getFaction()).equals(FactionsEnum.NEUTRAL)){
-                    continue;
-                }
-                removeFromDeck((AnchorPane) deckCardPane);
+            AnchorPane deckCardPane = getDeckCard(card.getCardEnum().name());
+            if (deckCardPane == null) {
+                deckCardPane = createCard(card, true);
+                cardHBox.getChildren().add(deckCardPane);
+            } else {
+                increaseCountText(deckCardPane);
             }
+            System.out.println(preGame.getDeckHBoxList().size() + " " + cardHBox.getChildren().size() + " " + card.getCardEnum().name());
         }
+    }
+
+    private void clearCardsForNewFactionLoaded(FactionsEnum faction) {
+        PreGame preGame = ApplicationController.preGame;
+        preGame.setPreGameHBoxList(new ArrayList<>());
+        preGame.setDeckHBoxList(new ArrayList<>());
     }
 
 
@@ -127,7 +176,7 @@ public class PregameMenuViewController {
 
     private AnchorPane createCard(Card card, boolean isForDeck) {
         AnchorPane cardAnchorPane = new AnchorPane();
-        cardAnchorPane.setId(card.getCardEnum().getName());
+        cardAnchorPane.setId(card.getCardEnum().name());
 
         cardAnchorPane.setPrefHeight(260);
         cardAnchorPane.setMinHeight(260);
@@ -216,7 +265,7 @@ public class PregameMenuViewController {
                 if (node.getId().equals(cardAnchorPane.getId())) {
                     if (((Text) cardAnchorPane.getChildren().get(2)).getText().equals("1")) {
                         hbox.getChildren().remove(node);
-                        if(preGame.getDeckHBoxList().indexOf(hbox) < preGame.getDeckHBoxList().size()-1){
+                        if (preGame.getDeckHBoxList().indexOf(hbox) < preGame.getDeckHBoxList().size() - 1) {
                             resortDeckCards(preGame.getDeckHBoxList().indexOf(hbox));
                         }
                         if (hbox.getChildren().size() == 0) {
@@ -234,13 +283,13 @@ public class PregameMenuViewController {
 
     private void resortDeckCards(int indexOf) {
         ArrayList<HBox> deckHBoxList = ApplicationController.preGame.getDeckHBoxList();
-        for(int i=indexOf;i<deckHBoxList.size()-1;i++){
-            Node node = deckHBoxList.get(i+1).getChildren().get(0);
-            deckHBoxList.get(i+1).getChildren().remove(0);
+        for (int i = indexOf; i < deckHBoxList.size() - 1; i++) {
+            Node node = deckHBoxList.get(i + 1).getChildren().get(0);
+            deckHBoxList.get(i + 1).getChildren().remove(0);
             deckHBoxList.get(i).getChildren().add(node);
-            if(deckHBoxList.get(i+1).getChildren().isEmpty()){
-                deckVBox.getChildren().remove(deckHBoxList.get(i+1));
-                deckHBoxList.remove(i+1);
+            if (deckHBoxList.get(i + 1).getChildren().isEmpty()) {
+                deckVBox.getChildren().remove(deckHBoxList.get(i + 1));
+                deckHBoxList.remove(i + 1);
             }
         }
     }
@@ -252,7 +301,7 @@ public class PregameMenuViewController {
                 if (node.getId().equals(cardAnchorPane.getId())) {
                     if (((Text) cardAnchorPane.getChildren().get(2)).getText().equals("1")) {
                         hbox.getChildren().remove(node);
-                        if(preGame.getPreGameHBoxList().indexOf(hbox) < preGame.getPreGameHBoxList().size()-1){
+                        if (preGame.getPreGameHBoxList().indexOf(hbox) < preGame.getPreGameHBoxList().size() - 1) {
                             resortPregameCards(preGame.getPreGameHBoxList().indexOf(hbox));
                         }
                         if (hbox.getChildren().size() == 0) {
@@ -270,13 +319,13 @@ public class PregameMenuViewController {
 
     private void resortPregameCards(int indexOf) {
         ArrayList<HBox> preGameHBoxList = ApplicationController.preGame.getPreGameHBoxList();
-        for(int i=indexOf;i<preGameHBoxList.size()-1;i++){
-            Node node = preGameHBoxList.get(i+1).getChildren().get(0);
-            preGameHBoxList.get(i+1).getChildren().remove(0);
+        for (int i = indexOf; i < preGameHBoxList.size() - 1; i++) {
+            Node node = preGameHBoxList.get(i + 1).getChildren().get(0);
+            preGameHBoxList.get(i + 1).getChildren().remove(0);
             preGameHBoxList.get(i).getChildren().add(node);
-            if(preGameHBoxList.get(i+1).getChildren().isEmpty()){
-                preGameVBox.getChildren().remove(preGameHBoxList.get(i+1));
-                preGameHBoxList.remove(i+1);
+            if (preGameHBoxList.get(i + 1).getChildren().isEmpty()) {
+                preGameVBox.getChildren().remove(preGameHBoxList.get(i + 1));
+                preGameHBoxList.remove(i + 1);
             }
         }
     }
@@ -332,6 +381,14 @@ public class PregameMenuViewController {
     public void goToFaction(MouseEvent mouseEvent) {
         try {
             new FactionMenuView().start(ApplicationController.getStage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void goToCommander(MouseEvent mouseEvent) {
+        try {
+            new CommanderMenuView().start(ApplicationController.getStage());
         } catch (Exception e) {
             e.printStackTrace();
         }

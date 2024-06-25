@@ -27,24 +27,18 @@ public class FactionMenuViewController {
         showFactionInfo(faction);
     }
 
-    public void initialize() {
-        PreGame preGame = new PreGame();
-        ApplicationController.preGame = preGame;
-    }
 
     public void factionClicked(MouseEvent mouseEvent) {
         Node node = (Node) mouseEvent.getTarget();
         Node parent = node.getParent();
         AnchorPane factionPane = (AnchorPane) parent;
         FactionsEnum faction = controller.getFaction(factionPane.getId());
-        System.out.println(faction.getName());
         ApplicationController.preGame.setFaction(faction);
         goToPreGame();
 
     }
 
     private void showFactionInfo(FactionsEnum faction) {
-        System.out.println(faction.getImage());
         ((ImageView)(factionCard.getChildren().get(0))).setImage(new Image(faction.getImage()));
         titleLabel.setText(faction.getName());
         descriptionLabel.setText(faction.getDescription());

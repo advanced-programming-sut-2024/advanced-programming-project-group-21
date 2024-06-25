@@ -24,9 +24,6 @@ public class CommanderMenuViewController {
     CommanderController controller = new CommanderController();
 
     public void initialize() {
-        PreGame preGame = new PreGame();
-        ApplicationController.preGame = preGame;
-        preGame.setFaction(FactionsEnum.SKELLIGE);
         loadCommanders(ApplicationController.preGame.getFaction());
     }
 

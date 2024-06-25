@@ -45,4 +45,28 @@ public class Card{
     public FactionsEnum getFaction() {
         return faction;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public CardType getType() {
+        return type;
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public CardAbility getAbility() {
+        return ability;
+    }
+
+    public boolean isHero() {
+        return hero;
+    }
+
+    public String getInGameImage() {
+        return inGameImage;
+    }
 }
