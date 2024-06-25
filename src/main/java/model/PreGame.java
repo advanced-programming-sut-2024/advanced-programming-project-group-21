@@ -16,7 +16,10 @@ public class PreGame {
     private CommandersEnum commander = null;
     private boolean enoughUnits = false;
     private boolean validSpecials = true;
-    private Player currentPlayer;
+    private Player player1 = null;
+    private Player player2 = null;
+    private Player currentPlayer = player1;
+    private boolean firstPlayer = true;
 
 
     public void addCardToPreGameCards(Card card){
@@ -95,5 +98,37 @@ public class PreGame {
 
     public boolean canStartGame() {
         return enoughUnits && validSpecials;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    public boolean isFirstPlayer() {
+        return firstPlayer;
+    }
+
+    public void setFirstPlayer(boolean firstPlayer) {
+        this.firstPlayer = firstPlayer;
+    }
+
+    public Player getPlayer1() {
+        return player1;
+    }
+
+    public void setPlayer1(Player player1) {
+        this.player1 = player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
+    }
+
+    public void setPlayer2(Player player2) {
+        this.player2 = player2;
     }
 }

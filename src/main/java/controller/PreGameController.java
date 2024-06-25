@@ -3,7 +3,9 @@ package controller;
 import enums.Card.CardEnum;
 import enums.Card.FactionsEnum;
 import model.Card;
+import model.Player;
 import model.PreGame;
+import model.User.User;
 
 import java.util.ArrayList;
 
@@ -90,7 +92,8 @@ public class PreGameController {
                     if (card.getCardEnum().equals(cardEnum)) {
                         continue outer;
                     }
-                }for (Card card : ApplicationController.preGame.getPreGameCards()) {
+                }
+                for (Card card : ApplicationController.preGame.getPreGameCards()) {
                     if (card.getCardEnum().equals(cardEnum)) {
                         continue outer;
                     }
@@ -144,5 +147,28 @@ public class PreGameController {
         }
         ApplicationController.preGame.addCardToPreGameCards(card);
         ApplicationController.preGame.getDeckCards().remove(card);
+    }
+
+    public void saveToPlayer() {
+        PreGame preGame = ApplicationController.preGame;
+        Player player = preGame.getCurrentPlayer();
+        player.setDeck(preGame.getDeckCards());
+        player.setCommander(preGame.getCommander());
+        player.setCurrentFaction(preGame.getFaction());
+    }
+
+    public void createPlayers() {
+        createLoggedInUser();
+        Player player1 = new Player(ApplicationController.getLoggedInUser());
+        Player player2 = new Player(ApplicationController.getLoggedInUser()); // TODO: make a permanent 2nd player and user
+        ApplicationController.preGame.setPlayer1(player1);
+        ApplicationController.preGame.setPlayer2(player2);
+        ApplicationController.preGame.setCurrentPlayer(player1);
+    }
+
+    // TODO: remove this method
+    private void createLoggedInUser() {
+        User user = new User("test", "test", "test", "test");
+        ApplicationController.setLoggedInUser(user);
     }
 }
