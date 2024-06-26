@@ -50,7 +50,6 @@ public class PregameMenuViewController {
         if (preGame == null) {
             preGame = new PreGame();
             ApplicationController.preGame = preGame;
-            // TODO: set default faction and commander
             preGame.setFaction(FactionsEnum.SKELLIGE);
             setDefaultCommander();
             controller.createPlayers();
