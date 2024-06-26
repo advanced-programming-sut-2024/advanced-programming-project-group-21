@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import model.User.User;
 import view.Login.LoginMenuView;
+import view.Pregame.PregameMenu;
+import view.Pregame.PregameMenuView;
 import view.Profile.ProfileMenuView;
 
 public class MainMenuViewController {
@@ -23,7 +25,11 @@ public class MainMenuViewController {
     private Button Setting;
 
     public void goToPreGameMenu(MouseEvent mouseEvent) {
-
+        try {
+            new PregameMenuView().start(ApplicationController.getStage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void goToProfileMenu(MouseEvent mouseEvent) {

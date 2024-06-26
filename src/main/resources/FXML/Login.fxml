@@ -3,19 +3,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="750" prefWidth="1500" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Login.LoginMenuViewController">
+<AnchorPane prefHeight="750" prefWidth="1500" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../CSS/Css.css" fx:controller="view.Login.LoginMenuViewController">
         <VBox alignment="CENTER" layoutX="600.0" layoutY="125.0" prefHeight="500.0" prefWidth="300.0" spacing="20.0">
-            <Label fx:id="topText" text="Welcome" />
-            <TextField fx:id="usernameField" alignment="CENTER" promptText="Enter username" />
-            <PasswordField fx:id="passwordField" alignment="CENTER" promptText="Enter password" />
+            <Label fx:id="topText" text="Welcome" styleClass="titles"/>
+            <TextField fx:id="usernameField" alignment="CENTER" promptText="Enter username" styleClass="textFields"/>
+            <PasswordField fx:id="passwordField" alignment="CENTER" promptText="Enter password" styleClass="textFields"/>
          <VBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0" spacing="5.0">
             <children>
-                    <Button mnemonicParsing="false" onMouseClicked="#loginClicked" prefWidth="60.0" text="Login" />
+                    <Button mnemonicParsing="false" onMouseClicked="#loginClicked" prefWidth="60.0" text="Login" styleClass="buttons"/>
                <Hyperlink onMouseClicked="#goToQuestion" text="Forgot password" />
             </children>
          </VBox>
-            <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="40.0" text="Not a user?" />
+            <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="40.0" text="Not a user?" styleClass="texts"/>
          <Hyperlink onMouseClicked="#goToRegister" text="Register as a new user..." />
-      <Button mnemonicParsing="false" onMouseClicked="#Exit" prefWidth="60.0" text="Exit" />
+      <Button mnemonicParsing="false" onMouseClicked="#Exit" prefWidth="60.0" text="Exit" styleClass="buttons"/>
         </VBox>
 </AnchorPane>
