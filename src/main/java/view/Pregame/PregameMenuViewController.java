@@ -482,4 +482,10 @@ public class PregameMenuViewController {
 //            preGame.setCommander(CommandersEnum.FRANCESCA_FINDABAIR);
 //        }
     }
+
+    public void downloadDeck(MouseEvent mouseEvent) {
+    }
+
+    public void uploadDeck(MouseEvent mouseEvent) {
+    }
 }
