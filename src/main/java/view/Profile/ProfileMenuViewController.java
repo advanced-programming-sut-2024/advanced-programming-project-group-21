@@ -24,25 +24,34 @@ public class ProfileMenuViewController {
     public void openChangeUsername(MouseEvent mouseEvent) {
         createAnswerTextField(vbox.getLayoutX() - answerTextFieldWidth, vbox.getLayoutY() + 38);
         createSubmitButton();
-        answer = answerTextField.getText();
-        usernameSubmitChange(mouseEvent, answer);
+        submitChange.setOnMouseClicked((MouseEvent event) -> {
+            answer = answerTextField.getText();
+            usernameSubmitChange(answer);
+        });
     }
 
     public void openChangeNickname(MouseEvent mouseEvent) {
         createAnswerTextField(vbox.getLayoutX() - answerTextFieldWidth, vbox.getLayoutY() + 38 + distanceBetweenButtons);
         createSubmitButton();
-        answer = answerTextField.getText();
-        nicknameSubmitChange(mouseEvent, answer);
+        submitChange.setOnMouseClicked((MouseEvent event) -> {
+            answer = answerTextField.getText();
+            nicknameSubmitChange(answer);
+        });
+
     }
 
     public void openChangeEmail(MouseEvent mouseEvent) {
         createAnswerTextField(vbox.getLayoutX() - answerTextFieldWidth, vbox.getLayoutY() + 38 + distanceBetweenButtons * 2);
-        answer = answerTextField.getText();
         createSubmitButton();
+        submitChange.setOnMouseClicked((MouseEvent event) -> {
+            answer = answerTextField.getText();
+            emailSubmitChange(answer);
+        });
     }
 
     public void openChangePassword(MouseEvent mouseEvent) {
         createAnswerTextField(vbox.getLayoutX() - answerTextFieldWidth, vbox.getLayoutY() + 38 + distanceBetweenButtons * 3);
+        createAnswerTextField(vbox.getLayoutX() - answerTextFieldWidth, vbox.getLayoutY() + 38 + (distanceBetweenButtons * 3) + distanceBetweenButtons);
         createSubmitButton();
     }
 
@@ -105,7 +114,8 @@ public class ProfileMenuViewController {
             submitChange = null;
         }
     }
-    public void usernameSubmitChange(MouseEvent mouseEvent, String answer) {
+
+    public void usernameSubmitChange(String answer) {
         if (User.getUserByUsername(answer) != null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Username already exists");
@@ -133,7 +143,8 @@ public class ProfileMenuViewController {
             }
         }
     }
-    public void nicknameSubmitChange(MouseEvent mouseEvent, String answer) {
+
+    public void nicknameSubmitChange(String answer) {
         if (answer.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Nickname field is empty");
@@ -155,7 +166,8 @@ public class ProfileMenuViewController {
             }
         }
     }
-    public void emailSubmitChange(MouseEvent mouseEvent) {
+
+    public void emailSubmitChange(String answer) {
         if (answer.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Email field is empty");
