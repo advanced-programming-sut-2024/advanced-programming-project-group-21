@@ -8,7 +8,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import model.User.User;
-import view.GameHistory.GameHistoryMenuView;
 import view.Main.MainMenuView;
 import view.Question.QuestionMenuView;
 import view.UserInfo.UserInfoMenuView;
@@ -266,11 +265,12 @@ public class ProfileMenuViewController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     public void goToGameHistoryInfoMenu(MouseEvent mouseEvent) {
         try {
-            new GameHistoryMenuView().start(ApplicationController.getStage());
+            new view.GameHistory.GameHistoryMenuView().start(ApplicationController.getStage());
         } catch (Exception e) {
             e.printStackTrace();
         }

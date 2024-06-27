@@ -24,4 +24,9 @@ module witcher {
     opens model.User to com.fasterxml.jackson.databind;
     exports view.Pregame;
     opens view.Pregame to javafx.fxml;
+    exports view.GameHistory;
+    opens view.GameHistory to javafx.fxml;
+    exports view.UserInfo;
+    opens view.UserInfo to javafx.fxml;
+
 }
