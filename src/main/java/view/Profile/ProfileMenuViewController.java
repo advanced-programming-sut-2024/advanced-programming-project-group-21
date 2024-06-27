@@ -17,12 +17,13 @@ public class ProfileMenuViewController {
     public Button usernameButton;
     double answerTextFieldWidth = 200;
     TextField answerTextField = null;
+    TextField passwordAnswerTextField = null;
     Button submitChange = null;
     double distanceBetweenButtons = 33;
     String answer;
 
     public void openChangeUsername(MouseEvent mouseEvent) {
-        createAnswerTextField(vbox.getLayoutX() - answerTextFieldWidth, vbox.getLayoutY() + 38);
+        createAnswerTextField(vbox.getLayoutX() - answerTextFieldWidth, vbox.getLayoutY() + 50);
         createSubmitButton();
         submitChange.setOnMouseClicked((MouseEvent event) -> {
             answer = answerTextField.getText();
@@ -31,7 +32,7 @@ public class ProfileMenuViewController {
     }
 
     public void openChangeNickname(MouseEvent mouseEvent) {
-        createAnswerTextField(vbox.getLayoutX() - answerTextFieldWidth, vbox.getLayoutY() + 38 + distanceBetweenButtons);
+        createAnswerTextField(vbox.getLayoutX() - answerTextFieldWidth, vbox.getLayoutY() + 50 + distanceBetweenButtons);
         createSubmitButton();
         submitChange.setOnMouseClicked((MouseEvent event) -> {
             answer = answerTextField.getText();
@@ -41,7 +42,7 @@ public class ProfileMenuViewController {
     }
 
     public void openChangeEmail(MouseEvent mouseEvent) {
-        createAnswerTextField(vbox.getLayoutX() - answerTextFieldWidth, vbox.getLayoutY() + 38 + distanceBetweenButtons * 2);
+        createAnswerTextField(vbox.getLayoutX() - answerTextFieldWidth, vbox.getLayoutY() + 50 + distanceBetweenButtons * 2);
         createSubmitButton();
         submitChange.setOnMouseClicked((MouseEvent event) -> {
             answer = answerTextField.getText();
@@ -50,9 +51,13 @@ public class ProfileMenuViewController {
     }
 
     public void openChangePassword(MouseEvent mouseEvent) {
-        createAnswerTextField(vbox.getLayoutX() - answerTextFieldWidth, vbox.getLayoutY() + 38 + distanceBetweenButtons * 3);
-        createAnswerTextField(vbox.getLayoutX() - answerTextFieldWidth, vbox.getLayoutY() + 38 + (distanceBetweenButtons * 3) + distanceBetweenButtons);
+//        createFirstPasswordAnswerTextField(vbox.getLayoutX() - answerTextFieldWidth, vbox.getLayoutY() + 50 + distanceBetweenButtons * 3);
+        createSecondPasswordAnswerTextField(vbox.getLayoutX() - answerTextFieldWidth, vbox.getLayoutY() + 50 + (distanceBetweenButtons * 3) + distanceBetweenButtons);
         createSubmitButton();
+        submitChange.setOnMouseClicked((MouseEvent event) -> {
+            answer = answerTextField.getText();
+            passwordSubmitChange(answer);
+        });
     }
 
     public void goToQuestionMenu(MouseEvent mouseEvent) {
@@ -88,6 +93,7 @@ public class ProfileMenuViewController {
 
     private void createAnswerTextField(double x, double y) {
         removeAnswerTextField();
+        removePasswordAnswerTextField();
         double answerTextFieldHeight = usernameButton.getHeight();
         answerTextField = new TextField();
 
@@ -101,10 +107,49 @@ public class ProfileMenuViewController {
         pane.getChildren().add(answerTextField);
     }
 
+    private void createFirstPasswordAnswerTextField(double x, double y) {
+        double passwordAnswerTextFieldHeight = usernameButton.getHeight();
+        answerTextField = new TextField();
+
+        passwordAnswerTextField.setMaxWidth(answerTextFieldWidth);
+        passwordAnswerTextField.setMinWidth(answerTextFieldWidth);
+        passwordAnswerTextField.setMaxHeight(passwordAnswerTextFieldHeight);
+        passwordAnswerTextField.setMinHeight(passwordAnswerTextFieldHeight);
+        passwordAnswerTextField.setPromptText("current password");
+
+        passwordAnswerTextField.setLayoutX(x);
+        passwordAnswerTextField.setLayoutY(y);
+        pane.getChildren().add(passwordAnswerTextField);
+    }
+
+    private void createSecondPasswordAnswerTextField(double x, double y) {
+        removeAnswerTextField();
+        double answerTextFieldHeight = usernameButton.getHeight();
+        answerTextField = new TextField();
+
+        answerTextField.setMaxWidth(answerTextFieldWidth);
+        answerTextField.setMinWidth(answerTextFieldWidth);
+        answerTextField.setMaxHeight(answerTextFieldHeight);
+        answerTextField.setMinHeight(answerTextFieldHeight);
+        answerTextField.setId("secondPassword");
+        answerTextField.setPromptText("new password");
+
+        answerTextField.setLayoutX(x);
+        answerTextField.setLayoutY(y);
+        pane.getChildren().add(answerTextField);
+    }
+
     private void removeAnswerTextField() {
         if (answerTextField != null) {
             pane.getChildren().remove(answerTextField);
             answerTextField = null;
+        }
+    }
+
+    private void removePasswordAnswerTextField() {
+        if (passwordAnswerTextField != null) {
+            pane.getChildren().remove(passwordAnswerTextField);
+            passwordAnswerTextField = null;
         }
     }
 
@@ -135,7 +180,7 @@ public class ProfileMenuViewController {
             alert.setContentText("Please enter another username");
             alert.showAndWait();
         } else {
-            ApplicationController.getLoggedInUser().setUsername(answer);
+            User.changeUsername(answer);
             try {
                 new ProfileMenuView().start(ApplicationController.getStage());
             } catch (Exception e) {
@@ -158,7 +203,7 @@ public class ProfileMenuViewController {
             alert.setContentText("Please enter another nickname");
             alert.showAndWait();
         } else {
-            ApplicationController.getLoggedInUser().setNickname(answer);
+            User.changeNickname(answer);
             try {
                 new ProfileMenuView().start(ApplicationController.getStage());
             } catch (Exception e) {
@@ -181,7 +226,29 @@ public class ProfileMenuViewController {
             alert.setContentText("Please enter another email");
             alert.showAndWait();
         } else {
-            ApplicationController.getLoggedInUser().setEmail(answer);
+            User.changeEmail(answer);
+            try {
+                new ProfileMenuView().start(ApplicationController.getStage());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public void passwordSubmitChange(String answer) {
+        if (answer.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Password field is empty");
+            alert.setHeaderText("Password empty");
+            alert.setContentText("Please fill password");
+            alert.showAndWait();
+        } else if (ApplicationController.getLoggedInUser().getPassword().equals(answer)) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Password is the same");
+            alert.setHeaderText("Password is the same");
+            alert.setContentText("Please enter another password");
+            alert.showAndWait();
+        } else {
+            User.changePassword(answer);
             try {
                 new ProfileMenuView().start(ApplicationController.getStage());
             } catch (Exception e) {
