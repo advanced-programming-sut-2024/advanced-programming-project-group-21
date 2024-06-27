@@ -52,6 +52,7 @@ public class ProfileMenuViewController {
     }
 
     public void openChangePassword(MouseEvent mouseEvent) {
+        //TODO: debug password text field
 //        createFirstPasswordAnswerTextField(vbox.getLayoutX() - answerTextFieldWidth, vbox.getLayoutY() + 50 + distanceBetweenButtons * 3);
         createSecondPasswordAnswerTextField(vbox.getLayoutX() - answerTextFieldWidth, vbox.getLayoutY() + 50 + (distanceBetweenButtons * 3) + distanceBetweenButtons);
         createSubmitButton();
