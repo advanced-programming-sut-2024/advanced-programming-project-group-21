@@ -12,7 +12,6 @@ import java.net.URL;
 
 public class ProfileMenuView extends Application {
     ProfileMenuViewController controller;
-
     public static void main(String[] args) {
         launch(args);
     }

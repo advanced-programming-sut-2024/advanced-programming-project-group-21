@@ -8,8 +8,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import model.User.User;
+import view.GameHistory.GameHistoryMenuView;
 import view.Main.MainMenuView;
 import view.Question.QuestionMenuView;
+import view.UserInfo.UserInfoMenuView;
 
 public class ProfileMenuViewController {
     public AnchorPane pane;
@@ -234,6 +236,7 @@ public class ProfileMenuViewController {
             }
         }
     }
+
     public void passwordSubmitChange(String answer) {
         if (answer.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -256,4 +259,23 @@ public class ProfileMenuViewController {
             }
         }
     }
+
+    public void goToUserInfoMenu(MouseEvent mouseEvent) {
+        try {
+            new UserInfoMenuView().start(ApplicationController.getStage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void goToGameHistoryInfoMenu(MouseEvent mouseEvent) {
+        try {
+            new GameHistoryMenuView().start(ApplicationController.getStage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
+
+
+
