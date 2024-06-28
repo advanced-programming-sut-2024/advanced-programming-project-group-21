@@ -1,7 +1,7 @@
 package enums;
 
 public enum SecurityQuestions {
-    HighSchool("Name of your high school name?"),
+    HighSchool("what is your high school name?"),
     City("In what city were you born?"),
     Pet("What is the name of your favorite pet?"),
     Birthday("What is your date of birth?"),

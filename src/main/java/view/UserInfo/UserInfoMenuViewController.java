@@ -1,9 +1,12 @@
 package view.UserInfo;
 
+import controller.ApplicationController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import model.User.User;
+import view.Profile.ProfileMenuView;
 
 public class UserInfoMenuViewController {
 
@@ -81,5 +84,14 @@ public class UserInfoMenuViewController {
         } else {
             losesLabel.setText("User not found");
         }
+    }
+
+    public void goToProfileMenu(MouseEvent mouseEvent) {
+        try {
+            new ProfileMenuView().start(ApplicationController.getStage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
