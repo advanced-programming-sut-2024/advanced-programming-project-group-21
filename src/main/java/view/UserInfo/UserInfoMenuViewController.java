@@ -12,12 +12,19 @@ public class UserInfoMenuViewController {
 
     @FXML
     private Label usernameLabel;
+    @FXML
     private Label nicknameLabel;
+    @FXML
     private Label HighestScoreLabel;
+    @FXML
     private Label RankLabel;
+    @FXML
     private Label playedGamesLabel;
+    @FXML
     private Label drawsLabel;
+    @FXML
     private Label winsLabel;
+    @FXML
     private Label losesLabel;
     User currentUser = User.getLoggedInUser();
 

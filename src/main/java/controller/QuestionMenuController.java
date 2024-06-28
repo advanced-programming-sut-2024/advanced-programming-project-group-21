@@ -25,4 +25,19 @@ public class QuestionMenuController {
         }
         return 0;
     }
+
+    public int submitAnswer(String question, String answer) {
+        User user = User.getLoggedInUser();
+        if(question == null){
+            return 1;
+        }
+        if(answer.equals("")){
+            return 2;
+        }
+        if(!user.containsQuestion(question)){
+            return 3;
+        }
+        return 0;
+    }
+
 }
