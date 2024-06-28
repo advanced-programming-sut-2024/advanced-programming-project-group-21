@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="view.Question.QuestionMenuViewController"
-            prefHeight="750" prefWidth="1500">
-
+<AnchorPane prefHeight="750" prefWidth="1500" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Question.QuestionMenuViewController">
+   <children>
+      <VBox layoutX="567.0" layoutY="196.0" prefHeight="418.0" prefWidth="366.0" spacing="10">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="339.0" prefWidth="314.0" spacing="30">
+               <children>
+                  <Label alignment="CENTER" prefHeight="45.0" prefWidth="130.0" text="  pick a question" />
+                  <ChoiceBox prefHeight="26.0" prefWidth="366.0" />
+                  <TextField alignment="CENTER" prefHeight="39.0" prefWidth="366.0" promptText="enter your answer" />
+                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="178.0" text="submit" />
+               </children>
+            </VBox>
+         </children></VBox>
+   </children>
 </AnchorPane>
