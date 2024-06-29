@@ -8,7 +8,7 @@ module witcher {
 
     exports view;
     opens view to javafx.fxml;
-    opens model to com.fasterxml.jackson.databind;
+    opens model.User to com.google.gson;
     exports view.Login;
     opens view.Login to javafx.fxml;
     exports view.Main;
@@ -21,7 +21,6 @@ module witcher {
     opens view.Question to javafx.fxml;
     exports view.ForgetPassword;
     opens view.ForgetPassword to javafx.fxml;
-    opens model.User to com.fasterxml.jackson.databind;
     exports view.Pregame;
     opens view.Pregame to javafx.fxml;
     exports view.GameHistory;
