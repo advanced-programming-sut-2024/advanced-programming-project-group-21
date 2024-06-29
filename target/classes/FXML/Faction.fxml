@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="750.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Faction.FactionMenuViewController">
+   <children>
+      <VBox layoutX="71.0" layoutY="56.0" maxHeight="640.0" maxWidth="764.0" minHeight="640.0" minWidth="764.0" prefHeight="640.0" prefWidth="764.0" spacing="60.0">
+         <children>
+            <HBox alignment="BOTTOM_CENTER" maxHeight="300.0" maxWidth="764.0" minHeight="300.0" minWidth="764.0" prefHeight="300.0" prefWidth="764.0" spacing="60.0">
+               <children>
+                  <AnchorPane fx:id="monstersCard" maxHeight="240.0" maxWidth="160.0" minHeight="240.0" minWidth="160.0" onMouseClicked="#factionClicked" onMouseEntered="#factionEntered" onMouseExited="#factionExited" prefHeight="240.0" prefWidth="160.0">
+                     <children>
+                        <ImageView fitHeight="240.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/Factions/faction_monsters.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="nilfgaardCard" maxHeight="240.0" maxWidth="160.0" minHeight="240.0" minWidth="160.0" onMouseClicked="#factionClicked" onMouseEntered="#factionEntered" onMouseExited="#factionExited" prefHeight="240.0" prefWidth="160.0">
+                     <children>
+                        <ImageView fitHeight="240.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/Factions/faction_nilfgaard.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="realmsCard" maxHeight="240.0" maxWidth="160.0" minHeight="240.0" minWidth="160.0" onMouseClicked="#factionClicked" onMouseEntered="#factionEntered" onMouseExited="#factionExited" prefHeight="240.0" prefWidth="160.0">
+                     <children>
+                        <ImageView fitHeight="240.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/Factions/faction_realms.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </HBox>
+            <HBox alignment="TOP_CENTER" maxHeight="300.0" maxWidth="764.0" minHeight="300.0" minWidth="764.0" prefHeight="300.0" prefWidth="764.0" spacing="60.0">
+               <children>
+                  <AnchorPane fx:id="scoiataelCard" maxHeight="240.0" maxWidth="160.0" minHeight="240.0" minWidth="160.0" onMouseClicked="#factionClicked" onMouseEntered="#factionEntered" onMouseExited="#factionExited" prefHeight="240.0" prefWidth="160.0">
+                     <children>
+                        <ImageView fitHeight="240.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/Factions/faction_scoiatael.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="skelligeCard" maxHeight="240.0" maxWidth="160.0" minHeight="240.0" minWidth="160.0" onMouseClicked="#factionClicked" onMouseEntered="#factionEntered" onMouseExited="#factionExited" prefHeight="240.0" prefWidth="160.0">
+                     <children>
+                        <ImageView fitHeight="240.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/Factions/faction_skellige.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox fx:id="infoVBox" alignment="CENTER" layoutX="936.0" layoutY="50.0" prefHeight="644.0" prefWidth="499.0" spacing="60.0" visible="false">
+         <children>
+            <AnchorPane fx:id="factionCard" maxHeight="300.0" maxWidth="200.0" minHeight="300.0" minWidth="200.0" prefHeight="300.0" prefWidth="200.0">
+               <children>
+                  <ImageView fitHeight="300.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/Factions/faction_skellige.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+               <children>
+                  <Label fx:id="titleLabel" text="Faction name">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="descriptionLabel" alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="222.0" prefWidth="499.0" text="This is an example of a long description that is gonna be changed in menu controller." textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

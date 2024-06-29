@@ -1,5 +1,7 @@
 package model;
 
+import enums.Card.CommandersEnum;
+import enums.Card.FactionsEnum;
 import model.Commanders.Commander;
 import model.Factions.Faction;
 import model.User.User;
@@ -12,16 +14,16 @@ public class Player extends User {
     private static ArrayList<Card> discardPile = new ArrayList<>();
     private static User user;
     private int availableCards = 0;
-    private Commander commander;
+    private CommandersEnum commander;
     private int lives;
-    private Faction currentFaction;
+    private FactionsEnum currentFaction;
     private int roundsWon = 0;
     private int roundsLost = 0;
     private int roundsDrawn = 0;
 
 
-    public Player(String username, String nickname, String password, String email) {
-        super(username, nickname, password, email);
+    public Player(User user) {
+        super(user.getUsername(), user.getNickname(), user.getPassword(), user.getEmail());
     }
 
     public static ArrayList<Card> getHand() {
@@ -64,8 +66,12 @@ public class Player extends User {
         this.availableCards = availableCards;
     }
 
-    public Commander getCommander() {
+    public CommandersEnum getCommander() {
         return commander;
+    }
+
+    public void setCommander(CommandersEnum commander) {
+        this.commander = commander;
     }
 
     public int getLives() {
@@ -76,11 +82,11 @@ public class Player extends User {
         this.lives = lives;
     }
 
-    public Faction getCurrentFaction() {
+    public FactionsEnum getCurrentFaction() {
         return currentFaction;
     }
 
-    public void setCurrentFaction(Faction currentFaction) {
+    public void setCurrentFaction(FactionsEnum currentFaction) {
         this.currentFaction = currentFaction;
     }
 

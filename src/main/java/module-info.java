@@ -24,4 +24,8 @@ module witcher {
     opens model.User to com.google.gson;
     exports view.Pregame;
     opens view.Pregame to javafx.fxml;
+    exports view.Faction;
+    opens view.Faction to javafx.fxml;
+    exports view.Commander;
+    opens view.Commander to javafx.fxml;
 }

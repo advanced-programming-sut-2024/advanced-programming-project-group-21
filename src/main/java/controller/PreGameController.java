@@ -1,92 +1,104 @@
 package controller;
 
 import enums.Card.CardEnum;
-import enums.Card.Factions;
+import enums.Card.FactionsEnum;
 import model.Card;
+import model.Player;
 import model.PreGame;
+import model.User.User;
 
 import java.util.ArrayList;
 
 public class PreGameController {
-    public void showCurrentMenu(){
+    public void showCurrentMenu() {
 
     }
 
-    public void exitMenu(){
+    public void exitMenu() {
 
     }
 
-    public void enterMenu(String name){
+    public void enterMenu(String name) {
 
     }
 
-    public void showFactions(){
+    public void showFactions() {
 
     }
 
-    public void selectFaction(String factionName){
+    public void selectFaction(String factionName) {
 
     }
 
-    public void showCards(){
+    public void showCards() {
 
     }
 
-    public void showDeck(){
+    public void showDeck() {
 
     }
 
-    public void showInfoCurrentUser(){
+    public void showInfoCurrentUser() {
 
     }
 
-    public void saveDeckWithName(String name){
+    public void saveDeckWithName(String name) {
 
     }
 
-    public void saveDeckWithAddress(String address){
+    public void saveDeckWithAddress(String address) {
 
     }
 
-    public void loadDeckWithName(String name){
+    public void loadDeckWithName(String name) {
 
     }
 
-    public void loadDeckWithAddress(String address){
+    public void loadDeckWithAddress(String address) {
 
     }
 
-    public void showLeaders(){
+    public void showLeaders() {
 
     }
 
-    public void selectLeader(int leaderNumber){
+    public void selectLeader(int leaderNumber) {
 
     }
 
-    public void addToDeck(String cardName, int count){
+    public void addToDeck(String cardName, int count) {
 
     }
 
-    public void deleteFromDeck(String cardName, int count){
+    public void deleteFromDeck(String cardName, int count) {
 
     }
 
-    public void changeTurn(){
+    public void changeTurn() {
 
     }
 
-    public void startGame(){
+    public void startGame() {
 
     }
 
-    public ArrayList<Card> loadPregameCards(Factions faction){
-        deletePreGameCards(); // Clear the preGameCards list
+    public void loadPregameCards(FactionsEnum faction) {
+        deletePreGameCards(faction); // Clear the preGameCards list
         ArrayList<Card> cards = new ArrayList<>();
-
-        for(CardEnum cardEnum : CardEnum.values()){
-            if(cardEnum.getFaction().equals(faction) || cardEnum.getFaction().equals(Factions.NEUTRAL)){
-                for(int i = 0; i < cardEnum.getPreGameCount(); i++){
+        outer:
+        for (CardEnum cardEnum : CardEnum.values()) {
+            if (cardEnum.getFaction().equals(faction) || cardEnum.getFaction().equals(FactionsEnum.NEUTRAL)) {
+                for (Card card : ApplicationController.preGame.getDeckCards()) {
+                    if (card.getCardEnum().equals(cardEnum)) {
+                        continue outer;
+                    }
+                }
+                for (Card card : ApplicationController.preGame.getPreGameCards()) {
+                    if (card.getCardEnum().equals(cardEnum)) {
+                        continue outer;
+                    }
+                }
+                for (int i = 0; i < cardEnum.getPreGameCount(); i++) {
                     Card card = new Card(cardEnum);
                     cards.add(card);
                     ApplicationController.preGame.addCardToPreGameCards(card);
@@ -94,24 +106,29 @@ public class PreGameController {
                 }
             }
         }
-
-        return cards;
     }
 
-    public void initialize(){
-        PreGame preGame = new PreGame();
-        ApplicationController.preGame = preGame;
-    }
-
-    private void deletePreGameCards(){
-        ApplicationController.preGame.setPreGameCards(new ArrayList<>());
-        ApplicationController.preGame.setPreGameHBoxList(new ArrayList<>());
+    private void deletePreGameCards(FactionsEnum factionsEnum) {
+        ArrayList<Card> preGameCards = new ArrayList<>();
+        ArrayList<Card> deckCards = new ArrayList<>();
+        for (Card card : ApplicationController.preGame.getPreGameCards()) {
+            if (card.getFaction().equals(factionsEnum) || card.getFaction().equals(FactionsEnum.NEUTRAL)) {
+                preGameCards.add(card);
+            }
+        }
+        for (Card card : ApplicationController.preGame.getDeckCards()) {
+            if (card.getFaction().equals(factionsEnum) || card.getFaction().equals(FactionsEnum.NEUTRAL)) {
+                deckCards.add(card);
+            }
+        }
+        ApplicationController.preGame.setPreGameCards(preGameCards);
+        ApplicationController.preGame.setDeckCards(deckCards);
     }
 
     public void moveCardToDeck(Card inputCard) {
         Card card = null;
-        for(Card tempCard : ApplicationController.preGame.getPreGameCards()){
-            if(tempCard.getName().equals(inputCard.getName())){
+        for (Card tempCard : ApplicationController.preGame.getPreGameCards()) {
+            if (tempCard.getName().equals(inputCard.getName())) {
                 card = tempCard;
                 break;
             }
@@ -122,13 +139,36 @@ public class PreGameController {
 
     public void moveCardToPreGame(Card inputCard) {
         Card card = null;
-        for(Card tempCard : ApplicationController.preGame.getDeckCards()){
-            if(tempCard.getName().equals(inputCard.getName())){
+        for (Card tempCard : ApplicationController.preGame.getDeckCards()) {
+            if (tempCard.getName().equals(inputCard.getName())) {
                 card = tempCard;
                 break;
             }
         }
         ApplicationController.preGame.addCardToPreGameCards(card);
         ApplicationController.preGame.getDeckCards().remove(card);
+    }
+
+    public void saveToPlayer() {
+        PreGame preGame = ApplicationController.preGame;
+        Player player = preGame.getCurrentPlayer();
+        player.setDeck(preGame.getDeckCards());
+        player.setCommander(preGame.getCommander());
+        player.setCurrentFaction(preGame.getFaction());
+    }
+
+    public void createPlayers() {
+        createLoggedInUser();
+        Player player1 = new Player(ApplicationController.getLoggedInUser());
+        Player player2 = new Player(ApplicationController.getLoggedInUser()); // TODO: make a permanent 2nd player and user
+        ApplicationController.preGame.setPlayer1(player1);
+        ApplicationController.preGame.setPlayer2(player2);
+        ApplicationController.preGame.setCurrentPlayer(player1);
+    }
+
+    // TODO: remove this method
+    private void createLoggedInUser() {
+        User user = new User("test", "test", "test", "test");
+        ApplicationController.setLoggedInUser(user);
     }
 }

@@ -1,5 +1,7 @@
 package model;
 
+import enums.Card.CommandersEnum;
+import enums.Card.FactionsEnum;
 import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
@@ -10,6 +12,15 @@ public class PreGame {
     private ArrayList<HBox> preGameHBoxList = new ArrayList<>();
 
     private ArrayList<HBox> deckHBoxList = new ArrayList<>();
+    private FactionsEnum faction = FactionsEnum.SKELLIGE;
+    private CommandersEnum commander = null;
+    private boolean enoughUnits = false;
+    private boolean validSpecials = true;
+    private Player player1 = null;
+    private Player player2 = null;
+    private Player currentPlayer = player1;
+    private boolean firstPlayer = true;
+
 
     public void addCardToPreGameCards(Card card){
         preGameCards.add(card);
@@ -49,5 +60,75 @@ public class PreGame {
 
     public void setDeckHBoxList(ArrayList<HBox> deckHBoxList) {
         this.deckHBoxList = deckHBoxList;
+    }
+
+    public FactionsEnum getFaction() {
+        return faction;
+    }
+
+    public void setFaction(FactionsEnum faction) {
+        this.faction = faction;
+    }
+
+    public void getPreGameCardByName(){};
+
+    public CommandersEnum getCommander() {
+        return commander;
+    }
+
+    public void setCommander(CommandersEnum commander) {
+        this.commander = commander;
+    }
+
+    public boolean isEnoughUnits() {
+        return enoughUnits;
+    }
+
+    public void setEnoughUnits(boolean enoughUnits) {
+        this.enoughUnits = enoughUnits;
+    }
+
+    public boolean isValidSpecials() {
+        return validSpecials;
+    }
+
+    public void setValidSpecials(boolean validSpecials) {
+        this.validSpecials = validSpecials;
+    }
+
+    public boolean canStartGame() {
+        return enoughUnits && validSpecials;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    public boolean isFirstPlayer() {
+        return firstPlayer;
+    }
+
+    public void setFirstPlayer(boolean firstPlayer) {
+        this.firstPlayer = firstPlayer;
+    }
+
+    public Player getPlayer1() {
+        return player1;
+    }
+
+    public void setPlayer1(Player player1) {
+        this.player1 = player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
+    }
+
+    public void setPlayer2(Player player2) {
+        this.player2 = player2;
     }
 }

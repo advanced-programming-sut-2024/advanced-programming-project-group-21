@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -12,36 +13,39 @@
 
 <AnchorPane prefHeight="750.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Pregame.PregameMenuViewController">
    <children>
-      <VBox alignment="TOP_CENTER" layoutX="491.0" layoutY="16.0" prefHeight="130.0" prefWidth="526.0" spacing="10.0">
+      <VBox alignment="TOP_CENTER" layoutX="491.0" layoutY="16.0" prefHeight="135.0" prefWidth="526.0">
          <children>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="248.0" spacing="20.0">
                <children>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label text="Faction name">
+                  <ImageView fx:id="shieldImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/Icons/deck_shield_skellige.png" />
+                     </image></ImageView>
+                  <Label fx:id="factionLabel" text="Faction name">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </Label>
                </children>
             </HBox>
-            <Label text="Faction ability">
+            <Label fx:id="factionAbility" alignment="CENTER" prefHeight="46.0" prefWidth="706.0" text="Faction ability" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+            <HBox alignment="CENTER" prefHeight="22.0" prefWidth="526.0" spacing="30.0">
                <children>
-                  <Hyperlink text="Upload deck">
+                  <Hyperlink onMouseClicked="#uploadDeck" text="Upload deck">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Hyperlink>
-                  <Hyperlink text="Change faction">
+                  <Hyperlink onMouseClicked="#goToFaction" text="Change faction">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Hyperlink>
-                  <Hyperlink text="Download deck">
+                  <Hyperlink onMouseClicked="#downloadDeck" text="Download deck">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -70,14 +74,17 @@
       </VBox>
       <VBox alignment="TOP_CENTER" layoutX="640.0" layoutY="154.0" prefHeight="550.0" prefWidth="212.0" spacing="20.0">
          <children>
-            <VBox alignment="TOP_CENTER" prefHeight="162.0" prefWidth="212.0" spacing="10.0">
+            <VBox alignment="TOP_CENTER" prefHeight="222.0" prefWidth="212.0" spacing="10.0">
                <children>
                   <Label text="Leader">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="134.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true" />
+                  <AnchorPane fx:id="commanderCard" maxHeight="135.0" maxWidth="72.0" minHeight="135.0" minWidth="72.0" prefHeight="135.0" prefWidth="72.0">
+                     <children>
+                        <ImageView fx:id="commanderImage" fitHeight="135.0" fitWidth="72.0" onMouseClicked="#goToCommander" pickOnBounds="true" preserveRatio="true" />
+                     </children></AnchorPane>
                </children>
             </VBox>
             <VBox prefHeight="392.0" prefWidth="212.0" spacing="10.0">
@@ -89,8 +96,11 @@
                               <Label text="Total cards in deck" />
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                  <children>
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Label text="0" />
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../Images/Icons/deck_stats_count.png" />
+                                       </image></ImageView>
+                                    <Label fx:id="totalDeck" text="0" />
                                  </children>
                               </HBox>
                            </children>
@@ -100,8 +110,16 @@
                               <Label text="Number of Unit Cards" />
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                  <children>
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Label text="0/22" />
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../Images/Icons/deck_stats_unit.png" />
+                                       </image></ImageView>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="56.0">
+                                       <children>
+                                          <Label fx:id="totalUnit" text="0" />
+                                          <Label fx:id="outOf22" text="/22" />
+                                       </children>
+                                    </HBox>
                                  </children>
                               </HBox>
                            </children>
@@ -111,8 +129,16 @@
                               <Label text="Special Cards" />
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                  <children>
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Label text="0/10" />
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../Images/Icons/deck_stats_special.png" />
+                                       </image></ImageView>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="56.0">
+                                       <children>
+                                          <Label fx:id="totalSpecial" text="0" />
+                                          <Label fx:id="outOf10" text="/10" />
+                                       </children>
+                                    </HBox>
                                  </children>
                               </HBox>
                            </children>
@@ -122,8 +148,11 @@
                               <Label text="Total Unit Card Strength" />
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                  <children>
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Label text="0" />
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../Images/Icons/deck_stats_strength.png" />
+                                       </image></ImageView>
+                                    <Label fx:id="totalStrength" text="0" />
                                  </children>
                               </HBox>
                            </children>
@@ -133,8 +162,11 @@
                               <Label text="Hero Cards" />
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                  <children>
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Label text="0" />
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../Images/Icons/deck_stats_hero.png" />
+                                       </image></ImageView>
+                                    <Label fx:id="totalHero" text="0" />
                                  </children>
                               </HBox>
                            </children>
@@ -144,7 +176,7 @@
                   <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
-                        <Button mnemonicParsing="false" text="Start game" />
+                        <Button fx:id="nextButton" mnemonicParsing="false" onMouseClicked="#nextPhase" text="Next Player" />
                      </children>
                   </VBox>
                </children>
