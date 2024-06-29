@@ -5,7 +5,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import view.Register.RegisterMenu;
 
@@ -13,7 +12,6 @@ import java.net.URL;
 
 public class ProfileMenuView extends Application {
     ProfileMenuViewController controller;
-
     public static void main(String[] args) {
         launch(args);
     }

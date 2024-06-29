@@ -3,12 +3,12 @@ module witcher {
     requires javafx.fxml;
     requires javafx.media;
     requires javafx.graphics;
-    requires com.fasterxml.jackson.databind;
-    requires com.fasterxml.jackson.core;
     requires com.google.gson;
+
 
     exports view;
     opens view to javafx.fxml;
+    opens model to com.fasterxml.jackson.databind;
     exports view.Login;
     opens view.Login to javafx.fxml;
     exports view.Main;
@@ -21,11 +21,12 @@ module witcher {
     opens view.Question to javafx.fxml;
     exports view.ForgetPassword;
     opens view.ForgetPassword to javafx.fxml;
-    opens model.User to com.google.gson;
+    opens model.User to com.fasterxml.jackson.databind;
     exports view.Pregame;
     opens view.Pregame to javafx.fxml;
-    exports view.Faction;
-    opens view.Faction to javafx.fxml;
-    exports view.Commander;
-    opens view.Commander to javafx.fxml;
+    exports view.GameHistory;
+    opens view.GameHistory to javafx.fxml;
+    exports view.UserInfo;
+    opens view.UserInfo to javafx.fxml;
+
 }

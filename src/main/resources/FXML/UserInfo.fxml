@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="750" prefWidth="1500" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.UserInfo.UserInfoMenuViewController">
+   <children>
+      <VBox layoutX="580.0" layoutY="64.0" prefHeight="619.0" prefWidth="424.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="318.0" spacing="90">
+               <children>
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#showUsername" prefHeight="26.0" prefWidth="136.0" text="show username" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="120.0" text="username" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="318.0" spacing="90">
+               <children>
+                  <Button alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#showNickname" prefHeight="26.0" prefWidth="136.0" text="show nickname" />
+                  <Label alignment="CENTER" prefHeight="26.0" prefWidth="120.0" text="nickname" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="318.0" spacing="90">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#showHighestScore" prefHeight="26.0" prefWidth="136.0" text=" show highest score" />
+                  <Label alignment="CENTER" prefHeight="26.0" prefWidth="120.0" text="highest score" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="318.0" spacing="90">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#showRank" prefHeight="26.0" prefWidth="136.0" text="show rank" />
+                  <Label alignment="CENTER" prefHeight="26.0" prefWidth="120.0" text="rank" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="318.0" spacing="90">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#showPlayedGames" prefHeight="26.0" prefWidth="136.0" text="show played games" />
+                  <Label alignment="CENTER" prefHeight="26.0" prefWidth="120.0" text="played games" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="318.0" spacing="90">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#showDraws" prefHeight="26.0" prefWidth="136.0" text="show draws" />
+                  <Label alignment="CENTER" prefHeight="26.0" prefWidth="120.0" text="draws" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="318.0" spacing="90">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#showWins" prefHeight="26.0" prefWidth="136.0" text="show wins" />
+                  <Label alignment="CENTER" prefHeight="26.0" prefWidth="120.0" text="wins" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="318.0" spacing="90">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#showLoses" prefHeight="26.0" prefWidth="136.0" text="show loses" />
+                  <Label alignment="CENTER" prefHeight="26.0" prefWidth="120.0" text="loses" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Button layoutX="14.0" layoutY="710.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="110.0" text="Back" onMouseClicked="#goToProfileMenu" />
+   </children>
+</AnchorPane>

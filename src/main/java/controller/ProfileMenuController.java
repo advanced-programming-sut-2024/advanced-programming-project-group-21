@@ -19,4 +19,5 @@ public class ProfileMenuController {
     public void showGameHistory(){
         showGameHistory(5);
     }
+    public void showUserInfo(){}
 }
