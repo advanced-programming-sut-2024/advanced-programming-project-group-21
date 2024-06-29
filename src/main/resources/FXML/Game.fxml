@@ -1,14 +1,363 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="view.Game.GameMenuViewController"
-            prefHeight="750." prefWidth="1500.0">
 
+<AnchorPane prefHeight="750." prefWidth="1500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Game.GameMenuViewController">
+   <children>
+      <ImageView fitHeight="750.0" fitWidth="100000.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/board.jpg" />
+         </image>
+      </ImageView>
+      <HBox alignment="CENTER_LEFT" layoutX="97.0" layoutY="58.0" prefHeight="91.0" prefWidth="108.0" spacing="12.0">
+         <children>
+            <AnchorPane fx:id="enemyCommanderPane" prefHeight="90.0" prefWidth="70.0">
+               <children>
+                  <ImageView fx:id="enemyCommanderImage" fitHeight="90.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </AnchorPane>
+            <ImageView fx:id="enemyCommanderActive" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/Icons/icon_leader_active.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="97.0" layoutY="579.0" prefHeight="91.0" prefWidth="108.0" spacing="12.0">
+         <children>
+            <AnchorPane prefHeight="90.0" prefWidth="70.0">
+               <children>
+                  <ImageView fx:id="userCommanderImage" fitHeight="90.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </AnchorPane>
+            <ImageView fx:id="userCommanderActive" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/Icons/icon_leader_active.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+      <VBox layoutX="354.0" layoutY="15.0" prefHeight="558.0" prefWidth="700.0" spacing="22.0">
+         <children>
+            <VBox prefHeight="267.0" prefWidth="715.0" spacing="14.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="79.0" prefWidth="699.0" spacing="2.0">
+                     <children>
+                        <AnchorPane prefHeight="75.0" prefWidth="14.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="14.0" prefHeight="42.0" prefWidth="32.0" text="0" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <HBox prefHeight="111.0" prefWidth="654.0" spacing="10.0">
+                           <children>
+                              <AnchorPane fx:id="enemySiegeSpecial" prefHeight="80.0" prefWidth="84.0" />
+                              <HBox fx:id="enemySiegeHBox" prefHeight="79.0" prefWidth="560.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="79.0" prefWidth="699.0" spacing="2.0">
+                     <children>
+                        <AnchorPane prefHeight="75.0" prefWidth="14.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="14.0" prefHeight="42.0" prefWidth="32.0" text="0" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <HBox prefHeight="111.0" prefWidth="654.0" spacing="10.0">
+                           <children>
+                              <AnchorPane fx:id="enemyRangeSpecial" prefHeight="80.0" prefWidth="84.0" />
+                              <HBox fx:id="enemyRangedHBox" prefHeight="79.0" prefWidth="560.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="79.0" prefWidth="699.0" spacing="2.0">
+                     <children>
+                        <AnchorPane prefHeight="75.0" prefWidth="14.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="14.0" prefHeight="42.0" prefWidth="32.0" text="0" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <HBox prefHeight="111.0" prefWidth="654.0" spacing="10.0">
+                           <children>
+                              <AnchorPane fx:id="enemyClosedSpecial" prefHeight="80.0" prefWidth="84.0" />
+                              <HBox fx:id="enemyClosedHBox" prefHeight="79.0" prefWidth="560.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="267.0" prefWidth="715.0" spacing="14.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="79.0" prefWidth="699.0" spacing="2.0">
+                     <children>
+                        <AnchorPane prefHeight="75.0" prefWidth="14.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="14.0" prefHeight="42.0" prefWidth="32.0" text="0" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <HBox prefHeight="111.0" prefWidth="654.0" spacing="10.0">
+                           <children>
+                              <AnchorPane fx:id="userClosedSpecial" prefHeight="80.0" prefWidth="84.0" />
+                              <HBox fx:id="userClosedHBox" prefHeight="79.0" prefWidth="560.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="79.0" prefWidth="699.0" spacing="2.0">
+                     <children>
+                        <AnchorPane prefHeight="75.0" prefWidth="14.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="14.0" prefHeight="42.0" prefWidth="32.0" text="0" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <HBox prefHeight="111.0" prefWidth="654.0" spacing="10.0">
+                           <children>
+                              <AnchorPane fx:id="userRangedSpecial" prefHeight="80.0" prefWidth="84.0" />
+                              <HBox fx:id="userRangedHBox" prefHeight="79.0" prefWidth="560.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="79.0" prefWidth="699.0" spacing="2.0">
+                     <children>
+                        <AnchorPane prefHeight="75.0" prefWidth="14.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="14.0" prefHeight="42.0" prefWidth="32.0" text="0" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <HBox prefHeight="111.0" prefWidth="654.0" spacing="10.0">
+                           <children>
+                              <AnchorPane fx:id="userSiegeSpecial" prefHeight="80.0" prefWidth="84.0" />
+                              <HBox fx:id="userSiegeHBox" prefHeight="79.0" prefWidth="560.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+      <HBox layoutX="400.0" layoutY="582.0" prefHeight="93.0" prefWidth="654.0" />
+      <HBox fx:id="specialCardPlace" layoutX="98.0" layoutY="311.0" prefHeight="98.0" prefWidth="195.0" />
+      <AnchorPane fx:id="enemyGraveyard" layoutX="1071.0" layoutY="48.0" prefHeight="102.0" prefWidth="80.0" />
+      <AnchorPane fx:id="enemyDeck" layoutX="1195.0" layoutY="48.0" prefHeight="102.0" prefWidth="80.0">
+         <children>
+            <ImageView fitHeight="102.0" fitWidth="80.0" layoutX="6.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/Factions/faction_scoiatael.jpg" />
+               </image>
+            </ImageView>
+            <Rectangle height="29.0" layoutX="13.0" layoutY="68.0" opacity="0.7" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="51.0" />
+            <Label alignment="CENTER" layoutX="17.0" layoutY="68.0" prefHeight="29.0" prefWidth="42.0" text="0" textFill="#ffebc0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="userGraveyard" layoutX="1071.0" layoutY="574.0" prefHeight="102.0" prefWidth="80.0" />
+      <AnchorPane fx:id="userDeck" layoutX="1195.0" layoutY="574.0" prefHeight="102.0" prefWidth="80.0">
+         <children>
+            <ImageView fitHeight="102.0" fitWidth="80.0" layoutX="6.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/Factions/faction_scoiatael.jpg" />
+               </image>
+            </ImageView>
+            <Rectangle height="29.0" layoutX="13.0" layoutY="68.0" opacity="0.7" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="51.0" />
+            <Label alignment="CENTER" layoutX="17.0" layoutY="68.0" prefHeight="29.0" prefWidth="42.0" text="0" textFill="#ffebc0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="460.0" prefHeight="94.0" prefWidth="314.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" layoutX="50.0" prefHeight="104.0" prefWidth="236.0" spacing="5.0">
+               <children>
+                  <AnchorPane prefHeight="94.0" prefWidth="90.0">
+                     <children>
+                        <ImageView fitHeight="94.0" fitWidth="90.0" layoutX="5.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/Icons/profile.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="104.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/Icons/icon_player_border.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <VBox prefHeight="94.0" prefWidth="125.0" spacing="4.0">
+                     <children>
+                        <HBox prefHeight="45.0" prefWidth="200.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="61.0">
+                                 <children>
+                                    <ImageView fitHeight="34.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../Images/Icons/icon_card_count.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label text="0" textFill="#ffe500">
+                                       <font>
+                                          <Font size="25.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="67.0">
+                                 <children>
+                                    <ImageView fitHeight="40.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../Images/Icons/icon_gem_on.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="44.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../Images/Icons/icon_gem_on.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <VBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="126.0">
+                           <children>
+                              <Label fx:id="userName" text="Player 1" textFill="#ffe500">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="userFaction" text="Northern realms" textFill="WHITE">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <Label alignment="CENTER" layoutX="296.0" layoutY="212.0" prefHeight="38.0" prefWidth="38.0" text="0" textAlignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="296.0" layoutY="491.0" prefHeight="38.0" prefWidth="38.0" text="0" textAlignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutY="180.0" prefHeight="94.0" prefWidth="314.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" layoutX="50.0" prefHeight="104.0" prefWidth="236.0" spacing="5.0">
+               <children>
+                  <AnchorPane prefHeight="94.0" prefWidth="90.0">
+                     <children>
+                        <ImageView fitHeight="94.0" fitWidth="90.0" layoutX="5.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/Icons/profile.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="104.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/Icons/icon_player_border.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <VBox prefHeight="94.0" prefWidth="125.0" spacing="4.0">
+                     <children>
+                        <VBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="126.0">
+                           <children>
+                              <Label fx:id="enemyName" text="Player 2" textFill="#ffe500">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="enemyFaction" text="Northern realms" textFill="WHITE">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <HBox prefHeight="45.0" prefWidth="200.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="61.0">
+                                 <children>
+                                    <ImageView fitHeight="34.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../Images/Icons/icon_card_count.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label text="0" textFill="#ffe500">
+                                       <font>
+                                          <Font size="25.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="67.0">
+                                 <children>
+                                    <ImageView fitHeight="40.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../Images/Icons/icon_gem_on.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="44.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../Images/Icons/icon_gem_on.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </children>
 </AnchorPane>
