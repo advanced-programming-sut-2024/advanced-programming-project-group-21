@@ -11,7 +11,7 @@
                <children>
                   <Label alignment="CENTER" prefHeight="45.0" prefWidth="130.0" text="  pick a question" />
                   <ChoiceBox  fx:id="securityQuestionChoiceBox" prefHeight="26.0" prefWidth="366.0" />
-                  <TextField alignment="CENTER" prefHeight="39.0" prefWidth="366.0" promptText="enter your answer" />
+                  <TextField  fx:id="securityAnswerField" alignment="CENTER" prefHeight="39.0" prefWidth="366.0" promptText="enter your answer" />
                   <Button alignment="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="178.0" text="submit" onMouseClicked="#submitAnswer" />
                </children>
             </VBox>

@@ -69,8 +69,4 @@ public class RegisterMenuController {
         if (!isConfirmPasswordOk(password, passwordConfirm)) return 7;
         return 0;
     }
-
-    public void pickQuestion(int questionNumber, String answer, String answerConfirm) {
-
-    }
 }

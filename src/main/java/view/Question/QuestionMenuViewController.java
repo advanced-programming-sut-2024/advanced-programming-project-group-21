@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import model.User.User;
 import view.Main.MainMenuView;
 
 public class QuestionMenuViewController {
@@ -23,6 +24,7 @@ public class QuestionMenuViewController {
     private TextField securityAnswerField;
 
     QuestionMenuController controller = new QuestionMenuController();
+    User currentUser = User.getLoggedInUser();
 
 
     public void goToProfileMenu(MouseEvent mouseEvent) {
@@ -48,27 +50,20 @@ public class QuestionMenuViewController {
     public void submitAnswer(MouseEvent mouseEvent) {
         String question = securityQuestionChoiceBox.getValue();
         String answer = securityAnswerField.getText().strip().toLowerCase();
-        int result = controller.submitAnswer(question, answer);
+        int result = controller.submitAnswer(answer, question);
         if (result != 0) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            if (result == 1) {
-                emptyQuestionError(alert);
-            } else if (result == 2) {
-                emptyAnswerError(alert);
-            } else if (result == 3) {
-                questionNotFound(alert);
+            if (result != 0) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                if (result == 1) {
+                    emptyQuestionError(alert);
+                } else if (result == 2) {
+                    emptyAnswerError(alert);
+                }
+            } else {
+                currentUser.addToQuestionAnswers(question, answer);
             }
-        } else {
-            // TODO: 6/15/2021 go to change password menu
         }
 
-    }
-
-    private void emptyQuestionError(Alert alert) {
-        alert.setTitle("Question field is empty");
-        alert.setHeaderText("Question empty");
-        alert.setContentText("Please fill question");
-        alert.show();
     }
 
     private void emptyAnswerError(Alert alert) {
@@ -78,10 +73,10 @@ public class QuestionMenuViewController {
         alert.show();
     }
 
-    private void questionNotFound(Alert alert){
-        alert.setTitle("Question not found");
-        alert.setHeaderText("You didn't answer this question in your settings");
-        alert.setContentText("Please enter a valid question");
+    private void emptyQuestionError(Alert alert){
+        alert.setTitle("Question field is empty");
+        alert.setHeaderText("Question empty");
+        alert.setContentText("Please fill question");
         alert.show();
     }
 }

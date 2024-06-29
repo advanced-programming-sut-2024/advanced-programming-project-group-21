@@ -5,37 +5,33 @@ import model.User.User;
 public class QuestionMenuController {
     public int submitAnswer(String username, String question, String answer) {
         User user = User.getUserByUsername(username);
-        if(username.equals("")){
+        if (username.equals("")) {
             return 1;
         }
-        if(question == null){
+        if (question == null) {
             return 2;
         }
-        if(answer.equals("")){
+        if (answer.equals("")) {
             return 3;
         }
-        if(user == null){
+        if (user == null) {
             return 4;
         }
-        if(!user.containsQuestion(question)){
+        if (!user.containsQuestion(question)) {
             return 5;
         }
-        if(!user.getAnswer(question).equals(answer)){
+        if (!user.getAnswer(question).equals(answer)) {
             return 6;
         }
         return 0;
     }
 
-    public int submitAnswer(String question, String answer) {
-        User user = User.getLoggedInUser();
-        if(question == null){
+    public int submitAnswer(String answer, String question) {
+        if (question == null) {
             return 1;
         }
-        if(answer.equals("")){
+        if (answer.equals("")) {
             return 2;
-        }
-        if(!user.containsQuestion(question)){
-            return 3;
         }
         return 0;
     }
