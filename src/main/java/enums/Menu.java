@@ -2,7 +2,6 @@ package enums;
 
 import view.AppMenu;
 import view.ExitMenu;
-import view.GameMenu;
 import view.Login.LoginMenu;
 import view.Main.MainMenu;
 import view.Profile.ProfileMenu;
@@ -10,7 +9,6 @@ import view.Profile.ProfileMenu;
 import java.util.Scanner;
 
 public enum Menu {
-    GameMenu(new GameMenu()),
     LoginMenu(new LoginMenu()),
     MainMenu(new MainMenu()),
     ProfileMenu(new ProfileMenu()),

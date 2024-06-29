@@ -35,7 +35,7 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="22.0" prefWidth="526.0" spacing="30.0">
                <children>
-                  <Hyperlink text="Upload deck">
+                  <Hyperlink onMouseClicked="#uploadDeck" text="Upload deck">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -45,7 +45,7 @@
                         <Font size="16.0" />
                      </font>
                   </Hyperlink>
-                  <Hyperlink text="Download deck">
+                  <Hyperlink onMouseClicked="#downloadDeck" text="Download deck">
                      <font>
                         <Font size="16.0" />
                      </font>
