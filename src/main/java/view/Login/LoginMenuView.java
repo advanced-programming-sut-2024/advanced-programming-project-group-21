@@ -33,7 +33,7 @@ public class LoginMenuView extends Application {
         stage.show();
     }
     private static void setBackGround(AnchorPane root) {
-        Image image = new Image("file:src/main/resources/Images/BackGrounds/LoginMenuBackGround.jpg");
+        Image image = new Image("file:src/main/resources/Images/BackGrounds/LoginMenu.jpg");
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         Background background = new Background(backgroundImage);

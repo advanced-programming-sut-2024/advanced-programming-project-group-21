@@ -4,7 +4,10 @@
     "nickname": "a",
     "password": "a",
     "email": "a",
-    "questions": {},
+    "questions": {
+      "what is your high school name?": "a",
+      "In what city were you born?": "a"
+    },
     "rank": 0,
     "highestScore": 0.0,
     "gamesPlayed": 0,

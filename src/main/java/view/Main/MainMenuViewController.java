@@ -4,11 +4,13 @@ import controller.ApplicationController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.MediaPlayer;
 import model.User.User;
 import view.Login.LoginMenuView;
 import view.Pregame.PregameMenu;
 import view.Pregame.PregameMenuView;
 import view.Profile.ProfileMenuView;
+import view.ScoreBoard.ScoreBoardView;
 
 public class MainMenuViewController {
     @FXML
@@ -41,6 +43,7 @@ public class MainMenuViewController {
     }
 
     public void logout(MouseEvent mouseEvent) {
+        User.saveUsersToJson();
         ApplicationController.setLoggedInUser(null);
         try {
             new LoginMenuView().start(ApplicationController.getStage());
@@ -54,6 +57,11 @@ public class MainMenuViewController {
         System.exit(0);
     }
 
-    public void goToSettingMenu(MouseEvent mouseEvent) {
+    public void goToScoreMenu(MouseEvent mouseEvent) {
+        try {
+            new ScoreBoardView().start(ApplicationController.getStage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
