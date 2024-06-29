@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+
+.root {
+    -fx-font-family: 'MedievalSharp', cursive;
+}
+
+.button {
+    -fx-background-color: #4a4a4a; /* Dark grey background */
+    -fx-text-fill: #ffffff; /* White text */
+    -fx-border-color: #6b6b6b; /* Slightly lighter grey border */
+    -fx-border-width: 1px;
+    -fx-padding: 5 10 5 10;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
+.button:hover {
+    -fx-background-color: #6b6b6b; /* Slightly lighter grey on hover */
+}
+
+.text-field {
+    -fx-background-color: #2e2e2e; /* Dark background */
+    -fx-text-fill: #ffffff; /* White text */
+    -fx-prompt-text-fill: #a1a1a1; /* Grey prompt text */
+    -fx-border-color: #4a4a4a; /* Dark grey border */
+    -fx-border-width: 1px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5 10 5 10;
+}
+
+.label {
+    -fx-background-color: #2e2e2e; /* Dark background */
+    -fx-text-fill: #ffffff; /* White text */
+    -fx-prompt-text-fill: #a1a1a1; /* Grey prompt text */
+    -fx-border-color: #4a4a4a; /* Dark grey border */
+    -fx-border-width: 1px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-padding: 2 4 2 4;
+}
+
+.vbox {
+    -fx-background-color: rgba(0, 0, 0, 0.3); /* More transparent dark overlay */
+    -fx-padding: 20;
+    -fx-spacing: 20;
+}

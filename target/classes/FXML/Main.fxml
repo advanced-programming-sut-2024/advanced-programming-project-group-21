@@ -4,17 +4,21 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="750" prefWidth="1500" xmlns="http://javafx.com/javafx/17.0.2-ea"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Main.MainMenuViewController">
-    <VBox alignment="CENTER" layoutX="600.0" layoutY="128.0" prefHeight="500.0" prefWidth="300.0" spacing="20.0">
-        <Label alignment="CENTER" minHeight="30.0" prefWidth="90.0" text="Main Menu"/>
-        <Button fx:id="Start" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" text="New Game"/>
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Main.MainMenuViewController"
+            stylesheets="@../CSS/VboxStyle.css">
+    <VBox alignment="CENTER" layoutX="600.0" layoutY="128.0" prefHeight="500.0" prefWidth="300.0" spacing="20.0"
+          styleClass="vbox">
+        <Label alignment="CENTER" minHeight="30.0" prefWidth="90.0" text="Main Menu" styleClass="label"/>
+        <Button fx:id="Start" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" text="New Game"
+                styleClass="button"/>
         <Button fx:id="ProfileMenu" lineSpacing="20.0" mnemonicParsing="false" onMouseClicked="#goToProfileMenu"
-                prefHeight="30.0" prefWidth="90.0" text="Profile Menu"/>
+                prefHeight="30.0" prefWidth="90.0" text="Profile Menu" styleClass="button"/>
         <Button layoutX="115.0" layoutY="245.0" lineSpacing="20.0" mnemonicParsing="false"
-                onMouseClicked="#goToScoreMenu" prefHeight="30.0" prefWidth="90.0" text="Score Menu"/>
+                onMouseClicked="#goToScoreMenu" prefHeight="30.0" prefWidth="90.0" text="Score Menu"
+                styleClass="button"/>
         <Button fx:id="Logout" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="30.0" prefWidth="90.0"
-                text="Logout"/>
+                text="Logout" styleClass="button"/>
         <Button fx:id="Exit" mnemonicParsing="false" onMouseClicked="#exitGame" prefHeight="30.0" prefWidth="90.0"
-                text="Exit Game"/>
+                text="Exit Game" styleClass="button"/>
     </VBox>
 </AnchorPane>
