@@ -1,5 +1,6 @@
 package model;
 
+import enums.GameStates;
 import javafx.scene.layout.AnchorPane;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ public class Game {
     private Player enemyPlayer;
     private ArrayList<AnchorPane> player1Hand;
     private ArrayList<AnchorPane> player2Hand;
+    private GameStates gameState;
 
     public Game(PreGame preGame) {
         this.player1 = preGame.getPlayer1();
@@ -77,5 +79,21 @@ public class Game {
 
     public void removeFromPlayer2Hand(AnchorPane card) {
         player2Hand.remove(card);
+    }
+
+    public GameStates getGameState() {
+        return gameState;
+    }
+
+    public void setGameState(GameStates gameState) {
+        this.gameState = gameState;
+    }
+
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    public void setEnemyPlayer(Player enemyPlayer) {
+        this.enemyPlayer = enemyPlayer;
     }
 }
