@@ -1,6 +1,9 @@
 package controller;
 
+import model.Card;
 import model.Player;
+
+import java.util.ArrayList;
 
 public class GameMenuController {
 
@@ -98,5 +101,16 @@ public class GameMenuController {
 
     private void completeGameHistory(Player player1, Player player2){
 
+    }
+
+    public void shuffleDeckCards(Player player) {
+        ArrayList<Card> cards = player.getDeck();
+        for (int i = 0; i < cards.size(); i++) {
+            int randomIndex = (int) (Math.random() * cards.size());
+            Card temp = cards.get(i);
+            cards.set(i, cards.get(randomIndex));
+            cards.set(randomIndex, temp);
+        }
+        player.setDeck(cards);
     }
 }

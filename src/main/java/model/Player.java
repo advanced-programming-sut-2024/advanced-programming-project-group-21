@@ -9,10 +9,10 @@ import model.User.User;
 import java.util.ArrayList;
 
 public class Player extends User {
-    private static ArrayList<Card> hand = new ArrayList<>();
-    private static ArrayList<Card> deck = new ArrayList<>();
-    private static ArrayList<Card> discardPile = new ArrayList<>();
-    private static User user;
+    private ArrayList<Card> hand = new ArrayList<>();
+    private ArrayList<Card> deck = new ArrayList<>();
+    private ArrayList<Card> discardPile = new ArrayList<>();
+    private User user;
     private int availableCards = 0;
     private CommandersEnum commander;
     private int lives;
@@ -26,36 +26,36 @@ public class Player extends User {
         super(user.getUsername(), user.getNickname(), user.getPassword(), user.getEmail());
     }
 
-    public static ArrayList<Card> getHand() {
-        return hand;
+    public ArrayList<Card> getHand() {
+        return this.hand;
     }
 
-    public static void setHand(ArrayList<Card> hand) {
-        Player.hand = hand;
+    public void setHand(ArrayList<Card> hand) {
+        this.hand = hand;
     }
 
-    public static ArrayList<Card> getDeck() {
-        return deck;
+    public ArrayList<Card> getDeck() {
+        return this.deck;
     }
 
-    public static void setDeck(ArrayList<Card> deck) {
-        Player.deck = deck;
+    public void setDeck(ArrayList<Card> deck) {
+        this.deck = deck;
     }
 
-    public static ArrayList<Card> getDiscardPile() {
+    public ArrayList<Card> getDiscardPile() {
         return discardPile;
     }
 
-    public static void setDiscardPile(ArrayList<Card> discardPile) {
-        Player.discardPile = discardPile;
+    public void setDiscardPile(ArrayList<Card> discardPile) {
+        this.discardPile = discardPile;
     }
 
-    public static User getUser() {
+    public User getUser() {
         return user;
     }
 
-    public static void setUser(User user) {
-        Player.user = user;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getAvailableCards() {
@@ -121,4 +121,6 @@ public class Player extends User {
     public static void deleteFromDeck(int cardNumber, int count) {
 
     }
+
+
 }
