@@ -89,7 +89,7 @@ public class GameMenuViewController {
         loadHand();
     }
 
-    private void loadTable(){
+    private void loadTable() {
         Player currentPlayer = ApplicationController.game.getCurrentPlayer();
         Player enemyPlayer = ApplicationController.game.getEnemyPlayer();
 
@@ -98,14 +98,57 @@ public class GameMenuViewController {
         loadCommanders();
         loadInfo();
         setDeckSizeLabel();
+        updateCardCount();
+    }
 
+    private void updateCardCount() {
+        Player currentPlayer = ApplicationController.game.getCurrentPlayer();
+        Player enemyPlayer = ApplicationController.game.getEnemyPlayer();
+
+        int userCardCount = currentPlayer.getHand().size();
+        int enemyCardCount = enemyPlayer.getHand().size();
+
+        this.userCardCount.setText(Integer.toString(userCardCount));
+        this.enemyCardCount.setText(Integer.toString(enemyCardCount));
     }
 
     private void loadInfo() {
+        Player currentPlayer = ApplicationController.game.getCurrentPlayer();
+        Player enemyPlayer = ApplicationController.game.getEnemyPlayer();
 
+        userName.setText(currentPlayer.getNickname());
+        enemyName.setText(enemyPlayer.getNickname());
+
+        userFaction.setText(currentPlayer.getCurrentFaction().name());
+        enemyFaction.setText(enemyPlayer.getCurrentFaction().name());
+
+        int userLives = currentPlayer.getLives();
+        int enemyLives = enemyPlayer.getLives();
+
+        if (userLives == 2) {
+            userLive1.setVisible(true);
+            userLive2.setVisible(true);
+        } else if (userLives == 1) {
+            userLive1.setVisible(true);
+            userLive2.setVisible(false);
+        } else {
+            userLive1.setVisible(false);
+            userLive2.setVisible(false);
+        }
+
+        if (enemyLives == 2) {
+            enemyLive1.setVisible(true);
+            enemyLive2.setVisible(true);
+        } else if (enemyLives == 1) {
+            enemyLive1.setVisible(true);
+            enemyLive2.setVisible(false);
+        } else {
+            enemyLive1.setVisible(false);
+            enemyLive2.setVisible(false);
+        }
     }
 
-    private AnchorPane createCommanderPane(CommandersEnum commandersEnum){
+    private AnchorPane createCommanderPane(CommandersEnum commandersEnum) {
         AnchorPane commanderPane = new AnchorPane();
         commanderPane.setId(commandersEnum.name());
         commanderPane.setUserData(commandersEnum);
@@ -143,13 +186,13 @@ public class GameMenuViewController {
         enemyCommanderPane.getChildren().clear();
         enemyCommanderPane.getChildren().add(enemyCommander);
 
-        if(currentPlayer.isDoneAction()){
+        if (currentPlayer.isDoneAction()) {
             userCommanderActive.setVisible(false);
         } else {
             userCommanderActive.setVisible(true);
         }
 
-        if(enemyPlayer.isDoneAction()){
+        if (enemyPlayer.isDoneAction()) {
             enemyCommanderActive.setVisible(false);
         } else {
             enemyCommanderActive.setVisible(true);
@@ -168,19 +211,19 @@ public class GameMenuViewController {
         AnchorPane enemyRanged = enemyPlayer.getRangedCombatSpecial();
         AnchorPane enemySiege = enemyPlayer.getSiegeCombatSpecial();
 
-        if(userClosed != null)
-            userClosedSpecial= userClosed;
-        if(userRanged != null)
-            userRangedSpecial= userRanged;
-        if(userSiege != null)
-            userSiegeSpecial= userSiege;
+        if (userClosed != null)
+            userClosedSpecial = userClosed;
+        if (userRanged != null)
+            userRangedSpecial = userRanged;
+        if (userSiege != null)
+            userSiegeSpecial = userSiege;
 
-        if(enemyClosed != null)
-            enemyClosedSpecial= enemyClosed;
-        if(enemyRanged != null)
-            enemyRangeSpecial= enemyRanged;
-        if(enemySiege != null)
-            enemySiegeSpecial= enemySiege;
+        if (enemyClosed != null)
+            enemyClosedSpecial = enemyClosed;
+        if (enemyRanged != null)
+            enemyRangeSpecial = enemyRanged;
+        if (enemySiege != null)
+            enemySiegeSpecial = enemySiege;
     }
 
     private void loadCards() {
@@ -231,17 +274,17 @@ public class GameMenuViewController {
 
     private void loadPositions(ArrayList<AnchorPane> currentPlayerClosedCombatUnits, ArrayList<AnchorPane> currentPlayerRangedCombatUnits, ArrayList<AnchorPane> currentPlayerSiegeCombatUnits, HBox userClosedHBox, HBox userRangedHBox, HBox userSiegeHBox) {
         userClosedHBox.getChildren().clear();
-        for(AnchorPane card : currentPlayerClosedCombatUnits) {
+        for (AnchorPane card : currentPlayerClosedCombatUnits) {
             userClosedHBox.getChildren().add(card);
         }
 
         userRangedHBox.getChildren().clear();
-        for(AnchorPane card : currentPlayerRangedCombatUnits) {
+        for (AnchorPane card : currentPlayerRangedCombatUnits) {
             userRangedHBox.getChildren().add(card);
         }
 
         userSiegeHBox.getChildren().clear();
-        for(AnchorPane card : currentPlayerSiegeCombatUnits) {
+        for (AnchorPane card : currentPlayerSiegeCombatUnits) {
             userSiegeHBox.getChildren().add(card);
         }
     }
@@ -250,7 +293,7 @@ public class GameMenuViewController {
         Player currentPlayer = ApplicationController.game.getCurrentPlayer();
 
         ArrayList<AnchorPane> currentPlayerHand = new ArrayList<>();
-        if(currentPlayer.equals(ApplicationController.game.getPlayer1())) {
+        if (currentPlayer.equals(ApplicationController.game.getPlayer1())) {
             currentPlayerHand = ApplicationController.game.getPlayer1Hand();
         } else {
             currentPlayerHand = ApplicationController.game.getPlayer2Hand();
@@ -258,7 +301,7 @@ public class GameMenuViewController {
 
         handHBox.getChildren().clear();
 
-        for(AnchorPane card : currentPlayerHand) {
+        for (AnchorPane card : currentPlayerHand) {
             handHBox.getChildren().add(card);
         }
     }
@@ -272,12 +315,12 @@ public class GameMenuViewController {
         ArrayList<Card> player1Hand = player1.getHand();
         ArrayList<Card> player2Hand = player2.getHand();
 
-        for(Card card : player1Hand) {
+        for (Card card : player1Hand) {
             AnchorPane cardAnchorPane = createCard(card);
             ApplicationController.game.getPlayer1Hand().add(cardAnchorPane);
         }
 
-        for(Card card : player2Hand) {
+        for (Card card : player2Hand) {
             AnchorPane cardAnchorPane = createCard(card);
             ApplicationController.game.getPlayer2Hand().add(cardAnchorPane);
         }
@@ -290,8 +333,8 @@ public class GameMenuViewController {
         int userDeckSize = userPlayer.getDeck().size();
         int enemyDeckSize = enemyPlayer.getDeck().size();
 
-        ((Label)(userDeck.getChildren().get(2))).setText(Integer.toString(userDeckSize));
-        ((Label)(enemyDeck.getChildren().get(2))).setText(Integer.toString(enemyDeckSize));
+        ((Label) (userDeck.getChildren().get(2))).setText(Integer.toString(userDeckSize));
+        ((Label) (enemyDeck.getChildren().get(2))).setText(Integer.toString(enemyDeckSize));
     }
 
 
@@ -300,7 +343,7 @@ public class GameMenuViewController {
         cardAnchorPane.setId(card.getCardEnum().name());
         cardAnchorPane.setUserData(card);
 
-        setCardSize(cardAnchorPane,90,63);
+        setCardSize(cardAnchorPane, 90, 63);
 
         ImageView cardImageView = getCardImageView(card, cardAnchorPane.getHeight(), cardAnchorPane.getWidth());
         cardAnchorPane.getChildren().add(cardImageView);
@@ -308,11 +351,11 @@ public class GameMenuViewController {
         return cardAnchorPane;
     }
 
-    private ImageView getCardImageView(Card card,double height, double width) {
+    private ImageView getCardImageView(Card card, double height, double width) {
         return getImageView(height, width, card.getInGameImage());
     }
 
-    private void setCardSize(AnchorPane card, double height, double width){
+    private void setCardSize(AnchorPane card, double height, double width) {
         card.setPrefHeight(height);
         card.setMinHeight(height);
         card.setMaxHeight(height);

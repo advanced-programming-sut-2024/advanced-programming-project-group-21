@@ -20,6 +20,7 @@ public class Player extends User {
     private int roundsWon = 0;
     private int roundsLost = 0;
     private int roundsDrawn = 0;
+    private int lives = 2;
 
     private ArrayList<AnchorPane> closedCombatUnits = new ArrayList<>();
     private ArrayList<AnchorPane> rangedCombatUnits = new ArrayList<>();
@@ -273,5 +274,13 @@ public class Player extends User {
 
     public void setCommanderPane(AnchorPane commanderPane) {
         this.commanderPane = commanderPane;
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
     }
 }
