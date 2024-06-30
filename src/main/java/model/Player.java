@@ -192,7 +192,7 @@ public class Player extends User {
     public void removeFromSiegeCombatUnits(AnchorPane card) {
         this.siegeCombatUnits.remove(card);
     }
-    
+
     public void addToDiscardPile(Card card) {
         this.discardPile.add(card);
     }
