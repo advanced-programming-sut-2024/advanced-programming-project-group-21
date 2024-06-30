@@ -23,6 +23,7 @@ import model.PreGame;
 import view.Commander.CommanderMenuView;
 import view.Faction.FactionMenu;
 import view.Faction.FactionMenuView;
+import view.Game.GameMenuView;
 
 import java.util.ArrayList;
 
@@ -392,7 +393,7 @@ public class PregameMenuViewController {
         countImageView.setLayoutY(200);
         countImageView.setPickOnBounds(true);
         countImageView.setPreserveRatio(true);
-        Image countImage = new Image(card.getPreGameImage());
+        Image countImage = new Image("file:src/main/resources/Images/Icons/icon_card_count.png");
         countImageView.setImage(countImage);
 
         return countImageView;
@@ -400,9 +401,11 @@ public class PregameMenuViewController {
 
     private Text getCountText1(Card card) {
         Text countText = new Text();
-        countText.setLayoutX(124);
-        countText.setLayoutY(200);
+        countText.setLayoutX(118);
+        countText.setLayoutY(215);
         countText.setText("1");
+        // set font to 20 pixel
+        countText.setStyle("-fx-font: 18 arial;");
 
         return countText;
     }
@@ -449,7 +452,11 @@ public class PregameMenuViewController {
                 e.printStackTrace();
             }
         } else {
-            // TODO: enter game
+            try{
+                new GameMenuView().start(ApplicationController.getStage());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

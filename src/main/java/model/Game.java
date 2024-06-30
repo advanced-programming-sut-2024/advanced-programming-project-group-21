@@ -10,8 +10,8 @@ public class Game {
     private Player player2;
     private Player currentPlayer;
     private Player enemyPlayer;
-    private ArrayList<AnchorPane> player1Hand;
-    private ArrayList<AnchorPane> player2Hand;
+    private ArrayList<AnchorPane> player1Hand = new ArrayList<>();
+    private ArrayList<AnchorPane> player2Hand = new ArrayList<>();
     private GameStates gameState;
 
     public Game(PreGame preGame) {

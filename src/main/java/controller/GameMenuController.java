@@ -137,7 +137,7 @@ public class GameMenuController {
         ArrayList<Card> deck = currentPlayer.getDeck();
         ArrayList<Card> hand = new ArrayList<>();
 
-        for (int i = 9; i >= 0; i++) {
+        for (int i = 9; i >= 0; i--) {
             hand.add(deck.get(i));
             deck.remove(i);
         }
@@ -149,7 +149,7 @@ public class GameMenuController {
         deck = enemyPlayer.getDeck();
         hand = new ArrayList<>();
 
-        for (int i = 9; i >= 0; i++) {
+        for (int i = 9; i >= 0; i--) {
             hand.add(deck.get(i));
             deck.remove(i);
         }

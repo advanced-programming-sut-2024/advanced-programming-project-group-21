@@ -25,7 +25,6 @@ public class Player extends User {
     private ArrayList<AnchorPane> closedCombatUnits = new ArrayList<>();
     private ArrayList<AnchorPane> rangedCombatUnits = new ArrayList<>();
     private ArrayList<AnchorPane> siegeCombatUnits = new ArrayList<>();
-    private ArrayList<AnchorPane> handPane = new ArrayList<>();
 
     private AnchorPane closedCombatSpecial;
     private AnchorPane rangedCombatSpecial;
@@ -193,15 +192,7 @@ public class Player extends User {
     public void removeFromSiegeCombatUnits(AnchorPane card) {
         this.siegeCombatUnits.remove(card);
     }
-
-    public void addToHandPane(AnchorPane card) {
-        this.handPane.add(card);
-    }
-
-    public void removeFromHandPane(AnchorPane card) {
-        this.handPane.remove(card);
-    }
-
+    
     public void addToDiscardPile(Card card) {
         this.discardPile.add(card);
     }
