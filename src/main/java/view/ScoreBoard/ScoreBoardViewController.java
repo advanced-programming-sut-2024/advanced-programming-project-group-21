@@ -6,8 +6,6 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import model.User.User;
 import view.Main.MainMenuView;
-import view.Main.MainMenuViewController;
-import view.UserInfo.UserInfoMenuView;
 
 import static java.lang.Math.min;
 
