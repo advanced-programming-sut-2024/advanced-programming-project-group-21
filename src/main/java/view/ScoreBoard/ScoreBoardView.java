@@ -15,6 +15,10 @@ import java.net.URL;
 public class ScoreBoardView extends Application {
     ScoreBoardViewController controller;
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
         stage.setResizable(false);
@@ -31,7 +35,7 @@ public class ScoreBoardView extends Application {
     }
 
     private void setBackGround(AnchorPane root) {
-        Image image = new Image("file:src/main/resources/Images/BackGrounds/LoginMenuBackGround.jpg");
+        Image image = new Image("file:src/main/resources/Images/BackGrounds/LoginMenu.jpg");
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         Background background = new Background(backgroundImage);

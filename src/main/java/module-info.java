@@ -7,9 +7,12 @@ module witcher {
 
 
     exports view;
+    exports model.User;
+    opens view.ScoreBoard;
     opens view to javafx.fxml;
     opens model.User to com.google.gson;
     exports view.Login;
+    exports view.ScoreBoard;
     opens view.Login to javafx.fxml;
     exports view.Main;
     opens view.Main to javafx.fxml;
