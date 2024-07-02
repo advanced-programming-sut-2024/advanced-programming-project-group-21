@@ -10,7 +10,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import model.User.User;
-import view.Main.MainMenuView;
+import view.Profile.ProfileMenuView;
 
 public class QuestionMenuViewController {
 
@@ -29,7 +29,7 @@ public class QuestionMenuViewController {
 
     public void goToProfileMenu(MouseEvent mouseEvent) {
         try {
-            new MainMenuView().start(ApplicationController.getStage());
+            new ProfileMenuView().start(ApplicationController.getStage());
         } catch (Exception e) {
             e.printStackTrace();
         }
