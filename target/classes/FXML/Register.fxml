@@ -3,27 +3,37 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="750" prefWidth="1500" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Register.RegisterMenuViewController">
-   <children>
-      <Button layoutX="14.0" layoutY="706.0" mnemonicParsing="false" onMouseClicked="#goBackToLoginMenu" prefHeight="30.0" prefWidth="90.0" text="Back" />
-      <VBox alignment="CENTER" layoutX="600.0" layoutY="125.0" prefHeight="500.0" prefWidth="300.0" spacing="20.0">
-         <children>
-            <Label text="Register" />
-            <VBox alignment="TOP_CENTER" prefHeight="59.0" prefWidth="208.0" spacing="5.0">
-               <children>
-                  <TextField fx:id="nicknameField" alignment="CENTER" promptText="Nickname" />
-                  <TextField fx:id="usernameField" alignment="CENTER" promptText="Username" />
-                  <TextField fx:id="emailField" alignment="CENTER" promptText="Email" />
-               </children>
-            </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="8.0" prefWidth="208.0" spacing="5.0">
-               <children>
-                  <PasswordField fx:id="passwordField" alignment="CENTER" promptText="Password" />
-                  <TextField fx:id="confirmPasswordField" alignment="CENTER" promptText="Confirm password" />
-                  <Hyperlink onMouseClicked="#generateStrongPassword" text="Generate strong password" />
-               </children>
-            </VBox>
-            <Button mnemonicParsing="false" onMouseClicked="#register" text="Register" />
-         </children></VBox>
-   </children>
+<AnchorPane prefHeight="750" prefWidth="1500" xmlns="http://javafx.com/javafx/17.0.2-ea"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="view.Register.RegisterMenuViewController"
+            stylesheets="@../CSS/VboxStyle.css">
+    <children>
+        <Button layoutX="14.0" layoutY="706.0" mnemonicParsing="false" onMouseClicked="#goBackToLoginMenu"
+                prefHeight="30.0" prefWidth="90.0" text="Back"/>
+        <VBox alignment="CENTER" layoutX="600.0" layoutY="125.0" prefHeight="500.0" prefWidth="300.0" spacing="20.0"
+              styleClass="vbox">
+            <children>
+                <Label text="Register" styleClass="label"/>
+                <VBox alignment="TOP_CENTER" prefHeight="59.0" prefWidth="208.0" spacing="5.0">
+                    <children>
+                        <TextField fx:id="nicknameField" alignment="CENTER" promptText="Nickname"
+                                   styleClass="text-field"/>
+                        <TextField fx:id="usernameField" alignment="CENTER" promptText="Username"
+                                   styleClass="text-field"/>
+                        <TextField fx:id="emailField" alignment="CENTER" promptText="Email" styleClass="text-field"/>
+                    </children>
+                </VBox>
+                <VBox alignment="TOP_CENTER" prefHeight="8.0" prefWidth="208.0" spacing="5.0">
+                    <children>
+                        <PasswordField fx:id="passwordField" alignment="CENTER" promptText="Password"
+                                       styleClass="text-field"/>
+                        <TextField fx:id="confirmPasswordField" alignment="CENTER" promptText="Confirm password"
+                                   styleClass="text-field"/>
+                        <Hyperlink onMouseClicked="#generateStrongPassword" text="Generate strong password"/>
+                    </children>
+                </VBox>
+                <Button mnemonicParsing="false" onMouseClicked="#register" text="Register" styleClass="button"/>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>
