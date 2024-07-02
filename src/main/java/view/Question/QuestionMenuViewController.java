@@ -24,7 +24,7 @@ public class QuestionMenuViewController {
     private TextField securityAnswerField;
 
     QuestionMenuController controller = new QuestionMenuController();
-    User currentUser = User.getLoggedInUser();
+    User currentUser = ApplicationController.getLoggedInUser();
 
 
     public void goToProfileMenu(MouseEvent mouseEvent) {
@@ -52,19 +52,17 @@ public class QuestionMenuViewController {
         String answer = securityAnswerField.getText().strip().toLowerCase();
         int result = controller.submitAnswer(answer, question);
         if (result != 0) {
-            if (result != 0) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                if (result == 1) {
-                    emptyQuestionError(alert);
-                } else if (result == 2) {
-                    emptyAnswerError(alert);
-                }
-            } else {
-                currentUser.addToQuestionAnswers(question, answer);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            if (result == 1) {
+                emptyQuestionError(alert);
+            } else if (result == 2) {
+                emptyAnswerError(alert);
             }
+        } else {
+            currentUser.addToQuestionAnswers(question, answer);
         }
-
     }
+
 
     private void emptyAnswerError(Alert alert) {
         alert.setTitle("Answer field is empty");
@@ -73,10 +71,11 @@ public class QuestionMenuViewController {
         alert.show();
     }
 
-    private void emptyQuestionError(Alert alert){
+    private void emptyQuestionError(Alert alert) {
         alert.setTitle("Question field is empty");
         alert.setHeaderText("Question empty");
         alert.setContentText("Please fill question");
         alert.show();
     }
 }
+
