@@ -11,6 +11,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import model.User.User;
 import view.Main.MainMenuView;
+import view.Profile.ProfileMenuView;
+import view.Profile.ProfileMenuViewController;
+import view.Register.RegisterMenuView;
 
 public class QuestionMenuViewController {
 
@@ -46,7 +49,6 @@ public class QuestionMenuViewController {
         }
     }
 
-
     public void submitAnswer(MouseEvent mouseEvent) {
         String question = securityQuestionChoiceBox.getValue();
         String answer = securityAnswerField.getText().strip().toLowerCase();
@@ -60,9 +62,14 @@ public class QuestionMenuViewController {
             }
         } else {
             currentUser.addToQuestionAnswers(question, answer);
+            try {
+                new ProfileMenuView().start(ApplicationController.getStage());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-    }
 
+    }
 
     private void emptyAnswerError(Alert alert) {
         alert.setTitle("Answer field is empty");
@@ -78,4 +85,3 @@ public class QuestionMenuViewController {
         alert.show();
     }
 }
-

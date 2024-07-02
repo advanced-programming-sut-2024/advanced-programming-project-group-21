@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import model.User.User;
 import view.Register.RegisterMenu;
 
 import java.net.URL;
@@ -20,7 +21,6 @@ public class LoginMenuView extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-
         stage.setResizable(false);
         stage.centerOnScreen();
         ApplicationController.setStage(stage);
@@ -33,8 +33,8 @@ public class LoginMenuView extends Application {
         stage.setScene(scene);
         stage.show();
     }
-    private static void setBackGround(AnchorPane root) {
-        Image image = new Image("file:src/main/resources/BackGrounds/LoginMenuBackGround.jpg");
+    private void setBackGround(AnchorPane root) {
+        Image image = new Image("file:src/main/resources/Images/BackGrounds/LoginMenu.jpg");
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         Background background = new Background(backgroundImage);
