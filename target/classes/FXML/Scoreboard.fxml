@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="view.ScoreBoard.ScoreboardViewController"
+            prefHeight="750" prefWidth="1500"
+            stylesheets="@../CSS/VboxStyle.css">
+
+    <VBox alignment="CENTER" spacing="10.0"
+          AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+          AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+          styleClass="vbox">
+        <Label id="label" text="Score Board"/>
+        <HBox alignment="CENTER" spacing="10">
+            <Label id="label" text="username" styleClass="label"/>
+            <Label id="label" text="highscore" styleClass="label"/>
+            <Label id="label" text="wins" styleClass="label"/>
+        </HBox>
+        <HBox alignment="CENTER" spacing="50">
+            <Label id="label" text="1)" textFill="gold" styleClass="label"/>
+            <Label fx:id="username1" text="---" textFill="gold" styleClass="label"/>
+            <Label fx:id="score1" text="---" textFill="gold" styleClass="label"/>
+            <Label fx:id="wins1" text="---" textFill="gold" styleClass="label"/>
+        </HBox>
+        <HBox alignment="CENTER" spacing="50">
+            <Label id="label" text="2)" textFill="silver" styleClass="label"/>
+            <Label fx:id="username2" text="---" textFill="silver" styleClass="label"/>
+            <Label fx:id="score2" text="---" textFill="silver" styleClass="label"/>
+            <Label fx:id="wins2" text="---" textFill="silver" styleClass="label"/>
+        </HBox>
+        <HBox alignment="CENTER" spacing="50">
+            <Label id="label" text="3)" textFill="brown" styleClass="label"/>
+            <Label fx:id="username3" text="---" textFill="brown" styleClass="label"/>
+            <Label fx:id="score3" text="---" textFill="brown" styleClass="label"/>
+            <Label fx:id="wins3" text="---" textFill="brown" styleClass="label"/>
+        </HBox>
+        <HBox alignment="CENTER" spacing="50">
+            <Label id="label" text="4)" styleClass="label"/>
+            <Label fx:id="username4" text="---" styleClass="label"/>
+            <Label fx:id="score4" text="---" styleClass="label"/>
+            <Label fx:id="wins4" text="---" styleClass="label"/>
+        </HBox>
+        <HBox alignment="CENTER" spacing="50">
+            <Label id="label" text="5)" styleClass="label"/>
+            <Label fx:id="username5" text="---" styleClass="label"/>
+            <Label fx:id="score5" text="---" styleClass="label"/>
+            <Label fx:id="wins5" text="---" styleClass="label"/>
+        </HBox>
+        <HBox alignment="CENTER" spacing="50">
+            <Label id="label" text="6)" styleClass="label"/>
+            <Label fx:id="username6" text="---" styleClass="label"/>
+            <Label fx:id="score6" text="---" styleClass="label"/>
+            <Label fx:id="wins6" text="---" styleClass="label"/>
+        </HBox>
+        <HBox alignment="CENTER" spacing="50">
+            <Label id="label" text="7)" styleClass="label"/>
+            <Label fx:id="username7" text="---" styleClass="label"/>
+            <Label fx:id="score7" text="---" styleClass="label"/>
+            <Label fx:id="wins7" text="---" styleClass="label"/>
+        </HBox>
+        <HBox alignment="CENTER" spacing="50">
+            <Label id="label" text="8)" styleClass="label"/>
+            <Label fx:id="username8" text="---" styleClass="label"/>
+            <Label fx:id="score8" text="---" styleClass="label"/>
+            <Label fx:id="wins8" text="---" styleClass="label"/>
+        </HBox>
+        <HBox alignment="CENTER" spacing="50">
+            <Label id="label" text="9)" styleClass="label"/>
+            <Label fx:id="username9" text="---" styleClass="label"/>
+            <Label fx:id="score9" text="---" styleClass="label"/>
+            <Label fx:id="wins9" text="---" styleClass="label"/>
+        </HBox>
+        <HBox alignment="CENTER" spacing="50">
+            <Label id="label" text="10)" styleClass="label"/>
+            <Label fx:id="username10" text="---" styleClass="label"/>
+            <Label fx:id="score10" text="---" styleClass="label"/>
+            <Label fx:id="wins10" text="---" styleClass="label"/>
+        </HBox>
+        <Button mnemonicParsing="false" onMouseClicked="#back" text="Back"/>
+    </VBox>
+</AnchorPane>

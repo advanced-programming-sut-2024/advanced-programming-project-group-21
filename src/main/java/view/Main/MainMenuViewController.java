@@ -9,6 +9,7 @@ import view.Login.LoginMenuView;
 import view.Pregame.PregameMenu;
 import view.Pregame.PregameMenuView;
 import view.Profile.ProfileMenuView;
+import view.ScoreBoard.ScoreBoardView;
 
 public class MainMenuViewController {
     @FXML
@@ -42,6 +43,7 @@ public class MainMenuViewController {
 
     public void logout(MouseEvent mouseEvent) {
         ApplicationController.setLoggedInUser(null);
+        User.saveUsersToJson();
         try {
             new LoginMenuView().start(ApplicationController.getStage());
         } catch (Exception e) {
@@ -54,6 +56,11 @@ public class MainMenuViewController {
         System.exit(0);
     }
 
-    public void goToSettingMenu(MouseEvent mouseEvent) {
+    public void goToScoreboard(MouseEvent mouseEvent) {
+        try {
+            new ScoreBoardView().start(ApplicationController.getStage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -8,6 +8,7 @@
         <Label alignment="CENTER" minHeight="30.0" prefHeight="30.0" prefWidth="163.0" styleClass="label" text="Main Menu" />
         <Button fx:id="Start" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" styleClass="button" text="Start" />
         <Button fx:id="ProfileMenu" lineSpacing="20.0" mnemonicParsing="false" onMouseClicked="#goToProfileMenu" prefHeight="30.0" prefWidth="90.0" styleClass="button" text="Profile" />
+        <Button mnemonicParsing="false" onMouseClicked="#goToScoreboard" prefHeight="30.0" prefWidth="90.0" styleClass="button" text="Scoreboard" />
         <Button fx:id="Logout" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="30.0" prefWidth="90.0" styleClass="button" text="Logout" />
         <Button fx:id="Exit" mnemonicParsing="false" onMouseClicked="#exitGame" prefHeight="30.0" prefWidth="90.0" styleClass="button" text="Exit Game" />
     </VBox>

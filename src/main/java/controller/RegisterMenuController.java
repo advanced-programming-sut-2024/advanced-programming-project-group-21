@@ -26,7 +26,7 @@ public class RegisterMenuController {
             return result;
         User user = new User(username, nickname, password, email);
         User.addUserToUsers(user);
-        ApplicationController.setLoggedInUser(user);
+        User.saveUsersToJson();
         return 0;
     }
 

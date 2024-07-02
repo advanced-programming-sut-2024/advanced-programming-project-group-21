@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import model.User.User;
 import view.Login.LoginMenuView;
 import view.ForgetPassword.ForgetPasswordMenuView;
 

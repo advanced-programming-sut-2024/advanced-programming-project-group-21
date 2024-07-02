@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import model.User.User;
 import view.Main.MainMenuView;
+import view.Profile.ProfileMenuView;
 
 public class QuestionMenuViewController {
 
@@ -60,6 +61,11 @@ public class QuestionMenuViewController {
             }
         } else {
             currentUser.addToQuestionAnswers(question, answer);
+            try {
+                new ProfileMenuView().start(ApplicationController.getStage());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

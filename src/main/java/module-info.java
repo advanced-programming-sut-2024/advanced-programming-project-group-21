@@ -7,6 +7,7 @@ module witcher {
 
 
     exports view;
+    exports view.ScoreBoard;
     opens model.User;
     opens view to javafx.fxml;
     opens model to com.fasterxml.jackson.databind;
