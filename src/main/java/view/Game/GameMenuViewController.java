@@ -79,6 +79,7 @@ public class GameMenuViewController {
             ApplicationController.game.getPlayer1().setCommanderPane(createCommanderPane(ApplicationController.game.getPlayer1().getCommander()));
             ApplicationController.game.getPlayer2().setCommanderPane(createCommanderPane(ApplicationController.game.getPlayer2().getCommander()));
             ApplicationController.game.setGameState(GameStates.ROUND_1_STARTED);
+            loadTable();
             loadHand();
         }
     }
@@ -161,17 +162,7 @@ public class GameMenuViewController {
         return commanderPane;
     }
 
-    private ImageView getImageView(double height, double width, String inGameImage) {
-        ImageView commanderImageView = new ImageView();
-        commanderImageView.setFitHeight(height);
-        commanderImageView.setFitWidth(width);
-        commanderImageView.setPickOnBounds(true);
-        commanderImageView.setPreserveRatio(true);
-        Image commanderImage = new Image(inGameImage);
-        commanderImageView.setImage(commanderImage);
 
-        return commanderImageView;
-    }
 
     private void loadCommanders() {
         Player currentPlayer = ApplicationController.game.getCurrentPlayer();
@@ -353,6 +344,18 @@ public class GameMenuViewController {
 
     private ImageView getCardImageView(Card card, double height, double width) {
         return getImageView(height, width, card.getInGameImage());
+    }
+
+    private ImageView getImageView(double height, double width, String inGameImage) {
+        ImageView commanderImageView = new ImageView();
+        commanderImageView.setPickOnBounds(true);
+        commanderImageView.setPreserveRatio(true);
+        Image commanderImage = new Image(inGameImage);
+        commanderImageView.setImage(commanderImage);
+        commanderImageView.setFitHeight(height);
+        commanderImageView.setFitWidth(width);
+
+        return commanderImageView;
     }
 
     private void setCardSize(AnchorPane card, double height, double width) {

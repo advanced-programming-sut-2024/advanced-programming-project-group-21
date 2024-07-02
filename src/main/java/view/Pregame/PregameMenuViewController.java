@@ -422,7 +422,6 @@ public class PregameMenuViewController {
         text.setText(Integer.toString(value - 1));
     }
 
-
     public void goToFaction(MouseEvent mouseEvent) {
         try {
             new FactionMenuView().start(ApplicationController.getStage());
