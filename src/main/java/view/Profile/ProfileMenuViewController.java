@@ -18,7 +18,7 @@ public class ProfileMenuViewController {
     public Button usernameButton;
     double answerTextFieldWidth = 200;
     TextField answerTextField = null;
-    TextField passwordAnswerTextField = null;
+    //TextField passwordAnswerTextField = null;
     Button submitChange = null;
     double distanceBetweenButtons = 33;
     String answer;
@@ -52,9 +52,9 @@ public class ProfileMenuViewController {
     }
 
     public void openChangePassword(MouseEvent mouseEvent) {
-        //TODO: debug password text field
+        removePasswordAnswerTextField();
         createFirstPasswordAnswerTextField(vbox.getLayoutX() - answerTextFieldWidth, vbox.getLayoutY() + 50 + distanceBetweenButtons * 3);
-//        createSecondPasswordAnswerTextField(vbox.getLayoutX() - answerTextFieldWidth, vbox.getLayoutY() + 50 + (distanceBetweenButtons * 3) + distanceBetweenButtons);
+        createSecondPasswordAnswerTextField(vbox.getLayoutX() - answerTextFieldWidth, vbox.getLayoutY() + 50 + (distanceBetweenButtons * 3) + distanceBetweenButtons);
         createSubmitButton();
         submitChange.setOnMouseClicked((MouseEvent event) -> {
             answer = answerTextField.getText();
@@ -110,18 +110,18 @@ public class ProfileMenuViewController {
     }
 
     private void createFirstPasswordAnswerTextField(double x, double y) {
-        double passwordAnswerTextFieldHeight = usernameButton.getHeight();
+        double answerTextFieldHeight = usernameButton.getHeight();
         answerTextField = new TextField();
 
-        passwordAnswerTextField.setMaxWidth(answerTextFieldWidth);
-        passwordAnswerTextField.setMinWidth(answerTextFieldWidth);
-        passwordAnswerTextField.setMaxHeight(passwordAnswerTextFieldHeight);
-        passwordAnswerTextField.setMinHeight(passwordAnswerTextFieldHeight);
-        passwordAnswerTextField.setPromptText("current password");
+        answerTextField.setMaxWidth(answerTextFieldWidth);
+        answerTextField.setMinWidth(answerTextFieldWidth);
+        answerTextField.setMaxHeight(answerTextFieldHeight);
+        answerTextField.setMinHeight(answerTextFieldHeight);
+        answerTextField.setPromptText("current password");
 
-        passwordAnswerTextField.setLayoutX(x);
-        passwordAnswerTextField.setLayoutY(y);
-        pane.getChildren().add(passwordAnswerTextField);
+        answerTextField.setLayoutX(x);
+        answerTextField.setLayoutY(y);
+        pane.getChildren().add(answerTextField);
     }
 
     private void createSecondPasswordAnswerTextField(double x, double y) {
@@ -149,9 +149,9 @@ public class ProfileMenuViewController {
     }
 
     private void removePasswordAnswerTextField() {
-        if (passwordAnswerTextField != null) {
-            pane.getChildren().remove(passwordAnswerTextField);
-            passwordAnswerTextField = null;
+        if (answerTextField != null) {
+            pane.getChildren().remove(answerTextField);
+            answerTextField = null;
         }
     }
 
