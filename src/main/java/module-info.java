@@ -26,9 +26,14 @@ module witcher {
     opens view.ForgetPassword to javafx.fxml;
     exports view.Pregame;
     opens view.Pregame to javafx.fxml;
+    exports view.Faction;
+    opens view.Faction to javafx.fxml;
+    exports view.Commander;
+    opens view.Commander to javafx.fxml;
     exports view.GameHistory;
     opens view.GameHistory to javafx.fxml;
     exports view.UserInfo;
     opens view.UserInfo to javafx.fxml;
-
+    exports view.Game;
+    opens view.Game to javafx.fxml;
 }

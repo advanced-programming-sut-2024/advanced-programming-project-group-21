@@ -1,4 +1,6 @@
 package view.Game;
 
-public class GameMenuView {
+import javafx.application.Application;
+
+public class GameMenuView{
 }
