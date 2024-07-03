@@ -339,7 +339,15 @@ public class GameMenuViewController {
         ImageView cardImageView = getCardImageView(card, cardAnchorPane.getPrefHeight(), cardAnchorPane.getPrefWidth());
         cardAnchorPane.getChildren().add(cardImageView);
 
+        cardImageView.setOnMouseClicked(event -> {
+
+        });
+
         return cardAnchorPane;
+    }
+
+    private void showDetailedCard(){
+
     }
 
     private ImageView getCardImageView(Card card, double height, double width) {
