@@ -137,6 +137,8 @@ public class GameMenuController {
         ArrayList<Card> deck = currentPlayer.getDeck();
         ArrayList<Card> hand = new ArrayList<>();
 
+        System.out.println(currentPlayer.getDeck());
+
         for (int i = 9; i >= 0; i--) {
             hand.add(deck.get(i));
             deck.remove(i);
