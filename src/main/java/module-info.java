@@ -4,6 +4,7 @@ module witcher {
     requires javafx.media;
     requires javafx.graphics;
     requires com.google.gson;
+    requires java.desktop;
 
 
     exports view;

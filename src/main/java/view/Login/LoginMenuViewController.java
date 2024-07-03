@@ -1,6 +1,7 @@
 package view.Login;
 
 import controller.ApplicationController;
+import controller.DataBaseController;
 import controller.LoginMenuController;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -58,7 +59,7 @@ public class LoginMenuViewController {
     }
 
     public void loadData() throws IOException {
-        User.loadUsersFromJson();
+        DataBaseController.loadUsersFromJson();
     }
 
     public void goToQuestion(MouseEvent mouseEvent) {
@@ -78,7 +79,7 @@ public class LoginMenuViewController {
     }
 
     public void Exit(MouseEvent mouseEvent) {
-        User.saveUsersToJson();
+        DataBaseController.saveUsersToJson();
         System.exit(0);
     }
 }

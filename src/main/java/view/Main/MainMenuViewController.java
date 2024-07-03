@@ -1,6 +1,7 @@
 package view.Main;
 
 import controller.ApplicationController;
+import controller.DataBaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -43,7 +44,7 @@ public class MainMenuViewController {
 
     public void logout(MouseEvent mouseEvent) {
         ApplicationController.setLoggedInUser(null);
-        User.saveUsersToJson();
+        DataBaseController.saveUsersToJson();
         try {
             new LoginMenuView().start(ApplicationController.getStage());
         } catch (Exception e) {
@@ -52,7 +53,7 @@ public class MainMenuViewController {
     }
 
     public void exitGame(MouseEvent mouseEvent) {
-        User.saveUsersToJson();
+        DataBaseController.saveUsersToJson();
         System.exit(0);
     }
 

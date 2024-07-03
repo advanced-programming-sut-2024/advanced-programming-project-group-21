@@ -1,8 +1,8 @@
 [
   {
-    "username": "a",
+    "username": "c",
     "nickname": "a",
-    "password": "b",
+    "password": "c",
     "email": "a",
     "questions": {
       "what is your high school name?": "a"

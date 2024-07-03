@@ -12,6 +12,8 @@ import view.Main.MainMenuView;
 import view.Question.QuestionMenuView;
 import view.UserInfo.UserInfoMenuView;
 
+import java.awt.desktop.AppForegroundListener;
+
 public class ProfileMenuViewController {
     public AnchorPane pane;
     public VBox vbox;
@@ -22,6 +24,10 @@ public class ProfileMenuViewController {
     Button submitChange = null;
     double distanceBetweenButtons = 33;
     String answer;
+
+    public void initialize() {
+        User.setLoggedInUser(ApplicationController.getLoggedInUser());
+    }
 
     public void openChangeUsername(MouseEvent mouseEvent) {
         createAnswerTextField(vbox.getLayoutX() - answerTextFieldWidth, vbox.getLayoutY() + 50);
