@@ -348,12 +348,13 @@ public class GameMenuViewController {
 
     private ImageView getImageView(double height, double width, String inGameImage) {
         ImageView commanderImageView = new ImageView();
-        commanderImageView.setPickOnBounds(true);
-        commanderImageView.setPreserveRatio(true);
         Image commanderImage = new Image(inGameImage);
-        commanderImageView.setImage(commanderImage);
+
         commanderImageView.setFitHeight(height);
         commanderImageView.setFitWidth(width);
+        commanderImageView.setPickOnBounds(true);
+        commanderImageView.setPreserveRatio(true);
+        commanderImageView.setImage(commanderImage);
 
         return commanderImageView;
     }
