@@ -5,7 +5,6 @@ import controller.ScoreBoardController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import model.User.User;
 import view.Main.MainMenuView;
 
 import static java.lang.Math.min;
