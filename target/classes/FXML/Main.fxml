@@ -6,7 +6,7 @@
 <AnchorPane prefHeight="750" prefWidth="1500" stylesheets="@../CSS/VboxStyle.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Main.MainMenuViewController">
     <VBox alignment="CENTER" layoutX="600.0" layoutY="128.0" prefHeight="500.0" prefWidth="300.0" spacing="20.0" styleClass="vbox">
         <Label alignment="CENTER" minHeight="30.0" prefHeight="30.0" prefWidth="163.0" styleClass="label" text="Main Menu" />
-        <Button fx:id="Start" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" styleClass="button" text="Start" />
+        <Button fx:id="Start" mnemonicParsing="false" onMouseClicked="#goToPreGameMenu" prefHeight="30.0" prefWidth="90.0" styleClass="button" text="Start" />
         <Button fx:id="ProfileMenu" lineSpacing="20.0" mnemonicParsing="false" onMouseClicked="#goToProfileMenu" prefHeight="30.0" prefWidth="90.0" styleClass="button" text="Profile" />
         <Button mnemonicParsing="false" onMouseClicked="#goToScoreboard" prefHeight="30.0" prefWidth="90.0" styleClass="button" text="Scoreboard" />
         <Button fx:id="Logout" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="30.0" prefWidth="90.0" styleClass="button" text="Logout" />

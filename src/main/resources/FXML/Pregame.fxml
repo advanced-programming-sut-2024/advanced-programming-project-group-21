@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,128 +12,120 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Pregame.PregameMenuViewController">
+<AnchorPane prefHeight="750.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Pregame.PregameMenuViewController">
    <VBox alignment="TOP_CENTER" layoutX="491.0" layoutY="16.0" prefHeight="135.0" prefWidth="526.0">
       <HBox alignment="CENTER" prefHeight="50.0" prefWidth="248.0" spacing="20.0">
          <ImageView fx:id="shieldImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-            <Image url="@../Images/Icons/deck_shield_skellige.png"/>
+            <Image url="@../Images/Icons/deck_shield_skellige.png" />
          </ImageView>
          <Label fx:id="factionLabel" text="Faction name">
             <font>
-               <Font size="22.0"/>
+               <Font size="22.0" />
             </font>
          </Label>
       </HBox>
-      <Label fx:id="factionAbility" alignment="CENTER" prefHeight="46.0" prefWidth="706.0" text="Faction ability"
-             textAlignment="CENTER" wrapText="true">
+      <Label fx:id="factionAbility" alignment="CENTER" prefHeight="46.0" prefWidth="706.0" text="Faction ability" textAlignment="CENTER" wrapText="true">
          <font>
-            <Font size="14.0"/>
+            <Font size="14.0" />
          </font>
       </Label>
       <HBox alignment="CENTER" prefHeight="22.0" prefWidth="526.0" spacing="30.0">
          <Hyperlink onMouseClicked="#uploadDeck" text="Upload deck">
             <font>
-               <Font size="16.0"/>
+               <Font size="16.0" />
             </font>
          </Hyperlink>
          <Hyperlink onMouseClicked="#goToFaction" text="Change faction">
             <font>
-               <Font size="16.0"/>
+               <Font size="16.0" />
             </font>
          </Hyperlink>
          <Hyperlink onMouseClicked="#downloadDeck" text="Download deck">
             <font>
-               <Font size="16.0"/>
+               <Font size="16.0" />
             </font>
          </Hyperlink>
       </HBox>
    </VBox>
-   <VBox layoutX="81.0" layoutY="156.0" maxHeight="543.0" maxWidth="527.0" minHeight="543.0" minWidth="527.0"
-         prefHeight="543.0" prefWidth="527.0">
-      <ScrollPane hbarPolicy="NEVER" maxHeight="543.0" maxWidth="527.0" minHeight="543.0" minWidth="527.0"
-                  prefHeight="543.0" prefWidth="527.0" vbarPolicy="ALWAYS">
-         <VBox fx:id="preGameVBox" maxWidth="525.0" minWidth="525.0" prefHeight="537.0" prefWidth="525.0"
-               spacing="20.0"/>
+   <VBox layoutX="81.0" layoutY="156.0" maxHeight="543.0" maxWidth="527.0" minHeight="543.0" minWidth="527.0" prefHeight="543.0" prefWidth="527.0">
+      <ScrollPane hbarPolicy="NEVER" maxHeight="543.0" maxWidth="527.0" minHeight="543.0" minWidth="527.0" prefHeight="543.0" prefWidth="527.0" vbarPolicy="ALWAYS">
+         <VBox fx:id="preGameVBox" maxWidth="525.0" minWidth="525.0" prefHeight="537.0" prefWidth="525.0" spacing="20.0" />
       </ScrollPane>
    </VBox>
-   <VBox layoutX="892.0" layoutY="156.0" maxHeight="543.0" maxWidth="527.0" minHeight="543.0" minWidth="527.0"
-         prefHeight="543.0" prefWidth="527.0">
-      <ScrollPane hbarPolicy="NEVER" maxHeight="543.0" maxWidth="527.0" minHeight="543.0" minWidth="527.0"
-                  prefHeight="543.0" prefWidth="527.0" vbarPolicy="ALWAYS">
-         <VBox fx:id="deckVBox" maxWidth="525.0" minWidth="525.0" prefHeight="200.0" prefWidth="525.0"/>
+   <VBox layoutX="892.0" layoutY="156.0" maxHeight="543.0" maxWidth="527.0" minHeight="543.0" minWidth="527.0" prefHeight="543.0" prefWidth="527.0">
+      <ScrollPane hbarPolicy="NEVER" maxHeight="543.0" maxWidth="527.0" minHeight="543.0" minWidth="527.0" prefHeight="543.0" prefWidth="527.0" vbarPolicy="ALWAYS">
+         <VBox fx:id="deckVBox" maxWidth="525.0" minWidth="525.0" prefHeight="200.0" prefWidth="525.0" />
       </ScrollPane>
    </VBox>
    <VBox alignment="TOP_CENTER" layoutX="640.0" layoutY="154.0" prefHeight="550.0" prefWidth="212.0" spacing="20.0">
       <VBox alignment="TOP_CENTER" prefHeight="222.0" prefWidth="212.0" spacing="10.0">
          <Label text="Leader">
             <font>
-               <Font size="20.0"/>
+               <Font size="20.0" />
             </font>
          </Label>
-         <AnchorPane fx:id="commanderCard" maxHeight="135.0" maxWidth="72.0" minHeight="135.0" minWidth="72.0"
-                     prefHeight="135.0" prefWidth="72.0">
-            <ImageView fx:id="commanderImage" fitHeight="135.0" fitWidth="72.0" onMouseClicked="#goToCommander"
-                       pickOnBounds="true" preserveRatio="true"/>
+         <AnchorPane fx:id="commanderCard" maxHeight="135.0" maxWidth="72.0" minHeight="135.0" minWidth="72.0" prefHeight="135.0" prefWidth="72.0">
+            <ImageView fx:id="commanderImage" fitHeight="135.0" fitWidth="72.0" onMouseClicked="#goToCommander" pickOnBounds="true" preserveRatio="true" />
          </AnchorPane>
       </VBox>
       <VBox prefHeight="392.0" prefWidth="212.0" spacing="10.0">
          <VBox prefHeight="200.0" prefWidth="100.0" spacing="7.0">
             <VBox alignment="TOP_CENTER" prefHeight="42.0" prefWidth="212.0">
-               <Label text="Total cards in deck"/>
+               <Label text="Total cards in deck" />
                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                     <Image url="@../Images/Icons/deck_stats_count.png"/>
+                     <Image url="@../Images/Icons/deck_stats_count.png" />
                   </ImageView>
-                  <Label fx:id="totalDeck" text="0"/>
+                  <Label fx:id="totalDeck" text="0" />
                </HBox>
             </VBox>
             <VBox alignment="TOP_CENTER" prefHeight="42.0" prefWidth="212.0">
-               <Label text="Number of Unit Cards"/>
+               <Label text="Number of Unit Cards" />
                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                     <Image url="@../Images/Icons/deck_stats_unit.png"/>
+                     <Image url="@../Images/Icons/deck_stats_unit.png" />
                   </ImageView>
                   <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="56.0">
-                     <Label fx:id="totalUnit" text="0"/>
-                     <Label fx:id="outOf22" text="/22"/>
+                     <Label fx:id="totalUnit" text="0" />
+                     <Label fx:id="outOf22" text="/22" />
                   </HBox>
                </HBox>
             </VBox>
             <VBox alignment="TOP_CENTER" prefHeight="42.0" prefWidth="212.0">
-               <Label text="Special Cards"/>
+               <Label text="Special Cards" />
                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                     <Image url="@../Images/Icons/deck_stats_special.png"/>
+                     <Image url="@../Images/Icons/deck_stats_special.png" />
                   </ImageView>
                   <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="56.0">
-                     <Label fx:id="totalSpecial" text="0"/>
-                     <Label fx:id="outOf10" text="/10"/>
+                     <Label fx:id="totalSpecial" text="0" />
+                     <Label fx:id="outOf10" text="/10" />
                   </HBox>
                </HBox>
             </VBox>
             <VBox alignment="TOP_CENTER" prefHeight="42.0" prefWidth="212.0">
-               <Label text="Total Unit Card Strength"/>
+               <Label text="Total Unit Card Strength" />
                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                     <Image url="@../Images/Icons/deck_stats_strength.png"/>
+                     <Image url="@../Images/Icons/deck_stats_strength.png" />
                   </ImageView>
-                  <Label fx:id="totalStrength" text="0"/>
+                  <Label fx:id="totalStrength" text="0" />
                </HBox>
             </VBox>
             <VBox alignment="TOP_CENTER" prefHeight="42.0" prefWidth="212.0">
-               <Label text="Hero Cards"/>
+               <Label text="Hero Cards" />
                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                     <Image url="@../Images/Icons/deck_stats_hero.png"/>
+                     <Image url="@../Images/Icons/deck_stats_hero.png" />
                   </ImageView>
-                  <Label fx:id="totalHero" text="0"/>
+                  <Label fx:id="totalHero" text="0" />
                </HBox>
             </VBox>
          </VBox>
          <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
-            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true"/>
-            <Button fx:id="nextButton" mnemonicParsing="false" onMouseClicked="#nextPhase" text="Next Player"/>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
+            <TextField fx:id="nextPlayerField" alignment="CENTER" maxWidth="130.0" prefHeight="26.0" prefWidth="138.0" promptText="..." />
+            <Button fx:id="nextButton" mnemonicParsing="false" onMouseClicked="#nextPhase" text="Next Player" />
          </VBox>
       </VBox>
    </VBox>

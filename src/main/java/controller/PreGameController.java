@@ -9,6 +9,8 @@ import model.User.User;
 
 import java.util.ArrayList;
 
+import static controller.ApplicationController.preGame;
+
 public class PreGameController {
     public void showCurrentMenu() {
 
@@ -88,12 +90,12 @@ public class PreGameController {
         outer:
         for (CardEnum cardEnum : CardEnum.values()) {
             if (cardEnum.getFaction().equals(faction) || cardEnum.getFaction().equals(FactionsEnum.NEUTRAL)) {
-                for (Card card : ApplicationController.preGame.getDeckCards()) {
+                for (Card card : preGame.getDeckCards()) {
                     if (card.getCardEnum().equals(cardEnum)) {
                         continue outer;
                     }
                 }
-                for (Card card : ApplicationController.preGame.getPreGameCards()) {
+                for (Card card : preGame.getPreGameCards()) {
                     if (card.getCardEnum().equals(cardEnum)) {
                         continue outer;
                     }
@@ -101,7 +103,7 @@ public class PreGameController {
                 for (int i = 0; i < cardEnum.getPreGameCount(); i++) {
                     Card card = new Card(cardEnum);
                     cards.add(card);
-                    ApplicationController.preGame.addCardToPreGameCards(card);
+                    preGame.addCardToPreGameCards(card);
                     System.out.println(cardEnum.getName() + " is " + card);
                 }
             }
@@ -111,42 +113,42 @@ public class PreGameController {
     private void deletePreGameCards(FactionsEnum factionsEnum) {
         ArrayList<Card> preGameCards = new ArrayList<>();
         ArrayList<Card> deckCards = new ArrayList<>();
-        for (Card card : ApplicationController.preGame.getPreGameCards()) {
+        for (Card card : preGame.getPreGameCards()) {
             if (card.getFaction().equals(factionsEnum) || card.getFaction().equals(FactionsEnum.NEUTRAL)) {
                 preGameCards.add(card);
             }
         }
-        for (Card card : ApplicationController.preGame.getDeckCards()) {
+        for (Card card : preGame.getDeckCards()) {
             if (card.getFaction().equals(factionsEnum) || card.getFaction().equals(FactionsEnum.NEUTRAL)) {
                 deckCards.add(card);
             }
         }
-        ApplicationController.preGame.setPreGameCards(preGameCards);
-        ApplicationController.preGame.setDeckCards(deckCards);
+        preGame.setPreGameCards(preGameCards);
+        preGame.setDeckCards(deckCards);
     }
 
     public void moveCardToDeck(Card inputCard) {
         Card card = null;
-        for (Card tempCard : ApplicationController.preGame.getPreGameCards()) {
+        for (Card tempCard : preGame.getPreGameCards()) {
             if (tempCard.getName().equals(inputCard.getName())) {
                 card = tempCard;
                 break;
             }
         }
-        ApplicationController.preGame.addCardToDeckCards(card);
-        ApplicationController.preGame.getPreGameCards().remove(card);
+        preGame.addCardToDeckCards(card);
+        preGame.getPreGameCards().remove(card);
     }
 
     public void moveCardToPreGame(Card inputCard) {
         Card card = null;
-        for (Card tempCard : ApplicationController.preGame.getDeckCards()) {
+        for (Card tempCard : preGame.getDeckCards()) {
             if (tempCard.getName().equals(inputCard.getName())) {
                 card = tempCard;
                 break;
             }
         }
-        ApplicationController.preGame.addCardToPreGameCards(card);
-        ApplicationController.preGame.getDeckCards().remove(card);
+        preGame.addCardToPreGameCards(card);
+        preGame.getDeckCards().remove(card);
     }
 
     public void saveToPlayer() {
@@ -158,17 +160,15 @@ public class PreGameController {
     }
 
     public void createPlayers() {
-        createLoggedInUser();
         Player player1 = new Player(ApplicationController.getLoggedInUser());
-        Player player2 = new Player(ApplicationController.getLoggedInUser()); // TODO: make a permanent 2nd player and user
-        ApplicationController.preGame.setPlayer1(player1);
-        ApplicationController.preGame.setPlayer2(player2);
-        ApplicationController.preGame.setCurrentPlayer(player1);
+        preGame.setPlayer1(player1);
+        preGame.setCurrentPlayer(player1);
     }
 
-    // TODO: remove this method
-    private void createLoggedInUser() {
-        User user = new User("test", "test", "test", "test");
-        ApplicationController.setLoggedInUser(user);
+    public void createPlayer2(String username){
+        User user = new User("", username, "dwkbhwdjbinwdqud7821guydb18d", "d3gyu21gu2dygu12gdud");
+        Player player2 = new Player(user);
+        preGame.setPlayer2(player2);
+        preGame.setCurrentPlayer(preGame.getPlayer2());
     }
 }

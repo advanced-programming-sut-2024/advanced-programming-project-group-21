@@ -156,7 +156,7 @@ public class GameMenuViewController {
 
         setCardSize(commanderPane, 90, 63);
 
-        ImageView commanderImageView = getImageView(commanderPane.getHeight(), commanderPane.getWidth(), commandersEnum.getInGameImage());
+        ImageView commanderImageView = getImageView(commanderPane.getPrefHeight(), commanderPane.getPrefWidth(), commandersEnum.getInGameImage());
         commanderPane.getChildren().add(commanderImageView);
 
         return commanderPane;
@@ -336,7 +336,7 @@ public class GameMenuViewController {
 
         setCardSize(cardAnchorPane, 90, 63);
 
-        ImageView cardImageView = getCardImageView(card, cardAnchorPane.getHeight(), cardAnchorPane.getWidth());
+        ImageView cardImageView = getCardImageView(card, cardAnchorPane.getPrefHeight(), cardAnchorPane.getPrefWidth());
         cardAnchorPane.getChildren().add(cardImageView);
 
         return cardAnchorPane;
@@ -366,6 +366,5 @@ public class GameMenuViewController {
         card.setPrefWidth(width);
         card.setMinWidth(width);
         card.setMaxWidth(width);
-
     }
 }

@@ -8,8 +8,10 @@ import enums.Card.CommandersEnum;
 import enums.Card.FactionsEnum;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -43,6 +45,7 @@ public class PregameMenuViewController {
     public Label outOf22;
     public Label outOf10;
     public Button nextButton;
+    public TextField nextPlayerField;
     PreGameController controller = new PreGameController();
 
 
@@ -52,12 +55,15 @@ public class PregameMenuViewController {
             preGame = new PreGame();
             ApplicationController.preGame = preGame;
             preGame.setFaction(FactionsEnum.SKELLIGE);
-            setDefaultCommander();
             controller.createPlayers();
         }
         if (!preGame.isFirstPlayer()) {
             nextButton.setText("Start game");
         }
+        if(!preGame.isFirstPlayer()){
+            nextPlayerField.setVisible(false);
+        }
+        loadCommander(preGame.getCommander());
         clearCardsForNewFactionLoaded(preGame.getFaction());
         loadPregameCards(preGame.getFaction());
         loadDeckCards(preGame.getFaction());
@@ -441,10 +447,23 @@ public class PregameMenuViewController {
     public void nextPhase(MouseEvent mouseEvent) {
         PreGame preGame = ApplicationController.preGame;
         controller.saveToPlayer();
+        if(preGame.getDeckCards().size()<10){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Not enough cards");
+            alert.setHeaderText("Deck is not full");
+            alert.setContentText("Please add more cards to your deck");
+            alert.showAndWait();
+            return;
+        }
         if (preGame.isFirstPlayer()) {
+            if(nextPlayerField.getText().length()==0){
+                noUsernameError();
+                return;
+            }
+            controller.createPlayer2(nextPlayerField.getText());
             preGame.setFirstPlayer(false);
-            preGame.setCurrentPlayer(preGame.getPlayer2());
             cleanPregame();
+            nextPlayerField.setVisible(false);
             try {
                 new PregameMenuView().start(ApplicationController.getStage());
             } catch (Exception e) {
@@ -459,6 +478,15 @@ public class PregameMenuViewController {
         }
     }
 
+    public void noUsernameError(){
+        nextPlayerField.setPromptText("Enter username first!");
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("No player 2");
+        alert.setHeaderText("Username empty");
+        alert.setContentText("Please enter a username to continue");
+        alert.showAndWait();
+    }
+
     private void cleanPregame() {
         PreGame preGame = ApplicationController.preGame;
         preGame.setPreGameCards(new ArrayList<>());
@@ -466,27 +494,7 @@ public class PregameMenuViewController {
         preGame.setPreGameHBoxList(new ArrayList<>());
         preGame.setDeckHBoxList(new ArrayList<>());
         preGame.setFaction(FactionsEnum.SKELLIGE);
-        setDefaultCommander();
-    }
-
-    public void setDefaultCommander(){
-        PreGame preGame = ApplicationController.preGame;
-        FactionsEnum faction = preGame.getFaction();
-        if(faction.equals(FactionsEnum.SKELLIGE)){
-            preGame.setCommander(CommandersEnum.CRACHE_AN_CRAITE);
-        }
-//        else if(faction.equals(FactionsEnum.NILFGAARD)){
-//            preGame.setCommander(CommandersEnum.EMHYR_VAR_EMREIS);
-//        }
-//        else if(faction.equals(FactionsEnum.NORTHERN_REALMS)){
-//            preGame.setCommander(CommandersEnum.FOLTEST);
-//        }
-//        else if(faction.equals(FactionsEnum.MONSTERS)){
-//            preGame.setCommander(CommandersEnum.EREDIN);
-//        }
-//        else if(faction.equals(FactionsEnum.SCOIATAEL)){
-//            preGame.setCommander(CommandersEnum.FRANCESCA_FINDABAIR);
-//        }
+        loadCommander(preGame.getCurrentPlayer().getCommander());
     }
 
     public void downloadDeck(MouseEvent mouseEvent) {
