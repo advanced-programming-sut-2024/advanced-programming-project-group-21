@@ -447,7 +447,7 @@ public class PregameMenuViewController {
     public void nextPhase(MouseEvent mouseEvent) {
         PreGame preGame = ApplicationController.preGame;
         controller.saveToPlayer();
-        if(preGame.getDeckCards().size()<10){
+        if(preGame.getDeckCards().size()<10){ // TODO: change to 22
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Not enough cards");
             alert.setHeaderText("Deck is not full");
