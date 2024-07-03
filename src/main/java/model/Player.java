@@ -8,6 +8,7 @@ import model.Factions.Faction;
 import model.User.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Player extends User {
     private ArrayList<Card> hand = new ArrayList<>();
@@ -26,6 +27,12 @@ public class Player extends User {
     private ArrayList<AnchorPane> rangedCombatUnits = new ArrayList<>();
     private ArrayList<AnchorPane> siegeCombatUnits = new ArrayList<>();
 
+    // rawPower, a, b    power = a*rawPower+b
+    private Integer[] closedCombatUnitsPower = new Integer[3];
+    private Integer[] rangedCombatUnitsPower = new Integer[3];
+    private Integer[] siegeCombatUnitsPower = new Integer[3];
+    private int totalPower;
+
     private AnchorPane closedCombatSpecial;
     private AnchorPane rangedCombatSpecial;
     private AnchorPane siegeCombatSpecial;
@@ -35,6 +42,17 @@ public class Player extends User {
 
     public Player(User user) {
         super(user.getUsername(), user.getNickname(), user.getPassword(), user.getEmail());
+        this.user = user;
+        closedCombatUnitsPower[0] = 0;
+        closedCombatUnitsPower[1] = 1;
+        closedCombatUnitsPower[2] = 0;
+        rangedCombatUnitsPower[0] = 0;
+        rangedCombatUnitsPower[1] = 1;
+        rangedCombatUnitsPower[2] = 0;
+        siegeCombatUnitsPower[0] = 0;
+        siegeCombatUnitsPower[1] = 1;
+        siegeCombatUnitsPower[2] = 0;
+        totalPower = 0;
     }
 
     public ArrayList<Card> getHand() {
@@ -273,5 +291,46 @@ public class Player extends User {
 
     public void setLives(int lives) {
         this.lives = lives;
+    }
+
+    public int getClosedPower(){
+        return closedCombatUnitsPower[0]*closedCombatUnitsPower[1]+closedCombatUnitsPower[2];
+    }
+
+    public int getRangedPower(){
+        return rangedCombatUnitsPower[0]*rangedCombatUnitsPower[1]+rangedCombatUnitsPower[2];
+    }
+
+    public int getSiegePower(){
+        return siegeCombatUnitsPower[0]*siegeCombatUnitsPower[1]+siegeCombatUnitsPower[2];
+    }
+
+    public int getTotalPower(){
+        totalPower = getClosedPower()+getRangedPower()+getSiegePower();
+        return totalPower;
+    }
+
+    public Integer[] getClosedPowerList() {
+        return closedCombatUnitsPower;
+    }
+
+    public Integer[] getRangedPowerList() {
+        return rangedCombatUnitsPower;
+    }
+
+    public Integer[] getSiegePowerList() {
+        return siegeCombatUnitsPower;
+    }
+
+    public void setClosedPowerList(Integer[] closedCombatUnitsPower) {
+        this.closedCombatUnitsPower = closedCombatUnitsPower;
+    }
+
+    public void setRangedPowerList(Integer[] rangedCombatUnitsPower) {
+        this.rangedCombatUnitsPower = rangedCombatUnitsPower;
+    }
+
+    public void setSiegePowerList(Integer[] siegeCombatUnitsPower) {
+        this.siegeCombatUnitsPower = siegeCombatUnitsPower;
     }
 }

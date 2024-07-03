@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import model.*;
 
@@ -64,6 +65,9 @@ public class GameMenuViewController {
     public Label enemySiegePoints;
     public Label enemyClosedPoints;
     public Label enemyRangedPoints;
+    public ImageView detailCard;
+    public Rectangle detailRectangle;
+    public Label detailLabel;
     GameMenuController controller = new GameMenuController();
 
     public void initialize() {
@@ -161,7 +165,6 @@ public class GameMenuViewController {
 
         return commanderPane;
     }
-
 
 
     private void loadCommanders() {
@@ -329,7 +332,7 @@ public class GameMenuViewController {
     }
 
 
-    private AnchorPane createCard(Card card) {
+    public AnchorPane createCard(Card card) {
         AnchorPane cardAnchorPane = new AnchorPane();
         cardAnchorPane.setId(card.getCardEnum().name());
         cardAnchorPane.setUserData(card);
@@ -346,8 +349,19 @@ public class GameMenuViewController {
         return cardAnchorPane;
     }
 
-    private void showDetailedCard(){
+    private void showDetailedCard(AnchorPane cardAnchorPane) {
+        Card card = (Card) cardAnchorPane.getUserData();
+        detailCard.setImage(new Image(card.getPreGameImage()));
+        detailLabel.setText(card.getAbility().getDescription());
+        detailCard.setVisible(true);
+        detailLabel.setVisible(true);
+        detailRectangle.setVisible(true);
+    }
 
+    private void hideDetailedCard(AnchorPane cardAnchorPane){
+        detailCard.setVisible(false);
+        detailLabel.setVisible(false);
+        detailRectangle.setVisible(false);
     }
 
     private ImageView getCardImageView(Card card, double height, double width) {

@@ -12,6 +12,7 @@ public class Game {
     private Player enemyPlayer;
     private ArrayList<AnchorPane> player1Hand = new ArrayList<>();
     private ArrayList<AnchorPane> player2Hand = new ArrayList<>();
+
     private GameStates gameState;
 
     public Game(PreGame preGame) {
@@ -27,10 +28,6 @@ public class Game {
             currentPlayer = player1;
             enemyPlayer = player2;
         }
-    }
-
-    public void startGame() {
-        // start the game
     }
 
     public Player getPlayer1() {
@@ -58,6 +55,12 @@ public class Game {
     }
 
     public ArrayList<AnchorPane> getPlayer2Hand() {
+        return player2Hand;
+    }
+    public ArrayList<AnchorPane> getCurrentPlayerHand(){
+        if(currentPlayer.equals(player1)){
+            return player1Hand;
+        }
         return player2Hand;
     }
 
