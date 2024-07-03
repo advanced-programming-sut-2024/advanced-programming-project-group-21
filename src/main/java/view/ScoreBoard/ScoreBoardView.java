@@ -11,12 +11,15 @@ import view.Main.MainMenuView;
 import java.net.URL;
 
 public class ScoreBoardView extends Application {
-    ScoreboardViewController controller;
+    Object controller;
+
     public static void main(String[] args) {
         launch(args);
     }
+
     @Override
     public void start(Stage stage) throws Exception {
+
         stage.setResizable(false);
         FXMLLoader fxmlLoader = new FXMLLoader();
         URL url = MainMenuView.class.getResource("/FXML/Scoreboard.fxml");
@@ -28,6 +31,7 @@ public class ScoreBoardView extends Application {
         stage.centerOnScreen();
         stage.show();
     }
+
     private static void setBackGround(AnchorPane root) {
         Image image = new Image("file:src/main/resources/Images/BackGrounds/ProfileMenu.jpg");
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,

@@ -8,19 +8,18 @@
             fx:controller="view.Login.LoginMenuViewController">
     <VBox alignment="CENTER" layoutX="600.0" layoutY="125.0" prefHeight="500.0" prefWidth="300.0" spacing="20.0"
           styleClass="vbox">
-        <Label fx:id="topText" styleClass="titles" text="Welcome"/>
-        <TextField fx:id="usernameField" alignment="CENTER" promptText="Enter username" styleClass="textFields"/>
-        <PasswordField fx:id="passwordField" alignment="CENTER" promptText="Enter password" styleClass="textFields"/>
+        <Label fx:id="topText" alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="84.0"
+               styleClass="label" text="Welcome"/>
+        <TextField fx:id="usernameField" alignment="CENTER" promptText="Enter username" styleClass="text-field"/>
+        <PasswordField fx:id="passwordField" alignment="CENTER" promptText="Enter password" styleClass="text-field"/>
         <VBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0" spacing="5.0">
-            <children>
-                <Button mnemonicParsing="false" onMouseClicked="#loginClicked" prefWidth="60.0" styleClass="buttons"
-                        text="Login"/>
-                <Hyperlink onMouseClicked="#goToQuestion" text="Forgot password"/>
-            </children>
+            <Button mnemonicParsing="false" onMouseClicked="#loginClicked" prefWidth="60.0" styleClass="button"
+                    text="Login"/>
+            <Hyperlink onMouseClicked="#goToQuestion" text="Forgot password"/>
         </VBox>
-        <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="93.0" styleClass="texts"
+        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="84.0" styleClass="label"
                text="Not a user?"/>
         <Hyperlink onMouseClicked="#goToRegister" text="Register as a new user..."/>
-        <Button mnemonicParsing="false" onMouseClicked="#Exit" prefWidth="60.0" styleClass="buttons" text="Exit"/>
+        <Button mnemonicParsing="false" onMouseClicked="#Exit" prefWidth="60.0" styleClass="button" text="Exit"/>
     </VBox>
 </AnchorPane>
