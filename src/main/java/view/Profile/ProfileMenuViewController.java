@@ -266,7 +266,6 @@ public class ProfileMenuViewController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public void goToGameHistoryInfoMenu(MouseEvent mouseEvent) {

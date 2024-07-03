@@ -3,7 +3,7 @@ package controller;
 import model.User.User;
 
 public class QuestionMenuController {
-    public int submitAnswer(String username, String question, String answer) {
+    public int submitAnswer(String username, String question, String answer, String newPass, String confirmPass) {
         User user = User.getUserByUsername(username);
         if (username.equals("")) {
             return 1;
@@ -23,6 +23,15 @@ public class QuestionMenuController {
         if (!user.getAnswer(question).equals(answer)) {
             return 6;
         }
+        if (newPass.equals("")) {
+            return 7;
+        }
+        if (confirmPass.equals("")) {
+            return 8;
+        }
+        if (!newPass.equals(confirmPass)) {
+            return 9;
+        }
         return 0;
     }
 
@@ -36,4 +45,9 @@ public class QuestionMenuController {
         return 0;
     }
 
+    public void setUserNewPassword(String username, String newPass) {
+        User user = User.getUserByUsername(username);
+        assert user != null;
+        user.setPassword(newPass);
+    }
 }
