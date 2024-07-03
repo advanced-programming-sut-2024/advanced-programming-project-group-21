@@ -1,14 +1,16 @@
 package view.ScoreBoard;
 
 import controller.ApplicationController;
-import controller.ScoreboardMenuController;
+import controller.ScoreBoardController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import model.User.User;
 import view.Main.MainMenuView;
 
+import static java.lang.Math.min;
 
-public class ScoreboardViewController {
+public class ScoreBoardViewController {
     @FXML
     public Label username1;
     @FXML
@@ -71,7 +73,7 @@ public class ScoreboardViewController {
     public Label wins10;
 
     public void initialize() {
-        ScoreboardMenuController.setData(this);
+        ScoreBoardController.setData(this);
     }
 
     public void back(MouseEvent mouseEvent) {
