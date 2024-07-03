@@ -14,6 +14,7 @@ import java.util.List;
 
 public class DataBaseController {
     public static final String USERS_DATABASE_PATH = "src/main/java/model/User/users.json";
+    public static final String CARDS_DATABASE_PATH = "src/main/java/model/User/cards.json";
 
     public static void loadUsersFromJson() {
         try {
