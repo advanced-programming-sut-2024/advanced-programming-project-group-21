@@ -1,5 +1,6 @@
 package model;
 
+import controller.ApplicationController;
 import enums.Card.CommandersEnum;
 import enums.Card.FactionsEnum;
 import javafx.scene.layout.AnchorPane;
@@ -8,11 +9,11 @@ import model.Factions.Faction;
 import model.User.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Player extends User {
-    private ArrayList<Card> hand = new ArrayList<>();
+    private ArrayList<AnchorPane> hand = new ArrayList<>();
     private ArrayList<Card> deck = new ArrayList<>();
-    private ArrayList<Card> discardPile = new ArrayList<>();
     private User user;
     private int availableCards = 0;
     private CommandersEnum commander;
@@ -26,6 +27,12 @@ public class Player extends User {
     private ArrayList<AnchorPane> rangedCombatUnits = new ArrayList<>();
     private ArrayList<AnchorPane> siegeCombatUnits = new ArrayList<>();
 
+    // rawPower, a, b    power = a*rawPower+b
+    private int closedCombatUnitsPower = 0;
+    private int rangedCombatUnitsPower = 0;
+    private int siegeCombatUnitsPower = 0;
+    private int totalPower = 0;
+
     private AnchorPane closedCombatSpecial;
     private AnchorPane rangedCombatSpecial;
     private AnchorPane siegeCombatSpecial;
@@ -35,13 +42,14 @@ public class Player extends User {
 
     public Player(User user) {
         super(user.getUsername(), user.getNickname(), user.getPassword(), user.getEmail());
+        this.user = user;
     }
 
-    public ArrayList<Card> getHand() {
+    public ArrayList<AnchorPane> getHand() {
         return this.hand;
     }
 
-    public void setHand(ArrayList<Card> hand) {
+    public void setHand(ArrayList<AnchorPane> hand) {
         this.hand = hand;
     }
 
@@ -51,14 +59,6 @@ public class Player extends User {
 
     public void setDeck(ArrayList<Card> deck) {
         this.deck = deck;
-    }
-
-    public ArrayList<Card> getDiscardPile() {
-        return discardPile;
-    }
-
-    public void setDiscardPile(ArrayList<Card> discardPile) {
-        this.discardPile = discardPile;
     }
 
     public User getUser() {
@@ -161,7 +161,7 @@ public class Player extends User {
         this.doneAction = doneAction;
     }
 
-    public void addToHand(Card card) {
+    public void addToHand(AnchorPane card) {
         this.hand.add(card);
     }
 
@@ -191,14 +191,6 @@ public class Player extends User {
 
     public void removeFromSiegeCombatUnits(AnchorPane card) {
         this.siegeCombatUnits.remove(card);
-    }
-
-    public void addToDiscardPile(Card card) {
-        this.discardPile.add(card);
-    }
-
-    public void removeFromDiscardPile(Card card) {
-        this.discardPile.remove(card);
     }
 
     public void addToDeck(Card card) {
@@ -273,5 +265,34 @@ public class Player extends User {
 
     public void setLives(int lives) {
         this.lives = lives;
+    }
+
+    public int getClosedPower(){
+        for(AnchorPane card: closedCombatUnits){
+            Card cardObject = (Card) card.getUserData();
+            closedCombatUnitsPower += cardObject.getPower();
+        }
+        return closedCombatUnitsPower;
+    }
+
+    public int getRangedPower(){
+        for(AnchorPane card: rangedCombatUnits){
+            Card cardObject = (Card) card.getUserData();
+            rangedCombatUnitsPower += cardObject.getPower();
+        }
+        return rangedCombatUnitsPower;
+    }
+
+    public int getSiegePower(){
+        for(AnchorPane card: siegeCombatUnits){
+            Card cardObject = (Card) card.getUserData();
+            siegeCombatUnitsPower += cardObject.getPower();
+        }
+        return siegeCombatUnitsPower;
+    }
+
+    public int getTotalPower(){
+        totalPower = getClosedPower()+getRangedPower()+getSiegePower();
+        return totalPower;
     }
 }

@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import model.*;
 
@@ -64,6 +65,9 @@ public class GameMenuViewController {
     public Label enemySiegePoints;
     public Label enemyClosedPoints;
     public Label enemyRangedPoints;
+    public ImageView detailCard;
+    public Rectangle detailRectangle;
+    public Label detailLabel;
     GameMenuController controller = new GameMenuController();
 
     public void initialize() {
@@ -161,7 +165,6 @@ public class GameMenuViewController {
 
         return commanderPane;
     }
-
 
 
     private void loadCommanders() {
@@ -283,12 +286,7 @@ public class GameMenuViewController {
     private void loadHand() {
         Player currentPlayer = ApplicationController.game.getCurrentPlayer();
 
-        ArrayList<AnchorPane> currentPlayerHand = new ArrayList<>();
-        if (currentPlayer.equals(ApplicationController.game.getPlayer1())) {
-            currentPlayerHand = ApplicationController.game.getPlayer1Hand();
-        } else {
-            currentPlayerHand = ApplicationController.game.getPlayer2Hand();
-        }
+        ArrayList<AnchorPane> currentPlayerHand = currentPlayer.getHand();
 
         handHBox.getChildren().clear();
 
@@ -301,20 +299,7 @@ public class GameMenuViewController {
         Player player1 = ApplicationController.game.getPlayer1();
         Player player2 = ApplicationController.game.getPlayer2();
 
-        controller.createStartingHand();
-
-        ArrayList<Card> player1Hand = player1.getHand();
-        ArrayList<Card> player2Hand = player2.getHand();
-
-        for (Card card : player1Hand) {
-            AnchorPane cardAnchorPane = createCard(card);
-            ApplicationController.game.getPlayer1Hand().add(cardAnchorPane);
-        }
-
-        for (Card card : player2Hand) {
-            AnchorPane cardAnchorPane = createCard(card);
-            ApplicationController.game.getPlayer2Hand().add(cardAnchorPane);
-        }
+        createStartingHand();
     }
 
     private void setDeckSizeLabel() {
@@ -329,7 +314,7 @@ public class GameMenuViewController {
     }
 
 
-    private AnchorPane createCard(Card card) {
+    public AnchorPane createCard(Card card) {
         AnchorPane cardAnchorPane = new AnchorPane();
         cardAnchorPane.setId(card.getCardEnum().name());
         cardAnchorPane.setUserData(card);
@@ -346,8 +331,19 @@ public class GameMenuViewController {
         return cardAnchorPane;
     }
 
-    private void showDetailedCard(){
+    private void showDetailedCard(AnchorPane cardAnchorPane) {
+        Card card = (Card) cardAnchorPane.getUserData();
+        detailCard.setImage(new Image(card.getPreGameImage()));
+        detailLabel.setText(card.getAbility().getDescription());
+        detailCard.setVisible(true);
+        detailLabel.setVisible(true);
+        detailRectangle.setVisible(true);
+    }
 
+    private void hideDetailedCard(AnchorPane cardAnchorPane){
+        detailCard.setVisible(false);
+        detailLabel.setVisible(false);
+        detailRectangle.setVisible(false);
     }
 
     private ImageView getCardImageView(Card card, double height, double width) {
@@ -375,4 +371,33 @@ public class GameMenuViewController {
         card.setMinWidth(width);
         card.setMaxWidth(width);
     }
+
+    public void createStartingHand() {
+        Player currentPlayer = ApplicationController.game.getCurrentPlayer();
+        ArrayList<Card> deck = currentPlayer.getDeck();
+        ArrayList<AnchorPane> hand = new ArrayList<>();
+
+        System.out.println(currentPlayer.getDeck());
+
+        for (int i = 9; i >= 0; i--) {
+            hand.add(createCard(deck.get(i)));
+            deck.remove(i);
+        }
+
+
+        currentPlayer.setHand(hand);
+
+        Player enemyPlayer = ApplicationController.game.getEnemyPlayer();
+        deck = enemyPlayer.getDeck();
+        hand = new ArrayList<>();
+
+        for (int i = 9; i >= 0; i--) {
+            hand.add(createCard(deck.get(i)));
+            deck.remove(i);
+        }
+
+        enemyPlayer.setHand(hand);
+    }
+
+
 }

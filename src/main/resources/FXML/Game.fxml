@@ -358,5 +358,16 @@
             <Font size="20.0" />
          </font>
       </Label>
+      <ImageView fx:id="detailCard" fitHeight="315.0" fitWidth="195.0" layoutX="1084.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../Images/CardsDetailed/special_mardroeme.jpg" />
+         </image>
+      </ImageView>
+      <Rectangle fx:id="detailRectangle" fill="#05090d" height="70.0" layoutX="1066.0" layoutY="490.0" opacity="0.4" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="214.0" />
+      <Label fx:id="detailLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="1069.0" layoutY="495.0" prefHeight="63.0" prefWidth="203.0" text="hi" textAlignment="CENTER" textFill="#fff70f" visible="false" wrapText="true">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

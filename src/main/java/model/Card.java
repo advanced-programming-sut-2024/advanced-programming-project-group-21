@@ -16,6 +16,8 @@ public class Card{
     private String preGameImage;
     private String inGameImage;
     private CardEnum cardEnum;
+    private int powerCoefficient = 1;
+    private int powerModifier = 0;
     public Card(CardEnum cardEnum) {
         this.name = cardEnum.getName();
         this.id = cardEnum.getId();
@@ -55,7 +57,7 @@ public class Card{
     }
 
     public int getPower() {
-        return power;
+        return power*powerCoefficient+powerModifier;
     }
 
     public CardAbility getAbility() {
@@ -68,5 +70,21 @@ public class Card{
 
     public String getInGameImage() {
         return inGameImage;
+    }
+
+    public void setPowerCoefficient(int powerCoefficient) {
+        this.powerCoefficient = powerCoefficient;
+    }
+
+    public void setPowerModifier(int powerModifier) {
+        this.powerModifier = powerModifier;
+    }
+
+    public int getPowerCoefficient() {
+        return powerCoefficient;
+    }
+
+    public int getPowerModifier() {
+        return powerModifier;
     }
 }
