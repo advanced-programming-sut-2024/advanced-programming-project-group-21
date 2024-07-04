@@ -163,6 +163,13 @@ public class GameMenuViewController {
         ImageView commanderImageView = getImageView(commanderPane.getPrefHeight(), commanderPane.getPrefWidth(), commandersEnum.getInGameImage());
         commanderPane.getChildren().add(commanderImageView);
 
+        commanderImageView.setOnMouseEntered(event -> {
+            showDetailedCommander(commanderPane);
+        });
+        commanderImageView.setOnMouseExited(event -> {
+            hideDetailedCommander();
+        });
+
         return commanderPane;
     }
 
@@ -324,11 +331,29 @@ public class GameMenuViewController {
         ImageView cardImageView = getCardImageView(card, cardAnchorPane.getPrefHeight(), cardAnchorPane.getPrefWidth());
         cardAnchorPane.getChildren().add(cardImageView);
 
-        cardImageView.setOnMouseClicked(event -> {
-
+        cardImageView.setOnMouseEntered(event -> {
+            showDetailedCard(cardAnchorPane);
+        });
+        cardImageView.setOnMouseExited(event -> {
+            hideDetailedCard();
         });
 
         return cardAnchorPane;
+    }
+
+    private void showDetailedCommander(AnchorPane commanderAnchorPane) {
+        CommandersEnum commander = (CommandersEnum) commanderAnchorPane.getUserData();
+        detailCard.setImage(new Image(commander.getInGameImage()));
+        detailLabel.setText(commander.getLeaderAbilityDescription());
+        detailCard.setVisible(true);
+        detailLabel.setVisible(true);
+        detailRectangle.setVisible(true);
+    }
+
+    private void hideDetailedCommander() {
+        detailCard.setVisible(false);
+        detailLabel.setVisible(false);
+        detailRectangle.setVisible(false);
     }
 
     private void showDetailedCard(AnchorPane cardAnchorPane) {
@@ -340,7 +365,7 @@ public class GameMenuViewController {
         detailRectangle.setVisible(true);
     }
 
-    private void hideDetailedCard(AnchorPane cardAnchorPane){
+    private void hideDetailedCard() {
         detailCard.setVisible(false);
         detailLabel.setVisible(false);
         detailRectangle.setVisible(false);
