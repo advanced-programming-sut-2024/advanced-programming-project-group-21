@@ -350,7 +350,14 @@ public enum CardAbility {
             }
             return null;
         }
+    },
+    NONE("None", "No ability") {
+        @Override
+        public void doAbility(AnchorPane card, AnchorPane target) {
+            // Does nothing by default
+        }
     };
+    ;
 
     private String name;
     private String description;
