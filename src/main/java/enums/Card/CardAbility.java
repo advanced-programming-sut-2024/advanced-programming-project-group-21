@@ -1,9 +1,11 @@
 package enums.Card;
 
 import controller.ApplicationController;
+import enums.GameStates;
 import javafx.scene.layout.AnchorPane;
 import model.App;
 import model.Card;
+import model.Game;
 import model.Player;
 import view.Game.GameMenuViewController;
 
@@ -305,10 +307,48 @@ public enum CardAbility {
         }
     },
 
-    TRANSFORMERMS("Transformers", "Transforms into a random card from the deck.") {
+    TRANSFORMERMS("Transformers", "Transforms into a random card from the deck in the next round.") {
         @Override
         public void doAbility(AnchorPane card, AnchorPane target) {
+            // Does nothing by default
+        }
 
+        public void transform(AnchorPane card, Player player){
+            if(!((Card)card.getUserData()).getAbility().equals(TRANSFORMERMS))
+                return;
+            Game game = ApplicationController.game;
+            AnchorPane target = getRandomCard();
+            for(AnchorPane unit : player.getClosedCombatUnits()){
+                if(unit.equals(card)){
+                    player.getClosedCombatUnits().remove(unit);
+                    player.getClosedCombatUnits().add(target);
+                    return;
+                }
+            }
+            for(AnchorPane unit : player.getRangedCombatUnits()){
+                if(unit.equals(card)){
+                    player.getRangedCombatUnits().remove(unit);
+                    player.getRangedCombatUnits().add(target);
+                    return;
+                }
+            }
+            for(AnchorPane unit : player.getSiegeCombatUnits()){
+                if(unit.equals(card)){
+                    player.getSiegeCombatUnits().remove(unit);
+                    player.getSiegeCombatUnits().add(target);
+                    return;
+                }
+            }
+        }
+
+        private AnchorPane getRandomCard(){
+            for(CardEnum cardEnum : CardEnum.values()){
+                if(cardEnum.getPower()==8){
+                    Card card = new Card(cardEnum);
+                    return (new GameMenuViewController()).createCard(card);
+                }
+            }
+            return null;
         }
     };
 
