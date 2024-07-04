@@ -11,9 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player extends User {
-    private ArrayList<Card> hand = new ArrayList<>();
+    private ArrayList<AnchorPane> hand = new ArrayList<>();
     private ArrayList<Card> deck = new ArrayList<>();
-    private ArrayList<Card> discardPile = new ArrayList<>();
     private User user;
     private int availableCards = 0;
     private CommandersEnum commander;
@@ -55,11 +54,11 @@ public class Player extends User {
         totalPower = 0;
     }
 
-    public ArrayList<Card> getHand() {
+    public ArrayList<AnchorPane> getHand() {
         return this.hand;
     }
 
-    public void setHand(ArrayList<Card> hand) {
+    public void setHand(ArrayList<AnchorPane> hand) {
         this.hand = hand;
     }
 
@@ -69,14 +68,6 @@ public class Player extends User {
 
     public void setDeck(ArrayList<Card> deck) {
         this.deck = deck;
-    }
-
-    public ArrayList<Card> getDiscardPile() {
-        return discardPile;
-    }
-
-    public void setDiscardPile(ArrayList<Card> discardPile) {
-        this.discardPile = discardPile;
     }
 
     public User getUser() {
@@ -209,14 +200,6 @@ public class Player extends User {
 
     public void removeFromSiegeCombatUnits(AnchorPane card) {
         this.siegeCombatUnits.remove(card);
-    }
-
-    public void addToDiscardPile(Card card) {
-        this.discardPile.add(card);
-    }
-
-    public void removeFromDiscardPile(Card card) {
-        this.discardPile.remove(card);
     }
 
     public void addToDeck(Card card) {

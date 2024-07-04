@@ -306,8 +306,8 @@ public class GameMenuViewController {
 
         controller.createStartingHand();
 
-        ArrayList<Card> player1Hand = player1.getHand();
-        ArrayList<Card> player2Hand = player2.getHand();
+        ArrayList<AnchorPane> player1Hand = player1.getHand();
+        ArrayList<AnchorPane> player2Hand = player2.getHand();
 
         for (Card card : player1Hand) {
             AnchorPane cardAnchorPane = createCard(card);

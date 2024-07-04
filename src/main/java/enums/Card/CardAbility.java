@@ -107,7 +107,7 @@ public enum CardAbility {
     SPY("Spy", "Place on your opponent's battlefield and get two cards from your deck") {
         @Override
         public void doAbility(AnchorPane card, AnchorPane target) {
-            Player player = ApplicationController.game.getEnemyPlayer(); // TODO: BOOKMARK
+            Player player = ApplicationController.game.getEnemyPlayer();
             for (int i = 1; i >= 0; i--) {
                 player.getDeck().get(i);
                 player.addToHand(player.getDeck().get(i));

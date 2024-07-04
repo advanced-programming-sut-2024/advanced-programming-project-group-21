@@ -10,8 +10,6 @@ public class Game {
     private Player player2;
     private Player currentPlayer;
     private Player enemyPlayer;
-    private ArrayList<AnchorPane> player1Hand = new ArrayList<>();
-    private ArrayList<AnchorPane> player2Hand = new ArrayList<>();
 
     private GameStates gameState;
 
@@ -44,44 +42,6 @@ public class Game {
 
     public Player getEnemyPlayer() {
         return enemyPlayer;
-    }
-
-    public ArrayList<AnchorPane> getPlayer1Hand() {
-        return player1Hand;
-    }
-
-    public void setPlayer1Hand(ArrayList<AnchorPane> player1Hand) {
-        this.player1Hand = player1Hand;
-    }
-
-    public ArrayList<AnchorPane> getPlayer2Hand() {
-        return player2Hand;
-    }
-    public ArrayList<AnchorPane> getCurrentPlayerHand(){
-        if(currentPlayer.equals(player1)){
-            return player1Hand;
-        }
-        return player2Hand;
-    }
-
-    public void setPlayer2Hand(ArrayList<AnchorPane> player2Hand) {
-        this.player2Hand = player2Hand;
-    }
-
-    public void addToPlayer1Hand(AnchorPane card) {
-        player1Hand.add(card);
-    }
-
-    public void addToPlayer2Hand(AnchorPane card) {
-        player2Hand.add(card);
-    }
-
-    public void removeFromPlayer1Hand(AnchorPane card) {
-        player1Hand.remove(card);
-    }
-
-    public void removeFromPlayer2Hand(AnchorPane card) {
-        player2Hand.remove(card);
     }
 
     public GameStates getGameState() {
