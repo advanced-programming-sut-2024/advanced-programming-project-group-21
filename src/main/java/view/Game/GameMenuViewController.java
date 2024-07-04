@@ -64,8 +64,7 @@ public class GameMenuViewController {
     public Label enemySiegePoints;
     public Label enemyClosedPoints;
     public Label enemyRangedPoints;
-    GameMenuController controller = new GameMenuController();
-
+    private GameMenuController controller = new GameMenuController(new Game(new PreGame()));
     public void initialize() {
         Game game = ApplicationController.game;
         if (game == null) {
