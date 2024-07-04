@@ -12,7 +12,7 @@ public class Game {
     private Player enemyPlayer;
     private ArrayList<AnchorPane> player1Hand = new ArrayList<>();
     private ArrayList<AnchorPane> player2Hand = new ArrayList<>();
-    private GameStates gameState;
+    public static GameStates gameState;
 
     public Game(PreGame preGame) {
         this.player1 = preGame.getPlayer1();
@@ -81,7 +81,7 @@ public class Game {
         player2Hand.remove(card);
     }
 
-    public GameStates getGameState() {
+    public static GameStates getGameState() {
         return gameState;
     }
 

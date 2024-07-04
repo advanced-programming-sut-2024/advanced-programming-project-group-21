@@ -8,7 +8,9 @@ import javafx.scene.input.MouseEvent;
 import model.User.User;
 import view.Profile.ProfileMenuView;
 
-public class UserInfoMenuViewController {
+public class
+
+UserInfoMenuViewController {
 
     @FXML
     private Label usernameLabel;
@@ -26,71 +28,85 @@ public class UserInfoMenuViewController {
     private Label winsLabel;
     @FXML
     private Label losesLabel;
-    User currentUser = User.getLoggedInUser();
+    User currentUser = ApplicationController.getLoggedInUser();
+
+    public void initialize() {
+        if (currentUser == null) {
+            usernameLabel.setText("User not found");
+            nicknameLabel.setText("User not found");
+            HighestScoreLabel.setText("User not found");
+            RankLabel.setText("User not found");
+            playedGamesLabel.setText("User not found");
+            drawsLabel.setText("User not found");
+            winsLabel.setText("User not found");
+            losesLabel.setText("User not found");
+            return;
+        }
+        usernameLabel.setText(currentUser.getUsername());
+        nicknameLabel.setText(currentUser.getNickname());
+        HighestScoreLabel.setText(String.valueOf(currentUser.getHighestScore()));
+        RankLabel.setText(String.valueOf(currentUser.getRank()));
+        playedGamesLabel.setText(String.valueOf(currentUser.getGamesPlayed()));
+        drawsLabel.setText(String.valueOf(currentUser.getDraw()));
+        winsLabel.setText(String.valueOf(currentUser.getWins()));
+        losesLabel.setText(String.valueOf(currentUser.getLose()));
+    }
 
 
     public void showUsername(ActionEvent actionEvent) {
         if (currentUser != null) {
             usernameLabel.setText(currentUser.getUsername());
-        } else {
-            usernameLabel.setText("User not found");
         }
+
     }
 
     public void showNickname(ActionEvent actionEvent) {
         if (currentUser != null) {
             nicknameLabel.setText(currentUser.getNickname());
-        } else {
-            nicknameLabel.setText("User not found");
         }
+
     }
 
     public void showHighestScore(ActionEvent actionEvent) {
         if (currentUser != null) {
             HighestScoreLabel.setText(String.valueOf(currentUser.getHighestScore()));
-        } else {
-            HighestScoreLabel.setText("User not found");
         }
+
     }
 
     public void showRank(ActionEvent actionEvent) {
         if (currentUser != null) {
             RankLabel.setText(String.valueOf(currentUser.getRank()));
-        } else {
-            RankLabel.setText("User not found");
         }
+
     }
 
     public void showPlayedGames(ActionEvent actionEvent) {
         if (currentUser != null) {
             playedGamesLabel.setText(String.valueOf(currentUser.getGamesPlayed()));
-        } else {
-            playedGamesLabel.setText("User not found");
         }
+
     }
 
     public void showDraws(ActionEvent actionEvent) {
         if (currentUser != null) {
             drawsLabel.setText(String.valueOf(currentUser.getDraw()));
-        } else {
-            drawsLabel.setText("User not found");
         }
+
     }
 
     public void showWins(ActionEvent actionEvent) {
         if (currentUser != null) {
             winsLabel.setText(String.valueOf(currentUser.getWins()));
-        } else {
-            winsLabel.setText("User not found");
         }
+
     }
 
     public void showLoses(ActionEvent actionEvent) {
         if (currentUser != null) {
             losesLabel.setText(String.valueOf(currentUser.getLose()));
-        } else {
-            losesLabel.setText("User not found");
         }
+
     }
 
     public void goToProfileMenu(MouseEvent mouseEvent) {
