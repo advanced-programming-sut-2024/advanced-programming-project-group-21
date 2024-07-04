@@ -56,7 +56,7 @@ public class GameBoard {
         GameBoard.player2SecondRow = player2SecondRow;
     }
 
-    public static ArrayList<Card> getPlayer3ThirdRow() {
+    public static ArrayList<Card> getPlayer2ThirdRow() {
         return player2ThirdRow;
     }
 

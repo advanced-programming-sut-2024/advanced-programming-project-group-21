@@ -204,7 +204,16 @@ public class GameMenuController {
             ApplicationController.game.setEnemyPlayer(player1);
             FactionsEnum.NORTHERN_REALMS.doAbility();
         }
-        if ()
+        if (player1.getCurrentFaction().equals(FactionsEnum.SKELLIGE) && !player2.getCurrentFaction().equals(FactionsEnum.SKELLIGE)) {
+            ApplicationController.game.setCurrentPlayer(player1);
+            ApplicationController.game.setEnemyPlayer(player2);
+            FactionsEnum.SKELLIGE.doAbility();
+        } else if (!player1.getCurrentFaction().equals(FactionsEnum.SKELLIGE) && player2.getCurrentFaction().equals(FactionsEnum.SKELLIGE)) {
+            ApplicationController.game.setCurrentPlayer(player2);
+            ApplicationController.game.setEnemyPlayer(player1);
+            FactionsEnum.SKELLIGE.doAbility();
+        }
+
 
 
 
