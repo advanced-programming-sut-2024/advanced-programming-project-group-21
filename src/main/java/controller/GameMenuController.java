@@ -133,5 +133,4 @@ public class GameMenuController {
 //        player2.getCurrentFaction().doAbility();
     }
 
-
 }

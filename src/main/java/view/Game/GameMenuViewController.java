@@ -3,17 +3,18 @@ package view.Game;
 import controller.ApplicationController;
 import controller.GameMenuController;
 import enums.Card.CommandersEnum;
-import enums.Card.FactionsEnum;
 import enums.GameStates;
-import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import model.*;
 
 import java.util.ArrayList;
@@ -288,6 +289,11 @@ public class GameMenuViewController {
         for (AnchorPane card : currentPlayerSiegeCombatUnits) {
             userSiegeHBox.getChildren().add(card);
         }
+        ArrayList<HBox> rows = new ArrayList<>();
+        rows.add(userClosedHBox);
+        rows.add(userRangedHBox);
+        rows.add(userSiegeHBox);
+        dropOnRow(rows);
     }
 
     private void loadHand() {
@@ -337,8 +343,48 @@ public class GameMenuViewController {
         cardImageView.setOnMouseExited(event -> {
             hideDetailedCard();
         });
+        cardImageView.setOnDragDetected(event -> {
+            dragToRow(cardImageView, event,cardAnchorPane);
+        });
 
         return cardAnchorPane;
+    }
+
+    private void dragToRow(ImageView cardImageView, MouseEvent event, AnchorPane cardAnchorPane) {
+        Dragboard db = cardImageView.startDragAndDrop(TransferMode.MOVE);
+        ClipboardContent content = new ClipboardContent();
+        content.putImage(cardImageView.getImage());
+        db.setContent(content);
+        event.consume();
+        cardAnchorPane.getChildren().remove(cardImageView);
+    }
+
+    private void dropOnRow(ArrayList<HBox> rows) {
+        for (HBox row : rows) {
+            row.setOnDragOver(event -> {
+                if (event.getGestureSource() != row && event.getDragboard().hasImage()) {
+                    event.acceptTransferModes(TransferMode.MOVE);
+                }
+                event.consume();
+            });
+
+            // Set drop event on rows
+            row.setOnDragDropped(event -> {
+                row.setSpacing(10);
+                Dragboard db = event.getDragboard();
+                boolean success = false;
+                if (db.hasImage()) {
+                    ImageView droppedCard = new ImageView(db.getImage());
+                    droppedCard.setFitWidth(63);
+                    droppedCard.setFitHeight(79);
+                    row.getChildren().add(droppedCard);
+                    success = true;
+                }
+                event.setDropCompleted(success);
+
+                event.consume();
+            });
+        }
     }
 
     private void showDetailedCommander(AnchorPane commanderAnchorPane) {
