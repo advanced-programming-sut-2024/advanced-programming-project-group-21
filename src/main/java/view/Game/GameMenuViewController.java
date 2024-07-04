@@ -85,7 +85,12 @@ public class GameMenuViewController {
             ApplicationController.game.setGameState(GameStates.ROUND_1_STARTED);
             loadTable();
             loadHand();
+            loadVeto();
         }
+    }
+
+    private void loadVeto() {
+        
     }
 
     private void changeActivePlayer() {
