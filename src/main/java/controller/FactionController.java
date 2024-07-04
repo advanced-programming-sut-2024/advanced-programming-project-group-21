@@ -1,6 +1,7 @@
 package controller;
 
 import enums.Card.FactionsEnum;
+import model.Player;
 
 public class FactionController {
     public FactionsEnum getFaction(String factionId){

@@ -4,6 +4,7 @@ import enums.Card.CardAbility;
 import enums.Card.CardEnum;
 import enums.Card.CardType;
 import enums.Card.FactionsEnum;
+import javafx.scene.Scene;
 
 public class Card{
     private String name;
