@@ -286,12 +286,7 @@ public class GameMenuViewController {
     private void loadHand() {
         Player currentPlayer = ApplicationController.game.getCurrentPlayer();
 
-        ArrayList<AnchorPane> currentPlayerHand = new ArrayList<>();
-        if (currentPlayer.equals(ApplicationController.game.getPlayer1())) {
-            currentPlayerHand = ApplicationController.game.getPlayer1Hand();
-        } else {
-            currentPlayerHand = ApplicationController.game.getPlayer2Hand();
-        }
+        ArrayList<AnchorPane> currentPlayerHand = currentPlayer.getHand();
 
         handHBox.getChildren().clear();
 
@@ -304,20 +299,7 @@ public class GameMenuViewController {
         Player player1 = ApplicationController.game.getPlayer1();
         Player player2 = ApplicationController.game.getPlayer2();
 
-        controller.createStartingHand();
-
-        ArrayList<AnchorPane> player1Hand = player1.getHand();
-        ArrayList<AnchorPane> player2Hand = player2.getHand();
-
-        for (Card card : player1Hand) {
-            AnchorPane cardAnchorPane = createCard(card);
-            ApplicationController.game.getPlayer1Hand().add(cardAnchorPane);
-        }
-
-        for (Card card : player2Hand) {
-            AnchorPane cardAnchorPane = createCard(card);
-            ApplicationController.game.getPlayer2Hand().add(cardAnchorPane);
-        }
+        createStartingHand();
     }
 
     private void setDeckSizeLabel() {
@@ -389,4 +371,33 @@ public class GameMenuViewController {
         card.setMinWidth(width);
         card.setMaxWidth(width);
     }
+
+    public void createStartingHand() {
+        Player currentPlayer = ApplicationController.game.getCurrentPlayer();
+        ArrayList<Card> deck = currentPlayer.getDeck();
+        ArrayList<AnchorPane> hand = new ArrayList<>();
+
+        System.out.println(currentPlayer.getDeck());
+
+        for (int i = 9; i >= 0; i--) {
+            hand.add(createCard(deck.get(i)));
+            deck.remove(i);
+        }
+
+
+        currentPlayer.setHand(hand);
+
+        Player enemyPlayer = ApplicationController.game.getEnemyPlayer();
+        deck = enemyPlayer.getDeck();
+        hand = new ArrayList<>();
+
+        for (int i = 9; i >= 0; i--) {
+            hand.add(createCard(deck.get(i)));
+            deck.remove(i);
+        }
+
+        enemyPlayer.setHand(hand);
+    }
+
+
 }
