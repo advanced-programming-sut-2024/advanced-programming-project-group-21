@@ -69,7 +69,8 @@ public class GameMenuViewController {
     public ImageView detailCard;
     public Rectangle detailRectangle;
     public Label detailLabel;
-    GameMenuController controller = new GameMenuController();
+
+    GameMenuController controller = new GameMenuController(new Game(new PreGame()));
 
     public void initialize() {
         Game game = ApplicationController.game;

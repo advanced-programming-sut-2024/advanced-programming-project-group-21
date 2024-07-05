@@ -136,30 +136,30 @@ public class GameMenuController {
 //        player2.getCurrentFaction().doAbility();
     }
 
-    public void createStartingHand() {
-        Player currentPlayer = ApplicationController.game.getCurrentPlayer();
-        ArrayList<Card> deck = currentPlayer.getDeck();
-        ArrayList<Card> hand = new ArrayList<>();
-
-        for (int i = 9; i >= 0; i--) {
-            hand.add(deck.get(i));
-            deck.remove(i);
-        }
-
-
-        currentPlayer.setHand(hand);
-
-        Player enemyPlayer = ApplicationController.game.getEnemyPlayer();
-        deck = enemyPlayer.getDeck();
-        hand = new ArrayList<>();
-
-        for (int i = 9; i >= 0; i--) {
-            hand.add(deck.get(i));
-            deck.remove(i);
-        }
-
-        enemyPlayer.setHand(hand);
-    }
+//    public void createStartingHand() {
+//        Player currentPlayer = ApplicationController.game.getCurrentPlayer();
+//        ArrayList<Card> deck = currentPlayer.getDeck();
+//        ArrayList<Card> hand = new ArrayList<>();
+//
+//        for (int i = 9; i >= 0; i--) {
+//            hand.add(deck.get(i));
+//            deck.remove(i);
+//        }
+//
+//
+//        currentPlayer.setHand(hand);
+//
+//        Player enemyPlayer = ApplicationController.game.getEnemyPlayer();
+//        deck = enemyPlayer.getDeck();
+//        hand = new ArrayList<>();
+//
+//        for (int i = 9; i >= 0; i--) {
+//            hand.add(deck.get(i));
+//            deck.remove(i);
+//        }
+//
+//        enemyPlayer.setHand(hand);
+//    }
 
     private final Game game;
 
