@@ -136,37 +136,6 @@ public class GameMenuController {
 //        player2.getCurrentFaction().doAbility();
     }
 
-    public void createStartingHand() {
-        Player currentPlayer = ApplicationController.game.getCurrentPlayer();
-        ArrayList<Card> deck = currentPlayer.getDeck();
-        ArrayList<Card> hand = new ArrayList<>();
-
-        for (int i = 9; i >= 0; i--) {
-            hand.add(deck.get(i));
-            deck.remove(i);
-        }
-
-
-        currentPlayer.setHand(hand);
-
-        Player enemyPlayer = ApplicationController.game.getEnemyPlayer();
-        deck = enemyPlayer.getDeck();
-        hand = new ArrayList<>();
-
-        for (int i = 9; i >= 0; i--) {
-            hand.add(deck.get(i));
-            deck.remove(i);
-        }
-
-        enemyPlayer.setHand(hand);
-    }
-
-    private final Game game;
-
-    public GameMenuController(Game game) {
-        this.game = game;
-    }
-
     public void applyFactionAbility() {
         Player player1 = ApplicationController.game.getPlayer1();
         Player player2 = ApplicationController.game.getPlayer2();

@@ -91,7 +91,7 @@ public class GameMenuViewController {
     }
 
     private void loadVeto() {
-        
+
     }
 
     private void changeActivePlayer() {
