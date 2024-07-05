@@ -8,6 +8,8 @@ import enums.GameStates;
 import model.Player;
 import java.util.Random;
 import model.GameBoard;
+import view.Game.GameMenuViewController;
+
 import java.util.ArrayList;
 
 
@@ -18,14 +20,14 @@ public enum FactionsEnum {
         public void doAbility() {
             if (ApplicationController.game.getGameState() == GameStates.ROUND_3_STARTED) {
                 Player player = ApplicationController.game.getCurrentPlayer();
-                ArrayList<Card> graveyard = player.getDiscardPile();
+                ArrayList<AnchorPane> graveyard = player.getDiscardPile();
                 Random random = new Random();
                 int randomIndex1 = random.nextInt(graveyard.size());
                 int randomIndex2 = random.nextInt(graveyard.size());
-                Card card1 = graveyard.get(randomIndex1);
-                Card card2 = graveyard.get(randomIndex2);
-                AnchorPane card1Pane = new AnchorPane();
-                AnchorPane card2Pane = new AnchorPane();
+                AnchorPane card1Pane = graveyard.get(randomIndex1);
+                AnchorPane card2Pane = graveyard.get(randomIndex2);
+                Card card1 = (Card)card1Pane.getUserData();
+                Card card2 = (Card)card2Pane.getUserData();
                 card1Pane.setUserData(card1);
                 card2Pane.setUserData(card2);
                 if (card1.getType().equals(CardType.CLOSED_COMBAT_UNIT)) {
@@ -60,7 +62,7 @@ public enum FactionsEnum {
                     gameStates == GameStates.ROUND_3_ENDED) {
                 Player player = ApplicationController.game.getCurrentPlayer();
                 Card card = player.getDeck().get(0);
-                player.addToHand(card);
+                player.addToHand(new GameMenuViewController().createCard(card));
                 player.getDeck().remove(0);
             }
         }

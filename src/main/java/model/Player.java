@@ -13,6 +13,7 @@ import java.util.List;
 
 public class Player extends User {
     private ArrayList<AnchorPane> hand = new ArrayList<>();
+    private ArrayList<AnchorPane> discardPile = new ArrayList<>();
     private ArrayList<Card> deck = new ArrayList<>();
     private User user;
     private int availableCards = 0;
@@ -296,5 +297,17 @@ public class Player extends User {
     public int getTotalPower(){
         totalPower = getClosedPower()+getRangedPower()+getSiegePower();
         return totalPower;
+    }
+
+    public ArrayList<AnchorPane> getDiscardPile() {
+        return discardPile;
+    }
+
+    public void setDiscardPile(ArrayList<AnchorPane> discardPile) {
+        this.discardPile = discardPile;
+    }
+
+    public void addToDiscardPile(AnchorPane card) {
+        this.discardPile.add(card);
     }
 }
