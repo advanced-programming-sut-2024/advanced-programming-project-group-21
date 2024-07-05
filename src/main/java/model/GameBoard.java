@@ -12,7 +12,7 @@ public class GameBoard {
     private static ArrayList<Card> player1ThirdRow = new ArrayList<>();
     private static ArrayList<Card> player2FirstRow = new ArrayList<>();
     private static ArrayList<Card> player2SecondRow = new ArrayList<>();
-    private static ArrayList<Card> player3ThirdRow = new ArrayList<>();
+    private static ArrayList<Card> player2ThirdRow = new ArrayList<>();
     private static Commander player1Commander;
     private static Commander player2Commander;
 
@@ -56,12 +56,12 @@ public class GameBoard {
         GameBoard.player2SecondRow = player2SecondRow;
     }
 
-    public static ArrayList<Card> getPlayer3ThirdRow() {
-        return player3ThirdRow;
+    public static ArrayList<Card> getPlayer2ThirdRow() {
+        return player2ThirdRow;
     }
 
     public static void setPlayer3ThirdRow(ArrayList<Card> player3ThirdRow) {
-        GameBoard.player3ThirdRow = player3ThirdRow;
+        GameBoard.player2ThirdRow = player3ThirdRow;
     }
 
     public static Commander getPlayer1Commander() {

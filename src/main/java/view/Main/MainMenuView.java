@@ -1,5 +1,6 @@
 package view.Main;
 
+import controller.ApplicationController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,6 +20,7 @@ public class MainMenuView extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setResizable(false);
+        ApplicationController.setStage(stage);
         FXMLLoader fxmlLoader = new FXMLLoader();
         URL url = MainMenuView.class.getResource("/FXML/Main.fxml");
         AnchorPane root = fxmlLoader.load(url);

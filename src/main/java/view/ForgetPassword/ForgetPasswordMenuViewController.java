@@ -138,6 +138,8 @@ public class ForgetPasswordMenuViewController {
         alert.show();
     }
 
+
+
     public void goBackToLogin(MouseEvent mouseEvent) {
         try {
             new LoginMenuView().start(ApplicationController.getStage());

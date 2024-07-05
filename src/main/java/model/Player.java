@@ -225,7 +225,6 @@ public class Player extends User {
         this.siegeCombatSpecial = null;
     }
 
-
     public int getClosedCombatPoints() {
         return getRowPoints(closedCombatUnits);
     }
@@ -249,6 +248,9 @@ public class Player extends User {
             result += cardObject.getPower();
         }
         return result;
+    }
+    public int getRoundTotalPower() {
+        return getClosedCombatPoints() + getRangedCombatPoints() + getSiegeCombatPoints();
     }
 
     public AnchorPane getCommanderPane() {
