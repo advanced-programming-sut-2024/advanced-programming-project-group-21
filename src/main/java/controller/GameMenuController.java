@@ -214,6 +214,15 @@ public class GameMenuController {
             ApplicationController.game.setEnemyPlayer(player1);
             FactionsEnum.SKELLIGE.doAbility();
         }
+        if (player1.getCurrentFaction().equals(FactionsEnum.MONSTERS) && !player2.getCurrentFaction().equals(FactionsEnum.MONSTERS)){
+            ApplicationController.game.setCurrentPlayer(player1);
+            ApplicationController.game.setCurrentPlayer(player2);
+            FactionsEnum.MONSTERS.doAbility();
+        } else if (!player1.getCurrentFaction().equals(FactionsEnum.MONSTERS) && player2.getCurrentFaction().equals(FactionsEnum.MONSTERS)){
+            ApplicationController.game.setCurrentPlayer(player2);
+            ApplicationController.game.setEnemyPlayer(player1);
+            FactionsEnum.MONSTERS.doAbility();
+        }
 
 
 
