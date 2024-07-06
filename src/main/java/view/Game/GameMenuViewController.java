@@ -693,10 +693,29 @@ public class GameMenuViewController {
 
     public void skipTurn(MouseEvent mouseEvent) {
         ApplicationController.game.getCurrentPlayer().setPassedTurn(true);
-        changeActivePlayer();
+        changeTurn();
     }
 
     public void confirmTurn(MouseEvent mouseEvent) {
+        changeTurn();
+    }
+
+    private void changeTurn(){
+        if(ApplicationController.game.getEnemyPlayer().isPassedTurn()){
+            changeRound();
+        }
         changeActivePlayer();
+    }
+
+    private void changeRound(){
+
+    }
+
+    private void endGame(){
+
+    }
+
+    public void winPlayer(Player player){
+
     }
 }
