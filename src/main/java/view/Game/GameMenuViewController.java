@@ -2,7 +2,9 @@ package view.Game;
 
 import controller.ApplicationController;
 import controller.GameMenuController;
+import enums.Card.CardAbility;
 import enums.Card.CardPositions;
+import enums.Card.CardType;
 import enums.Card.CommandersEnum;
 import enums.GameStates;
 import javafx.scene.control.Button;
@@ -227,6 +229,7 @@ public class GameMenuViewController {
         loadInfo();
         setDeckSizeLabel();
         updateCardCount();
+        loadDrops();
     }
 
     private void updateCardCount() {
@@ -411,13 +414,17 @@ public class GameMenuViewController {
         for (AnchorPane card : currentPlayerSiegeCombatUnits) {
             userSiegeHBox.getChildren().add(card);
         }
+    }
+
+    private void loadDrops(){
         ArrayList<HBox> rows = new ArrayList<>();
         rows.add(userClosedHBox);
         rows.add(userRangedHBox);
         rows.add(userSiegeHBox);
         dropOnRow(rows);
 
-        //  ArrayList<AnchorPane>
+        ArrayList<HBox> specials = new ArrayList<>();
+        specials.add(userClosedSpecial);
     }
 
     private void loadHand() {
@@ -502,7 +509,7 @@ public class GameMenuViewController {
     private void dropOnRow(ArrayList<HBox> rows) {
         for (HBox row : rows) {
             row.setOnDragOver(event -> {
-                if (event.getGestureSource() != row) {
+                if (event.getGestureSource() != row && event.getDragboard().hasImage()) {
                     event.acceptTransferModes(TransferMode.MOVE);
                 }
                 event.consume();
@@ -519,49 +526,67 @@ public class GameMenuViewController {
         }
     }
 
-//    private void dropOnSpecial(ArrayList<HBox> specials) {
-//        for (HBox row : rows) {
-//            row.setOnDragOver(event -> {
-//                if (event.getGestureSource() != row) {
-//                    event.acceptTransferModes(TransferMode.MOVE);
-//                }
-//                event.consume();
-//            });
-//
-//            row.setOnDragDropped(event -> {
-//                Dragboard db = event.getDragboard();
-//                boolean success = false;
-//                moveToRow(row, cardPaneToBeDragged);
-//                success = true;
-//                event.setDropCompleted(success);
-//                event.consume();
-//            });
-//        }
-//    }
+    private void dropOnSpecial(ArrayList<HBox> specials) {
+        for (HBox row : specials) {
+            row.setOnDragOver(event -> {
+                if (event.getGestureSource() != row && event.getDragboard().hasImage()) {
+                    event.acceptTransferModes(TransferMode.MOVE);
+                }
+                event.consume();
+            });
+
+            row.setOnDragDropped(event -> {
+                Dragboard db = event.getDragboard();
+                boolean success = false;
+                moveToSpecial(row, cardPaneToBeDragged);
+                success = true;
+                event.setDropCompleted(success);
+                event.consume();
+            });
+        }
+    }
+
+    private void moveToSpecial(HBox row, AnchorPane cardPaneToBeDragged) {
+
+    }
+
 
     private void moveToRow(HBox row, AnchorPane cardAnchorPane) {
-        if (row.getId().equals("userClosedHBox")) {
-            ApplicationController.game.getCurrentPlayer().addToClosedCombatUnits(cardAnchorPane);
-            ((Card) cardAnchorPane.getUserData()).setCardPosition(CardPositions.CLOSED_COMBAT);
-        } else if (row.getId().equals("userRangedHBox")) {
-            ApplicationController.game.getCurrentPlayer().addToRangedCombatUnits(cardAnchorPane);
-            ((Card) cardAnchorPane.getUserData()).setCardPosition(CardPositions.RANGED_COMBAT);
-        } else if (row.getId().equals("userSiegeHBox")) {
-            ApplicationController.game.getCurrentPlayer().addToSiegeCombatUnits(cardAnchorPane);
-            ((Card) cardAnchorPane.getUserData()).setCardPosition(CardPositions.SIEGE_COMBAT);
-        } else if (row.getId().equals("enemyClosedHBox")) {
-            ApplicationController.game.getEnemyPlayer().addToClosedCombatUnits(cardAnchorPane);
-            ((Card) cardAnchorPane.getUserData()).setCardPosition(CardPositions.CLOSED_COMBAT);
-        } else if (row.getId().equals("enemyRangedHBox")) {
-            ApplicationController.game.getEnemyPlayer().addToRangedCombatUnits(cardAnchorPane);
-            ((Card) cardAnchorPane.getUserData()).setCardPosition(CardPositions.RANGED_COMBAT);
-        } else if (row.getId().equals("enemySiegeHBox")) {
-            ApplicationController.game.getEnemyPlayer().addToSiegeCombatUnits(cardAnchorPane);
-            ((Card) cardAnchorPane.getUserData()).setCardPosition(CardPositions.SIEGE_COMBAT);
+        Card card = (Card) cardAnchorPane.getUserData();
+        if (card.getCardPosition().equals(CardPositions.HAND)) {
+            if (!card.getAbility().equals(CardAbility.SPY)) {
+                if (row.getId().equals("userClosedHBox") &&
+                        (card.getType().equals(CardType.CLOSED_COMBAT_UNIT) || card.getType().equals(CardType.AGILE_UNIT))) {
+                    ApplicationController.game.getCurrentPlayer().addToClosedCombatUnits(cardAnchorPane);
+                    ((Card) cardAnchorPane.getUserData()).setCardPosition(CardPositions.CLOSED_COMBAT);
+                } else if (row.getId().equals("userRangedHBox") &&
+                        (card.getType().equals(CardType.RANGED_UNIT) || card.getType().equals(CardType.AGILE_UNIT))) {
+                    ApplicationController.game.getCurrentPlayer().addToRangedCombatUnits(cardAnchorPane);
+                    ((Card) cardAnchorPane.getUserData()).setCardPosition(CardPositions.RANGED_COMBAT);
+                } else if (row.getId().equals("userSiegeHBox") &&
+                        card.getType().equals(CardType.SIEGE_UNIT)) {
+                    ApplicationController.game.getCurrentPlayer().addToSiegeCombatUnits(cardAnchorPane);
+                    card.setCardPosition(CardPositions.SIEGE_COMBAT);
+                }
+            } else {
+                if (row.getId().equals("enemyClosedHBox") &&
+                        (card.getType().equals(CardType.CLOSED_COMBAT_UNIT) || card.getType().equals(CardType.AGILE_UNIT))) {
+                    ApplicationController.game.getEnemyPlayer().addToClosedCombatUnits(cardAnchorPane);
+                    ((Card) cardAnchorPane.getUserData()).setCardPosition(CardPositions.CLOSED_COMBAT);
+                } else if (row.getId().equals("enemyRangedHBox") &&
+                        (card.getType().equals(CardType.RANGED_UNIT) || card.getType().equals(CardType.AGILE_UNIT))) {
+                    ApplicationController.game.getEnemyPlayer().addToRangedCombatUnits(cardAnchorPane);
+                    ((Card) cardAnchorPane.getUserData()).setCardPosition(CardPositions.RANGED_COMBAT);
+                } else if (row.getId().equals("enemySiegeHBox") &&
+                        card.getType().equals(CardType.SIEGE_UNIT)) {
+                    ApplicationController.game.getEnemyPlayer().addToSiegeCombatUnits(cardAnchorPane);
+                    ((Card) cardAnchorPane.getUserData()).setCardPosition(CardPositions.SIEGE_COMBAT);
+                }
+            }
         }
 
-        ((ImageView) (cardAnchorPane.getChildren().get(0))).setOnDragOver(event -> {});
-        ((ImageView) (cardAnchorPane.getChildren().get(0))).setOnDragDropped(event -> {});
+        ((ImageView) (cardAnchorPane.getChildren().get(0))).setOnDragOver(null);
+        ((ImageView) (cardAnchorPane.getChildren().get(0))).setOnDragDropped(null);
         loadTable();
         loadHand();
     }
