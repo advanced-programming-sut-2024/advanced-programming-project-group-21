@@ -63,10 +63,10 @@ public enum FactionsEnum {
     },
     MONSTERS("Monsters", "file:src/main/resources/Images/Factions/faction_monsters.jpg", "file:src/main/resources/Images/Icons/deck_shield_monsters.png", "After each round, monsters will randomly hold a card from the battlefield to the next round.") {
         @Override
-        public void doAbility() {
+        public void doAbility(Player player) {
             Game game = ApplicationController.game;
-            Player player = ApplicationController.game.getCurrentPlayer();
-            if (game.getGameState() == GameStates.ROUND_3_STARTED || game.getGameState() == GameStates.ROUND_2_STARTED) {
+
+            if(game.getGameState().equals(GameStates.ROUND_1_ENDED) || game.getGameState().equals(GameStates.ROUND_2_ENDED)){
                 ArrayList<AnchorPane> firstRow = player.getClosedCombatUnits();
                 ArrayList<AnchorPane> secondRow = player.getRangedCombatUnits();
                 ArrayList<AnchorPane> thirdRow = player.getSiegeCombatUnits();
@@ -76,22 +76,14 @@ public enum FactionsEnum {
                 rows.add(thirdRow);
                 ArrayList<AnchorPane> randomRow = rows.get(new Random().nextInt(rows.size()));
                 Card randomCard = (Card) randomRow.get(new Random().nextInt(randomRow.size())).getUserData();
-                for (int i = 0; i < 3; i++) {
-                    if (!rows.get(i).equals(randomRow)) {
-                        for (Object cardPane : rows.get(i)) {
-                            rows.get(i).remove(cardPane);
-                            player.getDiscardPile().add((AnchorPane) cardPane);
-                        }
-                    }
-                }
-                for (AnchorPane cardPane : randomRow) {
-                    Card card = (Card) cardPane.getUserData();
-                    if (!card.getName().equals(randomCard.getName())) {
-                        randomRow.remove(card);
-                        player.getDiscardPile().add(cardPane);
-                    }
-                }
+                randomCard.setPowerCoefficient(1);
+                randomCard.setPowerModifier(0);
+                player.getDeck().add(0,randomCard);
+            }
 
+            if(game.getGameState().equals(GameStates.ROUND_2_STARTED) || game.getGameState().equals(GameStates.ROUND_3_STARTED)){
+                Card card = player.getDeck().get(0);
+                player.addToHand((new GameMenuViewController()).createCard(card));
             }
         }
     },
@@ -149,7 +141,7 @@ public enum FactionsEnum {
 
     NEUTRAL("Neutral", "file:src/main/resources/Images/Factions/faction_monsters.jpg", "file:src/main/resources/Images/Icons/deck_shield_monsters.png", "Neutral cards can be used by any faction.") {
         @Override
-        public void doAbility() {
+        public void doAbility(Player player) {
             Game game = ApplicationController.game;
             if (game.getGameState() == GameStates.ROUND_3_STARTED) {
                 // doesn't have an ability
