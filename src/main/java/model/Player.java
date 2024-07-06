@@ -46,6 +46,9 @@ public class Player extends User {
     private int availableVetoes = 2;
     private boolean vetoed;
     private boolean passedTurn = false;
+    private boolean wonRound1 = false;
+    private boolean wonRound2 = false;
+    private boolean wonRound3 = false;
 
     public Player(User user) {
         super(user.getUsername(), user.getNickname(), user.getPassword(), user.getEmail());
@@ -339,5 +342,29 @@ public class Player extends User {
 
     public void setPassedTurn(boolean passedTurn) {
         this.passedTurn = passedTurn;
+    }
+
+    public boolean isWonRound1() {
+        return wonRound1;
+    }
+
+    public void setWonRound1(boolean wonRound1) {
+        this.wonRound1 = wonRound1;
+    }
+
+    public boolean isWonRound2() {
+        return wonRound2;
+    }
+
+    public void setWonRound2(boolean wonRound2) {
+        this.wonRound2 = wonRound2;
+    }
+
+    public boolean isWonRound3() {
+        return wonRound3;
+    }
+
+    public void setWonRound3(boolean wonRound3) {
+        this.wonRound3 = wonRound3;
     }
 }
