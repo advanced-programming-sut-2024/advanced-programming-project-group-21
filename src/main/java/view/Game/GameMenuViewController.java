@@ -519,25 +519,25 @@ public class GameMenuViewController {
         }
     }
 
-    private void dropOnSpecial(ArrayList<HBox> specials) {
-        for (HBox row : rows) {
-            row.setOnDragOver(event -> {
-                if (event.getGestureSource() != row) {
-                    event.acceptTransferModes(TransferMode.MOVE);
-                }
-                event.consume();
-            });
-
-            row.setOnDragDropped(event -> {
-                Dragboard db = event.getDragboard();
-                boolean success = false;
-                moveToRow(row, cardPaneToBeDragged);
-                success = true;
-                event.setDropCompleted(success);
-                event.consume();
-            });
-        }
-    }
+//    private void dropOnSpecial(ArrayList<HBox> specials) {
+//        for (HBox row : rows) {
+//            row.setOnDragOver(event -> {
+//                if (event.getGestureSource() != row) {
+//                    event.acceptTransferModes(TransferMode.MOVE);
+//                }
+//                event.consume();
+//            });
+//
+//            row.setOnDragDropped(event -> {
+//                Dragboard db = event.getDragboard();
+//                boolean success = false;
+//                moveToRow(row, cardPaneToBeDragged);
+//                success = true;
+//                event.setDropCompleted(success);
+//                event.consume();
+//            });
+//        }
+//    }
 
     private void moveToRow(HBox row, AnchorPane cardAnchorPane) {
         if (row.getId().equals("userClosedHBox")) {
