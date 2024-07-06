@@ -51,15 +51,15 @@ public class GameMenuViewController {
     public Label enemyFaction;
     public HBox userClosedHBox;
     public HBox userRangedHBox;
-    public AnchorPane userRangedSpecial;
-    public AnchorPane userClosedSpecial;
-    public AnchorPane enemyClosedSpecial;
+    public HBox userRangedSpecial;
+    public HBox userClosedSpecial;
+    public HBox enemyClosedSpecial;
     public HBox enemyClosedHBox;
-    public AnchorPane enemyRangeSpecial;
+    public HBox enemyRangeSpecial;
     public HBox enemyRangedHBox;
-    public AnchorPane enemySiegeSpecial;
+    public HBox enemySiegeSpecial;
     public HBox enemySiegeHBox;
-    public AnchorPane userSiegeSpecial;
+    public HBox userSiegeSpecial;
     public HBox userSiegeHBox;
     public Label userSiegePoints;
     public Label userRangedPoints;
@@ -220,9 +220,6 @@ public class GameMenuViewController {
     }
 
     private void loadTable() {
-        Player currentPlayer = ApplicationController.game.getCurrentPlayer();
-        Player enemyPlayer = ApplicationController.game.getEnemyPlayer();
-
         loadCards();
         loadSpecials();
         loadCommanders();
@@ -330,27 +327,25 @@ public class GameMenuViewController {
         Player currentPlayer = ApplicationController.game.getCurrentPlayer();
         Player enemyPlayer = ApplicationController.game.getEnemyPlayer();
 
-        AnchorPane userClosed = currentPlayer.getClosedCombatSpecial();
-        AnchorPane userRanged = currentPlayer.getRangedCombatSpecial();
-        AnchorPane userSiege = currentPlayer.getSiegeCombatSpecial();
+        loadPlayerSpecials(userClosedSpecial, userRangedSpecial, userSiegeSpecial, currentPlayer);
 
-        AnchorPane enemyClosed = enemyPlayer.getClosedCombatSpecial();
-        AnchorPane enemyRanged = enemyPlayer.getRangedCombatSpecial();
-        AnchorPane enemySiege = enemyPlayer.getSiegeCombatSpecial();
+        ArrayList<HBox> rows = new ArrayList<>();
+        rows.add(userClosedSpecial);
+        rows.add(userRangedSpecial);
+        rows.add(userSiegeSpecial);
+        dropOnSpecial(rows);
+    }
 
-        if (userClosed != null)
-            userClosedSpecial = userClosed;
-        if (userRanged != null)
-            userRangedSpecial = userRanged;
-        if (userSiege != null)
-            userSiegeSpecial = userSiege;
-
-        if (enemyClosed != null)
-            enemyClosedSpecial = enemyClosed;
-        if (enemyRanged != null)
-            enemyRangeSpecial = enemyRanged;
-        if (enemySiege != null)
-            enemySiegeSpecial = enemySiege;
+    private void loadPlayerSpecials(HBox closedSpecial, HBox rangedSpecial, HBox siegeSpecial, Player player){
+        closedSpecial.getChildren().clear();
+        if (player.getClosedCombatSpecial() != null)
+            closedSpecial.getChildren().add(player.getClosedCombatSpecial());
+        rangedSpecial.getChildren().clear();
+        if (player.getRangedCombatSpecial() != null)
+            rangedSpecial.getChildren().add(player.getRangedCombatSpecial());
+        siegeSpecial.getChildren().clear();
+        if (player.getSiegeCombatSpecial() != null)
+            siegeSpecial.getChildren().add(player.getSiegeCombatSpecial());
     }
 
     private void loadCards() {
@@ -365,9 +360,9 @@ public class GameMenuViewController {
         ArrayList<AnchorPane> enemyPlayerRangedCombatUnits = enemyPlayer.getRangedCombatUnits();
         ArrayList<AnchorPane> enemyPlayerSiegeCombatUnits = enemyPlayer.getSiegeCombatUnits();
 
-        loadPositions(currentPlayerClosedCombatUnits, currentPlayerRangedCombatUnits, currentPlayerSiegeCombatUnits, userClosedHBox, userRangedHBox, userSiegeHBox);
+        loadPositions(currentPlayerClosedCombatUnits, currentPlayerRangedCombatUnits, currentPlayerSiegeCombatUnits, userClosedHBox, userRangedHBox, userSiegeHBox, userClosedSpecial,userRangedSpecial, userSiegeSpecial);
 
-        loadPositions(enemyPlayerClosedCombatUnits, enemyPlayerRangedCombatUnits, enemyPlayerSiegeCombatUnits, enemyClosedHBox, enemyRangedHBox, enemySiegeHBox);
+        loadPositions(enemyPlayerClosedCombatUnits, enemyPlayerRangedCombatUnits, enemyPlayerSiegeCombatUnits, enemyClosedHBox, enemyRangedHBox, enemySiegeHBox, enemyClosedSpecial, enemyRangeSpecial, enemySiegeSpecial);
 
         loadPoints();
     }
@@ -399,7 +394,7 @@ public class GameMenuViewController {
         this.enemyTotalPoints.setText(Integer.toString(enemyTotalPoints));
     }
 
-    private void loadPositions(ArrayList<AnchorPane> currentPlayerClosedCombatUnits, ArrayList<AnchorPane> currentPlayerRangedCombatUnits, ArrayList<AnchorPane> currentPlayerSiegeCombatUnits, HBox userClosedHBox, HBox userRangedHBox, HBox userSiegeHBox) {
+    private void loadPositions(ArrayList<AnchorPane> currentPlayerClosedCombatUnits, ArrayList<AnchorPane> currentPlayerRangedCombatUnits, ArrayList<AnchorPane> currentPlayerSiegeCombatUnits, HBox userClosedHBox, HBox userRangedHBox, HBox userSiegeHBox, HBox userClosedSpecial, HBox userRangedSpecial, HBox userSiegeSpecial) {
         userClosedHBox.getChildren().clear();
         for (AnchorPane card : currentPlayerClosedCombatUnits) {
             userClosedHBox.getChildren().add(card);
@@ -529,13 +524,17 @@ public class GameMenuViewController {
     private void dropOnSpecial(ArrayList<HBox> specials) {
         for (HBox row : specials) {
             row.setOnDragOver(event -> {
-                if (event.getGestureSource() != row && event.getDragboard().hasImage()) {
+                Card card = (Card) cardPaneToBeDragged.getUserData();
+                if (event.getGestureSource() != row &&
+                        event.getDragboard().hasImage() && (
+                        (card.getAbility().equals(CardAbility.MARDOEME) || card.getAbility().equals(CardAbility.COMMANDERS_HORN)))) {
                     event.acceptTransferModes(TransferMode.MOVE);
                 }
                 event.consume();
             });
 
             row.setOnDragDropped(event -> {
+
                 Dragboard db = event.getDragboard();
                 boolean success = false;
                 moveToSpecial(row, cardPaneToBeDragged);
@@ -547,7 +546,24 @@ public class GameMenuViewController {
     }
 
     private void moveToSpecial(HBox row, AnchorPane cardPaneToBeDragged) {
+        Card card = (Card) cardPaneToBeDragged.getUserData();
+        if(row.getChildren().size()==0) {
+            if (row.getId().equals("userClosedSpecial")) {
+                ApplicationController.game.getCurrentPlayer().setClosedCombatSpecial(cardPaneToBeDragged);
+                card.setCardPosition(CardPositions.CLOSED_COMBAT_SPECIAL);
+            } else if (row.getId().equals("userRangedSpecial")) {
+                ApplicationController.game.getCurrentPlayer().setRangedCombatSpecial(cardPaneToBeDragged);
+                card.setCardPosition(CardPositions.RANGED_COMBAT_SPECIAL);
+            } else if (row.getId().equals("userSiegeSpecial")) {
+                ApplicationController.game.getCurrentPlayer().setSiegeCombatSpecial(cardPaneToBeDragged);
+                card.setCardPosition(CardPositions.SIEGE_COMBAT_SPECIAL);
+            }
+        }
 
+        ((ImageView) (cardPaneToBeDragged.getChildren().get(0))).setOnDragOver(null);
+        ((ImageView) (cardPaneToBeDragged.getChildren().get(0))).setOnDragDropped(null);
+        loadTable();
+        loadHand();
     }
 
 
