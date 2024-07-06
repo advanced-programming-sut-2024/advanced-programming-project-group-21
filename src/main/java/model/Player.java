@@ -48,6 +48,7 @@ public class Player extends User {
     private boolean doneAction = false;
     private int availableVetoes = 2;
     private boolean vetoed;
+    private boolean passedTurn = false;
 
     public Player(User user) {
         super(user.getUsername(), user.getNickname(), user.getPassword(), user.getEmail());
@@ -333,5 +334,13 @@ public class Player extends User {
 
     public void setVetoed(boolean vetoed) {
         this.vetoed = vetoed;
+    }
+
+    public boolean isPassedTurn() {
+        return passedTurn;
+    }
+
+    public void setPassedTurn(boolean passedTurn) {
+        this.passedTurn = passedTurn;
     }
 }
