@@ -2,6 +2,7 @@ package view.Game;
 
 import controller.ApplicationController;
 import controller.GameMenuController;
+import enums.Card.CardPositions;
 import enums.Card.CommandersEnum;
 import enums.GameStates;
 import javafx.scene.control.Button;
@@ -16,7 +17,6 @@ import javafx.scene.shape.Rectangle;
 import model.*;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class GameMenuViewController {
     public AnchorPane enemyCommanderPane;
@@ -416,6 +416,8 @@ public class GameMenuViewController {
         rows.add(userRangedHBox);
         rows.add(userSiegeHBox);
         dropOnRow(rows);
+
+        //  ArrayList<AnchorPane>
     }
 
     private void loadHand() {
@@ -466,29 +468,29 @@ public class GameMenuViewController {
             hideDetailedCard();
         });
         cardImageView.setOnDragDetected(event -> {
-            dragToRow(cardImageView, event, cardAnchorPane);
+            dragCard(cardImageView, event, cardAnchorPane);
         });
         cardImageView.setOnDragOver(
-            event -> {
-                event.acceptTransferModes(TransferMode.MOVE);
-                // TODO: ABILITY
-                event.consume();
-            }
+                event -> {
+                    event.acceptTransferModes(TransferMode.MOVE);
+                    // TODO: ABILITY
+                    event.consume();
+                }
         );
         cardImageView.setOnDragDropped(
-            event -> {
-                moveToRow((HBox) cardAnchorPane.getParent(), cardPaneToBeDragged);
-                moveToRow(handHBox, cardAnchorPane);
-                // TODO: ABILITY
-                event.setDropCompleted(true);
-                event.consume();
-            }
+                event -> {
+                    moveToRow((HBox) cardAnchorPane.getParent(), cardPaneToBeDragged);
+                    moveToRow(handHBox, cardAnchorPane);
+                    // TODO: ABILITY
+                    event.setDropCompleted(true);
+                    event.consume();
+                }
         );
 
         return cardAnchorPane;
     }
 
-    private void dragToRow(ImageView cardImageView, MouseEvent event, AnchorPane cardAnchorPane) {
+    private void dragCard(ImageView cardImageView, MouseEvent event, AnchorPane cardAnchorPane) {
         Dragboard db = cardImageView.startDragAndDrop(TransferMode.MOVE);
         ClipboardContent content = new ClipboardContent();
         content.putImage(cardImageView.getImage());
@@ -517,28 +519,49 @@ public class GameMenuViewController {
         }
     }
 
+    private void dropOnSpecial(ArrayList<HBox> specials) {
+        for (HBox row : rows) {
+            row.setOnDragOver(event -> {
+                if (event.getGestureSource() != row) {
+                    event.acceptTransferModes(TransferMode.MOVE);
+                }
+                event.consume();
+            });
+
+            row.setOnDragDropped(event -> {
+                Dragboard db = event.getDragboard();
+                boolean success = false;
+                moveToRow(row, cardPaneToBeDragged);
+                success = true;
+                event.setDropCompleted(success);
+                event.consume();
+            });
+        }
+    }
+
     private void moveToRow(HBox row, AnchorPane cardAnchorPane) {
-        row.getChildren().add(cardAnchorPane);
         if (row.getId().equals("userClosedHBox")) {
             ApplicationController.game.getCurrentPlayer().addToClosedCombatUnits(cardAnchorPane);
-            ApplicationController.game.getCurrentPlayer().getHand().remove(cardAnchorPane);
+            ((Card) cardAnchorPane.getUserData()).setCardPosition(CardPositions.CLOSED_COMBAT);
         } else if (row.getId().equals("userRangedHBox")) {
             ApplicationController.game.getCurrentPlayer().addToRangedCombatUnits(cardAnchorPane);
-            ApplicationController.game.getCurrentPlayer().getHand().remove(cardAnchorPane);
+            ((Card) cardAnchorPane.getUserData()).setCardPosition(CardPositions.RANGED_COMBAT);
         } else if (row.getId().equals("userSiegeHBox")) {
             ApplicationController.game.getCurrentPlayer().addToSiegeCombatUnits(cardAnchorPane);
-            ApplicationController.game.getCurrentPlayer().getHand().remove(cardAnchorPane);
+            ((Card) cardAnchorPane.getUserData()).setCardPosition(CardPositions.SIEGE_COMBAT);
         } else if (row.getId().equals("enemyClosedHBox")) {
             ApplicationController.game.getEnemyPlayer().addToClosedCombatUnits(cardAnchorPane);
-            ApplicationController.game.getEnemyPlayer().getHand().remove(cardAnchorPane);
+            ((Card) cardAnchorPane.getUserData()).setCardPosition(CardPositions.CLOSED_COMBAT);
         } else if (row.getId().equals("enemyRangedHBox")) {
             ApplicationController.game.getEnemyPlayer().addToRangedCombatUnits(cardAnchorPane);
-            ApplicationController.game.getEnemyPlayer().getHand().remove(cardAnchorPane);
+            ((Card) cardAnchorPane.getUserData()).setCardPosition(CardPositions.RANGED_COMBAT);
         } else if (row.getId().equals("enemySiegeHBox")) {
             ApplicationController.game.getEnemyPlayer().addToSiegeCombatUnits(cardAnchorPane);
-            ApplicationController.game.getEnemyPlayer().getHand().remove(cardAnchorPane);
+            ((Card) cardAnchorPane.getUserData()).setCardPosition(CardPositions.SIEGE_COMBAT);
         }
 
+        ((ImageView) (cardAnchorPane.getChildren().get(0))).setOnDragOver(event -> {});
+        ((ImageView) (cardAnchorPane.getChildren().get(0))).setOnDragDropped(event -> {});
         loadTable();
         loadHand();
     }
@@ -607,10 +630,10 @@ public class GameMenuViewController {
         System.out.println(currentPlayer.getDeck());
 
         for (int i = 9; i >= 0; i--) {
+            deck.get(i).setCardPosition(CardPositions.HAND);
             hand.add(createCard(deck.get(i)));
             deck.remove(i);
         }
-
 
         currentPlayer.setHand(hand);
 
@@ -619,6 +642,7 @@ public class GameMenuViewController {
         hand = new ArrayList<>();
 
         for (int i = 9; i >= 0; i--) {
+            deck.get(i).setCardPosition(CardPositions.HAND);
             hand.add(createCard(deck.get(i)));
             deck.remove(i);
         }
