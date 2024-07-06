@@ -40,6 +40,8 @@ public class Player extends User {
     private AnchorPane commanderPane;
 
     private boolean doneAction = false;
+    private int availableVetoes = 2;
+    private boolean vetoed;
 
     public Player(User user) {
         super(user.getUsername(), user.getNickname(), user.getPassword(), user.getEmail());
@@ -309,5 +311,21 @@ public class Player extends User {
 
     public void addToDiscardPile(AnchorPane card) {
         this.discardPile.add(card);
+    }
+
+    public int getAvailableVetoes() {
+        return availableVetoes;
+    }
+
+    public void setAvailableVetoes(int availableVetoes) {
+        this.availableVetoes = availableVetoes;
+    }
+
+    public boolean isVetoed() {
+        return vetoed;
+    }
+
+    public void setVetoed(boolean vetoed) {
+        this.vetoed = vetoed;
     }
 }

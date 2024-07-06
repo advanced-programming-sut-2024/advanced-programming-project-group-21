@@ -7,10 +7,7 @@ import enums.GameStates;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -18,6 +15,7 @@ import javafx.scene.shape.Rectangle;
 import model.*;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class GameMenuViewController {
     public AnchorPane enemyCommanderPane;
@@ -69,6 +67,16 @@ public class GameMenuViewController {
     public ImageView detailCard;
     public Rectangle detailRectangle;
     public Label detailLabel;
+    public AnchorPane vetoPane;
+    public HBox firstHBox;
+    public HBox secondHBox;
+    public VBox infoVBox;
+    public AnchorPane vetoDetailCard;
+    public Label vetoAbility;
+    public Label vetoDescription;
+    public Label vetoPlayerName;
+    public AnchorPane gamePane;
+    public AnchorPane cardPaneToBeDragged;
     GameMenuController controller = new GameMenuController();
 
     public void initialize() {
@@ -86,12 +94,118 @@ public class GameMenuViewController {
             ApplicationController.game.setGameState(GameStates.ROUND_1_STARTED);
             loadTable();
             loadHand();
-            loadVeto();
+            loadVetoHandCards();
         }
     }
 
-    private void loadVeto() {
+    private void clearVeto() {
+        firstHBox.getChildren().clear();
+        secondHBox.getChildren().clear();
+    }
 
+    private void loadVetoHandCards() {
+        vetoPane.setVisible(true);
+        for (AnchorPane hand : ApplicationController.game.getCurrentPlayer().getHand()) {
+            HBox hbox = new HBox();
+            if (firstHBox.getChildren().size() < 6) {
+                hbox = firstHBox;
+            } else
+                hbox = secondHBox;
+            Card card = (Card) hand.getUserData();
+            AnchorPane cardPane = createVetoCard(card);
+            hbox.getChildren().add(cardPane);
+        }
+        vetoPlayerName.setText(ApplicationController.game.getCurrentPlayer().getNickname());
+    }
+
+    private AnchorPane createVetoCard(Card card) {
+        AnchorPane cardPane = new AnchorPane();
+        cardPane.setUserData(card);
+        cardPane.setId(card.getName());
+        cardPane.setOnMouseEntered(event -> vetoCardEntered(event));
+        cardPane.setOnMouseExited(event -> vetoCardExited(event));
+        cardPane.setOnMouseClicked(event -> vetoCardClicked(event));
+
+        cardPane.setPrefHeight(240);
+        cardPane.setMinHeight(240);
+        cardPane.setMaxHeight(240);
+        cardPane.setPrefWidth(127);
+        cardPane.setMinWidth(127);
+        cardPane.setMaxWidth(127);
+
+        ImageView cardImageView = getImageView(cardPane.getPrefHeight(), cardPane.getPrefWidth(), card.getPreGameImage());
+        cardPane.getChildren().add(cardImageView);
+
+        return cardPane;
+    }
+
+    private void vetoCardClicked(MouseEvent event) {
+        Player player = ApplicationController.game.getCurrentPlayer();
+        ImageView cardImage = (ImageView) event.getTarget();
+        AnchorPane cardPane = (AnchorPane) cardImage.getParent();
+        if (player.getAvailableVetoes() > 0) {
+            AnchorPane newCard = createVetoCard(player.getDeck().get(0));
+            for (AnchorPane handCard : player.getHand()) {
+                if (handCard.getUserData().equals(cardPane.getUserData())) {
+                    player.getHand().remove(handCard);
+                    player.getHand().add(createCard(player.getDeck().get(0)));
+                    player.getDeck().remove(0);
+                    player.getDeck().add((Card) cardPane.getUserData());
+                    player.setAvailableVetoes(player.getAvailableVetoes() - 1);
+                    replaceVetoCard(cardPane, newCard);
+                    clearVeto();
+                    loadVetoHandCards();
+                    break;
+                }
+            }
+            if (player.getAvailableVetoes() == 0)
+                skipVeto();
+        }
+    }
+
+
+    public void skipVeto() {
+        Player player = ApplicationController.game.getCurrentPlayer();
+        player.setVetoed(true);
+        changeActivePlayer();
+        if (ApplicationController.game.getCurrentPlayer().isVetoed()) {
+            deleteVeto();
+        } else {
+            clearVeto();
+            loadVetoHandCards();
+        }
+
+    }
+
+    public void skipVetoButton() {
+        skipVeto();
+    }
+
+    private void deleteVeto() {
+        vetoPane.setVisible(false);
+    }
+
+    private void replaceVetoCard(AnchorPane cardPane, AnchorPane newCard) {
+        HBox hbox = new HBox();
+        if (firstHBox.getChildren().contains(cardPane))
+            hbox = firstHBox;
+        else
+            hbox = secondHBox;
+        hbox.getChildren().remove(cardPane);
+        hbox.getChildren().add(newCard);
+    }
+
+    private void vetoCardExited(MouseEvent event) {
+        infoVBox.setVisible(false);
+    }
+
+    private void vetoCardEntered(MouseEvent event) {
+        AnchorPane cardPane = (AnchorPane) event.getTarget();
+        Card card = (Card) cardPane.getUserData();
+        vetoAbility.setText(card.getAbility().getName());
+        vetoDescription.setText(card.getAbility().getDescription());
+        ((ImageView) (vetoDetailCard.getChildren().get(0))).setImage(new Image(card.getPreGameImage()));
+        infoVBox.setVisible(true);
     }
 
     private void changeActivePlayer() {
@@ -337,7 +451,7 @@ public class GameMenuViewController {
         cardAnchorPane.setId(card.getCardEnum().name());
         cardAnchorPane.setUserData(card);
 
-        setCardSize(cardAnchorPane, 90, 63);
+        setCardSize(cardAnchorPane, 79, 55);
 
         ImageView cardImageView = getCardImageView(card, cardAnchorPane.getPrefHeight(), cardAnchorPane.getPrefWidth());
         cardAnchorPane.getChildren().add(cardImageView);
@@ -349,7 +463,7 @@ public class GameMenuViewController {
             hideDetailedCard();
         });
         cardImageView.setOnDragDetected(event -> {
-            dragToRow(cardImageView, event,cardAnchorPane);
+            dragToRow(cardImageView, event, cardAnchorPane);
         });
 
         return cardAnchorPane;
@@ -360,33 +474,27 @@ public class GameMenuViewController {
         ClipboardContent content = new ClipboardContent();
         content.putImage(cardImageView.getImage());
         db.setContent(content);
+        cardPaneToBeDragged = cardAnchorPane;
         event.consume();
-        cardAnchorPane.getChildren().remove(cardImageView);
+        loadTable();
+        loadHand();
     }
 
     private void dropOnRow(ArrayList<HBox> rows) {
         for (HBox row : rows) {
             row.setOnDragOver(event -> {
-                if (event.getGestureSource() != row && event.getDragboard().hasImage()) {
+                if (event.getGestureSource() != row) {
                     event.acceptTransferModes(TransferMode.MOVE);
                 }
                 event.consume();
             });
 
-            // Set drop event on rows
             row.setOnDragDropped(event -> {
-                row.setSpacing(10);
                 Dragboard db = event.getDragboard();
                 boolean success = false;
-                if (db.hasImage()) {
-                    ImageView droppedCard = new ImageView(db.getImage());
-                    droppedCard.setFitWidth(63);
-                    droppedCard.setFitHeight(79);
-                    row.getChildren().add(droppedCard);
-                    success = true;
-                }
+                row.getChildren().add(cardPaneToBeDragged);
+                success = true;
                 event.setDropCompleted(success);
-
                 event.consume();
             });
         }
@@ -474,6 +582,5 @@ public class GameMenuViewController {
 
         enemyPlayer.setHand(hand);
     }
-
 
 }
