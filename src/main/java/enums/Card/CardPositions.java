@@ -1,0 +1,14 @@
+package enums.Card;
+
+public enum CardPositions {
+    HAND,
+    DECK,
+    DISCARD_PILE,
+    CLOSED_COMBAT,
+    RANGED_COMBAT,
+    SIEGE_COMBAT,
+    CLOSED_COMBAT_SPECIAL,
+    RANGED_COMBAT_SPECIAL,
+    SIEGE_COMBAT_SPECIAL,
+    WEATHER;
+}

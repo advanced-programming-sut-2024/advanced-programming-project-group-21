@@ -13,7 +13,11 @@ import java.util.List;
 
 public class Player extends User {
     private ArrayList<AnchorPane> hand = new ArrayList<>();
+    private ArrayList<AnchorPane> discardPile = new ArrayList<>();
     private ArrayList<Card> deck = new ArrayList<>();
+
+
+
     private User user;
     private int availableCards = 0;
     private CommandersEnum commander;
@@ -39,6 +43,12 @@ public class Player extends User {
     private AnchorPane commanderPane;
 
     private boolean doneAction = false;
+    private int availableVetoes = 2;
+    private boolean vetoed;
+    private boolean passedTurn = false;
+    private boolean wonRound1 = false;
+    private boolean wonRound2 = false;
+    private boolean wonRound3 = false;
 
     public Player(User user) {
         super(user.getUsername(), user.getNickname(), user.getPassword(), user.getEmail());
@@ -296,5 +306,65 @@ public class Player extends User {
     public int getTotalPower(){
         totalPower = getClosedPower()+getRangedPower()+getSiegePower();
         return totalPower;
+    }
+
+    public ArrayList<AnchorPane> getDiscardPile() {
+        return discardPile;
+    }
+
+    public void setDiscardPile(ArrayList<AnchorPane> discardPile) {
+        this.discardPile = discardPile;
+    }
+
+    public void addToDiscardPile(AnchorPane card) {
+        this.discardPile.add(card);
+    }
+
+    public int getAvailableVetoes() {
+        return availableVetoes;
+    }
+
+    public void setAvailableVetoes(int availableVetoes) {
+        this.availableVetoes = availableVetoes;
+    }
+
+    public boolean isVetoed() {
+        return vetoed;
+    }
+
+    public void setVetoed(boolean vetoed) {
+        this.vetoed = vetoed;
+    }
+
+    public boolean isPassedTurn() {
+        return passedTurn;
+    }
+
+    public void setPassedTurn(boolean passedTurn) {
+        this.passedTurn = passedTurn;
+    }
+
+    public boolean isWonRound1() {
+        return wonRound1;
+    }
+
+    public void setWonRound1(boolean wonRound1) {
+        this.wonRound1 = wonRound1;
+    }
+
+    public boolean isWonRound2() {
+        return wonRound2;
+    }
+
+    public void setWonRound2(boolean wonRound2) {
+        this.wonRound2 = wonRound2;
+    }
+
+    public boolean isWonRound3() {
+        return wonRound3;
+    }
+
+    public void setWonRound3(boolean wonRound3) {
+        this.wonRound3 = wonRound3;
     }
 }

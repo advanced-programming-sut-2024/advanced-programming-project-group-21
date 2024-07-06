@@ -1,9 +1,6 @@
 package model;
 
-import enums.Card.CardAbility;
-import enums.Card.CardEnum;
-import enums.Card.CardType;
-import enums.Card.FactionsEnum;
+import enums.Card.*;
 import javafx.scene.Scene;
 
 public class Card{
@@ -17,6 +14,7 @@ public class Card{
     private String preGameImage;
     private String inGameImage;
     private CardEnum cardEnum;
+    private CardPositions cardPosition = CardPositions.DECK;
     private double powerCoefficient = 1;
     private int powerModifier = 0;
     public Card(CardEnum cardEnum) {
@@ -87,5 +85,13 @@ public class Card{
 
     public int getPowerModifier() {
         return powerModifier;
+    }
+
+    public void setCardPosition(CardPositions cardPosition) {
+        this.cardPosition = cardPosition;
+    }
+
+    public CardPositions getCardPosition() {
+        return cardPosition;
     }
 }
