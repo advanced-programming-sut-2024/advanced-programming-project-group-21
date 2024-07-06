@@ -131,64 +131,8 @@ public class GameMenuController {
             ApplicationController.game.setEnemyPlayer(player1);
         }
 
-        // TODO: implement this method
-//        player1.getCurrentFaction().doAbility();
-//        player2.getCurrentFaction().doAbility();
+            player1.getCurrentFaction().doAbility(player1);
+       player2.getCurrentFaction().doAbility(player2);
     }
-
-    public void applyFactionAbility() {
-        Player player1 = ApplicationController.game.getPlayer1();
-        Player player2 = ApplicationController.game.getPlayer2();
-        if (player1.getCurrentFaction().equals(FactionsEnum.SCOIATAEL) && player2.getCurrentFaction().equals(FactionsEnum.SCOIATAEL)) {
-            if (Math.random() < 0.5) {
-                ApplicationController.game.setCurrentPlayer(player1);
-                ApplicationController.game.setEnemyPlayer(player2);
-            } else {
-                ApplicationController.game.setCurrentPlayer(player2);
-                ApplicationController.game.setEnemyPlayer(player1);
-            }
-        } else if (player1.getCurrentFaction().equals(FactionsEnum.SCOIATAEL) && !player2.getCurrentFaction().equals(FactionsEnum.SCOIATAEL)) {
-            ApplicationController.game.setCurrentPlayer(player1);
-            ApplicationController.game.setEnemyPlayer(player2);
-            enums.Card.FactionsEnum.SCOIATAEL.doAbility();
-        } else if (!player1.getCurrentFaction().equals(FactionsEnum.SCOIATAEL) && player2.getCurrentFaction().equals(FactionsEnum.SCOIATAEL)) {
-            ApplicationController.game.setCurrentPlayer(player2);
-            ApplicationController.game.setEnemyPlayer(player1);
-            enums.Card.FactionsEnum.SCOIATAEL.doAbility();
-        }
-        if (player1.getCurrentFaction().equals(FactionsEnum.NILFGAARD) && !player2.getCurrentFaction().equals(FactionsEnum.NILFGAARD)) {
-            ApplicationController.game.setCurrentPlayer(player1);
-            ApplicationController.game.setEnemyPlayer(player2);
-            FactionsEnum.NILFGAARD.doAbility();
-        } else if (!player1.getCurrentFaction().equals(FactionsEnum.NILFGAARD) && player2.getCurrentFaction().equals(FactionsEnum.NILFGAARD)) {
-            ApplicationController.game.setCurrentPlayer(player2);
-            ApplicationController.game.setEnemyPlayer(player1);
-            FactionsEnum.NILFGAARD.doAbility();
-        }
-        if (player1.getCurrentFaction().equals(FactionsEnum.NORTHERN_REALMS) && !player2.getCurrentFaction().equals(FactionsEnum.NORTHERN_REALMS)) {
-            ApplicationController.game.setCurrentPlayer(player1);
-            ApplicationController.game.setEnemyPlayer(player2);
-            FactionsEnum.NORTHERN_REALMS.doAbility();
-        } else if (!player1.getCurrentFaction().equals(FactionsEnum.NORTHERN_REALMS) && player2.getCurrentFaction().equals(FactionsEnum.NORTHERN_REALMS)) {
-            ApplicationController.game.setCurrentPlayer(player2);
-            ApplicationController.game.setEnemyPlayer(player1);
-            FactionsEnum.NORTHERN_REALMS.doAbility();
-        }
-        if (player1.getCurrentFaction().equals(FactionsEnum.SKELLIGE) && !player2.getCurrentFaction().equals(FactionsEnum.SKELLIGE)) {
-            ApplicationController.game.setCurrentPlayer(player1);
-            ApplicationController.game.setEnemyPlayer(player2);
-            FactionsEnum.SKELLIGE.doAbility();
-        } else if (!player1.getCurrentFaction().equals(FactionsEnum.SKELLIGE) && player2.getCurrentFaction().equals(FactionsEnum.SKELLIGE)) {
-            ApplicationController.game.setCurrentPlayer(player2);
-            ApplicationController.game.setEnemyPlayer(player1);
-            FactionsEnum.SKELLIGE.doAbility();
-        }
-
-
-
-
-    }
-
-
 }
 
