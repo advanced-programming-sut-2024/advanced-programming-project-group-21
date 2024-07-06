@@ -15,11 +15,8 @@ public class Player extends User {
     private ArrayList<AnchorPane> hand = new ArrayList<>();
     private ArrayList<AnchorPane> discardPile = new ArrayList<>();
     private ArrayList<Card> deck = new ArrayList<>();
-    private ArrayList<AnchorPane> discardPile = new ArrayList<>();
 
-    public ArrayList<AnchorPane> getDiscardPile() {
-        return discardPile;
-    }
+
 
     private User user;
     private int availableCards = 0;
