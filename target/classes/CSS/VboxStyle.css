@@ -1,4 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+/* Step 1: Define the @font-face rule */
+@font-face {
+    font-family: 'MedievalSharp';
+    src: url('MedievalSharp-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 
 .root {
     -fx-font-family: 'MedievalSharp', cursive;
