@@ -4,6 +4,7 @@ import controller.ApplicationController;
 import controller.GameMenuController;
 import enums.Card.CommandersEnum;
 import enums.GameStates;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -77,6 +78,8 @@ public class GameMenuViewController {
     public Label vetoPlayerName;
     public AnchorPane gamePane;
     public AnchorPane cardPaneToBeDragged;
+    public Button skipTurnButton;
+    public Button confirmTurnButton;
     GameMenuController controller = new GameMenuController();
 
     public void initialize() {
@@ -465,6 +468,22 @@ public class GameMenuViewController {
         cardImageView.setOnDragDetected(event -> {
             dragToRow(cardImageView, event, cardAnchorPane);
         });
+        cardImageView.setOnDragOver(
+            event -> {
+                event.acceptTransferModes(TransferMode.MOVE);
+                // TODO: ABILITY
+                event.consume();
+            }
+        );
+        cardImageView.setOnDragDropped(
+            event -> {
+                moveToRow((HBox) cardAnchorPane.getParent(), cardPaneToBeDragged);
+                moveToRow(handHBox, cardAnchorPane);
+                // TODO: ABILITY
+                event.setDropCompleted(true);
+                event.consume();
+            }
+        );
 
         return cardAnchorPane;
     }
@@ -476,8 +495,6 @@ public class GameMenuViewController {
         db.setContent(content);
         cardPaneToBeDragged = cardAnchorPane;
         event.consume();
-        loadTable();
-        loadHand();
     }
 
     private void dropOnRow(ArrayList<HBox> rows) {
@@ -492,12 +509,38 @@ public class GameMenuViewController {
             row.setOnDragDropped(event -> {
                 Dragboard db = event.getDragboard();
                 boolean success = false;
-                row.getChildren().add(cardPaneToBeDragged);
+                moveToRow(row, cardPaneToBeDragged);
                 success = true;
                 event.setDropCompleted(success);
                 event.consume();
             });
         }
+    }
+
+    private void moveToRow(HBox row, AnchorPane cardAnchorPane) {
+        row.getChildren().add(cardAnchorPane);
+        if (row.getId().equals("userClosedHBox")) {
+            ApplicationController.game.getCurrentPlayer().addToClosedCombatUnits(cardAnchorPane);
+            ApplicationController.game.getCurrentPlayer().getHand().remove(cardAnchorPane);
+        } else if (row.getId().equals("userRangedHBox")) {
+            ApplicationController.game.getCurrentPlayer().addToRangedCombatUnits(cardAnchorPane);
+            ApplicationController.game.getCurrentPlayer().getHand().remove(cardAnchorPane);
+        } else if (row.getId().equals("userSiegeHBox")) {
+            ApplicationController.game.getCurrentPlayer().addToSiegeCombatUnits(cardAnchorPane);
+            ApplicationController.game.getCurrentPlayer().getHand().remove(cardAnchorPane);
+        } else if (row.getId().equals("enemyClosedHBox")) {
+            ApplicationController.game.getEnemyPlayer().addToClosedCombatUnits(cardAnchorPane);
+            ApplicationController.game.getEnemyPlayer().getHand().remove(cardAnchorPane);
+        } else if (row.getId().equals("enemyRangedHBox")) {
+            ApplicationController.game.getEnemyPlayer().addToRangedCombatUnits(cardAnchorPane);
+            ApplicationController.game.getEnemyPlayer().getHand().remove(cardAnchorPane);
+        } else if (row.getId().equals("enemySiegeHBox")) {
+            ApplicationController.game.getEnemyPlayer().addToSiegeCombatUnits(cardAnchorPane);
+            ApplicationController.game.getEnemyPlayer().getHand().remove(cardAnchorPane);
+        }
+
+        loadTable();
+        loadHand();
     }
 
     private void showDetailedCommander(AnchorPane commanderAnchorPane) {
@@ -583,4 +626,12 @@ public class GameMenuViewController {
         enemyPlayer.setHand(hand);
     }
 
+    public void skipTurn(MouseEvent mouseEvent) {
+        ApplicationController.game.getCurrentPlayer().setPassedTurn(true);
+        changeActivePlayer();
+    }
+
+    public void confirmTurn(MouseEvent mouseEvent) {
+        changeActivePlayer();
+    }
 }
