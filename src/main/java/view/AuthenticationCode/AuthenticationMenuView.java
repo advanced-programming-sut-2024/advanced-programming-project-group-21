@@ -1,4 +1,4 @@
-package view.Login;
+package view.AuthenticationCode;
 
 import controller.ApplicationController;
 import javafx.application.Application;
@@ -11,12 +11,8 @@ import view.Register.RegisterMenu;
 
 import java.net.URL;
 
-public class LoginMenuView extends Application {
-    LoginMenuViewController controller;
-
-    public static void main(String[] args) {
-        launch(args);
-    }
+public class AuthenticationMenuView extends Application {
+    AuthenticationMenuViewController controller;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -24,7 +20,7 @@ public class LoginMenuView extends Application {
         stage.centerOnScreen();
         ApplicationController.setStage(stage);
         FXMLLoader fxmlLoader = new FXMLLoader();
-        URL url = RegisterMenu.class.getResource("/FXML/Login.fxml");
+        URL url = RegisterMenu.class.getResource("/FXML/2FALogin.fxml");
         AnchorPane root = fxmlLoader.load(url);
         setBackGround(root);
         controller = fxmlLoader.getController();
@@ -32,6 +28,7 @@ public class LoginMenuView extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
     private static void setBackGround(AnchorPane root) {
         Image image = new Image("file:src/main/resources/Images/BackGrounds/LoginMenu.jpg");
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
