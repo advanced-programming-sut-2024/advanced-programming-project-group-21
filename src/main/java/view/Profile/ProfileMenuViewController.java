@@ -12,7 +12,6 @@ import view.Main.MainMenuView;
 import view.Question.QuestionMenuView;
 import view.UserInfo.UserInfoMenuView;
 
-import java.awt.desktop.AppForegroundListener;
 
 public class ProfileMenuViewController {
     public AnchorPane pane;
