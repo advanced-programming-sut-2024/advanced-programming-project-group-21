@@ -17,12 +17,12 @@
 
 .scroll-bar .thumb {
     -fx-background-color: #6b6b6b; /* Slightly lighter grey */
-    -fx-background-radius: 0px;
+    -fx-background-radius: 5px;
 }
 
 .scroll-bar .increment-button, .scroll-bar .decrement-button {
     -fx-background-color: #4a4a4a;
-    -fx-background-radius: 0px;
+    -fx-background-radius: 5px;
 }
 
 .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {

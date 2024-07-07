@@ -1,14 +1,11 @@
-/* Step 1: Define the @font-face rule */
-@font-face {
-    font-family: 'MedievalSharp';
-    src: url('MedievalSharp-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+* {
+    -fx-font-family: "MedievalSharp-Regular";
+    -fx-font-size: 12px; /* Set your desired font size */
 }
 
-.root {
-    -fx-font-family: 'MedievalSharp', cursive;
-}
+/*.root {*/
+/*    -fx-font-family: 'MedievalSharp', cursive;*/
+/*}*/
 
 .button {
     -fx-background-color: #4a4a4a; /* Dark grey background */

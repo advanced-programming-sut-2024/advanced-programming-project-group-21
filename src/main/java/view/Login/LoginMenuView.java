@@ -13,6 +13,7 @@ import java.net.URL;
 
 public class LoginMenuView extends Application {
     LoginMenuViewController controller;
+    private static Stage stage;
 
     public static void main(String[] args) {
         launch(args);
@@ -20,6 +21,7 @@ public class LoginMenuView extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        LoginMenuView.stage = stage;
         stage.setResizable(false);
         stage.centerOnScreen();
         ApplicationController.setStage(stage);
@@ -38,5 +40,8 @@ public class LoginMenuView extends Application {
                 BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         Background background = new Background(backgroundImage);
         root.setBackground(background);
+    }
+    public static void close() {
+        stage.close();
     }
 }
