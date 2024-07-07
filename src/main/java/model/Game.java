@@ -11,7 +11,7 @@ public class Game {
     private Player currentPlayer;
     private Player enemyPlayer;
 
-    private GameStates gameState;
+    private GameStates gameState = GameStates.PRE_GAME;
 
     public Game(PreGame preGame) {
         this.player1 = preGame.getPlayer1();

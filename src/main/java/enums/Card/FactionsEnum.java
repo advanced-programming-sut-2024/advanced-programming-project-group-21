@@ -83,7 +83,20 @@ public enum FactionsEnum {
 
             if(game.getGameState().equals(GameStates.ROUND_2_STARTED) || game.getGameState().equals(GameStates.ROUND_3_STARTED)){
                 Card card = player.getDeck().get(0);
-                player.addToHand((new GameMenuViewController()).createCard(card));
+                addToBattlefield(card);
+                player.getDeck().remove(card);
+            }
+        }
+
+        private void addToBattlefield(Card card){
+            if(card.getCardPosition().equals(CardPositions.CLOSED_COMBAT)){
+                ApplicationController.game.getCurrentPlayer().getClosedCombatUnits().add((new GameMenuViewController()).createCard(card));
+            }
+            else if(card.getCardPosition().equals(CardPositions.RANGED_COMBAT)){
+                ApplicationController.game.getCurrentPlayer().getRangedCombatUnits().add((new GameMenuViewController()).createCard(card));
+            }
+            else if(card.getCardPosition().equals(CardPositions.SIEGE_COMBAT)){
+                ApplicationController.game.getCurrentPlayer().getSiegeCombatUnits().add((new GameMenuViewController()).createCard(card));
             }
         }
     },
@@ -180,6 +193,3 @@ public enum FactionsEnum {
         return shield;
     }
 }
-
-
-
