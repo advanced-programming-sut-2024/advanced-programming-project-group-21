@@ -1,4 +1,4 @@
-package controller.Server;
+package controller;
 
 
 import javax.mail.*;

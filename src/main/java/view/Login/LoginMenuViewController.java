@@ -3,7 +3,6 @@ package view.Login;
 import controller.ApplicationController;
 import controller.DataBaseController;
 import controller.LoginMenuController;
-import controller.Server.GmailSender;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;

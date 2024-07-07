@@ -1,6 +1,5 @@
 package controller;
 
-import controller.Server.GmailSender;
 import model.User.User;
 
 public class LoginMenuController {
