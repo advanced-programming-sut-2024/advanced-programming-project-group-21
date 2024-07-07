@@ -71,7 +71,7 @@ public class Card{
         return inGameImage;
     }
 
-    public void setPowerCoefficient(int powerCoefficient) {
+    public void setPowerCoefficient(double powerCoefficient) {
         this.powerCoefficient = powerCoefficient;
     }
 

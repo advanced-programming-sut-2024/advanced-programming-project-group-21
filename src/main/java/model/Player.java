@@ -1,6 +1,7 @@
 package model;
 
 import controller.ApplicationController;
+import enums.Card.CardPositions;
 import enums.Card.CommandersEnum;
 import enums.Card.FactionsEnum;
 import javafx.scene.layout.AnchorPane;
@@ -172,6 +173,7 @@ public class Player extends User {
     }
 
     public void addToHand(AnchorPane card) {
+        ((Card)card.getUserData()).setCardPosition(CardPositions.HAND);
         this.hand.add(card);
     }
 
@@ -180,6 +182,7 @@ public class Player extends User {
     }
 
     public void addToClosedCombatUnits(AnchorPane card) {
+        ((Card)card.getUserData()).setCardPosition(CardPositions.CLOSED_COMBAT);
         this.closedCombatUnits.add(card);
     }
 
@@ -188,6 +191,7 @@ public class Player extends User {
     }
 
     public void addToRangedCombatUnits(AnchorPane card) {
+        ((Card)card.getUserData()).setCardPosition(CardPositions.RANGED_COMBAT);
         this.rangedCombatUnits.add(card);
     }
 
@@ -196,6 +200,7 @@ public class Player extends User {
     }
 
     public void addToSiegeCombatUnits(AnchorPane card) {
+        ((Card)card.getUserData()).setCardPosition(CardPositions.SIEGE_COMBAT);
         this.siegeCombatUnits.add(card);
     }
 
@@ -317,6 +322,7 @@ public class Player extends User {
     }
 
     public void addToDiscardPile(AnchorPane card) {
+        ((Card)card.getUserData()).setCardPosition(CardPositions.DISCARD_PILE);
         this.discardPile.add(card);
     }
 

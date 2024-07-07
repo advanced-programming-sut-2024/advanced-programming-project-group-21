@@ -7,7 +7,7 @@ public enum CardEnum {
 
     // Skelliege
     MARDOEME("Mardroeme", 1, FactionsEnum.SKELLIGE, CardType.SPELL, 0, CardAbility.MARDOEME, true, "file:src/main/resources/Images/CardsDetailed/special_mardroeme.jpg", "file:src/main/resources/Images/CardsNoText/special_mardroeme.jpg", 3),
-    BERSEERKER("Berserker", 2, FactionsEnum.SKELLIGE, CardType.CLOSED_COMBAT_UNIT, 4, CardAbility.BERSEKER, false, "file:src/main/resources/Images/CardsDetailed/skellige_berserker.jpg", "file:", 1),
+    BERSERKER("Berserker", 2, FactionsEnum.SKELLIGE, CardType.CLOSED_COMBAT_UNIT, 4, CardAbility.BERSEKER, false, "file:src/main/resources/Images/CardsDetailed/skellige_berserker.jpg", "file:", 1),
     VIDKAARL("Vidkaarl", 3, FactionsEnum.SKELLIGE, CardType.CLOSED_COMBAT_UNIT, 14, CardAbility.MORALE_BOOST,false, "file:src/main/resources/Images/CardsDetailed/skellige_vildkaarl.jpg", "file:", 1),
     SVANRIGE("Svanrige", 4, FactionsEnum.SKELLIGE, CardType.CLOSED_COMBAT_UNIT, 4, CardAbility.NONE, false, "file:src/main/resources/Images/CardsDetailed/skellige_svanrige.jpg", "file:", 1),
     UDALRYK("Udalryk", 5, FactionsEnum.SKELLIGE, CardType.CLOSED_COMBAT_UNIT,4, CardAbility.NONE, false, "file:src/main/resources/Images/CardsDetailed/skellige_udalryk.jpg", "file:", 1),
