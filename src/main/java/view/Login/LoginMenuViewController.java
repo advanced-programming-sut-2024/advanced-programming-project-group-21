@@ -3,13 +3,14 @@ package view.Login;
 import controller.ApplicationController;
 import controller.DataBaseController;
 import controller.LoginMenuController;
+import controller.Server.GmailSender;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import model.User.User;
-import view.Main.MainMenuView;
+import javafx.stage.Stage;
+import view.AuthenticationCode.AuthenticationMenuView;
 import view.ForgetPassword.ForgetPasswordMenuView;
 import view.Register.RegisterMenuView;
 
@@ -20,9 +21,12 @@ public class LoginMenuViewController {
     public PasswordField passwordField;
     public Label topText;
     public LoginMenuController loginMenuController = new LoginMenuController();
+    public static String username;
+    public static Stage authStage;
 
     public void loginClicked(MouseEvent mouseEvent) {
         String username = usernameField.getText();
+        LoginMenuViewController.username = username;
         String password = passwordField.getText();
         int loginAns = loginMenuController.loginUser(username, password);
         if (loginAns != 0) {
@@ -47,7 +51,9 @@ public class LoginMenuViewController {
             }
         } else {
             try {
-                new MainMenuView().start(ApplicationController.getStage());
+                loginMenuController.sendEmail(username);
+                authStage = new Stage();
+                new AuthenticationMenuView().start(authStage);
             } catch (Exception e) {
                 e.printStackTrace();
             }
