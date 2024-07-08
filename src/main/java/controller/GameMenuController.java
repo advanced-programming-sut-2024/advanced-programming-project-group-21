@@ -131,8 +131,8 @@ public class GameMenuController {
             ApplicationController.game.setEnemyPlayer(player1);
         }
 
-            player1.getCurrentFaction().doAbility(player1);
-       player2.getCurrentFaction().doAbility(player2);
+//        player1.getCurrentFaction().doAbility(player1);
+//        player2.getCurrentFaction().doAbility(player2);
     }
 }
 

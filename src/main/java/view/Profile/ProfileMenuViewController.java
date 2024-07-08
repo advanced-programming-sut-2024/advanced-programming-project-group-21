@@ -25,7 +25,7 @@ public class ProfileMenuViewController {
     String answer;
 
     public void initialize() {
-        User.setLoggedInUser(ApplicationController.getLoggedInUser());
+
     }
 
     public void openChangeUsername(MouseEvent mouseEvent) {
@@ -187,7 +187,7 @@ public class ProfileMenuViewController {
             alert.setContentText("Please enter another username");
             alert.showAndWait();
         } else {
-            User.changeUsername(answer);
+            ApplicationController.getLoggedInUser().setUsername(answer);
             try {
                 new ProfileMenuView().start(ApplicationController.getStage());
             } catch (Exception e) {
@@ -210,7 +210,7 @@ public class ProfileMenuViewController {
             alert.setContentText("Please enter another nickname");
             alert.showAndWait();
         } else {
-            User.changeNickname(answer);
+            ApplicationController.getLoggedInUser().setNickname(answer);
             try {
                 new ProfileMenuView().start(ApplicationController.getStage());
             } catch (Exception e) {
@@ -233,7 +233,7 @@ public class ProfileMenuViewController {
             alert.setContentText("Please enter another email");
             alert.showAndWait();
         } else {
-            User.changeEmail(answer);
+            ApplicationController.getLoggedInUser().setEmail(answer);
             try {
                 new ProfileMenuView().start(ApplicationController.getStage());
             } catch (Exception e) {
@@ -256,7 +256,7 @@ public class ProfileMenuViewController {
             alert.setContentText("Please enter another password");
             alert.showAndWait();
         } else {
-            User.changePassword(answer);
+            ApplicationController.getLoggedInUser().setPassword(answer);
             try {
                 new ProfileMenuView().start(ApplicationController.getStage());
             } catch (Exception e) {

@@ -89,21 +89,21 @@ public enum CardAbility {
                 for (AnchorPane unit : player.getClosedCombatUnits()) {
                     if (unit != card) {
                         Card unitCard = (Card) unit.getUserData();
-                        unitCard.setPowerModifier(unitCard.getPowerModifier()+1);
+                        unitCard.setPowerModifier(unitCard.getPowerModifier() + 1);
                     }
                 }
             else if (cardObject.getCardPosition().equals(CardPositions.RANGED_COMBAT))
                 for (AnchorPane unit : player.getRangedCombatUnits()) {
                     if (unit != card) {
                         Card unitCard = (Card) unit.getUserData();
-                        unitCard.setPowerModifier(unitCard.getPowerModifier()+1);
+                        unitCard.setPowerModifier(unitCard.getPowerModifier() + 1);
                     }
                 }
             else if (cardObject.getCardPosition().equals(CardPositions.SIEGE_COMBAT))
                 for (AnchorPane unit : player.getSiegeCombatUnits()) {
                     if (unit != card) {
                         Card unitCard = (Card) unit.getUserData();
-                        unitCard.setPowerModifier(unitCard.getPowerModifier()+1);
+                        unitCard.setPowerModifier(unitCard.getPowerModifier() + 1);
                     }
                 }
 
@@ -209,21 +209,21 @@ public enum CardAbility {
                     for (AnchorPane unit : player.getClosedCombatUnits()) {
                         Card unitCard = (Card) unit.getUserData();
                         if (unitCard.getName().equals(key)) {
-                            unitCard.setPowerCoefficient(unitCard.getPowerCoefficient()+cards.get(key));
+                            unitCard.setPowerCoefficient(unitCard.getPowerCoefficient() + cards.get(key));
                         }
                     }
                 } else if (cardObject.getCardPosition().equals(CardPositions.RANGED_COMBAT)) {
                     for (AnchorPane unit : player.getRangedCombatUnits()) {
                         Card unitCard = (Card) unit.getUserData();
                         if (unitCard.getName().equals(key)) {
-                            unitCard.setPowerCoefficient(unitCard.getPowerCoefficient()+cards.get(key));
+                            unitCard.setPowerCoefficient(unitCard.getPowerCoefficient() + cards.get(key));
                         }
                     }
                 } else if (cardObject.getCardPosition().equals(CardPositions.SIEGE_COMBAT)) {
                     for (AnchorPane unit : player.getSiegeCombatUnits()) {
                         Card unitCard = (Card) unit.getUserData();
                         if (unitCard.getName().equals(key)) {
-                            unitCard.setPowerCoefficient(unitCard.getPowerCoefficient()+cards.get(key));
+                            unitCard.setPowerCoefficient(unitCard.getPowerCoefficient() + cards.get(key));
                         }
                     }
                 }
@@ -336,34 +336,28 @@ public enum CardAbility {
     TRANSFORMERMS("Transformers", "Transforms into a random card with power 8.") {
         @Override
         public void doAbility(AnchorPane card, AnchorPane target) {
-            // Does nothing by default
+            Card cardObject = (Card) card.getUserData();
+            if (cardObject.getCardPosition().equals(CardPositions.DISCARD_PILE)
+                    && (ApplicationController.game.getGameState().equals(GameStates.ROUND_2_STARTED) ||
+                    ApplicationController.game.getGameState().equals(GameStates.ROUND_3_STARTED))) {
+                transform(card, ApplicationController.game.getCurrentPlayer());
+            }
         }
 
         public void transform(AnchorPane card, Player player) {
-            if (!((Card) card.getUserData()).getAbility().equals(TRANSFORMERMS))
-                return;
             AnchorPane target = getRandomCard();
-            for (AnchorPane unit : player.getClosedCombatUnits()) {
-                if (unit.equals(card)) {
-                    player.getClosedCombatUnits().remove(unit);
-                    player.getClosedCombatUnits().add(target);
-                    return;
-                }
+            Card targetCard = (Card) target.getUserData();
+            player.removeFromDiscardPile(card);
+            if(targetCard.getType().equals(CardType.CLOSED_COMBAT_UNIT) || targetCard.getType().equals(CardType.AGILE_UNIT)){
+                player.addToClosedCombatUnits(target);
             }
-            for (AnchorPane unit : player.getRangedCombatUnits()) {
-                if (unit.equals(card)) {
-                    player.getRangedCombatUnits().remove(unit);
-                    player.getRangedCombatUnits().add(target);
-                    return;
-                }
+            else if(targetCard.getType().equals(CardType.RANGED_UNIT)){
+                player.addToRangedCombatUnits(target);
             }
-            for (AnchorPane unit : player.getSiegeCombatUnits()) {
-                if (unit.equals(card)) {
-                    player.getSiegeCombatUnits().remove(unit);
-                    player.getSiegeCombatUnits().add(target);
-                    return;
-                }
+            else if(targetCard.getType().equals(CardType.SIEGE_UNIT)){
+                player.addToSiegeCombatUnits(target);
             }
+
         }
 
         private AnchorPane getRandomCard() {

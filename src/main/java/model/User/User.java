@@ -25,7 +25,6 @@ public class User {
     private int wins = 0;
     private int lose = 0;
     private int draw = 0;
-    public static User loggedInUser;
     private static ArrayList<User> users = new ArrayList<>();
     public static final String USERS_DATABASE_PATH = "src/main/java/model/User/users.json";
 
@@ -48,13 +47,6 @@ public class User {
         User.users = users;
     }
 
-    public static User getLoggedInUser() {
-        return loggedInUser;
-    }
-
-    public static void setLoggedInUser(User loggedInUser) {
-        User.loggedInUser = loggedInUser;
-    }
 
     public int getGamesPlayed() {
         return gamesPlayed;
@@ -147,22 +139,6 @@ public class User {
             }
         }
         return intendedUser;
-    }
-
-    public static void changeUsername(String newUsername) {
-        loggedInUser.setUsername(newUsername);
-    }
-
-    public static void changeNickname(String newNickname) {
-        loggedInUser.setNickname(newNickname);
-    }
-
-    public static void changeEmail(String newEmail) {
-        loggedInUser.setEmail(newEmail);
-    }
-
-    public static void changePassword(String newPassword) {
-        loggedInUser.setPassword(newPassword);
     }
 
     public void addToQuestionAnswers(String question, String answer) {

@@ -50,6 +50,7 @@ public class Player extends User {
     private boolean wonRound1 = false;
     private boolean wonRound2 = false;
     private boolean wonRound3 = false;
+    private boolean doneTurn = false;
 
     public Player(User user) {
         super(user.getUsername(), user.getNickname(), user.getPassword(), user.getEmail());
@@ -177,7 +178,7 @@ public class Player extends User {
         this.hand.add(card);
     }
 
-    public void removeFromHand(Card card) {
+    public void removeFromHand(AnchorPane card) {
         this.hand.remove(card);
     }
 
@@ -372,5 +373,17 @@ public class Player extends User {
 
     public void setWonRound3(boolean wonRound3) {
         this.wonRound3 = wonRound3;
+    }
+
+    public void removeFromDiscardPile(AnchorPane card) {
+        this.discardPile.remove(card);
+    }
+
+    public boolean isDoneTurn() {
+        return doneTurn;
+    }
+
+    public void setDoneTurn(boolean doneTurn) {
+        this.doneTurn = doneTurn;
     }
 }

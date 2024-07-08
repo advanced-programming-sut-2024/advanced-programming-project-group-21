@@ -10,8 +10,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import model.App;
 import view.AuthenticationCode.AuthenticationMenuView;
 import view.ForgetPassword.ForgetPasswordMenuView;
+import view.Main.MainMenuView;
 import view.Register.RegisterMenuView;
 
 import java.io.IOException;
@@ -50,10 +52,16 @@ public class LoginMenuViewController {
                 alert.showAndWait();
             }
         } else {
+//            try {
+//                loginMenuController.sendEmail(username);
+//                authStage = new Stage();
+//                new AuthenticationMenuView().start(authStage);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+            //TODO: remove when releasing
             try {
-                loginMenuController.sendEmail(username);
-                authStage = new Stage();
-                new AuthenticationMenuView().start(authStage);
+                new MainMenuView().start(ApplicationController.getStage());
             } catch (Exception e) {
                 e.printStackTrace();
             }
