@@ -54,11 +54,9 @@ public class LoginMenuViewController {
             }
         } else {
             try {
-//                loginMenuController.sendEmail(username);
-//                authStage = new Stage();
-//                new AuthenticationMenuView().start(authStage);
-                ApplicationController.setLoggedInUser(User.getUserByUsername(username));
-                new MainMenuView().start(ApplicationController.getStage());
+                loginMenuController.sendEmail(username);
+                authStage = new Stage();
+                new AuthenticationMenuView().start(authStage);
             } catch (Exception e) {
                 e.printStackTrace();
             }
