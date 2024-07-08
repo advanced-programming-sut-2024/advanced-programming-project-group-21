@@ -29,7 +29,7 @@ public class GameMenuViewController {
     public ImageView userCommanderActive;
     public VBox enemyCardHBoxes;
     public VBox userCardHBoxes;
-    public HBox specialCardPlace;
+    public HBox weatherCardPlace;
     public AnchorPane enemyGraveyard;
     public AnchorPane enemyDeck;
     public AnchorPane userGraveyard;
