@@ -45,11 +45,11 @@ public enum CardAbility {
             Card targetCard = (Card) target.getUserData();
             Player player = ApplicationController.game.getCurrentPlayer();
             if (targetCard.getCardPosition().equals(CardPositions.CLOSED_COMBAT)) {
-                player.addToClosedCombatUnits(target);
+                player.addToClosedCombatUnits(card);
             } else if (targetCard.getCardPosition().equals(CardPositions.RANGED_COMBAT)) {
-                player.addToRangedCombatUnits(target);
+                player.addToRangedCombatUnits(card);
             } else if (targetCard.getCardPosition().equals(CardPositions.SIEGE_COMBAT)) {
-                player.addToSiegeCombatUnits(target);
+                player.addToSiegeCombatUnits(card);
             }
             ApplicationController.game.getCurrentPlayer().getHand().add(target);
         }
@@ -319,17 +319,144 @@ public enum CardAbility {
     BERSEKER("Berserker", "Turns to a bear when mardroeme is played on it.") {
         @Override
         public void doAbility(AnchorPane card, AnchorPane target) {
-            // Does nothing by itself
+            Card cardObject = (Card) card.getUserData();
+            AnchorPane bear = createBear(cardObject);
+            if(cardObject.getCardPosition().equals(CardPositions.CLOSED_COMBAT)){
+                for(AnchorPane unit : ApplicationController.game.getCurrentPlayer().getClosedCombatUnits()){
+                    if(((Card) unit.getUserData()).getAbility().equals(CardAbility.MARDOEME)){
+                        ApplicationController.game.getCurrentPlayer().getClosedCombatUnits().remove(card);
+                        ApplicationController.game.getCurrentPlayer().addToClosedCombatUnits(bear);
+                        return;
+                    }
+                }
+            }
+            else if(cardObject.getCardPosition().equals(CardPositions.RANGED_COMBAT)){
+                for(AnchorPane unit : ApplicationController.game.getCurrentPlayer().getRangedCombatUnits()){
+                    if(((Card) unit.getUserData()).getAbility().equals(CardAbility.MARDOEME)){
+                        ApplicationController.game.getCurrentPlayer().getRangedCombatUnits().remove(card);
+                        ApplicationController.game.getCurrentPlayer().addToRangedCombatUnits(bear);
+                        return;
+                    }
+                }
+            }
+            else if(cardObject.getCardPosition().equals(CardPositions.SIEGE_COMBAT)){
+                for(AnchorPane unit : ApplicationController.game.getCurrentPlayer().getSiegeCombatUnits()){
+                    if(((Card) unit.getUserData()).getAbility().equals(CardAbility.MARDOEME)){
+                        ApplicationController.game.getCurrentPlayer().getSiegeCombatUnits().remove(card);
+                        ApplicationController.game.getCurrentPlayer().addToSiegeCombatUnits(bear);
+                        return;
+                    }
+                }
+            }
+            checkInSpecials(card, bear);
+        }
+
+        private void checkInSpecials(AnchorPane card, AnchorPane bear) {
+            Player player = ApplicationController.game.getCurrentPlayer();
+            if(player.getClosedCombatSpecial() != null){
+                if(((Card) player.getClosedCombatSpecial().getUserData()).getAbility().equals(CardAbility.MARDOEME)){
+                    player.getSiegeCombatUnits().remove(card);
+                    player.addToClosedCombatUnits(bear);
+                }
+            }
+            else if(player.getRangedCombatSpecial() != null){
+                if(((Card) player.getRangedCombatSpecial().getUserData()).getAbility().equals(CardAbility.MARDOEME)){
+                    player.getSiegeCombatUnits().remove(card);
+                    player.addToRangedCombatUnits(bear);
+                }
+            }
+            else if(player.getSiegeCombatSpecial() != null){
+                if(((Card) player.getSiegeCombatSpecial().getUserData()).getAbility().equals(CardAbility.MARDOEME)){
+                    player.getSiegeCombatUnits().remove(card);
+                    player.addToSiegeCombatUnits(bear);
+                }
+            }
+        }
+
+        private AnchorPane createBear(Card cardObject) {
+            Card bear = null;
+            if(cardObject.getCardEnum().equals(CardEnum.BERSEERKER)){
+                bear = new Card(CardEnum.VIDKAARL);
+            }
+            else if(cardObject.getCardEnum().equals(CardEnum.YOUNG_BERSERKER)){
+                bear = new Card(CardEnum.YOUNG_VIDKAARL);
+            }
+            return ((new GameMenuViewController()).createCard(bear));
         }
     },
 
     MARDOEME("Mardroeme", "Turns a berserker to a bear.") {
         @Override
         public void doAbility(AnchorPane card, AnchorPane target) {
-            Card cardObject = (Card) target.getUserData();
-            if (cardObject.getType().equals(BERSEKER)) {
-                // TODO: make a bear and set the target as the bear
+            Card cardObject = (Card) card.getUserData();
+            AnchorPane bear = createBear(cardObject);
+            if(cardObject.getCardPosition().equals(CardPositions.CLOSED_COMBAT)){
+                for(AnchorPane unit : ApplicationController.game.getCurrentPlayer().getClosedCombatUnits()){
+                    if(((Card) unit.getUserData()).getAbility().equals(CardAbility.BERSEKER)){
+                        ApplicationController.game.getCurrentPlayer().getClosedCombatUnits().remove(unit);
+                        ApplicationController.game.getCurrentPlayer().addToClosedCombatUnits(bear);
+                        return;
+                    }
+                }
             }
+            else if(cardObject.getCardPosition().equals(CardPositions.RANGED_COMBAT)){
+                for(AnchorPane unit : ApplicationController.game.getCurrentPlayer().getRangedCombatUnits()){
+                    if(((Card) unit.getUserData()).getAbility().equals(CardAbility.BERSEKER)){
+                        ApplicationController.game.getCurrentPlayer().getRangedCombatUnits().remove(unit);
+                        ApplicationController.game.getCurrentPlayer().addToRangedCombatUnits(bear);
+                        return;
+                    }
+                }
+            }
+            else if(cardObject.getCardPosition().equals(CardPositions.SIEGE_COMBAT)){
+                for(AnchorPane unit : ApplicationController.game.getCurrentPlayer().getSiegeCombatUnits()){
+                    if(((Card) unit.getUserData()).getAbility().equals(CardAbility.BERSEKER)){
+                        ApplicationController.game.getCurrentPlayer().getSiegeCombatUnits().remove(unit);
+                        ApplicationController.game.getCurrentPlayer().addToSiegeCombatUnits(bear);
+                        return;
+                    }
+                }
+            }
+            checkInSpecials(card, bear);
+        }
+
+        private void checkInSpecials(AnchorPane card, AnchorPane bear) {
+            Player player = ApplicationController.game.getCurrentPlayer();
+            if(((Card)card.getUserData()).getCardPosition().equals(CardPositions.CLOSED_COMBAT_SPECIAL)) {
+                for (AnchorPane unit : player.getClosedCombatUnits()) {
+                    if (((Card) unit.getUserData()).getAbility().equals(CardAbility.BERSEKER)) {
+                        player.getClosedCombatUnits().remove(unit);
+                        player.addToClosedCombatUnits(bear);
+                    }
+                }
+            }
+            else if(((Card)card.getUserData()).getCardPosition().equals(CardPositions.RANGED_COMBAT_SPECIAL)) {
+                for (AnchorPane unit : player.getRangedCombatUnits()) {
+                    if (((Card) unit.getUserData()).getAbility().equals(CardAbility.BERSEKER)) {
+                        player.getRangedCombatUnits().remove(unit);
+                        player.addToRangedCombatUnits(bear);
+                    }
+                }
+            }
+            else if(((Card)card.getUserData()).getCardPosition().equals(CardPositions.SIEGE_COMBAT_SPECIAL)) {
+                for (AnchorPane unit : player.getSiegeCombatUnits()) {
+                    if (((Card) unit.getUserData()).getAbility().equals(CardAbility.BERSEKER)) {
+                        player.getSiegeCombatUnits().remove(unit);
+                        player.addToSiegeCombatUnits(bear);
+                    }
+                }
+            }
+        }
+
+        private AnchorPane createBear(Card cardObject) {
+            Card bear = null;
+            if(cardObject.getCardEnum().equals(CardEnum.BERSEERKER)){
+                bear = new Card(CardEnum.VIDKAARL);
+            }
+            else if(cardObject.getCardEnum().equals(CardEnum.YOUNG_BERSERKER)){
+                bear = new Card(CardEnum.YOUNG_VIDKAARL);
+            }
+            return ((new GameMenuViewController()).createCard(bear));
         }
     },
 

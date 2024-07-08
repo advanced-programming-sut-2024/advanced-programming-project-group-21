@@ -407,7 +407,7 @@ public class GameMenuViewController {
         loadDrops();
     }
 
-    private void loadDrops(){
+    private void loadDrops() {
         ArrayList<HBox> rows = new ArrayList<>();
         rows.add(userClosedHBox);
         rows.add(userRangedHBox);
@@ -471,22 +471,22 @@ public class GameMenuViewController {
         cardImageView.setOnDragDetected(event -> {
             dragCard(cardImageView, event, cardAnchorPane);
         });
-//        cardImageView.setOnDragOver(
-//                event -> {
-//                    event.acceptTransferModes(TransferMode.MOVE);
-//                    // TODO: ABILITY
-//                    event.consume();
-//                }
-//        );
-//        cardImageView.setOnDragDropped(
-//                event -> {
-//                    moveToRow((HBox) cardAnchorPane.getParent(), cardPaneToBeDragged);
-//                    moveToRow(handHBox, cardAnchorPane);
-//                    // TODO: ABILITY
-//                    event.setDropCompleted(true);
-//                    event.consume();
-//                }
-//        );
+        cardImageView.setOnDragOver(
+                event -> {
+                    event.acceptTransferModes(TransferMode.MOVE);
+                    event.consume();
+                }
+        );
+        cardImageView.setOnDragDropped(
+                event -> {
+                    Card toBeDroppedCard = (Card) cardPaneToBeDragged.getUserData();
+                    if ((card.getAbility().equals(CardAbility.DECOY))) {
+                        playedTurn(cardPaneToBeDragged,cardAnchorPane);
+                        event.setDropCompleted(true);
+                        event.consume();
+                    }
+                }
+        );
         cardAnchorPane.getChildren().add(cardImageView);
 
         return cardAnchorPane;
@@ -521,11 +521,12 @@ public class GameMenuViewController {
         }
     }
 
-    private void playedTurn(){
+    private void playedTurn(AnchorPane card, AnchorPane target) {
+        ApplicationController.game.setGameState(GameStates.IN_GAME);
         skipTurnButton.setVisible(false);
         confirmTurnButton.setVisible(true);
+        ((Card) card.getUserData()).getAbility().doAbility(card, target);
         ApplicationController.game.getCurrentPlayer().setDoneTurn(true);
-        ApplicationController.game.setGameState(GameStates.IN_GAME);
     }
 
     private void dropOnSpecial(ArrayList<HBox> specials) {
@@ -553,22 +554,22 @@ public class GameMenuViewController {
 
     private void moveToSpecial(HBox row, AnchorPane cardPaneToBeDragged) {
         Card card = (Card) cardPaneToBeDragged.getUserData();
-        if(row.getChildren().size()==0) {
+        if (row.getChildren().size() == 0) {
             if (row.getId().equals("userClosedSpecial")) {
                 ApplicationController.game.getCurrentPlayer().setClosedCombatSpecial(cardPaneToBeDragged);
                 ApplicationController.game.getCurrentPlayer().removeFromHand(cardPaneToBeDragged);
                 card.setCardPosition(CardPositions.CLOSED_COMBAT_SPECIAL);
-                playedTurn();
+                playedTurn(cardPaneToBeDragged, null);
             } else if (row.getId().equals("userRangedSpecial")) {
                 ApplicationController.game.getCurrentPlayer().setRangedCombatSpecial(cardPaneToBeDragged);
                 ApplicationController.game.getCurrentPlayer().removeFromHand(cardPaneToBeDragged);
                 card.setCardPosition(CardPositions.RANGED_COMBAT_SPECIAL);
-                playedTurn();
+                playedTurn(cardPaneToBeDragged, null);
             } else if (row.getId().equals("userSiegeSpecial")) {
                 ApplicationController.game.getCurrentPlayer().setSiegeCombatSpecial(cardPaneToBeDragged);
                 ApplicationController.game.getCurrentPlayer().removeFromHand(cardPaneToBeDragged);
                 card.setCardPosition(CardPositions.SIEGE_COMBAT_SPECIAL);
-                playedTurn();
+                playedTurn(cardPaneToBeDragged, null);
             }
         }
 
@@ -586,34 +587,34 @@ public class GameMenuViewController {
                         (card.getType().equals(CardType.CLOSED_COMBAT_UNIT) || card.getType().equals(CardType.AGILE_UNIT))) {
                     ApplicationController.game.getCurrentPlayer().addToClosedCombatUnits(cardAnchorPane);
                     ApplicationController.game.getCurrentPlayer().removeFromHand(cardAnchorPane);
-                    playedTurn();
+                    playedTurn(cardAnchorPane, null);
                 } else if (row.getId().equals("userRangedHBox") &&
                         (card.getType().equals(CardType.RANGED_UNIT) || card.getType().equals(CardType.AGILE_UNIT))) {
                     ApplicationController.game.getCurrentPlayer().addToRangedCombatUnits(cardAnchorPane);
                     ApplicationController.game.getCurrentPlayer().removeFromHand(cardAnchorPane);
-                    playedTurn();
+                    playedTurn(cardAnchorPane, null);
                 } else if (row.getId().equals("userSiegeHBox") &&
                         card.getType().equals(CardType.SIEGE_UNIT)) {
                     ApplicationController.game.getCurrentPlayer().addToSiegeCombatUnits(cardAnchorPane);
                     ApplicationController.game.getCurrentPlayer().removeFromHand(cardAnchorPane);
-                    playedTurn();
+                    playedTurn(cardAnchorPane, null);
                 }
             } else {
                 if (row.getId().equals("enemyClosedHBox") &&
                         (card.getType().equals(CardType.CLOSED_COMBAT_UNIT) || card.getType().equals(CardType.AGILE_UNIT))) {
                     ApplicationController.game.getEnemyPlayer().addToClosedCombatUnits(cardAnchorPane);
                     ApplicationController.game.getEnemyPlayer().removeFromHand(cardAnchorPane);
-                    playedTurn();
+                    playedTurn(cardAnchorPane, null);
                 } else if (row.getId().equals("enemyRangedHBox") &&
                         (card.getType().equals(CardType.RANGED_UNIT) || card.getType().equals(CardType.AGILE_UNIT))) {
                     ApplicationController.game.getEnemyPlayer().addToRangedCombatUnits(cardAnchorPane);
                     ApplicationController.game.getEnemyPlayer().removeFromHand(cardAnchorPane);
-                    playedTurn();
+                    playedTurn(cardAnchorPane, null);
                 } else if (row.getId().equals("enemySiegeHBox") &&
                         card.getType().equals(CardType.SIEGE_UNIT)) {
                     ApplicationController.game.getEnemyPlayer().addToSiegeCombatUnits(cardAnchorPane);
                     ApplicationController.game.getEnemyPlayer().removeFromHand(cardAnchorPane);
-                    playedTurn();
+                    playedTurn(cardAnchorPane, null);
                 }
             }
         }
@@ -716,21 +717,20 @@ public class GameMenuViewController {
         changeTurn();
     }
 
-    private void changeTurn(){
-        if(ApplicationController.game.getEnemyPlayer().isPassedTurn()){
+    private void changeTurn() {
+        if (ApplicationController.game.getEnemyPlayer().isPassedTurn()) {
             endRound();
-        }
-        else {
+        } else {
             changeActivePlayer();
         }
     }
 
-    private void changeRound(){
+    private void changeRound() {
         Game game = ApplicationController.game;
-        if(game.getRound() == 1){
+        if (game.getRound() == 1) {
             game.setRound(2);
             game.setGameState(GameStates.ROUND_2_STARTED);
-        } else if(game.getRound() == 2 && game.getPlayer1().getLives()>0 && game.getPlayer2().getLives()>0){
+        } else if (game.getRound() == 2 && game.getPlayer1().getLives() > 0 && game.getPlayer2().getLives() > 0) {
             game.setRound(3);
             game.setGameState(GameStates.ROUND_3_STARTED);
         } else {
@@ -750,46 +750,45 @@ public class GameMenuViewController {
     }
 
     private void clearBattlefield(Player player) {
-        for(AnchorPane card : player.getClosedCombatUnits())
+        for (AnchorPane card : player.getClosedCombatUnits())
             player.addToDiscardPile(card);
         player.getClosedCombatUnits().clear();
-        for(AnchorPane card : player.getRangedCombatUnits())
+        for (AnchorPane card : player.getRangedCombatUnits())
             player.addToDiscardPile(card);
         player.getRangedCombatUnits().clear();
-        for(AnchorPane card : player.getSiegeCombatUnits())
+        for (AnchorPane card : player.getSiegeCombatUnits())
             player.addToDiscardPile(card);
         player.getSiegeCombatUnits().clear();
-        if(player.getClosedCombatSpecial()!=null){
+        if (player.getClosedCombatSpecial() != null) {
             player.addToDiscardPile(player.getClosedCombatSpecial());
             player.setClosedCombatSpecial(null);
         }
-        if(player.getRangedCombatSpecial()!=null){
+        if (player.getRangedCombatSpecial() != null) {
             player.addToDiscardPile(player.getRangedCombatSpecial());
             player.setRangedCombatSpecial(null);
         }
-        if(player.getSiegeCombatSpecial()!=null){
+        if (player.getSiegeCombatSpecial() != null) {
             player.addToDiscardPile(player.getSiegeCombatSpecial());
             player.setSiegeCombatSpecial(null);
         }
     }
 
-    private void endRound(){
+    private void endRound() {
         Game game = ApplicationController.game;
-        if(game.getRound() == 1){
+        if (game.getRound() == 1) {
             game.setGameState(GameStates.ROUND_1_ENDED);
-        } else if(game.getRound() == 2){
+        } else if (game.getRound() == 2) {
             game.setGameState(GameStates.ROUND_2_ENDED);
         } else {
             game.setGameState(GameStates.ROUND_3_ENDED);
         }
         doFactionAbility();
         Player winner = null;
-        if(game.getGameState().equals(GameStates.PLAYER_1_WON)){
+        if (game.getGameState().equals(GameStates.PLAYER_1_WON)) {
             winner = game.getPlayer1();
-        } else if(game.getGameState().equals(GameStates.PLAYER_2_WON)) {
+        } else if (game.getGameState().equals(GameStates.PLAYER_2_WON)) {
             winner = game.getPlayer2();
-        }
-        else{
+        } else {
             winner = getWinner();
         }
 
@@ -798,93 +797,91 @@ public class GameMenuViewController {
         doEndRoundPlayerChanged(winner, game.getRound());
     }
 
-    private void doEndRoundPlayerChanged(Player winner, int round){
+    private void doEndRoundPlayerChanged(Player winner, int round) {
         Game game = ApplicationController.game;
 
-        if(winner == null){
-            if(round == 1) {
+        if (winner == null) {
+            if (round == 1) {
                 game.getPlayer1().setWonRound1(false);
                 game.getPlayer2().setWonRound1(false);
-            }
-            else if(round == 2){
+            } else if (round == 2) {
                 game.getPlayer1().setWonRound2(false);
                 game.getPlayer2().setWonRound2(false);
-            }
-            else{
+            } else {
                 game.getPlayer1().setWonRound3(false);
                 game.getPlayer2().setWonRound3(false);
             }
-            game.getPlayer1().setRoundsDrawn(game.getPlayer1().getRoundsDrawn()+1);
-            game.getPlayer2().setRoundsDrawn(game.getPlayer2().getRoundsDrawn()+1);
-            game.getPlayer1().setLives(game.getPlayer1().getLives()-1);
-            game.getPlayer2().setLives(game.getPlayer2().getLives()-1);
+            game.getPlayer1().setRoundsDrawn(game.getPlayer1().getRoundsDrawn() + 1);
+            game.getPlayer2().setRoundsDrawn(game.getPlayer2().getRoundsDrawn() + 1);
+            game.getPlayer1().setLives(game.getPlayer1().getLives() - 1);
+            game.getPlayer2().setLives(game.getPlayer2().getLives() - 1);
             game.setGameState(GameStates.DRAW);
         } else {
-            winner.setRoundsWon(winner.getRoundsWon()+1);
+            winner.setRoundsWon(winner.getRoundsWon() + 1);
             Player loser = getLoser(winner);
-            loser.setLives(loser.getLives()-1);
-            loser.setRoundsLost(loser.getRoundsLost()+1);
+            loser.setLives(loser.getLives() - 1);
+            loser.setRoundsLost(loser.getRoundsLost() + 1);
             setWonRounds(winner, loser);
         }
 
         changeRound();
     }
 
-    private void setWonRounds(Player winner, Player loser){
+    private void setWonRounds(Player winner, Player loser) {
         int round = ApplicationController.game.getRound();
-        if(round == 1){
+        if (round == 1) {
             winner.setWonRound1(true);
             loser.setWonRound1(false);
-        } else if(round == 2){
+        } else if (round == 2) {
             winner.setWonRound2(true);
             loser.setWonRound2(false);
         } else {
             winner.setWonRound3(true);
             loser.setWonRound3(false);
         }
-        winner.setTotalFinalPower(winner.getTotalFinalPower()+winner.getTotalPower());
-        loser.setTotalFinalPower(loser.getTotalFinalPower()+loser.getTotalPower());
+        winner.setTotalFinalPower(winner.getTotalFinalPower() + winner.getTotalPower());
+        loser.setTotalFinalPower(loser.getTotalFinalPower() + loser.getTotalPower());
 
     }
 
-    private Player getLoser(Player player){
-        if(player.equals(ApplicationController.game.getPlayer1())){
+    private Player getLoser(Player player) {
+        if (player.equals(ApplicationController.game.getPlayer1())) {
             return ApplicationController.game.getPlayer2();
         }
         return ApplicationController.game.getPlayer1();
     }
 
-    private Player getWinner(){
+    private Player getWinner() {
         Player player1 = ApplicationController.game.getPlayer1();
         Player player2 = ApplicationController.game.getPlayer2();
-        if(player1.getTotalPower() > player2.getTotalPower()){
+        if (player1.getTotalPower() > player2.getTotalPower()) {
             ApplicationController.game.setGameState(GameStates.PLAYER_1_WON);
             return player1;
-        } else if(player1.getTotalPower() < player2.getTotalPower()){
+        } else if (player1.getTotalPower() < player2.getTotalPower()) {
             ApplicationController.game.setGameState(GameStates.PLAYER_2_WON);
             return player2;
         }
         return null;
     }
 
-    private void addTransformers(Player player){
-        for(AnchorPane card : player.getDiscardPile()){
+    private void addTransformers(Player player) {
+        for (AnchorPane card : player.getDiscardPile()) {
             Card cardObject = ((Card) card.getUserData());
-            if(cardObject.getAbility().equals(CardAbility.TRANSFORMERMS)){
-                CardAbility.TRANSFORMERMS.doAbility(card,null);
+            if (cardObject.getAbility().equals(CardAbility.TRANSFORMERMS)) {
+                CardAbility.TRANSFORMERMS.doAbility(card, null);
             }
         }
     }
 
 
-    private void endGame(){
+    private void endGame() {
         Player player = getTotalWinner();
-        saveUserInfo(ApplicationController.game.getPlayer1(),ApplicationController.game.getPlayer2(), player);
+        saveUserInfo(ApplicationController.game.getPlayer1(), ApplicationController.game.getPlayer2(), player);
         ApplicationController.game = null;
         goToMainMenu();
     }
 
-    private void goToMainMenu(){
+    private void goToMainMenu() {
         try {
             new MainMenuView().start(ApplicationController.getStage());
         } catch (Exception e) {
@@ -893,43 +890,51 @@ public class GameMenuViewController {
     }
 
     private void saveUserInfo(Player userPlayer, Player enemyPlayer, Player winner) {
-        HashMap<String,String> gameHistory = new HashMap<>();
+        HashMap<String, String> gameHistory = new HashMap<>();
         User user = userPlayer.getUser();
 
-        gameHistory.put("enemy",enemyPlayer.getNickname());
+        gameHistory.put("enemy", enemyPlayer.getNickname());
         gameHistory.put("date", LocalDateTime.now().toString());
         gameHistory.put("roundScores",
                 "user: " + userPlayer.getRound1power() + " " + userPlayer.getRound2power() + " " + userPlayer.getRound3power() +
                         " enemy: " + enemyPlayer.getRound1power() + " " + enemyPlayer.getRound2power() + " " + enemyPlayer.getRound3power());
-        gameHistory.put("totalScores", "user: " + userPlayer.getTotalPower() + " enemy: " + enemyPlayer.getTotalPower());
-        if(winner == null){
+        gameHistory.put("totalScores", "user: " + userPlayer.getTotalFinalPower() + " enemy: " + enemyPlayer.getTotalFinalPower());
+        if (winner == null) {
             gameHistory.put("winner", "DRAW");
-        } else if(winner.equals(userPlayer)){
+            user.setDraw(user.getDraw() + 1);
+        } else if (winner.equals(userPlayer)) {
             gameHistory.put("winner", userPlayer.getNickname());
+            user.setWins(user.getWins() + 1);
         } else {
             gameHistory.put("winner", enemyPlayer.getNickname());
+            user.setLose(user.getLose() + 1);
         }
+        if (userPlayer.getTotalFinalPower() > user.getHighestScore()) {
+            user.setHighestScore(userPlayer.getTotalFinalPower());
+        }
+
+        user.setGamesPlayed(user.getGamesPlayed() + 1);
+
 
         user.addToGameHistories(gameHistory);
     }
 
-    private Player getTotalWinner(){
+    private Player getTotalWinner() {
         Player player1 = ApplicationController.game.getPlayer1();
         Player player2 = ApplicationController.game.getPlayer2();
-        if(player1.getRoundsWon() > player2.getRoundsWon()){
+        if (player1.getRoundsWon() > player2.getRoundsWon()) {
             return player1;
-        } else if(player1.getRoundsWon() < player2.getRoundsWon()){
+        } else if (player1.getRoundsWon() < player2.getRoundsWon()) {
             return player2;
         } else {
-            if(player1.getTotalFinalPower() > player2.getTotalFinalPower()){
+            if (player1.getTotalFinalPower() > player2.getTotalFinalPower()) {
                 return player1;
-            } else if(player1.getTotalFinalPower() < player2.getTotalFinalPower()){
+            } else if (player1.getTotalFinalPower() < player2.getTotalFinalPower()) {
                 return player2;
-            }
-            else{
-                if(player1.getTotalPower() > player2.getTotalPower()){
+            } else {
+                if (player1.getTotalPower() > player2.getTotalPower()) {
                     return player1;
-                } else if(player1.getTotalPower() < player2.getTotalPower()){
+                } else if (player1.getTotalPower() < player2.getTotalPower()) {
                     return player2;
                 }
             }
@@ -938,13 +943,12 @@ public class GameMenuViewController {
 
     }
 
-    private void doFactionAbility(){
-        if(ApplicationController.game.getPlayer1().getCurrentFaction().equals(FactionsEnum.NILFGAARD)){
+    private void doFactionAbility() {
+        if (ApplicationController.game.getPlayer1().getCurrentFaction().equals(FactionsEnum.NILFGAARD)) {
             ApplicationController.game.getPlayer2().getCurrentFaction().doAbility(ApplicationController.game.getPlayer2());
             ApplicationController.game.getPlayer1().getCurrentFaction().doAbility(ApplicationController.game.getPlayer1());
 
-        }
-        else{
+        } else {
             ApplicationController.game.getPlayer1().getCurrentFaction().doAbility(ApplicationController.game.getPlayer1());
             ApplicationController.game.getPlayer1().getCurrentFaction().doAbility(ApplicationController.game.getPlayer2());
 

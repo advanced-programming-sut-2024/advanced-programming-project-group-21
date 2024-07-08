@@ -20,7 +20,7 @@ public class User {
     private String email;
     private HashMap<String, String> questions = new HashMap<>();
     private int rank;
-    private double highestScore;
+    private double highestScore = 0;
     private int gamesPlayed = 0;
     private int wins = 0;
     private int lose = 0;
@@ -152,6 +152,9 @@ public class User {
     }
 
     public void addToGameHistories(HashMap<String, String> gameHistory) {
+        if(gameHistories == null){
+            gameHistories = new ArrayList<HashMap<String,String>>();
+        }
         gameHistories.add(gameHistory);
     }
 
