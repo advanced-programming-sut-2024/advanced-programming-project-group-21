@@ -21,7 +21,7 @@ public enum FactionsEnum {
                 ArrayList<AnchorPane> graveyard = player.getDiscardPile();
                 Random random = new Random();
                 int counter = 2;
-                while (counter > 0) {
+                while (counter > 0 && graveyard.size()>0) {
                     int randomIndex = random.nextInt(graveyard.size());
                     AnchorPane cardPane = graveyard.get(randomIndex);
                     Card card = (Card) cardPane.getUserData();

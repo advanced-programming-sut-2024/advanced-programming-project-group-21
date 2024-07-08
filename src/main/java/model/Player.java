@@ -51,6 +51,10 @@ public class Player extends User {
     private boolean wonRound2 = false;
     private boolean wonRound3 = false;
     private boolean doneTurn = false;
+    private int round1power = 0;
+    private int round2power = 0;
+    private int round3power = 0;
+    private int totalFinalPower = 0;
 
     public Player(User user) {
         super(user.getUsername(), user.getNickname(), user.getPassword(), user.getEmail());
@@ -286,6 +290,7 @@ public class Player extends User {
     }
 
     public int getClosedPower(){
+        closedCombatUnitsPower=0;
         for(AnchorPane card: closedCombatUnits){
             Card cardObject = (Card) card.getUserData();
             closedCombatUnitsPower += cardObject.getPower();
@@ -294,6 +299,7 @@ public class Player extends User {
     }
 
     public int getRangedPower(){
+        rangedCombatUnitsPower=0;
         for(AnchorPane card: rangedCombatUnits){
             Card cardObject = (Card) card.getUserData();
             rangedCombatUnitsPower += cardObject.getPower();
@@ -302,6 +308,7 @@ public class Player extends User {
     }
 
     public int getSiegePower(){
+        siegeCombatUnitsPower=0;
         for(AnchorPane card: siegeCombatUnits){
             Card cardObject = (Card) card.getUserData();
             siegeCombatUnitsPower += cardObject.getPower();
@@ -324,6 +331,8 @@ public class Player extends User {
 
     public void addToDiscardPile(AnchorPane card) {
         ((Card)card.getUserData()).setCardPosition(CardPositions.DISCARD_PILE);
+        ((Card)card.getUserData()).setPowerModifier(0);
+        ((Card)card.getUserData()).setPowerCoefficient(1);
         this.discardPile.add(card);
     }
 
@@ -385,5 +394,37 @@ public class Player extends User {
 
     public void setDoneTurn(boolean doneTurn) {
         this.doneTurn = doneTurn;
+    }
+
+    public int getTotalFinalPower() {
+        return totalFinalPower;
+    }
+
+    public void setTotalFinalPower(int totalFinalPower) {
+        this.totalFinalPower = totalFinalPower;
+    }
+
+    public int getRound1power() {
+        return round1power;
+    }
+
+    public void setRound1power(int round1power) {
+        this.round1power = round1power;
+    }
+
+    public int getRound2power() {
+        return round2power;
+    }
+
+    public void setRound2power(int round2power) {
+        this.round2power = round2power;
+    }
+
+    public int getRound3power() {
+        return round3power;
+    }
+
+    public void setRound3power(int round3power) {
+        this.round3power = round3power;
     }
 }

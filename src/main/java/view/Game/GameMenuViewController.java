@@ -14,8 +14,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import model.*;
+import model.User.User;
+import view.Faction.FactionMenuView;
+import view.Main.MainMenuView;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GameMenuViewController {
     public AnchorPane enemyCommanderPane;
@@ -715,7 +720,9 @@ public class GameMenuViewController {
         if(ApplicationController.game.getEnemyPlayer().isPassedTurn()){
             endRound();
         }
-        changeActivePlayer();
+        else {
+            changeActivePlayer();
+        }
     }
 
     private void changeRound(){
@@ -786,6 +793,8 @@ public class GameMenuViewController {
             winner = getWinner();
         }
 
+        System.out.println(winner.getNickname() + " " + winner.getTotalPower() + getLoser(winner).getNickname() + " " + getLoser(winner).getTotalPower());
+
         doEndRoundPlayerChanged(winner, game.getRound());
     }
 
@@ -833,6 +842,9 @@ public class GameMenuViewController {
             winner.setWonRound3(true);
             loser.setWonRound3(false);
         }
+        winner.setTotalFinalPower(winner.getTotalFinalPower()+winner.getTotalPower());
+        loser.setTotalFinalPower(loser.getTotalFinalPower()+loser.getTotalPower());
+
     }
 
     private Player getLoser(Player player){
@@ -866,12 +878,63 @@ public class GameMenuViewController {
 
 
     private void endGame(){
+        Player player = getTotalWinner();
+        saveUserInfo(ApplicationController.game.getPlayer1(),ApplicationController.game.getPlayer2(), player);
+        ApplicationController.game = null;
+        goToMainMenu();
+    }
 
-        saveUserInfo();
+    private void goToMainMenu(){
+        try {
+            new MainMenuView().start(ApplicationController.getStage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void saveUserInfo(Player userPlayer, Player enemyPlayer, Player winner) {
+        HashMap<String,String> gameHistory = new HashMap<>();
+        User user = userPlayer.getUser();
+
+        gameHistory.put("enemy",enemyPlayer.getNickname());
+        gameHistory.put("date", LocalDateTime.now().toString());
+        gameHistory.put("roundScores",
+                "user: " + userPlayer.getRound1power() + " " + userPlayer.getRound2power() + " " + userPlayer.getRound3power() +
+                        " enemy: " + enemyPlayer.getRound1power() + " " + enemyPlayer.getRound2power() + " " + enemyPlayer.getRound3power());
+        gameHistory.put("totalScores", "user: " + userPlayer.getTotalPower() + " enemy: " + enemyPlayer.getTotalPower());
+        if(winner == null){
+            gameHistory.put("winner", "DRAW");
+        } else if(winner.equals(userPlayer)){
+            gameHistory.put("winner", userPlayer.getNickname());
+        } else {
+            gameHistory.put("winner", enemyPlayer.getNickname());
+        }
+
+        user.addToGameHistories(gameHistory);
     }
 
     private Player getTotalWinner(){
         Player player1 = ApplicationController.game.getPlayer1();
+        Player player2 = ApplicationController.game.getPlayer2();
+        if(player1.getRoundsWon() > player2.getRoundsWon()){
+            return player1;
+        } else if(player1.getRoundsWon() < player2.getRoundsWon()){
+            return player2;
+        } else {
+            if(player1.getTotalFinalPower() > player2.getTotalFinalPower()){
+                return player1;
+            } else if(player1.getTotalFinalPower() < player2.getTotalFinalPower()){
+                return player2;
+            }
+            else{
+                if(player1.getTotalPower() > player2.getTotalPower()){
+                    return player1;
+                } else if(player1.getTotalPower() < player2.getTotalPower()){
+                    return player2;
+                }
+            }
+        }
+        return null;
 
     }
 

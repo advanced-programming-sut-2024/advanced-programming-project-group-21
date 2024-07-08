@@ -25,6 +25,7 @@ public class User {
     private int wins = 0;
     private int lose = 0;
     private int draw = 0;
+    private ArrayList<HashMap<String,String>> gameHistories = null;
     private static ArrayList<User> users = new ArrayList<>();
     public static final String USERS_DATABASE_PATH = "src/main/java/model/User/users.json";
 
@@ -33,6 +34,7 @@ public class User {
         this.nickname = nickname;
         this.password = password;
         this.email = email;
+        this.gameHistories = new ArrayList<>();
     }
 
     public static ArrayList<User> getUsers() {
@@ -139,6 +141,18 @@ public class User {
             }
         }
         return intendedUser;
+    }
+
+    public ArrayList<HashMap<String, String>> getGameHistories() {
+        return gameHistories;
+    }
+
+    public void setGameHistories(ArrayList<HashMap<String, String>> gameHistories) {
+        this.gameHistories = gameHistories;
+    }
+
+    public void addToGameHistories(HashMap<String, String> gameHistory) {
+        gameHistories.add(gameHistory);
     }
 
     public void addToQuestionAnswers(String question, String answer) {
