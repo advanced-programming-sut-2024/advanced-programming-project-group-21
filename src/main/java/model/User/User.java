@@ -1,17 +1,7 @@
 package model.User;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import controller.ApplicationController;
-
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class User {
     private String username;
@@ -26,8 +16,9 @@ public class User {
     private int lose = 0;
     private int draw = 0;
     public static User loggedInUser;
+    private boolean isStayingLoggedIn;
     private static ArrayList<User> users = new ArrayList<>();
-    public static final String USERS_DATABASE_PATH = "src/main/java/model/User/users.json";
+    private ArrayList<User> friends = new ArrayList<>();
 
     public User(String username, String nickname, String password, String email) {
         this.username = username;
@@ -175,5 +166,21 @@ public class User {
 
     public boolean containsQuestion(String question) {
         return questions.containsKey(question);
+    }
+
+    public ArrayList<User> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(ArrayList<User> friends) {
+        this.friends = friends;
+    }
+
+    public boolean isStayingLoggedIn() {
+        return isStayingLoggedIn;
+    }
+
+    public void setStayingLoggedIn(boolean stayingLoggedIn) {
+        isStayingLoggedIn = stayingLoggedIn;
     }
 }

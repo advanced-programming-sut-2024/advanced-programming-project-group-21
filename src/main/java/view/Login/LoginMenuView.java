@@ -1,9 +1,11 @@
 package view.Login;
 
 import controller.ApplicationController;
+import controller.DataBaseController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -16,15 +18,17 @@ public class LoginMenuView extends Application {
     private static Stage stage;
 
     public static void main(String[] args) {
-        launch(args);
+        if (!checkLoggedIn()) {
+            launch(args);
+        }
     }
 
     @Override
     public void start(Stage stage) throws Exception {
+        ApplicationController.setStage(stage);
         LoginMenuView.stage = stage;
         stage.setResizable(false);
         stage.centerOnScreen();
-        ApplicationController.setStage(stage);
         FXMLLoader fxmlLoader = new FXMLLoader();
         URL url = RegisterMenu.class.getResource("/FXML/Login.fxml");
         AnchorPane root = fxmlLoader.load(url);
@@ -34,6 +38,11 @@ public class LoginMenuView extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
+    private static boolean checkLoggedIn() {
+        return LoginMenuViewController.checkLoggedIn();
+    }
+
     private static void setBackGround(AnchorPane root) {
         Image image = new Image("file:src/main/resources/Images/BackGrounds/LoginMenu.jpg");
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
@@ -41,6 +50,7 @@ public class LoginMenuView extends Application {
         Background background = new Background(backgroundImage);
         root.setBackground(background);
     }
+
     public static void close() {
         stage.close();
     }

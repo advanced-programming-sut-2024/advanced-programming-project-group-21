@@ -1,9 +1,7 @@
 package controller.ClientServer;
 
-import controller.ApplicationController;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import view.Login.LoginMenuView;
 
@@ -14,11 +12,11 @@ import java.net.Socket;
 public class TCPClient {
 
     private DataInputStream receiveBuffer;
-    private DataOutputStream sendBuffer;
+    private static DataOutputStream sendBuffer;
 
     private void start() {
         try {
-            Socket socket = new Socket("localhost",5000);
+            Socket socket = new Socket("localhost", 5000);
             sendBuffer = new DataOutputStream(
                     socket.getOutputStream()
             );

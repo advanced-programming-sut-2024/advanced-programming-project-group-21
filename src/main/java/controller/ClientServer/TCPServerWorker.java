@@ -12,19 +12,18 @@ public class TCPServerWorker extends Thread {
     private DataOutputStream sendBuffer;
     private DataInputStream receiveBuffer;
 
-    private static void setUpServer(int portNumber) {
+    private static void setUpServer() {
         try {
-            server = new ServerSocket(portNumber);
+            server = new ServerSocket(5000);
             connections = new ArrayList<>();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public synchronized void run() {
+    public void run() {
         Socket socket;
         while (true) {
-            socket = null;
             synchronized (connections) {
                 while (connections.isEmpty()) {
                     try {
@@ -61,7 +60,6 @@ public class TCPServerWorker extends Thread {
             sendBuffer = new DataOutputStream(
                     new BufferedOutputStream(socket.getOutputStream())
             );
-            //TODO implement the logic here
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,7 +68,7 @@ public class TCPServerWorker extends Thread {
 
     public static void main(String[] args) {
         try {
-            TCPServerWorker.setUpServer(5000);
+            TCPServerWorker.setUpServer();
             for (int i = 0; i < 10; i++) {
                 new TCPServerWorker().start();
             }

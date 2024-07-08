@@ -1,12 +1,17 @@
 package view.Profile;
 
 import controller.ApplicationController;
+import controller.ProfileMenuController;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import model.App;
+import model.PreGame;
 import model.User.User;
 import view.Main.MainMenuView;
 import view.Question.QuestionMenuView;
@@ -17,14 +22,18 @@ public class ProfileMenuViewController {
     public AnchorPane pane;
     public VBox vbox;
     public Button usernameButton;
+    public CheckBox loggedInCheckBox;
     double answerTextFieldWidth = 200;
     TextField answerTextField = null;
-    //TextField passwordAnswerTextField = null;
     Button submitChange = null;
     double distanceBetweenButtons = 33;
     String answer;
+    ProfileMenuController controller = new ProfileMenuController();
 
     public void initialize() {
+        if (ApplicationController.getLoggedInUser().isStayingLoggedIn()) {
+            loggedInCheckBox.setSelected(true);
+        }
         User.setLoggedInUser(ApplicationController.getLoggedInUser());
     }
 
@@ -278,6 +287,16 @@ public class ProfileMenuViewController {
             new view.GameHistory.GameHistoryMenuView().start(ApplicationController.getStage());
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void stayLoggedIn(ActionEvent actionEvent) {
+        if (loggedInCheckBox.isSelected()) {
+            ApplicationController.getLoggedInUser().setStayingLoggedIn(true);
+            controller.setLoggedInUser(ApplicationController.getLoggedInUser());
+        } else {
+            ApplicationController.getLoggedInUser().setStayingLoggedIn(false);
+            controller.clearLoggedInUser();
         }
     }
 }
