@@ -6,12 +6,8 @@ import model.Card;
 import model.Game;
 import enums.GameStates;
 import model.Player;
-
 import java.util.Random;
-
-import model.GameBoard;
 import view.Game.GameMenuViewController;
-
 import java.util.ArrayList;
 
 
