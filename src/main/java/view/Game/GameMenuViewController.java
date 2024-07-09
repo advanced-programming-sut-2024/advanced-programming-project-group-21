@@ -84,6 +84,8 @@ public class GameMenuViewController {
     public AnchorPane cardPaneToBeDragged;
     public Button skipTurnButton;
     public Button confirmTurnButton;
+    public Rectangle cheatBackGround;
+    public VBox cheatButtons;
     GameMenuController controller = new GameMenuController();
 
     public void initialize() {
@@ -231,11 +233,11 @@ public class GameMenuViewController {
         updateCardCount();
     }
 
-    private void loadDiscardPile(){
+    private void loadDiscardPile() {
         userGraveyard.getChildren().clear();
-        int x=0;
-        int y=0;
-        for(AnchorPane card : ApplicationController.game.getCurrentPlayer().getDiscardPile()){
+        int x = 0;
+        int y = 0;
+        for (AnchorPane card : ApplicationController.game.getCurrentPlayer().getDiscardPile()) {
             userGraveyard.getChildren().add(card);
             card.setLayoutX(x);
             card.setLayoutY(y);
@@ -244,9 +246,9 @@ public class GameMenuViewController {
         }
 
         enemyGraveyard.getChildren().clear();
-        x=0;
-        y=0;
-        for(AnchorPane card : ApplicationController.game.getEnemyPlayer().getDiscardPile()){
+        x = 0;
+        y = 0;
+        for (AnchorPane card : ApplicationController.game.getEnemyPlayer().getDiscardPile()) {
             enemyGraveyard.getChildren().add(card);
             card.setLayoutX(x);
             card.setLayoutY(y);
@@ -485,6 +487,82 @@ public class GameMenuViewController {
         setCardSize(cardAnchorPane, 79, 55);
 
         ImageView cardImageView = getCardImageView(card, cardAnchorPane.getPrefHeight(), cardAnchorPane.getPrefWidth());
+        setCardEvents(cardAnchorPane, cardImageView, card);
+
+        setHeroImageView(cardAnchorPane, card);
+        setAbilityImageView(cardAnchorPane, card);
+        setPositionImageView(cardAnchorPane, card);
+        setPowerImageView(cardAnchorPane, card);
+
+        return cardAnchorPane;
+    }
+
+    private void setPowerImageView(AnchorPane cardAnchorPane, Card card) {
+        ImageView powerImageView = new ImageView();
+        powerImageView.setFitHeight(30);
+        powerImageView.setFitWidth(30);
+        powerImageView.setLayoutX(0);
+        powerImageView.setLayoutY(0);
+        powerImageView.setImage(new Image("file:src/main/resources/Images/Icons/power_normal.png"));
+        cardAnchorPane.getChildren().add(powerImageView);
+
+        Label powerLabel = new Label();
+        powerLabel.setText(Integer.toString(card.getPower()));
+        powerLabel.setLayoutX(3);
+        powerLabel.setLayoutY(2);
+        powerLabel.setStyle("-fx-text-fill: black; -fx-font-size: 10px; -fx-font-weight: bold;");
+        powerLabel.setAlignment(javafx.geometry.Pos.CENTER);
+        powerLabel.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
+        cardAnchorPane.getChildren().add(powerLabel);
+    }
+
+    private void setPositionImageView(AnchorPane cardAnchorPane, Card card) {
+        Image image = null;
+        if (card.getType().equals(CardType.CLOSED_COMBAT_UNIT))
+            image = new Image("file:src/main/resources/Images/Icons/card_row_close.png");
+        else if (card.getType().equals(CardType.RANGED_UNIT))
+            image = new Image("file:src/main/resources/Images/Icons/card_row_ranged.png");
+        else if (card.getType().equals(CardType.SIEGE_UNIT))
+            image = new Image("file:src/main/resources/Images/Icons/card_row_siege.png");
+        else if (card.getType().equals(CardType.AGILE_UNIT))
+            image = new Image("file:src/main/resources/Images/Icons/card_row_agile.png");
+        else System.out.println("im gay");
+
+        ImageView positionImageView = new ImageView();
+        positionImageView.setFitHeight(20);
+        positionImageView.setFitWidth(20);
+        positionImageView.setLayoutX(30);
+        positionImageView.setLayoutY(58);
+        positionImageView.setImage(image);
+        cardAnchorPane.getChildren().add(positionImageView);
+    }
+
+    private void setHeroImageView(AnchorPane cardAnchorPane, Card card) {
+        if (card.isHero()) {
+            ImageView heroImageView = new ImageView();
+            heroImageView.setFitHeight(30);
+            heroImageView.setFitWidth(30);
+            heroImageView.setLayoutX(0);
+            heroImageView.setLayoutY(0);
+            heroImageView.setImage(new Image("file:src/main/resources/Images/Icons/power_hero.png"));
+            cardAnchorPane.getChildren().add(heroImageView);
+        }
+    }
+
+    private void setAbilityImageView(AnchorPane cardAnchorPane, Card card) {
+        if (card.getAbility().equals(CardAbility.NONE)) {
+            return;
+        }
+        ImageView medicImageView = new ImageView();
+        medicImageView.setFitHeight(20);
+        medicImageView.setFitWidth(20);
+        medicImageView.setLayoutX(5);
+        medicImageView.setLayoutY(58);
+        medicImageView.setImage(new Image(card.getAbility().getOnCardImage()));
+        cardAnchorPane.getChildren().add(medicImageView);
+    }
+
+    private void setCardEvents(AnchorPane cardAnchorPane, ImageView cardImageView, Card card) {
 
 
         cardImageView.setOnMouseEntered(event -> {
@@ -506,15 +584,13 @@ public class GameMenuViewController {
                 event -> {
                     Card toBeDroppedCard = (Card) cardPaneToBeDragged.getUserData();
                     if ((card.getAbility().equals(CardAbility.DECOY))) {
-                        playedTurn(cardPaneToBeDragged,cardAnchorPane);
+                        playedTurn(cardPaneToBeDragged, cardAnchorPane);
                         event.setDropCompleted(true);
                         event.consume();
                     }
                 }
         );
         cardAnchorPane.getChildren().add(cardImageView);
-
-        return cardAnchorPane;
     }
 
     private void dragCard(ImageView cardImageView, MouseEvent event, AnchorPane cardAnchorPane) {
@@ -816,9 +892,6 @@ public class GameMenuViewController {
         } else {
             winner = getWinner();
         }
-
-        System.out.println(winner.getNickname() + " " + winner.getTotalPower() + getLoser(winner).getNickname() + " " + getLoser(winner).getTotalPower());
-
         doEndRoundPlayerChanged(winner, game.getRound());
     }
 
@@ -999,18 +1072,18 @@ public class GameMenuViewController {
 //        loadTable();
 //    }
 
-    private void turnEnemyCardsPowerToZero(){
-        for(AnchorPane card: ApplicationController.game.getEnemyPlayer().getClosedCombatUnits()){
-            ((Card)card.getUserData()).setPowerCoefficient(0);
-            ((Card)card.getUserData()).setPowerModifier(0);
+    private void turnEnemyCardsPowerToZero() {
+        for (AnchorPane card : ApplicationController.game.getEnemyPlayer().getClosedCombatUnits()) {
+            ((Card) card.getUserData()).setPowerCoefficient(0);
+            ((Card) card.getUserData()).setPowerModifier(0);
         }
-        for(AnchorPane card: ApplicationController.game.getEnemyPlayer().getRangedCombatUnits()){
-            ((Card)card.getUserData()).setPowerCoefficient(0);
-            ((Card)card.getUserData()).setPowerModifier(0);
+        for (AnchorPane card : ApplicationController.game.getEnemyPlayer().getRangedCombatUnits()) {
+            ((Card) card.getUserData()).setPowerCoefficient(0);
+            ((Card) card.getUserData()).setPowerModifier(0);
         }
-        for(AnchorPane card: ApplicationController.game.getEnemyPlayer().getSiegeCombatUnits()){
-            ((Card)card.getUserData()).setPowerCoefficient(0);
-            ((Card)card.getUserData()).setPowerModifier(0);
+        for (AnchorPane card : ApplicationController.game.getEnemyPlayer().getSiegeCombatUnits()) {
+            ((Card) card.getUserData()).setPowerCoefficient(0);
+            ((Card) card.getUserData()).setPowerModifier(0);
         }
         loadTable();
     }
@@ -1046,15 +1119,15 @@ public class GameMenuViewController {
 //        loadTable();
 //    }
 
-    private void addCrystals(){
+    private void addCrystals() {
         ApplicationController.game.setRound(2);
         ApplicationController.game.getCurrentPlayer().setLives(2);
         loadTable();
     }
 
-    private void addRandomCardFromDeckToHand(){
+    private void addRandomCardFromDeckToHand() {
         Player player = ApplicationController.game.getCurrentPlayer();
-        if(!player.getDeck().isEmpty()){
+        if (!player.getDeck().isEmpty()) {
             AnchorPane card = createCard(player.getDeck().get(0));
             player.addToHand(card);
             player.getDeck().remove(0);
@@ -1062,21 +1135,24 @@ public class GameMenuViewController {
         loadTable();
     }
 
-    private void fillCommanderAbility(){
+    private void fillCommanderAbility() {
         ApplicationController.game.getCurrentPlayer().setDoneAction(false);
         loadTable();
     }
 
-    private void winTheRound(){
-        if(ApplicationController.game.getCurrentPlayer().equals(ApplicationController.game.getPlayer1())){
+    private void winTheRound() {
+        if (ApplicationController.game.getCurrentPlayer().equals(ApplicationController.game.getPlayer1())) {
             ApplicationController.game.setGameState(GameStates.PLAYER_1_WON);
             endRound();
-        }
-        else{
+        } else {
             ApplicationController.game.setGameState(GameStates.PLAYER_2_WON);
             endRound();
         }
     }
-    
 
+
+    public void unlockCheatMenu(MouseEvent mouseEvent) {
+        cheatBackGround.setVisible(true);
+        cheatButtons.setVisible(true);
+    }
 }

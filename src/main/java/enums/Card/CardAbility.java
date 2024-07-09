@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public enum CardAbility {
-    COMMANDERS_HORN("Commander's Horn", "Double the strength of all unit cards in the row") {
+    COMMANDERS_HORN("Commander's Horn", "Double the strength of all unit cards in the row","file:src/main/resources/Images/Icons/card_ability_horn.png") {
         @Override
         public void doAbility(AnchorPane card, AnchorPane target) {
             Card cardObject = (Card) card.getUserData();
@@ -39,7 +39,7 @@ public enum CardAbility {
             }
         }
     },
-    DECOY("Decoy", "Return a card to your hand") {
+    DECOY("Decoy", "Return a card to your hand","file:src/main/resources/Images/Icons/card_ability_decoy.png") {
         @Override
         public void doAbility(AnchorPane card, AnchorPane target) {
             Card targetCard = (Card) target.getUserData();
@@ -54,13 +54,16 @@ public enum CardAbility {
             ApplicationController.game.getCurrentPlayer().getHand().add(target);
         }
     },
-    MEDIC("Medic", "Choose one card from your discard pile and play it instantly") {
+    MEDIC("Medic", "Choose one card from your discard pile and play it instantly","file:src/main/resources/Images/Icons/card_ability_medic.png") {
         @Override
         public void doAbility(AnchorPane card, AnchorPane target) {
             Player player = ApplicationController.game.getCurrentPlayer();
             AnchorPane randomCardPane = getRandomCardFromDiscardPile();
             Card randomCard = (Card) randomCardPane.getUserData();
 
+            if(randomCard==null){
+                return;
+            }
             if (randomCard.getCardPosition().equals(CardPositions.CLOSED_COMBAT)) {
                 player.addToClosedCombatUnits(randomCardPane);
             } else if (randomCard.getCardPosition().equals(CardPositions.RANGED_COMBAT)) {
@@ -80,7 +83,7 @@ public enum CardAbility {
             return discardPile.get(randomIndex);
         }
     },
-    MORALE_BOOST("Morale Boost", "Adds one to the power of all units in the row (excluding itself)") {
+    MORALE_BOOST("Morale Boost", "Adds one to the power of all units in the row (excluding itself)","file:src/main/resources/Images/Icons/card_ability_morale.png") {
         @Override
         public void doAbility(AnchorPane card, AnchorPane target) {
             Card cardObject = (Card) card.getUserData();
@@ -110,7 +113,7 @@ public enum CardAbility {
         }
     },
 
-    MUSTER("Muster", "Play all cards with the same name from your deck and hand instantly") {
+    MUSTER("Muster", "Play all cards with the same name from your deck and hand instantly", "file:src/main/resources/Images/Icons/card_ability_muster.png") {
         @Override
         public void doAbility(AnchorPane card, AnchorPane target) {
             Card cardObject = (Card) card.getUserData();
@@ -160,7 +163,7 @@ public enum CardAbility {
         }
     },
 
-    SPY("Spy", "Place on your opponent's battlefield and get two cards from your deck") {
+    SPY("Spy", "Place on your opponent's battlefield and get two cards from your deck","file:src/main/resources/Images/Icons/card_ability_spy.png") {
         @Override
         public void doAbility(AnchorPane card, AnchorPane target) {
             Player player = ApplicationController.game.getCurrentPlayer();
@@ -171,7 +174,7 @@ public enum CardAbility {
         }
     },
 
-    TIGHT_BOND("Tight Bond", "Place next to a card with the same name to increase the strength of both cards") {
+    TIGHT_BOND("Tight Bond", "Place next to a card with the same name to increase the strength of both cards","file:src/main/resources/Images/Icons/card_ability_bond.png") {
         @Override
         public void doAbility(AnchorPane card, AnchorPane target) {
             Card cardObject = (Card) card.getUserData();
@@ -232,7 +235,7 @@ public enum CardAbility {
         }
     },
 
-    SCORCH("Scorch", "Destroy the strongest cards on the battlefield") {
+    SCORCH("Scorch", "Destroy the strongest cards on the battlefield","file:src/main/resources/Images/Icons/card_ability_scorch.png") {
         @Override
         public void doAbility(AnchorPane card, AnchorPane target) {
             Card cardObject = (Card) card.getUserData();
@@ -316,7 +319,7 @@ public enum CardAbility {
         }
     },
 
-    BERSEKER("Berserker", "Turns to a bear when mardroeme is played on it.") {
+    BERSEKER("Berserker", "Turns to a bear when mardroeme is played on it.","file:src/main/resources/Images/Icons/card_ability_berserker.png") {
         @Override
         public void doAbility(AnchorPane card, AnchorPane target) {
             Card cardObject = (Card) card.getUserData();
@@ -385,7 +388,7 @@ public enum CardAbility {
         }
     },
 
-    MARDOEME("Mardroeme", "Turns a berserker to a bear.") {
+    MARDOEME("Mardroeme", "Turns a berserker to a bear.","file:src/main/resources/Images/Icons/card_ability_mardroeme.png") {
         @Override
         public void doAbility(AnchorPane card, AnchorPane target) {
             Card cardObject = (Card) card.getUserData();
@@ -460,7 +463,7 @@ public enum CardAbility {
         }
     },
 
-    TRANSFORMERMS("Transformers", "Transforms into a random card with power 8.") {
+    TRANSFORMERMS("Transformers", "Transforms into a random card with power 8.","file:src/main/resources/Images/Icons/card_ability_transformer.png") {
         @Override
         public void doAbility(AnchorPane card, AnchorPane target) {
             Card cardObject = (Card) card.getUserData();
@@ -497,7 +500,7 @@ public enum CardAbility {
             return null;
         }
     },
-    NONE("None", "No ability") {
+    NONE("None", "No ability","") {
         @Override
         public void doAbility(AnchorPane card, AnchorPane target) {
             // Does nothing by default
@@ -506,14 +509,13 @@ public enum CardAbility {
 
     private String name;
     private String description;
-//    private String onCardImage; // TODO: Implement this
-//    private String effectImage;
+    private String onCardImage;
 
-    CardAbility(String name, String description) {
+    CardAbility(String name, String description, String onCardImage) {
         this.name = name;
         this.description = description;
-//        this.onCardImage = onCardImage;
-//        this.effectImage = effectImage;
+        this.onCardImage = onCardImage;
+
     }
 
     public abstract void doAbility(AnchorPane card, AnchorPane target);
@@ -524,6 +526,10 @@ public enum CardAbility {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getOnCardImage() {
+        return onCardImage;
     }
 }
 
