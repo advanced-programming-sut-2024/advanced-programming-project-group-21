@@ -280,21 +280,25 @@ public class ProfileMenuViewController {
     public void goToGameHistoryInfoMenu(MouseEvent mouseEvent) {
         try {
             String inputText = gameHistoryNumber.getText();
-            int numberOfGames = Integer.parseInt(inputText);
-            if (numberOfGames == 0){
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Invalid input");
-                alert.setHeaderText("Invalid input");
-                alert.setContentText("you didn't play any games yet");
-                alert.showAndWait();;
-            } else if(!(numberOfGames > 1)){
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Invalid input");
-                alert.setHeaderText("Invalid input");
-                alert.setContentText("please enter a valid number");
-                alert.showAndWait();
-            } else if (numberOfGames > 1){
+            if (inputText.isEmpty()) {
                 new view.GameHistory.GameHistoryMenuView().start(ApplicationController.getStage());
+            } else {
+                int numberOfGames = Integer.parseInt(inputText);
+                if (numberOfGames == 0) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Invalid input");
+                    alert.setHeaderText("Invalid input");
+                    alert.setContentText("you didn't play any games yet");
+                    alert.showAndWait();
+                } else if (!(numberOfGames > 1)) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Invalid input");
+                    alert.setHeaderText("Invalid input");
+                    alert.setContentText("please enter a valid number");
+                    alert.showAndWait();
+                } else if (numberOfGames > 1) {
+                    new view.GameHistory.GameHistoryMenuView().start(ApplicationController.getStage());
+                }
             }
 
         } catch (Exception e) {
