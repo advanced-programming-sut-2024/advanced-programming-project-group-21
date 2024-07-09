@@ -222,6 +222,7 @@ public class Player extends User {
     }
 
     public void addToClosedCombatSpecial(AnchorPane card) {
+        ((Card)card.getUserData()).setCardPosition(CardPositions.CLOSED_COMBAT_SPECIAL);
         this.closedCombatSpecial = card;
     }
 
@@ -230,6 +231,7 @@ public class Player extends User {
     }
 
     public void addToRangedCombatSpecial(AnchorPane card) {
+        ((Card)card.getUserData()).setCardPosition(CardPositions.RANGED_COMBAT_SPECIAL);
         this.rangedCombatSpecial = card;
     }
 
@@ -238,6 +240,7 @@ public class Player extends User {
     }
 
     public void addToSiegeCombatSpecial(AnchorPane card) {
+        ((Card)card.getUserData()).setCardPosition(CardPositions.SIEGE_COMBAT_SPECIAL);
         this.siegeCombatSpecial = card;
     }
 
