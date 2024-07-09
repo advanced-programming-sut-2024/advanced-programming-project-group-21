@@ -1,6 +1,7 @@
 package view.Profile;
 
 import controller.ApplicationController;
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -15,6 +16,8 @@ import view.UserInfo.UserInfoMenuView;
 import java.awt.desktop.AppForegroundListener;
 
 public class ProfileMenuViewController {
+    @FXML
+    private TextField gameHistoryNumber;
     public AnchorPane pane;
     public VBox vbox;
     public Button usernameButton;
@@ -276,7 +279,24 @@ public class ProfileMenuViewController {
 
     public void goToGameHistoryInfoMenu(MouseEvent mouseEvent) {
         try {
-            new view.GameHistory.GameHistoryMenuView().start(ApplicationController.getStage());
+            String inputText = gameHistoryNumber.getText();
+            int numberOfGames = Integer.parseInt(inputText);
+            if (numberOfGames == 0){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Invalid input");
+                alert.setHeaderText("Invalid input");
+                alert.setContentText("you didn't play any games yet");
+                alert.showAndWait();;
+            } else if(!(numberOfGames > 1)){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Invalid input");
+                alert.setHeaderText("Invalid input");
+                alert.setContentText("please enter a valid number");
+                alert.showAndWait();
+            } else if (numberOfGames > 1){
+                new view.GameHistory.GameHistoryMenuView().start(ApplicationController.getStage());
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
