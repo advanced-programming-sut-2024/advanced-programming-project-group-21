@@ -2,12 +2,11 @@ package enums.Card;
 
 import controller.ApplicationController;
 import javafx.scene.layout.AnchorPane;
-import model.Card;
-import model.Game;
+import model.*;
 import enums.GameStates;
-import model.Player;
+
 import java.util.Random;
-import model.GameBoard;
+
 import view.Game.GameMenuViewController;
 
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ public enum FactionsEnum {
                 ArrayList<AnchorPane> graveyard = player.getDiscardPile();
                 Random random = new Random();
                 int counter = 2;
-                while (counter > 0) {
+                while (counter > 0 && graveyard.size()>0) {
                     int randomIndex = random.nextInt(graveyard.size());
                     AnchorPane cardPane = graveyard.get(randomIndex);
                     Card card = (Card) cardPane.getUserData();
@@ -39,14 +38,15 @@ public enum FactionsEnum {
         private void addCard(Player player, AnchorPane cardPane) {
             Card card = (Card) cardPane.getUserData();
             if (card.getType().equals(CardType.CLOSED_COMBAT_UNIT)) {
-                player.getClosedCombatUnits().add(cardPane);
+                player.addToClosedCombatUnits(cardPane);
             } else if (card.getType().equals(CardType.RANGED_UNIT)) {
-                player.getRangedCombatUnits().add(cardPane);
+                player.addToRangedCombatUnits(cardPane);
             } else if (card.getType().equals(CardType.SIEGE_UNIT)) {
-                player.getSiegeCombatUnits().add(cardPane);
+                player.addToSiegeCombatUnits(cardPane);
             } else if (card.getType().equals(CardType.AGILE_UNIT)) {
-                player.getClosedCombatUnits().add(cardPane);
+                player.addToRangedCombatUnits(cardPane);
             }
+            System.out.println("added card: " + ((Card)cardPane.getUserData()).getName());
         }
     },
     NORTHERN_REALMS("Northern Realms", "file:src/main/resources/Images/Factions/faction_realms.jpg", "file:src/main/resources/Images/Icons/deck_shield_realms.png", "If the player wins the round, a card will be placed in the player's hand at the beginning of the next round.") {
@@ -109,12 +109,12 @@ public enum FactionsEnum {
             if (gameStates.equals(GameStates.DRAW)) {
                 if (enemy.getCurrentFaction().equals(NILFGAARD)) {
                     if (Math.random() < 0.5)
-                        new GameMenuViewController().winPlayer(player);
+                        playerWon(player);
                     else
-                        new GameMenuViewController().winPlayer(enemy);
+                       playerWon(enemy);
                 }
                 else{
-                    new GameMenuViewController().winPlayer(player);
+                    playerWon(player);
                 }
             }
         }
@@ -124,6 +124,17 @@ public enum FactionsEnum {
                 return ApplicationController.game.getPlayer2();
             } else {
                 return ApplicationController.game.getPlayer1();
+            }
+        }
+
+        private void playerWon(Player player){
+            Game game = ApplicationController.game;
+            if(player.equals(game.getPlayer1())){
+                game.setGameState(GameStates.PLAYER_1_WON);
+
+            }
+            else{
+                game.setGameState(GameStates.PLAYER_2_WON);
             }
         }
     },

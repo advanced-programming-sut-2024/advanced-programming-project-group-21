@@ -10,6 +10,7 @@ public class Game {
     private Player player2;
     private Player currentPlayer;
     private Player enemyPlayer;
+    private int round = 1;
 
     private GameStates gameState = GameStates.PRE_GAME;
 
@@ -58,5 +59,13 @@ public class Game {
 
     public void setEnemyPlayer(Player enemyPlayer) {
         this.enemyPlayer = enemyPlayer;
+    }
+
+    public int getRound() {
+        return round;
+    }
+
+    public void setRound(int round) {
+        this.round = round;
     }
 }

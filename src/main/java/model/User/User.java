@@ -1,7 +1,17 @@
 package model.User;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import controller.ApplicationController;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class User {
     private String username;
@@ -10,21 +20,23 @@ public class User {
     private String email;
     private HashMap<String, String> questions = new HashMap<>();
     private int rank;
-    private double highestScore;
+    private double highestScore = 0;
     private int gamesPlayed = 0;
     private int wins = 0;
     private int lose = 0;
     private int draw = 0;
-    public static User loggedInUser;
+    private ArrayList<HashMap<String,String>> gameHistories = null;
     private boolean isStayingLoggedIn;
     private static ArrayList<User> users = new ArrayList<>();
     private ArrayList<User> friends = new ArrayList<>();
+    public static final String USERS_DATABASE_PATH = "src/main/java/model/User/users.json";
 
     public User(String username, String nickname, String password, String email) {
         this.username = username;
         this.nickname = nickname;
         this.password = password;
         this.email = email;
+        this.gameHistories = new ArrayList<>();
     }
 
     public static ArrayList<User> getUsers() {
@@ -39,13 +51,6 @@ public class User {
         User.users = users;
     }
 
-    public static User getLoggedInUser() {
-        return loggedInUser;
-    }
-
-    public static void setLoggedInUser(User loggedInUser) {
-        User.loggedInUser = loggedInUser;
-    }
 
     public int getGamesPlayed() {
         return gamesPlayed;
@@ -140,20 +145,19 @@ public class User {
         return intendedUser;
     }
 
-    public static void changeUsername(String newUsername) {
-        loggedInUser.setUsername(newUsername);
+    public ArrayList<HashMap<String, String>> getGameHistories() {
+        return gameHistories;
     }
 
-    public static void changeNickname(String newNickname) {
-        loggedInUser.setNickname(newNickname);
+    public void setGameHistories(ArrayList<HashMap<String, String>> gameHistories) {
+        this.gameHistories = gameHistories;
     }
 
-    public static void changeEmail(String newEmail) {
-        loggedInUser.setEmail(newEmail);
-    }
-
-    public static void changePassword(String newPassword) {
-        loggedInUser.setPassword(newPassword);
+    public void addToGameHistories(HashMap<String, String> gameHistory) {
+        if(gameHistories == null){
+            gameHistories = new ArrayList<HashMap<String,String>>();
+        }
+        gameHistories.add(gameHistory);
     }
 
     public void addToQuestionAnswers(String question, String answer) {
