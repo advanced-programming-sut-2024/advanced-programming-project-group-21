@@ -6,13 +6,13 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class TCPServerWorker extends Thread {
-    private static ServerSocket server;
-    private static ArrayList<Socket> connections;
+    static ServerSocket server;
+    static ArrayList<Socket> connections;
 
     private DataOutputStream sendBuffer;
     private DataInputStream receiveBuffer;
 
-    private static void setUpServer() {
+    static void setUpServer() {
         try {
             server = new ServerSocket(5000);
             connections = new ArrayList<>();
@@ -52,7 +52,7 @@ public class TCPServerWorker extends Thread {
         }
     }
 
-    private void handleConnection(Socket socket) {
+    void handleConnection(Socket socket) {
         try {
             receiveBuffer = new DataInputStream(
                     new BufferedInputStream(socket.getInputStream())

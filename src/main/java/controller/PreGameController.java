@@ -12,78 +12,6 @@ import java.util.ArrayList;
 import static controller.ApplicationController.preGame;
 
 public class PreGameController {
-    public void showCurrentMenu() {
-
-    }
-
-    public void exitMenu() {
-
-    }
-
-    public void enterMenu(String name) {
-
-    }
-
-    public void showFactions() {
-
-    }
-
-    public void selectFaction(String factionName) {
-
-    }
-
-    public void showCards() {
-
-    }
-
-    public void showDeck() {
-
-    }
-
-    public void showInfoCurrentUser() {
-
-    }
-
-    public void saveDeckWithName(String name) {
-
-    }
-
-    public void saveDeckWithAddress(String address) {
-
-    }
-
-    public void loadDeckWithName(String name) {
-
-    }
-
-    public void loadDeckWithAddress(String address) {
-
-    }
-
-    public void showLeaders() {
-
-    }
-
-    public void selectLeader(int leaderNumber) {
-
-    }
-
-    public void addToDeck(String cardName, int count) {
-
-    }
-
-    public void deleteFromDeck(String cardName, int count) {
-
-    }
-
-    public void changeTurn() {
-
-    }
-
-    public void startGame() {
-
-    }
-
     public void loadPregameCards(FactionsEnum faction) {
         deletePreGameCards(faction); // Clear the preGameCards list
         ArrayList<Card> cards = new ArrayList<>();
@@ -110,7 +38,7 @@ public class PreGameController {
         }
     }
 
-    private void deletePreGameCards(FactionsEnum factionsEnum) {
+    void deletePreGameCards(FactionsEnum factionsEnum) {
         ArrayList<Card> preGameCards = new ArrayList<>();
         ArrayList<Card> deckCards = new ArrayList<>();
         for (Card card : preGame.getPreGameCards()) {

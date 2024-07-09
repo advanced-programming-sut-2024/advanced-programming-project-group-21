@@ -7,6 +7,7 @@ module witcher {
     requires java.desktop;
     requires java.mail;
     requires jdk.jshell;
+    requires org.testng;
 
     exports view.AuthenticationCode;
     exports view;
@@ -38,4 +39,6 @@ module witcher {
     opens view.UserInfo to javafx.fxml;
     exports view.Game;
     opens view.Game to javafx.fxml;
+    exports controller;
+    opens controller to javafx.fxml;
 }

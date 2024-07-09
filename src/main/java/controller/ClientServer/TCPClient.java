@@ -14,7 +14,7 @@ public class TCPClient {
     private DataInputStream receiveBuffer;
     private static DataOutputStream sendBuffer;
 
-    private void start() {
+    void start() {
         try {
             Socket socket = new Socket("localhost", 5000);
             sendBuffer = new DataOutputStream(
