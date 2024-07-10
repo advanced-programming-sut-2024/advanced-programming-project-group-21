@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="750.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Commander.CommanderMenuViewController">
+<AnchorPane prefHeight="750.0" prefWidth="1500.0" stylesheets="@../CSS/VboxStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Commander.CommanderMenuViewController">
    <children>
       <VBox layoutX="81.0" layoutY="66.0" maxHeight="640.0" maxWidth="764.0" minHeight="640.0" minWidth="764.0" prefHeight="640.0" prefWidth="764.0" spacing="60.0">
          <children>
@@ -28,7 +27,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" styleClass="vbox">
                <children>
                   <Label text="Commander Ability">
                      <font>

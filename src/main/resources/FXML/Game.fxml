@@ -10,9 +10,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="gamePane" maxHeight="750.0" maxWidth="1500.0" minHeight="750.0" minWidth="1500.0" prefHeight="750." prefWidth="1500.0" xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Game.GameMenuViewController"
-            stylesheets="@../CSS/Button.css">
+<AnchorPane fx:id="gamePane" maxHeight="750.0" maxWidth="1500.0" minHeight="750.0" minWidth="1500.0" prefHeight="750." prefWidth="1500.0" stylesheets="@../CSS/Button.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Game.GameMenuViewController">
    <children>
       <ImageView fitHeight="750.0" fitWidth="490.0" layoutX="1171.0" pickOnBounds="true">
          <image>
@@ -28,21 +26,21 @@
       <Rectangle fx:id="cheatBackGround" fill="#865d46" height="473.0" layoutX="1368.0" layoutY="110.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="102.0" />
       <VBox fx:id="cheatButtons" alignment="CENTER" layoutX="1371.0" layoutY="111.0" prefHeight="471.0" prefWidth="95.0" spacing="40.0" visible="false">
          <children>
-            <Button mnemonicParsing="false" text="Three-horn" styleClass="button"/>
-            <Button mnemonicParsing="false" text="Destroy morale" styleClass="button">
+            <Button mnemonicParsing="false" styleClass="button" text="Three-horn" />
+            <Button mnemonicParsing="false" styleClass="button" text="Destroy morale">
                <font>
                   <Font size="11.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" text="Zombieland" styleClass="button"/>
-            <Button mnemonicParsing="false" text="Phoenix" styleClass="button"/>
-            <Button mnemonicParsing="false" text="Reinforcements" styleClass="button">
+            <Button mnemonicParsing="false" styleClass="button" text="Zombieland" />
+            <Button mnemonicParsing="false" styleClass="button" text="Phoenix" />
+            <Button mnemonicParsing="false" styleClass="button" text="Reinforcements">
                <font>
                   <Font size="11.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" text="Hail king" styleClass="button"/>
-            <Button mnemonicParsing="false" text="Chicken dinner" styleClass="button"/>
+            <Button mnemonicParsing="false" styleClass="button" text="Hail king" />
+            <Button mnemonicParsing="false" styleClass="button" text="Chicken dinner" />
          </children>
       </VBox>
       <HBox fx:id="enemyCommanderHBox" alignment="CENTER_LEFT" layoutX="97.0" layoutY="58.0" prefHeight="91.0" prefWidth="108.0" spacing="12.0">
@@ -398,9 +396,19 @@
             <Font size="16.0" />
          </font>
       </Label>
+      <VBox alignment="CENTER" layoutX="231.0" layoutY="589.0" prefHeight="70.0" prefWidth="68.0" spacing="10.0">
+         <children>
+            <Button fx:id="skipTurnButton" mnemonicParsing="false" onMouseClicked="#skipTurn" styleClass="button" text="Skip" />
+            <Button fx:id="confirmTurnButton" mnemonicParsing="false" onMouseClicked="#confirmTurn" styleClass="button" text="Confirm" visible="false" />
+         </children>
+      </VBox>
       <AnchorPane fx:id="vetoPane" prefHeight="750.0" prefWidth="1500.0" visible="false">
          <children>
-            <Rectangle fill="WHITE" height="750.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1500.0" />
+            <ImageView fitHeight="750.0" fitWidth="1500.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/BackGrounds/PreGame.jpg" />
+               </image>
+            </ImageView>
             <VBox layoutX="34.0" layoutY="66.0" maxHeight="640.0" maxWidth="822.0" minHeight="640.0" minWidth="764.0" prefHeight="640.0" prefWidth="822.0" spacing="60.0">
                <children>
                   <HBox fx:id="firstHBox" alignment="BOTTOM_CENTER" maxHeight="300.0" maxWidth="854.0" minHeight="300.0" minWidth="764.0" prefHeight="300.0" prefWidth="854.0" spacing="5.0" />
@@ -446,11 +454,5 @@
             </Button>
          </children>
       </AnchorPane>
-      <VBox alignment="CENTER" layoutX="231.0" layoutY="589.0" prefHeight="70.0" prefWidth="68.0" spacing="10.0">
-         <children>
-            <Button fx:id="skipTurnButton" mnemonicParsing="false" onMouseClicked="#skipTurn" text="Skip" styleClass="button"/>
-            <Button fx:id="confirmTurnButton" mnemonicParsing="false" onMouseClicked="#confirmTurn" text="Confirm" visible="false" styleClass="button"/>
-         </children>
-      </VBox>
    </children>
 </AnchorPane>

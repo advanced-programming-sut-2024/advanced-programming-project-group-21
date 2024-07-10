@@ -6,6 +6,7 @@ import controller.DataBaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import model.User.User;
 import view.Login.LoginMenuView;
@@ -16,6 +17,8 @@ import view.ScoreBoard.ScoreBoardView;
 
 public class MainMenuViewController {
     public Label requestedPlayer;
+    public Label requestStatus;
+    public TextField playerToRequest;
     @FXML
     private Button Start;
     @FXML
@@ -78,5 +81,8 @@ public class MainMenuViewController {
 
     public void checkForGameRequests(MouseEvent mouseEvent) {
         //TCPClient.getInstance().checkForGameRequest();
+    }
+
+    public void sendRequest(MouseEvent mouseEvent) {
     }
 }

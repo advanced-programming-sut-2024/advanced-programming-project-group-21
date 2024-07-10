@@ -3,6 +3,7 @@ package ClientServer.Server;
 import ClientServer.MessageClasses.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import controller.DataBaseController;
 import controller.LoginMenuController;
 import controller.QuestionMenuController;
 import controller.RegisterMenuController;
@@ -246,6 +247,7 @@ public class TCPServerWorker extends Thread {
     }
 
     private void loginUser(LoginMessage msg) {
+        DataBaseController.loadUsersFromJson();
         String username = msg.getUsername();
         String password = msg.getPassword();
         User user = User.getUserByUsername(username);
@@ -253,7 +255,7 @@ public class TCPServerWorker extends Thread {
         if(answer == 0){
             user.setCurrentToken(generateNewToken());
             User.addUserToTokenMap(user.getCurrentToken(), user);
-            sendSuccess(user.getCurrentToken());
+            sendSuccess("0");
         }
         else{
             sendFailure(Integer.valueOf(answer).toString());
