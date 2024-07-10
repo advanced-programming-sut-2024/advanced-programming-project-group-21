@@ -415,21 +415,24 @@ public class GameMenuViewController {
         userClosedHBox.getChildren().clear();
         for (AnchorPane card : currentPlayerClosedCombatUnits) {
             userClosedHBox.getChildren().add(card);
-            System.out.println(userClosedHBox.getChildren().size());
             System.out.println("loaded card" + (Card) card.getUserData());
+            ((Label)card.getChildren().get(card.getChildren().size()-1)).setText(((Card) card.getUserData()).getPower() + "");
         }
 
         userRangedHBox.getChildren().clear();
         for (AnchorPane card : currentPlayerRangedCombatUnits) {
             userRangedHBox.getChildren().add(card);
             System.out.println("loaded card" + (Card) card.getUserData());
+            ((Label)card.getChildren().get(card.getChildren().size()-1)).setText(((Card) card.getUserData()).getPower() + "");
+
         }
 
         userSiegeHBox.getChildren().clear();
         for (AnchorPane card : currentPlayerSiegeCombatUnits) {
             userSiegeHBox.getChildren().add(card);
-
             System.out.println("loaded card" + (Card) card.getUserData());
+            ((Label)card.getChildren().get(card.getChildren().size()-1)).setText(((Card) card.getUserData()).getPower() + "");
+
         }
         loadDrops();
     }
@@ -526,7 +529,6 @@ public class GameMenuViewController {
             image = new Image("file:src/main/resources/Images/Icons/card_row_siege.png");
         else if (card.getType().equals(CardType.AGILE_UNIT))
             image = new Image("file:src/main/resources/Images/Icons/card_row_agile.png");
-        else System.out.println("im gay");
 
         ImageView positionImageView = new ImageView();
         positionImageView.setFitHeight(20);
@@ -627,6 +629,7 @@ public class GameMenuViewController {
         skipTurnButton.setVisible(false);
         confirmTurnButton.setVisible(true);
         ((Card) card.getUserData()).getAbility().doAbility(card, target);
+        loadTable();
         ApplicationController.game.getCurrentPlayer().setDoneTurn(true);
     }
 
@@ -1055,22 +1058,22 @@ public class GameMenuViewController {
 
     // Cheats
 
-//    private void fillSpecialsWithCommanderHorn(){ TODO: add commanders horn
-//        Player player = ApplicationController.game.getCurrentPlayer();
-//        if(player.getClosedCombatSpecial()==null){
-//            AnchorPane commandersHorn = createCard(new Card(CardEnum.COMMANDERS_HORN));
-//            player.addToClosedCombatSpecial(commandersHorn);
-//        }
-//        if(player.getRangedCombatSpecial()==null){
-//            AnchorPane commandersHorn = createCard(new Card(CardEnum.COMMANDERS_HORN));
-//            player.addToRangedCombatSpecial(commandersHorn);
-//        }
-//        if(player.getSiegeCombatSpecial()==null){
-//            AnchorPane commandersHorn = createCard(new Card(CardEnum.COMMANDERS_HORN));
-//            player.addToSiegeCombatSpecial(commandersHorn);
-//        }
-//        loadTable();
-//    }
+    private void fillSpecialsWithCommanderHorn(){
+        Player player = ApplicationController.game.getCurrentPlayer();
+        if(player.getClosedCombatSpecial()==null){
+            AnchorPane commandersHorn = createCard(new Card(CardEnum.COMMANDERS_HORN));
+            player.addToClosedCombatSpecial(commandersHorn);
+        }
+        if(player.getRangedCombatSpecial()==null){
+            AnchorPane commandersHorn = createCard(new Card(CardEnum.COMMANDERS_HORN));
+            player.addToRangedCombatSpecial(commandersHorn);
+        }
+        if(player.getSiegeCombatSpecial()==null){
+            AnchorPane commandersHorn = createCard(new Card(CardEnum.COMMANDERS_HORN));
+            player.addToSiegeCombatSpecial(commandersHorn);
+        }
+        loadTable();
+    }
 
     private void turnEnemyCardsPowerToZero() {
         for (AnchorPane card : ApplicationController.game.getEnemyPlayer().getClosedCombatUnits()) {
@@ -1088,36 +1091,36 @@ public class GameMenuViewController {
         loadTable();
     }
 
-//    private void bringBackTheDead(){ TODO: add commanders horn
-//        Player player = ApplicationController.game.getCurrentPlayer();
-//        for(AnchorPane card: player.getDiscardPile()){
-//            if(((Card)card.getUserData()).getType().equals(CardType.RANGED_UNIT) ||
-//                    ((Card)card.getUserData()).getType().equals(CardType.AGILE_UNIT)){
-//                player.addToRangedCombatUnits(card);
-//            }
-//            else if(((Card)card.getUserData()).getType().equals(CardType.CLOSED_COMBAT_UNIT)){
-//                player.addToClosedCombatUnits(card);
-//            }
-//            else if(((Card)card.getUserData()).getType().equals(CardType.SIEGE_UNIT)){
-//                player.addToSiegeCombatUnits(card);
-//            }
-//            else if(((Card)card.getUserData()).getCardEnum().equals(CardEnum.MARDOEME) ||
-//                    ((Card)card.getUserData()).getCardEnum().equals(CardEnum.COMMANDERS_HORN)){
-//                if(player.getClosedCombatSpecial()==null){
-//                    player.addToClosedCombatSpecial(card);
-//                }
-//                else if(player.getRangedCombatSpecial()==null){
-//                    player.addToRangedCombatSpecial(card);
-//                }
-//                else if(player.getSiegeCombatSpecial()==null){
-//                    player.addToSiegeCombatSpecial(card);
-//                }
-//            }
-//            player.removeFromDiscardPile(card);
-//        }
-//
-//        loadTable();
-//    }
+    private void bringBackTheDead(){
+        Player player = ApplicationController.game.getCurrentPlayer();
+        for(AnchorPane card: player.getDiscardPile()){
+            if(((Card)card.getUserData()).getType().equals(CardType.RANGED_UNIT) ||
+                    ((Card)card.getUserData()).getType().equals(CardType.AGILE_UNIT)){
+                player.addToRangedCombatUnits(card);
+            }
+            else if(((Card)card.getUserData()).getType().equals(CardType.CLOSED_COMBAT_UNIT)){
+                player.addToClosedCombatUnits(card);
+            }
+            else if(((Card)card.getUserData()).getType().equals(CardType.SIEGE_UNIT)){
+                player.addToSiegeCombatUnits(card);
+            }
+            else if(((Card)card.getUserData()).getCardEnum().equals(CardEnum.MARDOEME) ||
+                    ((Card)card.getUserData()).getCardEnum().equals(CardEnum.COMMANDERS_HORN)){
+                if(player.getClosedCombatSpecial()==null){
+                    player.addToClosedCombatSpecial(card);
+                }
+                else if(player.getRangedCombatSpecial()==null){
+                    player.addToRangedCombatSpecial(card);
+                }
+                else if(player.getSiegeCombatSpecial()==null){
+                    player.addToSiegeCombatSpecial(card);
+                }
+            }
+            player.removeFromDiscardPile(card);
+        }
+
+        loadTable();
+    }
 
     private void addCrystals() {
         ApplicationController.game.setRound(2);
@@ -1154,5 +1157,33 @@ public class GameMenuViewController {
     public void unlockCheatMenu(MouseEvent mouseEvent) {
         cheatBackGround.setVisible(true);
         cheatButtons.setVisible(true);
+    }
+
+    public void threeHornCheat(MouseEvent mouseEvent) {
+        fillSpecialsWithCommanderHorn();
+    }
+
+    public void destroyMoraleCheat(MouseEvent mouseEvent) {
+        turnEnemyCardsPowerToZero();
+    }
+
+    public void zombieLandCheat(MouseEvent mouseEvent) {
+        bringBackTheDead();
+    }
+
+    public void phoenixCheat(MouseEvent mouseEvent) {
+        addCrystals();
+    }
+
+    public void reinforcementsCheat(MouseEvent mouseEvent) {
+        addRandomCardFromDeckToHand();
+    }
+
+    public void hailKingCheat(MouseEvent mouseEvent) {
+        fillCommanderAbility();
+    }
+
+    public void chickenDinnerCheat(MouseEvent mouseEvent) {
+        winTheRound();
     }
 }

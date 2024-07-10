@@ -1,6 +1,7 @@
 package view.Profile;
 
 import controller.ApplicationController;
+import javafx.fxml.FXML;
 import controller.ProfileMenuController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
@@ -19,6 +20,8 @@ import view.UserInfo.UserInfoMenuView;
 
 
 public class ProfileMenuViewController {
+    @FXML
+    private TextField gameHistoryNumber;
     public AnchorPane pane;
     public VBox vbox;
     public Button usernameButton;
@@ -283,7 +286,29 @@ public class ProfileMenuViewController {
 
     public void goToGameHistoryInfoMenu(MouseEvent mouseEvent) {
         try {
-            new view.GameHistory.GameHistoryMenuView().start(ApplicationController.getStage());
+            String inputText = gameHistoryNumber.getText();
+            if (inputText.isEmpty()) {
+                int numberOfGames = inputText.isEmpty() ? 5 : Integer.parseInt(inputText); // Use 5 as the default value
+                new view.GameHistory.GameHistoryMenuView(numberOfGames).start(ApplicationController.getStage());
+            } else {
+                int numberOfGames = Integer.parseInt(inputText);
+                if (numberOfGames == 0) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Invalid input");
+                    alert.setHeaderText("Invalid input");
+                    alert.setContentText("you didn't play any games yet");
+                    alert.showAndWait();
+                } else if (!(numberOfGames > 1)) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Invalid input");
+                    alert.setHeaderText("Invalid input");
+                    alert.setContentText("please enter a valid number");
+                    alert.showAndWait();
+                } else if (numberOfGames > 1) {
+                    new view.GameHistory.GameHistoryMenuView(numberOfGames).start(ApplicationController.getStage());
+                }
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import controller.ApplicationController;
+import model.Game;
+import model.Player;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -25,11 +27,18 @@ public class User {
     private int wins = 0;
     private int lose = 0;
     private int draw = 0;
-    private ArrayList<HashMap<String,String>> gameHistories = null;
+    private ArrayList<HashMap<String, String>> gameHistories = null;
     private boolean isStayingLoggedIn;
     private static ArrayList<User> users = new ArrayList<>();
     private ArrayList<User> friends = new ArrayList<>();
     public static final String USERS_DATABASE_PATH = "src/main/java/model/User/users.json";
+    private Player player = null;
+    private Game game = null;
+
+    private String currentToken;
+
+    private static HashMap<String, User> allUsersByToken = new HashMap<String, User>();
+    private User enemyUser = null;
 
     public User(String username, String nickname, String password, String email) {
         this.username = username;
@@ -49,6 +58,10 @@ public class User {
 
     public static void setUsers(ArrayList<User> users) {
         User.users = users;
+    }
+
+    public static User findUserByToken(String token) {
+        return allUsersByToken.get(token);
     }
 
 
@@ -100,7 +113,7 @@ public class User {
         this.rank = rank;
     }
 
-    public  String getUsername() {
+    public String getUsername() {
         return username;
     }
 
@@ -154,8 +167,8 @@ public class User {
     }
 
     public void addToGameHistories(HashMap<String, String> gameHistory) {
-        if(gameHistories == null){
-            gameHistories = new ArrayList<HashMap<String,String>>();
+        if (gameHistories == null) {
+            gameHistories = new ArrayList<HashMap<String, String>>();
         }
         gameHistories.add(gameHistory);
     }
@@ -186,5 +199,46 @@ public class User {
 
     public void setStayingLoggedIn(boolean stayingLoggedIn) {
         isStayingLoggedIn = stayingLoggedIn;
+    }
+
+    public void setCurrentToken(String currentToken) {
+        if (this.currentToken != null)
+            allUsersByToken.remove(this.currentToken);
+        this.currentToken = currentToken;
+        if (currentToken != null)
+            allUsersByToken.put(currentToken, this);
+    }
+
+    public String getCurrentToken() {
+        return currentToken;
+    }
+
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public void removeUserFromTokenMap(String token) {
+        allUsersByToken.remove(token);
+    }
+
+    public boolean requestGame(User enemyUser) {
+        if(this.enemyUser==null){
+            this.enemyUser=enemyUser;
+            return true;
+        }
+        return false;
     }
 }

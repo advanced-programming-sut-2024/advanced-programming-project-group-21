@@ -4,11 +4,11 @@ import controller.ApplicationController;
 import javafx.scene.layout.AnchorPane;
 import model.*;
 import enums.GameStates;
+import model.Player;
 
 import java.util.Random;
 
 import view.Game.GameMenuViewController;
-
 import java.util.ArrayList;
 
 

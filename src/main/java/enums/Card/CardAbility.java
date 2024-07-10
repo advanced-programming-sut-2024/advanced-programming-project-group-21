@@ -71,6 +71,7 @@ public enum CardAbility {
             } else if (randomCard.getCardPosition().equals(CardPositions.SIEGE_COMBAT)) {
                 player.addToSiegeCombatUnits(randomCardPane);
             }
+            player.removeFromDiscardPile(randomCardPane);
         }
 
         private AnchorPane getRandomCardFromDiscardPile() {

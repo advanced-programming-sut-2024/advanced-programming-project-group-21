@@ -272,9 +272,6 @@ public class Player extends User {
         }
         return result;
     }
-    public int getRoundTotalPower() {
-        return getClosedCombatPoints() + getRangedCombatPoints() + getSiegeCombatPoints();
-    }
 
     public AnchorPane getCommanderPane() {
         return commanderPane;
