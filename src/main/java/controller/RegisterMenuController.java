@@ -3,7 +3,16 @@ package controller;
 import enums.RegisterValidPatterns;
 import model.User.User;
 
+import static controller.ApplicationController.random;
+
 public class RegisterMenuController {
+
+    private static final String LOWERCASE = "abcdefghijklmnopqrstuvwxyz";
+    private static final String UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static final String DIGITS = "0123456789";
+    private static final String SPECIAL_CHARACTERS = "!@#$%^&*()-+=";
+    private static final String ALL_CHARACTERS = LOWERCASE + UPPERCASE + DIGITS + SPECIAL_CHARACTERS;
+    private static final int PASSWORD_LENGTH = 8;
 
     boolean isUsernameMade(String username) {
         return User.getUserByUsername(username) != null;
@@ -20,14 +29,26 @@ public class RegisterMenuController {
     }
 
     public String createRandomPassword() {
-        StringBuilder password = new StringBuilder();
-        String characters = "1234567890-=!@#$%^&*()_+qwertyuiop[]\\QWERTYUIOP{}|asdfghjkl;'ASDFGHJKL:\"zxcvbnm,./ZXCVBNM<>?";
-        for (int i = 0; i < characters.length(); i++) {
-            int randomIndex = (int) (Math.random() * characters.length());
-            password.append(characters.charAt(randomIndex));
+        StringBuilder password = new StringBuilder(PASSWORD_LENGTH);
+
+        password.append(LOWERCASE.charAt(random.nextInt(LOWERCASE.length())));
+        password.append(UPPERCASE.charAt(random.nextInt(UPPERCASE.length())));
+        password.append(DIGITS.charAt(random.nextInt(DIGITS.length())));
+        password.append(SPECIAL_CHARACTERS.charAt(random.nextInt(SPECIAL_CHARACTERS.length())));
+
+        for (int i = 4; i < PASSWORD_LENGTH; i++) {
+            password.append(ALL_CHARACTERS.charAt(random.nextInt(ALL_CHARACTERS.length())));
         }
-        String result = password.toString();
-        return result;
+
+        char[] passwordArray = password.toString().toCharArray();
+        for (int i = 0; i < passwordArray.length; i++) {
+            int randomIndex = random.nextInt(passwordArray.length);
+            char temp = passwordArray[i];
+            passwordArray[i] = passwordArray[randomIndex];
+            passwordArray[randomIndex] = temp;
+        }
+
+        return new String(passwordArray);
     }
 
     public String createNewUsername(String username) {

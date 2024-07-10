@@ -49,9 +49,9 @@ public class RegisterMenuViewController {
             } else if (registerAns == 7) {
                 passwordMismatchError(alert);
             } else if (registerAns == 8) {
-                weakPassword(alert);
-            } else if (registerAns == 9) {
                 invalidUsername(alert);
+            } else if (registerAns == 9) {
+                weakPassword(alert);
             }
         } else {
             enterLoginMenu();
