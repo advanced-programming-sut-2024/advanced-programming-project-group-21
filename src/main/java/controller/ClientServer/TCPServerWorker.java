@@ -3,6 +3,9 @@ package controller.ClientServer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import controller.ClientServer.MessageClasses.*;
+import model.Game;
+import model.Player;
+import model.User.User;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -19,6 +22,7 @@ public class TCPServerWorker extends Thread {
     private static final String USERNAME_TAKEN = "this username is taken";
     private static final String INVALID_TOKEN = "this token belongs to no user";
     private static final String WRONG_PASSWORD = "wrong password";
+    private static final String SAME_EMAIL = "new email is the same as the old one";
 
     private static ArrayList<Socket> connections;
 
@@ -139,60 +143,75 @@ public class TCPServerWorker extends Thread {
     }
 
     private void doMessageFunctions(ClientMessage msg) throws IOException {
-        if(msg instanceof AcceptFriendMessage) {
+        if (msg instanceof AcceptFriendMessage) {
             //do something
-        }
-        else if(msg instanceof AcceptGameMessage) {
+        } else if (msg instanceof AcceptGameMessage) {
             //do something
-        }
-        else if(msg instanceof ChangeEmailMessage) {
+        } else if (msg instanceof ChangeEmailMessage) {
+            changeEmail((ChangeEmailMessage) msg);
+        } else if (msg instanceof ChangeNicknameMessage) {
             //do something
-        }
-        else if(msg instanceof ChangeNicknameMessage) {
+        } else if (msg instanceof ChangePasswordMessage) {
             //do something
-        }
-        else if(msg instanceof ChangePasswordMessage) {
+        } else if (msg instanceof ChangeUsernameMessage) {
             //do something
-        }
-        else if(msg instanceof ChangeUsernameMessage) {
+        } else if (msg instanceof EndGameMessage) {
             //do something
-        }
-        else if(msg instanceof EndGameMessage) {
+        } else if (msg instanceof ForgetPasswordMessage) {
             //do something
-        }
-        else if(msg instanceof ForgetPasswordMessage) {
+        } else if (msg instanceof LoginMessage) {
             //do something
-        }
-        else if(msg instanceof LoginMessage) {
+        } else if (msg instanceof LogoutMessage) {
             //do something
-        }
-        else if(msg instanceof LogoutMessage) {
+        } else if (msg instanceof MoveCardMessage) {
+            moveCard((MoveCardMessage) msg);
+        } else if (msg instanceof PreGameMessage) {
             //do something
-        }
-        else if(msg instanceof MoveCardMessage) {
+        } else if (msg instanceof RequestFriendMessage) {
             //do something
-        }
-        else if(msg instanceof PreGameMessage) {
+        } else if (msg instanceof RequestGameMessage) {
             //do something
-        }
-        else if(msg instanceof RequestFriendMessage) {
+        } else if (msg instanceof SignupMessage) {
             //do something
-        }
-        else if(msg instanceof RequestGameMessage) {
+        } else if (msg instanceof SkipTurnMessage) {
             //do something
-        }
-        else if(msg instanceof SignupMessage) {
+        } else if (msg instanceof VetoMessage) {
             //do something
-        }
-        else if(msg instanceof SkipTurnMessage) {
-            //do something
-        }
-        else if(msg instanceof VetoMessage) {
-            //do something
-        }
-        else{
+        } else {
             // do something
         }
+    }
+
+    private void moveCard(MoveCardMessage msg) {
+        String token = msg.getToken();
+        User user = User.findUserByToken(token);
+        if (user == null) {
+            sendFailure(INVALID_TOKEN);
+            return;
+        }
+        Player player = user.getPlayer();
+        Game game = player.getGame();
+        if (game == null) {
+            sendFailure("you are not in a game");
+            return;
+        }
+
+    }
+
+    private void changeEmail(ChangeEmailMessage msg) {
+        String token = msg.getToken();
+        String newEmail = msg.getNewEmail();
+        User user = User.findUserByToken(token);
+        if (user == null) {
+            sendFailure(INVALID_TOKEN);
+            return;
+        }
+        if (user.getEmail().equals(newEmail)) {
+            sendFailure(SAME_EMAIL);
+            return;
+        }
+        user.setEmail(newEmail);
+        sendSuccess("email changed successfully");
     }
 
     private boolean sendMessage(boolean success, String problem) {
@@ -206,11 +225,11 @@ public class TCPServerWorker extends Thread {
         }
     }
 
-    private boolean sendFailure(String problem){
+    private boolean sendFailure(String problem) {
         return sendMessage(false, problem);
     }
 
-    private boolean sendSuccess(String info){
+    private boolean sendSuccess(String info) {
         return sendMessage(true, info);
     }
 
