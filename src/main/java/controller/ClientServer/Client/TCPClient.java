@@ -2,6 +2,7 @@ package controller.ClientServer.Client;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import controller.ClientServer.MessageClasses.AcceptGameMessage;
 import controller.ClientServer.MessageClasses.LoginMessage;
 import controller.ClientServer.MessageClasses.ServerMessage;
 import javafx.application.Application;
@@ -113,8 +114,27 @@ public class TCPClient {
         client.start();
     }
 
-    public void acceptGameRequest() {
-        sendMessage("acceptGameRequest");
+    public String acceptGameRequest(String username, String friendName) {
+        AcceptGameMessage acceptGameMessage = new AcceptGameMessage("username", "friendName", true);
+        establishConnection();
+        sendMessage(gsonAgent.toJson(acceptGameMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
+    }
 
+    public String rejectGameRequest() {
+        AcceptGameMessage acceptGameMessage = new AcceptGameMessage("username", "friendName", false);
+        establishConnection();
+        sendMessage(gsonAgent.toJson(acceptGameMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
+    }
+
+    public String requestGame(String username, String friendName) {
+        return null;
     }
 }

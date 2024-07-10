@@ -192,7 +192,7 @@ public class TCPServerWorker extends Thread {
             sendFailure(INVALID_TOKEN);
             return;
         }
-        User enemyUser = User.getUserByUsername(msg.getFriendName());
+        User enemyUser = User.getUserByUsername(msg.getFriendUsername());
         if (enemyUser == null) {
             sendFailure(INVALID_USERNAME);
             return;
