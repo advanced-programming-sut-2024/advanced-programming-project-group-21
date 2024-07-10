@@ -10,7 +10,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="gamePane" maxHeight="750.0" maxWidth="1500.0" minHeight="750.0" minWidth="1500.0" prefHeight="750." prefWidth="1500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Game.GameMenuViewController">
+<AnchorPane fx:id="gamePane" maxHeight="750.0" maxWidth="1500.0" minHeight="750.0" minWidth="1500.0" prefHeight="750." prefWidth="1500.0" xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Game.GameMenuViewController"
+            stylesheets="@../CSS/Button.css">
    <children>
       <ImageView fitHeight="750.0" fitWidth="490.0" layoutX="1171.0" pickOnBounds="true">
          <image>
@@ -24,23 +26,23 @@
          </image>
       </ImageView>
       <Rectangle fx:id="cheatBackGround" fill="#865d46" height="473.0" layoutX="1368.0" layoutY="110.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="102.0" />
-      <VBox fx:id="cheatButtons" alignment="CENTER" layoutX="1371.0" layoutY="111.0" prefHeight="471.0" prefWidth="95.0" spacing="40.0">
+      <VBox fx:id="cheatButtons" alignment="CENTER" layoutX="1371.0" layoutY="111.0" prefHeight="471.0" prefWidth="95.0" spacing="40.0" visible="false">
          <children>
-            <Button mnemonicParsing="false" onMouseClicked="#threeHornCheat" text="Three-horn" />
-            <Button mnemonicParsing="false" onMouseClicked="#destroyMoraleCheat" text="Destroy morale">
+            <Button mnemonicParsing="false" text="Three-horn" styleClass="button"/>
+            <Button mnemonicParsing="false" text="Destroy morale" styleClass="button">
                <font>
                   <Font size="11.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onMouseClicked="#zombieLandCheat" text="Zombieland" />
-            <Button mnemonicParsing="false" onMouseClicked="#phoenixCheat" text="Phoenix" />
-            <Button mnemonicParsing="false" onMouseClicked="#reinforcementsCheat" text="Reinforcements">
+            <Button mnemonicParsing="false" text="Zombieland" styleClass="button"/>
+            <Button mnemonicParsing="false" text="Phoenix" styleClass="button"/>
+            <Button mnemonicParsing="false" text="Reinforcements" styleClass="button">
                <font>
                   <Font size="11.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onMouseClicked="#hailKingCheat" text="Hail king" />
-            <Button mnemonicParsing="false" onMouseClicked="#chickenDinnerCheat" text="Chicken dinner" />
+            <Button mnemonicParsing="false" text="Hail king" styleClass="button"/>
+            <Button mnemonicParsing="false" text="Chicken dinner" styleClass="button"/>
          </children>
       </VBox>
       <HBox fx:id="enemyCommanderHBox" alignment="CENTER_LEFT" layoutX="97.0" layoutY="58.0" prefHeight="91.0" prefWidth="108.0" spacing="12.0">
@@ -446,8 +448,8 @@
       </AnchorPane>
       <VBox alignment="CENTER" layoutX="231.0" layoutY="589.0" prefHeight="70.0" prefWidth="68.0" spacing="10.0">
          <children>
-            <Button fx:id="skipTurnButton" mnemonicParsing="false" onMouseClicked="#skipTurn" text="Skip" />
-            <Button fx:id="confirmTurnButton" mnemonicParsing="false" onMouseClicked="#confirmTurn" text="Confirm" visible="false" />
+            <Button fx:id="skipTurnButton" mnemonicParsing="false" onMouseClicked="#skipTurn" text="Skip" styleClass="button"/>
+            <Button fx:id="confirmTurnButton" mnemonicParsing="false" onMouseClicked="#confirmTurn" text="Confirm" visible="false" styleClass="button"/>
          </children>
       </VBox>
    </children>

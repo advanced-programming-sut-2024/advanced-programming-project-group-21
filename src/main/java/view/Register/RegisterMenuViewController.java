@@ -48,10 +48,37 @@ public class RegisterMenuViewController {
                 usernameExistsError(alert);
             } else if (registerAns == 7) {
                 passwordMismatchError(alert);
+            } else if (registerAns == 8) {
+                invalidUsername(alert);
+            } else if (registerAns == 9) {
+                weakPassword(alert);
+            } else if (registerAns == 10) {
+                wrongEmailFormat(alert);
             }
         } else {
             enterLoginMenu();
         }
+    }
+
+    private void wrongEmailFormat(Alert alert) {
+        alert.setTitle("Invalid Email");
+        alert.setHeaderText("Email is not acceptable");
+        alert.setContentText("Please enter a proper email!");
+        alert.show();
+    }
+
+    private void invalidUsername(Alert alert) {
+        alert.setTitle("Invalid Username");
+        alert.setHeaderText("Username is not acceptable");
+        alert.setContentText("Please enter a proper username!");
+        alert.show();
+    }
+
+    private void weakPassword(Alert alert) {
+        alert.setTitle("Weak password");
+        alert.setHeaderText("Password is not strong enough");
+        alert.setContentText("Please enter a strong password or generate one!");
+        alert.show();
     }
 
     private void emptyUsernameError(Alert alert) {
@@ -104,7 +131,7 @@ public class RegisterMenuViewController {
         alert.show();
     }
 
-    private void enterLoginMenu(){
+    private void enterLoginMenu() {
         try {
             new LoginMenuView().start(ApplicationController.getStage());
         } catch (Exception e) {

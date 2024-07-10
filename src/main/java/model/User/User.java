@@ -32,12 +32,12 @@ public class User {
     private static ArrayList<User> users = new ArrayList<>();
     private ArrayList<User> friends = new ArrayList<>();
     public static final String USERS_DATABASE_PATH = "src/main/java/model/User/users.json";
-    private Player player = null;
-    private Game game = null;
 
     private String currentToken;
 
     private static HashMap<String, User> allUsersByToken = new HashMap<String, User>();
+    private User enemyUser = null;
+    private boolean inGame = false;
 
     public User(String username, String nickname, String password, String email) {
         this.username = username;
@@ -212,25 +212,35 @@ public class User {
         return currentToken;
     }
 
-
-    public Player getPlayer() {
-        return player;
+    public User getEnemyUser() {
+        return enemyUser;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
-    public Game getGame() {
-        return game;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
+    public void setEnemyUser(User enemyUser) {
+        this.enemyUser = enemyUser;
     }
 
     public void removeUserFromTokenMap(String token) {
         allUsersByToken.remove(token);
     }
 
+    public boolean requestGame(User enemyUser) {
+        if(this.enemyUser==null){
+            this.enemyUser=enemyUser;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isInGame() {
+        return inGame;
+    }
+
+    public void setInGame(boolean inGame) {
+        this.inGame = inGame;
+    }
+
+    public static void addUserToTokenMap(String token,User user){
+        allUsersByToken.put(token, user);
+    }
 }

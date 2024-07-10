@@ -1,4 +1,4 @@
-package controller.ClientServer.MessageClasses;
+package ClientServer.MessageClasses;
 
 public class ChangeEmailMessage extends ClientMessage{
     private String newEmail;

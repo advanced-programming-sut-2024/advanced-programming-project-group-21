@@ -1,20 +1,20 @@
-package controller.ClientServer.MessageClasses;
+package ClientServer.MessageClasses;
 
 public class RequestGameMessage extends ClientMessage{
     private String username;
-    private String friendName;
+    private String friendUsername;
 
     public RequestGameMessage(String username, String friendName) {
         this.type = ClientMessageType.requestGame;
+        this.friendUsername = friendName;
         this.username = username;
-        this.friendName = friendName;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public String getFriendName() {
-        return friendName;
+    public String getFriendUsername() {
+        return friendUsername;
     }
 }

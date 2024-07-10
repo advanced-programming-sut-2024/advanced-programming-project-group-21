@@ -1,4 +1,4 @@
-package controller.ClientServer.MessageClasses;
+package ClientServer.MessageClasses;
 
 public enum ClientMessageType {
     signup,
@@ -17,5 +17,6 @@ public enum ClientMessageType {
     veto,
     skipTurn,
     moveCard,
-    endGame;
+    endGame,
+    getUser,
 }

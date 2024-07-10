@@ -1,5 +1,6 @@
 package view.Login;
 
+import ClientServer.Client.TCPClient;
 import controller.ApplicationController;
 import controller.DataBaseController;
 import controller.LoginMenuController;
@@ -31,7 +32,7 @@ public class LoginMenuViewController {
         String username = usernameField.getText();
         LoginMenuViewController.username = username;
         String password = passwordField.getText();
-        int loginAns = loginMenuController.loginUser(username, password);
+        int loginAns = Integer.parseInt(TCPClient.getInstance().login(username, password));
         if (loginAns != 0) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             if (loginAns == 3) {
@@ -61,6 +62,7 @@ public class LoginMenuViewController {
 //                e.printStackTrace();
 //            }
             //TODO: remove when releasing
+            ApplicationController.setLoggedInUser(TCPClient.getInstance().getUserFromUsername(username));
             try {
                 new MainMenuView().start(ApplicationController.getStage());
             } catch (Exception e) {

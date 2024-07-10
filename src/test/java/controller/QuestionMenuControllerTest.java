@@ -149,7 +149,7 @@ public class QuestionMenuControllerTest {
             controller.changePassword("username", "newPassword");
 
             verify(mockUser).setPassword("newPassword");
-            mockedUser.verify(() -> User.setLoggedInUser(mockUser));
+            mockedUser.verify(() -> ApplicationController.setLoggedInUser(mockUser));
             mockedAppController.verify(() -> ApplicationController.setLoggedInUser(mockUser));
         }
     }

@@ -1,13 +1,11 @@
-package controller.ClientServer.Server;
+package ClientServer.Server;
 
+import ClientServer.MessageClasses.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import controller.ClientServer.MessageClasses.*;
 import controller.LoginMenuController;
 import controller.QuestionMenuController;
 import controller.RegisterMenuController;
-import model.Game;
-import model.Player;
 import model.User.User;
 
 import java.io.*;
@@ -27,12 +25,12 @@ public class TCPServerWorker extends Thread {
     private static final String WRONG_PASSWORD = "wrong password";
     private static final String SAME_EMAIL = "new email is the same as the old one";
 
-    private static ArrayList<Socket> connections;
+    public static ArrayList<Socket> connections;
 
     private DataOutputStream sendBuffer;
     private DataInputStream receiveBuffer;
 
-    private static void setUpServer() {
+    public static void setUpServer() {
         try {
             server = new ServerSocket(5000);
             connections = new ArrayList<>();
@@ -104,6 +102,8 @@ public class TCPServerWorker extends Thread {
                     return gsonAgent.fromJson(clientStr, SkipTurnMessage.class);
                 case veto:
                     return gsonAgent.fromJson(clientStr, VetoMessage.class);
+                case getUser:
+                    return gsonAgent.fromJson(clientStr, GetUserMessage.class);
                 default:
                     return null;
             }
@@ -123,7 +123,7 @@ public class TCPServerWorker extends Thread {
         }
     }
 
-    private void handleConnection(Socket socket) {
+    public void handleConnection(Socket socket) {
         String clientRequest;
         try {
             receiveBuffer = new DataInputStream(
@@ -167,21 +167,46 @@ public class TCPServerWorker extends Thread {
         } else if (msg instanceof LogoutMessage) {
             logoutUser((LogoutMessage)msg);
         } else if (msg instanceof MoveCardMessage) {
-            moveCard((MoveCardMessage) msg);
+            //moveCard((MoveCardMessage) msg);
         } else if (msg instanceof PreGameMessage) {
             //do something
         } else if (msg instanceof RequestFriendMessage) {
             //do something
         } else if (msg instanceof RequestGameMessage) {
-            //do something
+            requestGame((RequestGameMessage)msg);
         } else if (msg instanceof SignupMessage) {
             signupUser((SignupMessage) msg);
         } else if (msg instanceof SkipTurnMessage) {
             //do something
         } else if (msg instanceof VetoMessage) {
             //do something
-        } else {
+        }else if(msg instanceof GetUserMessage){
+            getUser((GetUserMessage) msg);
+        }else {
             // do something
+        }
+    }
+
+    private void getUser(GetUserMessage msg) {
+        User user = User.getUserByUsername(msg.getUsername());
+        if (user == null) {
+            sendFailure(INVALID_USERNAME);
+            return;
+        }
+        sendSuccess(gsonAgent.toJson(user));
+    }
+
+    private void requestGame(RequestGameMessage msg) {
+        String token = msg.getToken();
+        User user = User.findUserByToken(token);
+        if (user == null) {
+            sendFailure(INVALID_TOKEN);
+            return;
+        }
+        User enemyUser = User.getUserByUsername(msg.getFriendUsername());
+        if (enemyUser == null) {
+            sendFailure(INVALID_USERNAME);
+            return;
         }
     }
 
@@ -227,6 +252,7 @@ public class TCPServerWorker extends Thread {
         int answer = (new LoginMenuController()).loginUser(username, password);
         if(answer == 0){
             user.setCurrentToken(generateNewToken());
+            User.addUserToTokenMap(user.getCurrentToken(), user);
             sendSuccess(user.getCurrentToken());
         }
         else{
@@ -289,21 +315,21 @@ public class TCPServerWorker extends Thread {
         sendSuccess("nickname changed successfully");
     }
 
-    private void moveCard(MoveCardMessage msg) {
-        String token = msg.getToken();
-        User user = User.findUserByToken(token);
-        if (user == null) {
-            sendFailure(INVALID_TOKEN);
-            return;
-        }
-        Player player = user.getPlayer();
-        Game game = player.getGame();
-        if (game == null) {
-            sendFailure("you are not in a game");
-            return;
-        }
-
-    }
+//    private void moveCard(MoveCardMessage msg) {
+//        String token = msg.getToken();
+//        User user = User.findUserByToken(token);
+//        if (user == null) {
+//            sendFailure(INVALID_TOKEN);
+//            return;
+//        }
+//        Player player = user.getPlayer();
+//        Game game = player.getGame();
+//        if (game == null) {
+//            sendFailure("you are not in a game");
+//            return;
+//        }
+//
+//    }
 
     private void changeEmail(ChangeEmailMessage msg) {
         String token = msg.getToken();

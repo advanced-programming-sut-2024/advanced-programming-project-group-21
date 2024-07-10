@@ -18,7 +18,6 @@ public class AuthenticationMenuView extends Application {
     public void start(Stage stage) throws Exception {
         stage.setResizable(false);
         stage.centerOnScreen();
-        ApplicationController.setStage(stage);
         FXMLLoader fxmlLoader = new FXMLLoader();
         URL url = RegisterMenu.class.getResource("/FXML/2FALogin.fxml");
         AnchorPane root = fxmlLoader.load(url);
