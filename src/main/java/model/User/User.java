@@ -37,6 +37,7 @@ public class User {
 
     private static HashMap<String, User> allUsersByToken = new HashMap<String, User>();
     private User enemyUser = null;
+    private boolean inGame = false;
 
     public User(String username, String nickname, String password, String email) {
         this.username = username;
@@ -211,8 +212,13 @@ public class User {
         return currentToken;
     }
 
+    public User getEnemyUser() {
+        return enemyUser;
+    }
 
-
+    public void setEnemyUser(User enemyUser) {
+        this.enemyUser = enemyUser;
+    }
 
     public void removeUserFromTokenMap(String token) {
         allUsersByToken.remove(token);
@@ -224,5 +230,13 @@ public class User {
             return true;
         }
         return false;
+    }
+
+    public boolean isInGame() {
+        return inGame;
+    }
+
+    public void setInGame(boolean inGame) {
+        this.inGame = inGame;
     }
 }

@@ -1,9 +1,11 @@
 package view.Main;
 
 import controller.ApplicationController;
+import controller.ClientServer.Client.TCPClient;
 import controller.DataBaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import model.User.User;
 import view.Login.LoginMenuView;
@@ -13,6 +15,7 @@ import view.Profile.ProfileMenuView;
 import view.ScoreBoard.ScoreBoardView;
 
 public class MainMenuViewController {
+    public Label requestedPlayer;
     @FXML
     private Button Start;
     @FXML
@@ -63,5 +66,17 @@ public class MainMenuViewController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void acceptGameRequest(MouseEvent mouseEvent) {
+        TCPClient.getInstance().acceptGameRequest();
+    }
+
+    public void rejectGameRequest(MouseEvent mouseEvent) {
+        //TCPClient.getInstance().rejectGameRequest();
+    }
+
+    public void checkForGameRequests(MouseEvent mouseEvent) {
+        //TCPClient.getInstance().checkForGameRequest();
     }
 }

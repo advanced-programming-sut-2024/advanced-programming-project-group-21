@@ -112,4 +112,9 @@ public class TCPClient {
         TCPClient client = TCPClient.getInstance();
         client.start();
     }
+
+    public void acceptGameRequest() {
+        sendMessage("acceptGameRequest");
+
+    }
 }

@@ -197,19 +197,6 @@ public class TCPServerWorker extends Thread {
             sendFailure(INVALID_USERNAME);
             return;
         }
-//        Player enemyPlayer = enemyUser.getPlayer();
-//        if (enemyPlayer!=null){
-//            sendFailure("they are already in a game");
-//            return;
-//        }
-//        if(user.requestGame(enemyUser)){
-//            sendSuccess("game requested successfully");
-//            return;
-//        }
-//        else{
-//            sendFailure("someone has requested to them already");
-//            return;
-//        }
     }
 
     private void signupUser(SignupMessage msg) {
