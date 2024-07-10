@@ -415,21 +415,24 @@ public class GameMenuViewController {
         userClosedHBox.getChildren().clear();
         for (AnchorPane card : currentPlayerClosedCombatUnits) {
             userClosedHBox.getChildren().add(card);
-            System.out.println(userClosedHBox.getChildren().size());
             System.out.println("loaded card" + (Card) card.getUserData());
+            ((Label)card.getChildren().get(card.getChildren().size()-1)).setText(((Card) card.getUserData()).getPower() + "");
         }
 
         userRangedHBox.getChildren().clear();
         for (AnchorPane card : currentPlayerRangedCombatUnits) {
             userRangedHBox.getChildren().add(card);
             System.out.println("loaded card" + (Card) card.getUserData());
+            ((Label)card.getChildren().get(card.getChildren().size()-1)).setText(((Card) card.getUserData()).getPower() + "");
+
         }
 
         userSiegeHBox.getChildren().clear();
         for (AnchorPane card : currentPlayerSiegeCombatUnits) {
             userSiegeHBox.getChildren().add(card);
-
             System.out.println("loaded card" + (Card) card.getUserData());
+            ((Label)card.getChildren().get(card.getChildren().size()-1)).setText(((Card) card.getUserData()).getPower() + "");
+
         }
         loadDrops();
     }
@@ -526,7 +529,6 @@ public class GameMenuViewController {
             image = new Image("file:src/main/resources/Images/Icons/card_row_siege.png");
         else if (card.getType().equals(CardType.AGILE_UNIT))
             image = new Image("file:src/main/resources/Images/Icons/card_row_agile.png");
-        else System.out.println("im gay");
 
         ImageView positionImageView = new ImageView();
         positionImageView.setFitHeight(20);
@@ -627,6 +629,7 @@ public class GameMenuViewController {
         skipTurnButton.setVisible(false);
         confirmTurnButton.setVisible(true);
         ((Card) card.getUserData()).getAbility().doAbility(card, target);
+        loadTable();
         ApplicationController.game.getCurrentPlayer().setDoneTurn(true);
     }
 
