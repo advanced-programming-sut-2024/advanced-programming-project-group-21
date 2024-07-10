@@ -1,6 +1,4 @@
-package controller.ClientServer.MessageClasses;
-
-import org.testng.IConfigurable;
+package ClientServer.MessageClasses;
 
 public class SignupMessage extends ClientMessage {
     private String username;

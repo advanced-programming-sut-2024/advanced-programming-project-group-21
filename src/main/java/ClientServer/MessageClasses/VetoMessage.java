@@ -1,4 +1,4 @@
-package controller.ClientServer.MessageClasses;
+package ClientServer.MessageClasses;
 
 import java.util.ArrayList;
 

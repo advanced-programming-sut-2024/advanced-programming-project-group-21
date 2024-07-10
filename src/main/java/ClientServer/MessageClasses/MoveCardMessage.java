@@ -1,4 +1,4 @@
-package controller.ClientServer.MessageClasses;
+package ClientServer.MessageClasses;
 
 public class MoveCardMessage extends ClientMessage{
     private int cardIndex;

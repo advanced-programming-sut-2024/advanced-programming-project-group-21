@@ -1,9 +1,9 @@
-package controller.ClientServer.Client;
+package ClientServer.Client;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import controller.ClientServer.MessageClasses.LoginMessage;
-import controller.ClientServer.MessageClasses.ServerMessage;
+import ClientServer.MessageClasses.LoginMessage;
+import ClientServer.MessageClasses.ServerMessage;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;

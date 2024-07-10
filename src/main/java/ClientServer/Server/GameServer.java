@@ -1,10 +1,9 @@
-package controller.ClientServer.Server;
+package ClientServer.Server;
 
 import model.Game;
 
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.*;
 
 // Server side

@@ -1,13 +1,12 @@
-package controller.ClientServer.Server;
+package ClientServer.Server;
 
+import ClientServer.MessageClasses.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import controller.ClientServer.MessageClasses.*;
 import controller.LoginMenuController;
 import controller.QuestionMenuController;
 import controller.RegisterMenuController;
-import model.Game;
-import model.Player;
 import model.User.User;
 
 import java.io.*;

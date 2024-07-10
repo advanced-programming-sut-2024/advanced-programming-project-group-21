@@ -1,4 +1,4 @@
-package controller.ClientServer.MessageClasses;
+package ClientServer.MessageClasses;
 
 public class EndGameMessage extends ClientMessage{
     public EndGameMessage() {
