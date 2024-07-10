@@ -219,7 +219,7 @@ public class TCPClient {
         return lastServerMessage.getAdditionalInfo();
     }
 
-    public String RequestGame(String username, String friendName){
+    public String RequestGame(String username, String friendName) {
         RequestGameMessage requestGameMessage = new RequestGameMessage(username, friendName);
         establishConnection();
         sendMessage(gsonAgent.toJson(requestGameMessage));
@@ -229,8 +229,8 @@ public class TCPClient {
         return lastServerMessage.getAdditionalInfo();
     }
 
-    public String AcceptFriend(String username, String friendName, boolean accept){
-        AcceptFriendMessage acceptFriendMessage = new AcceptFriendMessage(username, friendName, accept);
+    public String AcceptFriend(String username, String friendName, boolean accept) {
+        AcceptFriendMessage acceptFriendMessage = new AcceptFriendMessage("username", "friendName", true);
         establishConnection();
         sendMessage(gsonAgent.toJson(acceptFriendMessage));
         lastServerMessage = gsonAgent.fromJson(
@@ -239,17 +239,17 @@ public class TCPClient {
         return lastServerMessage.getAdditionalInfo();
     }
 
-    public String AcceptGame(String username, String friendName, boolean accept){
-        AcceptGameMessage acceptGameMessage = new AcceptGameMessage(username, friendName, accept);
+    public String RejectFriend(String username, String friendName) {
+        AcceptFriendMessage rejectFriendMessage = new AcceptFriendMessage("username", "friendName", false);
         establishConnection();
-        sendMessage(gsonAgent.toJson(acceptGameMessage));
+        sendMessage(gsonAgent.toJson(rejectFriendMessage));
         lastServerMessage = gsonAgent.fromJson(
                 receiveResponse(), ServerMessage.class);
         endConnection();
         return lastServerMessage.getAdditionalInfo();
     }
 
-    public String SkipTurnMessage(){
+    public String SkipTurnMessage() {
         SkipTurnMessage skipTurnMessage = new SkipTurnMessage();
         establishConnection();
         sendMessage(gsonAgent.toJson(skipTurnMessage));
@@ -259,7 +259,7 @@ public class TCPClient {
         return lastServerMessage.getAdditionalInfo();
     }
 
-    public String VetoTurn(ArrayList<Integer> cardIdsToVeto, ArrayList<Integer> newCardIds){
+    public String VetoTurn(ArrayList<Integer> cardIdsToVeto, ArrayList<Integer> newCardIds) {
         VetoMessage vetoMessage = new VetoMessage(cardIdsToVeto, newCardIds);
         establishConnection();
         sendMessage(gsonAgent.toJson(vetoMessage));
@@ -296,7 +296,14 @@ public class TCPClient {
         return lastServerMessage.getAdditionalInfo();
     }
 
-    public String requestGame(String username, String friendName) {
-        return null;
+
+    public User getUserFromUsername(String username) {
+        GetUserMessage getUserMessage = new GetUserMessage(username);
+        establishConnection();
+        sendMessage(gsonAgent.toJson(getUserMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return gsonAgent.fromJson(lastServerMessage.getAdditionalInfo(), User.class);
     }
 }
