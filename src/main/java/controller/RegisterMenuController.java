@@ -1,5 +1,6 @@
 package controller;
 
+import enums.RegisterValidPatterns;
 import model.User.User;
 
 public class RegisterMenuController {
@@ -41,9 +42,7 @@ public class RegisterMenuController {
     }
 
     boolean isConfirmPasswordOk(String password, String passwordConfirm) {
-        if (password.equals(passwordConfirm))
-            return true;
-        return false;
+        return password.equals(passwordConfirm);
     }
 
     int isRegisterValid(String username, String password, String passwordConfirm, String nickname,
@@ -55,6 +54,8 @@ public class RegisterMenuController {
         if (passwordConfirm.equals("")) return 5;
         if (isUsernameMade(username)) return 6;
         if (!isConfirmPasswordOk(password, passwordConfirm)) return 7;
+        if (!RegisterValidPatterns.USERNAME.getMather(username).matches()) return 8;
+        if (!RegisterValidPatterns.STRONG_PASSWORD.getMather(password).matches()) return 9;
         return 0;
     }
 }

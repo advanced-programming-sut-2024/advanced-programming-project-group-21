@@ -27,12 +27,12 @@ public class TCPServerWorker extends Thread {
     private static final String WRONG_PASSWORD = "wrong password";
     private static final String SAME_EMAIL = "new email is the same as the old one";
 
-    private static ArrayList<Socket> connections;
+    public static ArrayList<Socket> connections;
 
     private DataOutputStream sendBuffer;
     private DataInputStream receiveBuffer;
 
-    private static void setUpServer() {
+    public static void setUpServer() {
         try {
             server = new ServerSocket(5000);
             connections = new ArrayList<>();
@@ -123,7 +123,7 @@ public class TCPServerWorker extends Thread {
         }
     }
 
-    private void handleConnection(Socket socket) {
+    public void handleConnection(Socket socket) {
         String clientRequest;
         try {
             receiveBuffer = new DataInputStream(

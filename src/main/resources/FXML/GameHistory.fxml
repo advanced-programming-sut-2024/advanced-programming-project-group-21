@@ -3,12 +3,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="750" prefWidth="1500" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.GameHistory.GameHistoryMenuViewController">
+<AnchorPane prefHeight="750" prefWidth="1500" stylesheets="@../CSS/VboxStyle.css , @../CSS/ScrollPane.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.GameHistory.GameHistoryMenuViewController">
     <children>
-        <ScrollPane fx:id="scrollPane" layoutX="286.0" layoutY="139.0" prefHeight="471.0" prefWidth="926.0">
+        <ScrollPane fx:id="scrollPane" layoutX="286.0" layoutY="139.0" prefHeight="471.0" prefWidth="926.0" styleClass="scroll-pane">
             <content>
-                <VBox fx:id="gameInfoBox" />
+                <VBox fx:id="gameInfoBox" styleClass="vbox" />
             </content>
         </ScrollPane>
+        <Button layoutX="14.0" layoutY="709.0" fx:id="backButton"  mnemonicParsing="false" onAction="#back" prefHeight="30.0" prefWidth="90.0" styleClass="button" text="Back" />
     </children>
 </AnchorPane>

@@ -15,7 +15,6 @@ module witcher {
     exports view;
     exports view.ScoreBoard;
     opens model.User;
-    opens view to javafx.fxml;
     exports view.Login;
     opens view.Login to javafx.fxml;
     exports view.Main;
