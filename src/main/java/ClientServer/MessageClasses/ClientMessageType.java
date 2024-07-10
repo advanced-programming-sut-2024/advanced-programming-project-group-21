@@ -17,5 +17,6 @@ public enum ClientMessageType {
     veto,
     skipTurn,
     moveCard,
-    endGame;
+    endGame,
+    getUser,
 }

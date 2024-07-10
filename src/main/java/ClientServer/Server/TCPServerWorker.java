@@ -102,6 +102,8 @@ public class TCPServerWorker extends Thread {
                     return gsonAgent.fromJson(clientStr, SkipTurnMessage.class);
                 case veto:
                     return gsonAgent.fromJson(clientStr, VetoMessage.class);
+                case getUser:
+                    return gsonAgent.fromJson(clientStr, GetUserMessage.class);
                 default:
                     return null;
             }
@@ -161,9 +163,9 @@ public class TCPServerWorker extends Thread {
         } else if (msg instanceof ForgetPasswordMessage) {
             forgetPassword((ForgetPasswordMessage) msg);
         } else if (msg instanceof LoginMessage) {
-            loginUser((LoginMessage) msg);
+            loginUser((LoginMessage)msg);
         } else if (msg instanceof LogoutMessage) {
-            logoutUser((LogoutMessage) msg);
+            logoutUser((LogoutMessage)msg);
         } else if (msg instanceof MoveCardMessage) {
             //moveCard((MoveCardMessage) msg);
         } else if (msg instanceof PreGameMessage) {
@@ -171,16 +173,27 @@ public class TCPServerWorker extends Thread {
         } else if (msg instanceof RequestFriendMessage) {
             //do something
         } else if (msg instanceof RequestGameMessage) {
-            requestGame((RequestGameMessage) msg);
+            requestGame((RequestGameMessage)msg);
         } else if (msg instanceof SignupMessage) {
             signupUser((SignupMessage) msg);
         } else if (msg instanceof SkipTurnMessage) {
             //do something
         } else if (msg instanceof VetoMessage) {
             //do something
-        } else {
+        }else if(msg instanceof GetUserMessage){
+            getUser((GetUserMessage) msg);
+        }else {
             // do something
         }
+    }
+
+    private void getUser(GetUserMessage msg) {
+        User user = User.getUserByUsername(msg.getUsername());
+        if (user == null) {
+            sendFailure(INVALID_USERNAME);
+            return;
+        }
+        sendSuccess(gsonAgent.toJson(user));
     }
 
     private void requestGame(RequestGameMessage msg) {
@@ -190,28 +203,15 @@ public class TCPServerWorker extends Thread {
             sendFailure(INVALID_TOKEN);
             return;
         }
-        User enemyUser = User.getUserByUsername(msg.getFriendName());
+        User enemyUser = User.getUserByUsername(msg.getFriendUsername());
         if (enemyUser == null) {
             sendFailure(INVALID_USERNAME);
             return;
         }
-//        Player enemyPlayer = enemyUser.getPlayer();
-//        if (enemyPlayer!=null){
-//            sendFailure("they are already in a game");
-//            return;
-//        }
-//        if(user.requestGame(enemyUser)){
-//            sendSuccess("game requested successfully");
-//            return;
-//        }
-//        else{
-//            sendFailure("someone has requested to them already");
-//            return;
-//        }
     }
 
     private void signupUser(SignupMessage msg) {
-        int result = (new RegisterMenuController()).register(msg.getNickname(), msg.getUsername(), msg.getEmail(), msg.getPassword(), msg.getConfirmPassword());
+        int result = (new RegisterMenuController()).register(msg.getNickname(), msg.getUsername(), msg.getEmail(), msg.getPassword(),msg.getConfirmPassword());
         if (result == 0) {
             sendSuccess("signed up successfully");
         } else if (result == 1) {
@@ -224,9 +224,11 @@ public class TCPServerWorker extends Thread {
             sendFailure("password is empty");
         } else if (result == 5) {
             sendFailure("confirm password is empty");
-        } else if (result == 6) {
+        }
+        else if (result == 6) {
             sendFailure("this username is taken");
-        } else if (result == 7) {
+        }
+        else if (result == 7) {
             sendFailure("password and confirm must be the same");
         }
     }
@@ -248,11 +250,12 @@ public class TCPServerWorker extends Thread {
         String password = msg.getPassword();
         User user = User.getUserByUsername(username);
         int answer = (new LoginMenuController()).loginUser(username, password);
-        if (answer == 0) {
+        if(answer == 0){
             user.setCurrentToken(generateNewToken());
-            System.out.println("User logged in with token :" + user.getCurrentToken());
+            User.addUserToTokenMap(user.getCurrentToken(), user);
             sendSuccess(user.getCurrentToken());
-        } else {
+        }
+        else{
             sendFailure(Integer.valueOf(answer).toString());
         }
     }
@@ -262,7 +265,7 @@ public class TCPServerWorker extends Thread {
         if (answer == 0) {
             (new QuestionMenuController()).changePassword(msg.getUsername(), msg.getNewPassword());
             sendSuccess("password changed successfully");
-        } else {
+        } else{
             sendFailure(Integer.valueOf(answer).toString());
         }
     }
