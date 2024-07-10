@@ -2,8 +2,7 @@ package controller.ClientServer.Client;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import controller.ClientServer.MessageClasses.LoginMessage;
-import controller.ClientServer.MessageClasses.ServerMessage;
+import controller.ClientServer.MessageClasses.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -13,6 +12,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class TCPClient {
 
@@ -28,8 +28,8 @@ public class TCPClient {
         this.gsonAgent = builder.create();
     }
 
-    public static TCPClient getInstance(){
-        if(instance == null){
+    public static TCPClient getInstance() {
+        if (instance == null) {
             instance = new TCPClient();
         }
         return instance;
@@ -102,8 +102,164 @@ public class TCPClient {
         return lastServerMessage.getAdditionalInfo();
     }
 
-    public String signup(String username, String password) {
-        return null;
+    public String signup(String username, String password, String confirmPassword, String email, String nickname) {
+        SignupMessage signupMessage = new SignupMessage(username, password, confirmPassword, nickname, email);
+        establishConnection();
+        sendMessage(gsonAgent.toJson(signupMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
+    }
+
+    public String logout() {
+        LogoutMessage logoutMessage = new LogoutMessage();
+        establishConnection();
+        sendMessage(gsonAgent.toJson(logoutMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
+    }
+
+    public String changeEmail(String email) {
+        ChangeEmailMessage changeEmailMessage = new ChangeEmailMessage(email);
+        establishConnection();
+        sendMessage(gsonAgent.toJson(changeEmailMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
+    }
+
+    public String changeNickname(String nickname) {
+        ChangeNicknameMessage changeNicknameMessage = new ChangeNicknameMessage(nickname);
+        establishConnection();
+        sendMessage(gsonAgent.toJson(changeNicknameMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
+    }
+
+    public String changePassword(String password, String confirmPassword) {
+        ChangePasswordMessage changePasswordMessage = new ChangePasswordMessage(password, confirmPassword);
+        establishConnection();
+        sendMessage(gsonAgent.toJson(changePasswordMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
+    }
+
+    public String changeUsername(String username) {
+        ChangeUsernameMessage changeUsernameMessage = new ChangeUsernameMessage(username);
+        establishConnection();
+        sendMessage(gsonAgent.toJson(changeUsernameMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
+    }
+
+    public String forgetPassword(String username, String question, String answer, String newPassword) {
+        ForgetPasswordMessage forgetPasswordMessage = new ForgetPasswordMessage(username, question, answer, newPassword);
+        establishConnection();
+        sendMessage(gsonAgent.toJson(forgetPasswordMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
+    }
+
+    public String moveCard(int cardIndex, int fromRowNum, int toRowNum) {
+        MoveCardMessage moveCardMessage = new MoveCardMessage(cardIndex, fromRowNum, toRowNum);
+        establishConnection();
+        sendMessage(gsonAgent.toJson(moveCardMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
+    }
+
+    public String endGame() {
+        EndGameMessage endGameMessage = new EndGameMessage();
+        establishConnection();
+        sendMessage(gsonAgent.toJson(endGameMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
+    }
+
+    public String prepGame(ArrayList<Integer> cardIds, int commanderId, int factionId) {
+        PreGameMessage preGameMessage = new PreGameMessage(cardIds, commanderId, factionId);
+        establishConnection();
+        sendMessage(gsonAgent.toJson(preGameMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
+    }
+
+    public String RequestFriend(String friendName) {
+        RequestFriendMessage requestFriendMessage = new RequestFriendMessage(friendName);
+        establishConnection();
+        sendMessage(gsonAgent.toJson(requestFriendMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
+    }
+
+    public String RequestGame(String username, String friendName){
+        RequestGameMessage requestGameMessage = new RequestGameMessage(username, friendName);
+        establishConnection();
+        sendMessage(gsonAgent.toJson(requestGameMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
+    }
+
+    public String AcceptFriend(String username, String friendName, boolean accept){
+        AcceptFriendMessage acceptFriendMessage = new AcceptFriendMessage(username, friendName, accept);
+        establishConnection();
+        sendMessage(gsonAgent.toJson(acceptFriendMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
+    }
+
+    public String AcceptGame(String username, String friendName, boolean accept){
+        AcceptGameMessage acceptGameMessage = new AcceptGameMessage(username, friendName, accept);
+        establishConnection();
+        sendMessage(gsonAgent.toJson(acceptGameMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
+    }
+
+    public String SkipTurnMessage(){
+        SkipTurnMessage skipTurnMessage = new SkipTurnMessage();
+        establishConnection();
+        sendMessage(gsonAgent.toJson(skipTurnMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
+    }
+
+    public String VetoTurn(ArrayList<Integer> cardIdsToVeto, ArrayList<Integer> newCardIds){
+        VetoMessage vetoMessage = new VetoMessage(cardIdsToVeto, newCardIds);
+        establishConnection();
+        sendMessage(gsonAgent.toJson(vetoMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
     }
 
 
