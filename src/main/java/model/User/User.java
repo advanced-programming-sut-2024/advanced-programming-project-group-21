@@ -37,7 +37,6 @@ public class User {
 
     private String currentToken;
 
-    private static HashMap<String, User> allUsersByUsername = new HashMap<String, User>();
     private static HashMap<String, User> allUsersByToken = new HashMap<String, User>();
 
     public User(String username, String nickname, String password, String email) {
@@ -213,17 +212,6 @@ public class User {
         return currentToken;
     }
 
-    public static User findUserByUsername(String username) {
-        return allUsersByUsername.get(username);
-    }
-
-    public static void addUser(User user) {
-        allUsersByUsername.put(user.getUsername(), user);
-    }
-
-    public static void removeUser(User user) {
-        allUsersByUsername.remove(user.getUsername());
-    }
 
     public Player getPlayer() {
         return player;
@@ -240,4 +228,9 @@ public class User {
     public void setGame(Game game) {
         this.game = game;
     }
+
+    public void removeUserFromTokenMap(String token) {
+        allUsersByToken.remove(token);
+    }
+
 }

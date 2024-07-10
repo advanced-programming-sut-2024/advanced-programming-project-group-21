@@ -3,6 +3,8 @@ package controller.ClientServer.Server;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import controller.ClientServer.MessageClasses.*;
+import controller.QuestionMenuController;
+import controller.RegisterMenuController;
 import model.Game;
 import model.Player;
 import model.User.User;
@@ -150,19 +152,19 @@ public class TCPServerWorker extends Thread {
         } else if (msg instanceof ChangeEmailMessage) {
             changeEmail((ChangeEmailMessage) msg);
         } else if (msg instanceof ChangeNicknameMessage) {
-            //do something
+            changeNickname((ChangeNicknameMessage) msg);
         } else if (msg instanceof ChangePasswordMessage) {
-            //do something
+            changePassword((ChangePasswordMessage) msg);
         } else if (msg instanceof ChangeUsernameMessage) {
-            //do something
+            changeUsername((ChangeUsernameMessage) msg);
         } else if (msg instanceof EndGameMessage) {
             //do something
         } else if (msg instanceof ForgetPasswordMessage) {
-            //do something
+            forgetPassword((ForgetPasswordMessage) msg);
         } else if (msg instanceof LoginMessage) {
-            //do something
+            loginUser((LoginMessage)msg);
         } else if (msg instanceof LogoutMessage) {
-            //do something
+            logoutUser((LogoutMessage)msg);
         } else if (msg instanceof MoveCardMessage) {
             moveCard((MoveCardMessage) msg);
         } else if (msg instanceof PreGameMessage) {
@@ -172,7 +174,7 @@ public class TCPServerWorker extends Thread {
         } else if (msg instanceof RequestGameMessage) {
             //do something
         } else if (msg instanceof SignupMessage) {
-            //do something
+            signupUser((SignupMessage) msg);
         } else if (msg instanceof SkipTurnMessage) {
             //do something
         } else if (msg instanceof VetoMessage) {
@@ -180,6 +182,126 @@ public class TCPServerWorker extends Thread {
         } else {
             // do something
         }
+    }
+
+    private void signupUser(SignupMessage msg) {
+        int result = (new RegisterMenuController()).register(msg.getNickname(), msg.getUsername(), msg.getEmail(), msg.getPassword(),msg.getConfirmPassword());
+        if (result == 0) {
+            sendSuccess("signed up successfully");
+        } else if (result == 1) {
+            sendFailure("nickname is empty");
+        } else if (result == 2) {
+            sendFailure("username is empty");
+        } else if (result == 3) {
+            sendFailure("email is empty");
+        } else if (result == 4) {
+            sendFailure("password is empty");
+        } else if (result == 5) {
+            sendFailure("confirm password is empty");
+        }
+        else if (result == 6) {
+            sendFailure("this username is taken");
+        }
+        else if (result == 7) {
+            sendFailure("password and confirm must be the same");
+        }
+    }
+
+    private void logoutUser(LogoutMessage msg) {
+        String token = msg.getToken();
+        User user = User.findUserByToken(token);
+        if (user == null) {
+            sendFailure(INVALID_TOKEN);
+            return;
+        }
+        user.removeUserFromTokenMap(token);
+        user.setCurrentToken(null);
+        sendSuccess("logged out successfully");
+    }
+
+    private void loginUser(LoginMessage msg) {
+        String username = msg.getUsername();
+        String password = msg.getPassword();
+        User user = User.getUserByUsername(username);
+        if (user == null) {
+            sendFailure(INVALID_USERNAME);
+            return;
+        }
+        if (!user.getPassword().equals(password)) {
+            sendFailure(WRONG_PASSWORD);
+            return;
+        }
+        user.setCurrentToken(generateNewToken());
+        sendSuccess(user.getCurrentToken());
+    }
+
+    private void forgetPassword(ForgetPasswordMessage msg) {
+        int answer = (new QuestionMenuController()).submitAnswer(msg.getUsername(), msg.getQuestion(), msg.getAnswer(), msg.getNewPassword(), msg.getConfirmPassword());
+        if (answer == 0) {
+            (new QuestionMenuController()).changePassword(msg.getUsername(), msg.getNewPassword());
+            sendSuccess("password changed successfully");
+        } else if (answer == 1) {
+            sendFailure("username is empty");
+        } else if (answer == 2) {
+            sendFailure("question is empty");
+        } else if (answer == 3) {
+            sendFailure("answer is empty");
+        } else if (answer == 4) {
+            sendFailure("no user exists with such username");
+        } else if (answer == 5) {
+            sendFailure("question not found for this user");
+        } else if (answer == 6) {
+            sendFailure("wrong answer");
+        } else if (answer == 7) {
+            sendFailure("password is empty");
+        } else if (answer == 8) {
+            sendFailure("password and confirm must be the same");
+        }
+    }
+
+    private void changeUsername(ChangeUsernameMessage msg) {
+        String token = msg.getToken();
+        String newUsername = msg.getNewUsername();
+        User user = User.findUserByToken(token);
+        if (user == null) {
+            sendFailure(INVALID_TOKEN);
+            return;
+        }
+        if (User.getUserByUsername(newUsername) != null) {
+            sendFailure(USERNAME_TAKEN);
+            return;
+        }
+        user.setUsername(newUsername);
+        sendSuccess("username changed successfully");
+    }
+
+    private void changePassword(ChangePasswordMessage msg) {
+        String token = msg.getToken();
+        String newPassword = msg.getNewPassword();
+        String oldPassword = msg.getOldPassword();
+        User user = User.findUserByToken(token);
+        if (user == null) {
+            sendFailure(INVALID_TOKEN);
+            return;
+        }
+        if (!user.getPassword().equals(oldPassword)) {
+            sendFailure(WRONG_PASSWORD);
+            return;
+        }
+        user.setPassword(newPassword);
+        sendSuccess("password changed successfully");
+    }
+
+    private void changeNickname(ChangeNicknameMessage msg) {
+        String token = msg.getToken();
+        String newNickname = msg.getNewNickname();
+        User user = User.findUserByToken(token);
+        if (user == null) {
+            sendFailure(INVALID_TOKEN);
+            return;
+        }
+        user.setNickname(newNickname);
+        sendSuccess("nickname changed successfully");
     }
 
     private void moveCard(MoveCardMessage msg) {

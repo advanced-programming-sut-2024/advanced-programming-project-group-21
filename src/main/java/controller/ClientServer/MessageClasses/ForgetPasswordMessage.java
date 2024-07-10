@@ -5,6 +5,7 @@ public class ForgetPasswordMessage extends ClientMessage {
     private String question;
     private String answer;
     private String newPassword;
+    private String confirmPassword;
 
     public ForgetPasswordMessage(String username, String question, String answer, String newPassword) {
         this.type = ClientMessageType.forgetPassword;
@@ -12,6 +13,7 @@ public class ForgetPasswordMessage extends ClientMessage {
         this.question = question;
         this.answer = answer;
         this.newPassword = newPassword;
+        this.confirmPassword = confirmPassword;
     }
 
     public String getUsername() {
@@ -28,5 +30,8 @@ public class ForgetPasswordMessage extends ClientMessage {
 
     public String getNewPassword() {
         return newPassword;
+    }
+    public String getConfirmPassword() {
+        return confirmPassword;
     }
 }
