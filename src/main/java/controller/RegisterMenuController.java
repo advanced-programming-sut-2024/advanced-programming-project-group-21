@@ -10,7 +10,7 @@ public class RegisterMenuController {
     private static final String LOWERCASE = "abcdefghijklmnopqrstuvwxyz";
     private static final String UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String DIGITS = "0123456789";
-    private static final String SPECIAL_CHARACTERS = "!@#$%^&*()-+=";
+    private static final String SPECIAL_CHARACTERS = "!@#$%^&*";
     private static final String ALL_CHARACTERS = LOWERCASE + UPPERCASE + DIGITS + SPECIAL_CHARACTERS;
     private static final int PASSWORD_LENGTH = 8;
 

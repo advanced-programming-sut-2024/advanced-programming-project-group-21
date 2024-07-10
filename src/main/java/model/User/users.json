@@ -1,9 +1,9 @@
 [
   {
-    "username": "a",
+    "username": "Parsa",
     "nickname": "a",
-    "password": "a",
-    "email": "a",
+    "password": "He!@kH4P",
+    "email": "abc@gmail.com",
     "questions": {},
     "rank": 0,
     "highestScore": 0.0,
@@ -13,6 +13,7 @@
     "draw": 0,
     "gameHistories": [],
     "isStayingLoggedIn": false,
-    "friends": []
+    "friends": [],
+    "inGame": false
   }
 ]

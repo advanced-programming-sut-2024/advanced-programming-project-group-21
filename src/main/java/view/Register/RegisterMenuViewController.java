@@ -1,5 +1,6 @@
 package view.Register;
 
+import ClientServer.Client.TCPClient;
 import controller.ApplicationController;
 import controller.RegisterMenuController;
 import javafx.scene.control.Alert;
@@ -31,7 +32,7 @@ public class RegisterMenuViewController {
         String email = emailField.getText();
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
-        int registerAns = controller.register(nickname, username, email, password, confirmPassword);
+        int registerAns = Integer.parseInt(TCPClient.getInstance().signup(username, password, email, nickname, confirmPassword));
         if (registerAns != 0) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             if (registerAns == 1) {

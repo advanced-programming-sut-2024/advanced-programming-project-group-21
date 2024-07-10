@@ -3,6 +3,7 @@ package ClientServer.Server;
 import ClientServer.MessageClasses.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import controller.DataBaseController;
 import controller.LoginMenuController;
 import controller.QuestionMenuController;
 import controller.RegisterMenuController;
@@ -136,6 +137,8 @@ public class TCPServerWorker extends Thread {
             clientRequest = receiveBuffer.readUTF();
             ClientMessage msg = extractClientMessage(clientRequest);
 
+            System.out.println("Server received " + clientRequest);
+
             doMessageFunctions(msg);
             sendBuffer.close();
             receiveBuffer.close();
@@ -163,9 +166,9 @@ public class TCPServerWorker extends Thread {
         } else if (msg instanceof ForgetPasswordMessage) {
             forgetPassword((ForgetPasswordMessage) msg);
         } else if (msg instanceof LoginMessage) {
-            loginUser((LoginMessage)msg);
+            loginUser((LoginMessage) msg);
         } else if (msg instanceof LogoutMessage) {
-            logoutUser((LogoutMessage)msg);
+            logoutUser((LogoutMessage) msg);
         } else if (msg instanceof MoveCardMessage) {
             //moveCard((MoveCardMessage) msg);
         } else if (msg instanceof PreGameMessage) {
@@ -173,16 +176,16 @@ public class TCPServerWorker extends Thread {
         } else if (msg instanceof RequestFriendMessage) {
             //do something
         } else if (msg instanceof RequestGameMessage) {
-            requestGame((RequestGameMessage)msg);
+            requestGame((RequestGameMessage) msg);
         } else if (msg instanceof SignupMessage) {
             signupUser((SignupMessage) msg);
         } else if (msg instanceof SkipTurnMessage) {
             //do something
         } else if (msg instanceof VetoMessage) {
             //do something
-        }else if(msg instanceof GetUserMessage){
+        } else if (msg instanceof GetUserMessage) {
             getUser((GetUserMessage) msg);
-        }else {
+        } else {
             // do something
         }
     }
@@ -211,29 +214,33 @@ public class TCPServerWorker extends Thread {
     }
 
     private void signupUser(SignupMessage msg) {
-        int result = (new RegisterMenuController()).register(msg.getNickname(), msg.getUsername(), msg.getEmail(), msg.getPassword(),msg.getConfirmPassword());
+        int result = (new RegisterMenuController()).register(msg.getNickname(), msg.getUsername(),
+                msg.getEmail(), msg.getPassword(), msg.getConfirmPassword());
+
         if (result == 0) {
-            sendSuccess("signed up successfully");
-        } else if (result == 1) {
-            sendFailure("nickname is empty");
-        } else if (result == 2) {
-            sendFailure("username is empty");
-        } else if (result == 3) {
-            sendFailure("email is empty");
-        } else if (result == 4) {
-            sendFailure("password is empty");
-        } else if (result == 5) {
-            sendFailure("confirm password is empty");
+            sendSuccess("0");
+        } else {
+            sendFailure(Integer.valueOf(result).toString());
         }
-        else if (result == 6) {
-            sendFailure("this username is taken");
-        }
-        else if (result == 7) {
-            sendFailure("password and confirm must be the same");
+    }
+
+    private void loginUser(LoginMessage msg) {
+        DataBaseController.loadUsersFromJson();
+        String username = msg.getUsername();
+        String password = msg.getPassword();
+        User user = User.getUserByUsername(username);
+        int answer = (new LoginMenuController()).loginUser(username, password);
+        if (answer == 0) {
+            user.setCurrentToken(generateNewToken());
+            User.addUserToTokenMap(user.getCurrentToken(), user);
+            sendSuccess("0");
+        } else {
+            sendFailure(Integer.valueOf(answer).toString());
         }
     }
 
     private void logoutUser(LogoutMessage msg) {
+        DataBaseController.saveUsersToJson();
         String token = msg.getToken();
         User user = User.findUserByToken(token);
         if (user == null) {
@@ -245,27 +252,12 @@ public class TCPServerWorker extends Thread {
         sendSuccess("logged out successfully");
     }
 
-    private void loginUser(LoginMessage msg) {
-        String username = msg.getUsername();
-        String password = msg.getPassword();
-        User user = User.getUserByUsername(username);
-        int answer = (new LoginMenuController()).loginUser(username, password);
-        if(answer == 0){
-            user.setCurrentToken(generateNewToken());
-            User.addUserToTokenMap(user.getCurrentToken(), user);
-            sendSuccess(user.getCurrentToken());
-        }
-        else{
-            sendFailure(Integer.valueOf(answer).toString());
-        }
-    }
-
     private void forgetPassword(ForgetPasswordMessage msg) {
         int answer = (new QuestionMenuController()).submitAnswer(msg.getUsername(), msg.getQuestion(), msg.getAnswer(), msg.getNewPassword(), msg.getConfirmPassword());
         if (answer == 0) {
             (new QuestionMenuController()).changePassword(msg.getUsername(), msg.getNewPassword());
             sendSuccess("password changed successfully");
-        } else{
+        } else {
             sendFailure(Integer.valueOf(answer).toString());
         }
     }

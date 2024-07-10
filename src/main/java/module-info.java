@@ -8,7 +8,9 @@ module witcher {
     requires java.mail;
     requires jdk.jshell;
     requires org.testng;
+    requires hamcrest.core;
 
+    opens ClientServer.MessageClasses to com.google.gson;
     exports view.AuthenticationCode;
     exports view;
     exports view.ScoreBoard;

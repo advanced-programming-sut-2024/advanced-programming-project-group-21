@@ -1,17 +1,15 @@
 package ClientServer.Client;
 
-import ClientServer.MessageClasses.GetUserMessage;
+import ClientServer.MessageClasses.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import ClientServer.MessageClasses.AcceptGameMessage;
-import ClientServer.MessageClasses.LoginMessage;
-import ClientServer.MessageClasses.ServerMessage;
 import controller.ApplicationController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import model.App;
 import model.User.User;
+import org.hamcrest.core.StringEndsWith;
 import view.Login.LoginMenuView;
 
 import java.io.DataInputStream;
@@ -119,8 +117,16 @@ public class TCPClient {
         return gsonAgent.fromJson(lastServerMessage.getAdditionalInfo(), User.class);
     }
 
-    public String signup(String username, String password) {
-        return null;
+    public String signup(String username, String password, String email, String nickname, String confirmPassword) {
+        SignupMessage signupMessage = new SignupMessage(username, password, email, nickname, confirmPassword);
+        System.out.println(password);
+        System.out.println(confirmPassword);
+        establishConnection();
+        sendMessage(gsonAgent.toJson(signupMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
     }
 
 
