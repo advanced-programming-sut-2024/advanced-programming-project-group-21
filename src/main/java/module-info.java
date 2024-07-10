@@ -9,12 +9,14 @@ module witcher {
     requires jdk.jshell;
     requires org.testng;
 
-    exports enums.Card to com.google.gson;
-    opens model to com.google.gson, com.fasterxml.jackson.databind;
     exports view.AuthenticationCode;
     exports view;
     exports view.ScoreBoard;
+    opens view.ScoreBoard to javafx.fxml;
     opens model.User;
+    opens view to javafx.fxml,com.google.gson;
+    opens model to com.google.gson;
+
     exports view.Login;
     opens view.Login to javafx.fxml;
     exports view.Main;

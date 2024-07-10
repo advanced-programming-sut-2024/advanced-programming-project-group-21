@@ -32,8 +32,6 @@ public class User {
     private static ArrayList<User> users = new ArrayList<>();
     private ArrayList<User> friends = new ArrayList<>();
     public static final String USERS_DATABASE_PATH = "src/main/java/model/User/users.json";
-    private Player player = null;
-    private Game game = null;
 
     private String currentToken;
 
@@ -214,21 +212,7 @@ public class User {
     }
 
 
-    public Player getPlayer() {
-        return player;
-    }
 
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
-    public Game getGame() {
-        return game;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
-    }
 
     public void removeUserFromTokenMap(String token) {
         allUsersByToken.remove(token);
