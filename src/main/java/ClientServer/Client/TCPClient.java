@@ -3,7 +3,7 @@ package ClientServer.Client;
 import ClientServer.MessageClasses.GetUserMessage;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import controller.ClientServer.MessageClasses.*;
+import ClientServer.MessageClasses.*;
 import ClientServer.MessageClasses.AcceptGameMessage;
 import ClientServer.MessageClasses.LoginMessage;
 import ClientServer.MessageClasses.ServerMessage;
@@ -209,8 +209,8 @@ public class TCPClient {
         return lastServerMessage.getAdditionalInfo();
     }
 
-    public String RequestFriend(String friendName) {
-        RequestFriendMessage requestFriendMessage = new RequestFriendMessage(friendName);
+    public String RequestFriend(String username, String friendUsername) {
+        RequestFriendMessage requestFriendMessage = new RequestFriendMessage(username, friendUsername);
         establishConnection();
         sendMessage(gsonAgent.toJson(requestFriendMessage));
         lastServerMessage = gsonAgent.fromJson(
