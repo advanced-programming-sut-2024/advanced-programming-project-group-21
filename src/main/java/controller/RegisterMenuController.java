@@ -4,19 +4,7 @@ import model.User.User;
 
 public class RegisterMenuController {
 
-    public void showCurrentMenu() {
-
-    }
-
-    public void exitMenu() {
-
-    }
-
-    public void enterMenu(String name) {
-
-    }
-
-    private boolean isUsernameMade(String username) {
+    boolean isUsernameMade(String username) {
         return User.getUserByUsername(username) != null;
     }
 
@@ -52,14 +40,14 @@ public class RegisterMenuController {
         return null;
     }
 
-    private boolean isConfirmPasswordOk(String password, String passwordConfirm) {
+    boolean isConfirmPasswordOk(String password, String passwordConfirm) {
         if (password.equals(passwordConfirm))
             return true;
         return false;
     }
 
-    private int isRegisterValid(String username, String password, String passwordConfirm, String nickname,
-                                String email) {
+    int isRegisterValid(String username, String password, String passwordConfirm, String nickname,
+                        String email) {
         if (nickname.equals("")) return 1;
         if (username.equals("")) return 2;
         if (email.equals("")) return 3;

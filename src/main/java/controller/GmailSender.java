@@ -17,7 +17,7 @@ public class GmailSender implements Runnable {
         GmailSender.code = code;
     }
 
-    private static Session getEmailSession() {
+    static Session getEmailSession() {
         return Session.getInstance(getGmailProperties(), new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(EMAIL_FROM, APP_PASSWORD);
@@ -25,7 +25,7 @@ public class GmailSender implements Runnable {
         });
     }
 
-    private static Properties getGmailProperties() {
+    static Properties getGmailProperties() {
         Properties prop = new Properties();
         prop.put("mail.smtp.auth", "true");
         prop.put("mail.smtp.starttls.enable", "true");
