@@ -52,10 +52,19 @@ public class RegisterMenuViewController {
                 invalidUsername(alert);
             } else if (registerAns == 9) {
                 weakPassword(alert);
+            } else if (registerAns == 10) {
+                wrongEmailFormat(alert);
             }
         } else {
             enterLoginMenu();
         }
+    }
+
+    private void wrongEmailFormat(Alert alert) {
+        alert.setTitle("Invalid Email");
+        alert.setHeaderText("Email is not acceptable");
+        alert.setContentText("Please enter a proper email!");
+        alert.show();
     }
 
     private void invalidUsername(Alert alert) {

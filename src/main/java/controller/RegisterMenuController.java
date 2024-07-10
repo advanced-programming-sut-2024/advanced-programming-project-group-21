@@ -77,6 +77,7 @@ public class RegisterMenuController {
         if (!isConfirmPasswordOk(password, passwordConfirm)) return 7;
         if (!RegisterValidPatterns.USERNAME.getMather(username).matches()) return 8;
         if (!RegisterValidPatterns.STRONG_PASSWORD.getMather(password).matches()) return 9;
+        if (!RegisterValidPatterns.EMAIL.getMather(email).matches()) return 10;
         return 0;
     }
 }
