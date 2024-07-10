@@ -3,7 +3,6 @@ package ClientServer.Server;
 import ClientServer.MessageClasses.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import controller.ClientServer.MessageClasses.*;
 import controller.LoginMenuController;
 import controller.QuestionMenuController;
 import controller.RegisterMenuController;
@@ -103,6 +102,8 @@ public class TCPServerWorker extends Thread {
                     return gsonAgent.fromJson(clientStr, SkipTurnMessage.class);
                 case veto:
                     return gsonAgent.fromJson(clientStr, VetoMessage.class);
+                case getUser:
+                    return gsonAgent.fromJson(clientStr, GetUserMessage.class);
                 default:
                     return null;
             }
@@ -179,9 +180,20 @@ public class TCPServerWorker extends Thread {
             //do something
         } else if (msg instanceof VetoMessage) {
             //do something
-        } else {
+        }else if(msg instanceof GetUserMessage){
+            getUser((GetUserMessage) msg);
+        }else {
             // do something
         }
+    }
+
+    private void getUser(GetUserMessage msg) {
+        User user = User.getUserByUsername(msg.getUsername());
+        if (user == null) {
+            sendFailure(INVALID_USERNAME);
+            return;
+        }
+        sendSuccess(gsonAgent.toJson(user));
     }
 
     private void requestGame(RequestGameMessage msg) {
@@ -240,6 +252,7 @@ public class TCPServerWorker extends Thread {
         int answer = (new LoginMenuController()).loginUser(username, password);
         if(answer == 0){
             user.setCurrentToken(generateNewToken());
+            User.addUserToTokenMap(user.getCurrentToken(), user);
             sendSuccess(user.getCurrentToken());
         }
         else{

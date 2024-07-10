@@ -1,7 +1,7 @@
 package view.Main;
 
+import ClientServer.Client.TCPClient;
 import controller.ApplicationController;
-import controller.ClientServer.Client.TCPClient;
 import controller.DataBaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -69,7 +69,7 @@ public class MainMenuViewController {
     }
 
     public void acceptGameRequest(MouseEvent mouseEvent) {
-        TCPClient.getInstance().acceptGameRequest();
+        //TCPClient.getInstance().acceptGameRequest();
     }
 
     public void rejectGameRequest(MouseEvent mouseEvent) {

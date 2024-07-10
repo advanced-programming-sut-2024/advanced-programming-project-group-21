@@ -1,13 +1,17 @@
 package ClientServer.Client;
 
+import ClientServer.MessageClasses.GetUserMessage;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import ClientServer.MessageClasses.AcceptGameMessage;
 import ClientServer.MessageClasses.LoginMessage;
 import ClientServer.MessageClasses.ServerMessage;
+import controller.ApplicationController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import model.App;
+import model.User.User;
 import view.Login.LoginMenuView;
 
 import java.io.DataInputStream;
@@ -29,8 +33,8 @@ public class TCPClient {
         this.gsonAgent = builder.create();
     }
 
-    public static TCPClient getInstance(){
-        if(instance == null){
+    public static TCPClient getInstance() {
+        if (instance == null) {
             instance = new TCPClient();
         }
         return instance;
@@ -101,6 +105,18 @@ public class TCPClient {
                 receiveResponse(), ServerMessage.class);
         endConnection();
         return lastServerMessage.getAdditionalInfo();
+    }
+
+    public User getUserFromUsername(String username) {
+        GetUserMessage getUserMessage = new GetUserMessage(username);
+        establishConnection();
+        sendMessage(gsonAgent.toJson(getUserMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        if (lastServerMessage.getAdditionalInfo().equals("no user exists with such username")) return null;
+        // turn info to gson of user
+        return gsonAgent.fromJson(lastServerMessage.getAdditionalInfo(), User.class);
     }
 
     public String signup(String username, String password) {

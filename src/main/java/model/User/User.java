@@ -239,4 +239,8 @@ public class User {
     public void setInGame(boolean inGame) {
         this.inGame = inGame;
     }
+
+    public static void addUserToTokenMap(String token,User user){
+        allUsersByToken.put(token, user);
+    }
 }
