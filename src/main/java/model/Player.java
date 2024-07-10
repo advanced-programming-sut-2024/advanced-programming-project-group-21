@@ -1,6 +1,7 @@
 package model;
 
 import controller.ApplicationController;
+import enums.Card.CardPositions;
 import enums.Card.CommandersEnum;
 import enums.Card.FactionsEnum;
 import javafx.scene.layout.AnchorPane;
@@ -13,12 +14,10 @@ import java.util.List;
 
 public class Player extends User {
     private ArrayList<AnchorPane> hand = new ArrayList<>();
-    private ArrayList<Card> deck = new ArrayList<>();
     private ArrayList<AnchorPane> discardPile = new ArrayList<>();
+    private ArrayList<Card> deck = new ArrayList<>();
 
-    public ArrayList<AnchorPane> getDiscardPile() {
-        return discardPile;
-    }
+
 
     private User user;
     private int availableCards = 0;
@@ -45,6 +44,17 @@ public class Player extends User {
     private AnchorPane commanderPane;
 
     private boolean doneAction = false;
+    private int availableVetoes = 2;
+    private boolean vetoed;
+    private boolean passedTurn = false;
+    private boolean wonRound1 = false;
+    private boolean wonRound2 = false;
+    private boolean wonRound3 = false;
+    private boolean doneTurn = false;
+    private int round1power = 0;
+    private int round2power = 0;
+    private int round3power = 0;
+    private int totalFinalPower = 0;
 
     public Player(User user) {
         super(user.getUsername(), user.getNickname(), user.getPassword(), user.getEmail());
@@ -168,14 +178,16 @@ public class Player extends User {
     }
 
     public void addToHand(AnchorPane card) {
+        ((Card)card.getUserData()).setCardPosition(CardPositions.HAND);
         this.hand.add(card);
     }
 
-    public void removeFromHand(Card card) {
+    public void removeFromHand(AnchorPane card) {
         this.hand.remove(card);
     }
 
     public void addToClosedCombatUnits(AnchorPane card) {
+        ((Card)card.getUserData()).setCardPosition(CardPositions.CLOSED_COMBAT);
         this.closedCombatUnits.add(card);
     }
 
@@ -184,6 +196,7 @@ public class Player extends User {
     }
 
     public void addToRangedCombatUnits(AnchorPane card) {
+        ((Card)card.getUserData()).setCardPosition(CardPositions.RANGED_COMBAT);
         this.rangedCombatUnits.add(card);
     }
 
@@ -192,6 +205,7 @@ public class Player extends User {
     }
 
     public void addToSiegeCombatUnits(AnchorPane card) {
+        ((Card)card.getUserData()).setCardPosition(CardPositions.SIEGE_COMBAT);
         this.siegeCombatUnits.add(card);
     }
 
@@ -208,6 +222,7 @@ public class Player extends User {
     }
 
     public void addToClosedCombatSpecial(AnchorPane card) {
+        ((Card)card.getUserData()).setCardPosition(CardPositions.CLOSED_COMBAT_SPECIAL);
         this.closedCombatSpecial = card;
     }
 
@@ -216,6 +231,7 @@ public class Player extends User {
     }
 
     public void addToRangedCombatSpecial(AnchorPane card) {
+        ((Card)card.getUserData()).setCardPosition(CardPositions.RANGED_COMBAT_SPECIAL);
         this.rangedCombatSpecial = card;
     }
 
@@ -224,6 +240,7 @@ public class Player extends User {
     }
 
     public void addToSiegeCombatSpecial(AnchorPane card) {
+        ((Card)card.getUserData()).setCardPosition(CardPositions.SIEGE_COMBAT_SPECIAL);
         this.siegeCombatSpecial = card;
     }
 
@@ -273,6 +290,7 @@ public class Player extends User {
     }
 
     public int getClosedPower(){
+        closedCombatUnitsPower=0;
         for(AnchorPane card: closedCombatUnits){
             Card cardObject = (Card) card.getUserData();
             closedCombatUnitsPower += cardObject.getPower();
@@ -281,6 +299,7 @@ public class Player extends User {
     }
 
     public int getRangedPower(){
+        rangedCombatUnitsPower=0;
         for(AnchorPane card: rangedCombatUnits){
             Card cardObject = (Card) card.getUserData();
             rangedCombatUnitsPower += cardObject.getPower();
@@ -289,6 +308,7 @@ public class Player extends User {
     }
 
     public int getSiegePower(){
+        siegeCombatUnitsPower=0;
         for(AnchorPane card: siegeCombatUnits){
             Card cardObject = (Card) card.getUserData();
             siegeCombatUnitsPower += cardObject.getPower();
@@ -299,5 +319,112 @@ public class Player extends User {
     public int getTotalPower(){
         totalPower = getClosedPower()+getRangedPower()+getSiegePower();
         return totalPower;
+    }
+
+    public ArrayList<AnchorPane> getDiscardPile() {
+        return discardPile;
+    }
+
+    public void setDiscardPile(ArrayList<AnchorPane> discardPile) {
+        this.discardPile = discardPile;
+    }
+
+    public void addToDiscardPile(AnchorPane card) {
+        ((Card)card.getUserData()).setCardPosition(CardPositions.DISCARD_PILE);
+        ((Card)card.getUserData()).setPowerModifier(0);
+        ((Card)card.getUserData()).setPowerCoefficient(1);
+        this.discardPile.add(card);
+    }
+
+    public int getAvailableVetoes() {
+        return availableVetoes;
+    }
+
+    public void setAvailableVetoes(int availableVetoes) {
+        this.availableVetoes = availableVetoes;
+    }
+
+    public boolean isVetoed() {
+        return vetoed;
+    }
+
+    public void setVetoed(boolean vetoed) {
+        this.vetoed = vetoed;
+    }
+
+    public boolean isPassedTurn() {
+        return passedTurn;
+    }
+
+    public void setPassedTurn(boolean passedTurn) {
+        this.passedTurn = passedTurn;
+    }
+
+    public boolean isWonRound1() {
+        return wonRound1;
+    }
+
+    public void setWonRound1(boolean wonRound1) {
+        this.wonRound1 = wonRound1;
+    }
+
+    public boolean isWonRound2() {
+        return wonRound2;
+    }
+
+    public void setWonRound2(boolean wonRound2) {
+        this.wonRound2 = wonRound2;
+    }
+
+    public boolean isWonRound3() {
+        return wonRound3;
+    }
+
+    public void setWonRound3(boolean wonRound3) {
+        this.wonRound3 = wonRound3;
+    }
+
+    public void removeFromDiscardPile(AnchorPane card) {
+        this.discardPile.remove(card);
+    }
+
+    public boolean isDoneTurn() {
+        return doneTurn;
+    }
+
+    public void setDoneTurn(boolean doneTurn) {
+        this.doneTurn = doneTurn;
+    }
+
+    public int getTotalFinalPower() {
+        return totalFinalPower;
+    }
+
+    public void setTotalFinalPower(int totalFinalPower) {
+        this.totalFinalPower = totalFinalPower;
+    }
+
+    public int getRound1power() {
+        return round1power;
+    }
+
+    public void setRound1power(int round1power) {
+        this.round1power = round1power;
+    }
+
+    public int getRound2power() {
+        return round2power;
+    }
+
+    public void setRound2power(int round2power) {
+        this.round2power = round2power;
+    }
+
+    public int getRound3power() {
+        return round3power;
+    }
+
+    public void setRound3power(int round3power) {
+        this.round3power = round3power;
     }
 }

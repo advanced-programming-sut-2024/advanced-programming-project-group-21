@@ -32,8 +32,16 @@ public class LoginMenuController {
         if (username.equals("")) return 3;
         if (user == null) return 2;
         if (!user.getPassword().equals(password)) return 1;
+        // TODO: REMOVE WHEN RELEASED
         ApplicationController.setLoggedInUser(user);
         return 0;
+    }
+    public void sendEmail(String username) {
+        User user = User.getUserByUsername(username);
+        String email = user.getEmail();
+
+        GmailSender gmailSender = new GmailSender(email,AuthenticationMenuController.generateRandomCode());
+        gmailSender.run();
     }
 
     public void forgetPassword(String username){

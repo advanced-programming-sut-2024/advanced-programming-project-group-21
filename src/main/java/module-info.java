@@ -5,8 +5,10 @@ module witcher {
     requires javafx.graphics;
     requires com.google.gson;
     requires java.desktop;
+    requires java.mail;
+    requires jdk.jshell;
 
-
+    exports view.AuthenticationCode;
     exports view;
     exports view.ScoreBoard;
     opens model.User;

@@ -1,8 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
-
-.root {
-    -fx-font-family: 'MedievalSharp', cursive;
+* {
+    -fx-font-family: "MedievalSharp-Regular";
+    -fx-font-size: 12px; /* Set your desired font size */
 }
+
+/*.root {*/
+/*    -fx-font-family: 'MedievalSharp', cursive;*/
+/*}*/
 
 .button {
     -fx-background-color: #4a4a4a; /* Dark grey background */
@@ -44,4 +47,15 @@
     -fx-background-color: rgba(0, 0, 0, 0.3); /* More transparent dark overlay */
     -fx-padding: 20;
     -fx-spacing: 20;
+}
+
+.hyperlink{
+    -fx-background-color: #2e2e2e; /* Dark background */
+    -fx-text-fill: #ffffff; /* White text */
+    -fx-prompt-text-fill: #a1a1a1; /* Grey prompt text */
+    -fx-border-color: #4a4a4a; /* Dark grey border */
+    -fx-border-width: 1px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-padding: 2 4 2 4;
 }

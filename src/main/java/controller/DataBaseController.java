@@ -14,7 +14,6 @@ import java.util.List;
 
 public class DataBaseController {
     public static final String USERS_DATABASE_PATH = "src/main/java/model/User/users.json";
-    public static final String CARDS_DATABASE_PATH = "src/main/java/model/User/cards.json";
 
     public static void loadUsersFromJson() {
         try {
@@ -43,11 +42,37 @@ public class DataBaseController {
         }
     }
 
-    public static void saveCardsToJson() {
-
+    public static User loadLoggedInUser() {
+        try {
+            Gson gson = new Gson();
+            String text = new String(Files.readAllBytes(Paths.get("src/main/java/model/User/loggedIn.json")));
+            User loggedInUser = gson.fromJson(text, User.class);
+            return loggedInUser;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    public static void loadCardsFromJson() {
+    public static void saveLoggedInUser(User loggedInUser) {
+        try {
+            Gson gson = new Gson();
+            String json = gson.toJson(loggedInUser);
+            FileWriter fileWriter = new FileWriter("src/main/java/model/User/loggedIn.json");
+            fileWriter.write(json);
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public static void clearLoggedInUser() {
+        try {
+            FileWriter fileWriter = new FileWriter("src/main/java/model/User/loggedIn.json");
+            fileWriter.write("");
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

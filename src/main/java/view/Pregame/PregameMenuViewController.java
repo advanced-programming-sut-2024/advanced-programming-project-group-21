@@ -46,6 +46,7 @@ public class PregameMenuViewController {
     public Label outOf10;
     public Button nextButton;
     public TextField nextPlayerField;
+    public Label playerName;
     PreGameController controller = new PreGameController();
 
 
@@ -81,12 +82,13 @@ public class PregameMenuViewController {
         totalSpecial.setText("0");
         totalUnit.setText("0");
         totalStrength.setText("0");
+        playerName.setText(preGame.getCurrentPlayer().getNickname());
         for (Card card : preGame.getDeckCards()) {
-            loadStat(card);
+            loadStatCard(card);
         }
     }
 
-    private void loadStat(Card card) {
+    private void loadStatCard(Card card) {
         PreGame preGame = ApplicationController.preGame;
         if (card.isHero()) {
             totalHero.setText(Integer.toString(Integer.parseInt(totalHero.getText()) + 1));

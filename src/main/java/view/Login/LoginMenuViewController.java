@@ -3,14 +3,18 @@ package view.Login;
 import controller.ApplicationController;
 import controller.DataBaseController;
 import controller.LoginMenuController;
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import model.App;
 import model.User.User;
-import view.Main.MainMenuView;
+import view.AuthenticationCode.AuthenticationMenuView;
 import view.ForgetPassword.ForgetPasswordMenuView;
+import view.Main.MainMenuView;
 import view.Register.RegisterMenuView;
 
 import java.io.IOException;
@@ -20,9 +24,12 @@ public class LoginMenuViewController {
     public PasswordField passwordField;
     public Label topText;
     public LoginMenuController loginMenuController = new LoginMenuController();
+    public static String username;
+    public static Stage authStage;
 
     public void loginClicked(MouseEvent mouseEvent) {
         String username = usernameField.getText();
+        LoginMenuViewController.username = username;
         String password = passwordField.getText();
         int loginAns = loginMenuController.loginUser(username, password);
         if (loginAns != 0) {
@@ -46,6 +53,14 @@ public class LoginMenuViewController {
                 alert.showAndWait();
             }
         } else {
+//            try {
+//                loginMenuController.sendEmail(username);
+//                authStage = new Stage();
+//                new AuthenticationMenuView().start(authStage);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+            //TODO: remove when releasing
             try {
                 new MainMenuView().start(ApplicationController.getStage());
             } catch (Exception e) {
@@ -81,5 +96,31 @@ public class LoginMenuViewController {
     public void Exit(MouseEvent mouseEvent) {
         DataBaseController.saveUsersToJson();
         System.exit(0);
+    }
+
+    public static boolean checkLoggedIn() {
+        User loggedInUser = DataBaseController.loadLoggedInUser();
+        if (loggedInUser != null) {
+            System.out.println("User is logged in");
+            ApplicationController.setLoggedInUser(loggedInUser);
+            try {
+                Platform.runLater(() -> {
+                    try {
+                        ApplicationController.setStage(new Stage());
+                        DataBaseController.loadUsersFromJson();
+                        new MainMenuView().start(ApplicationController.getStage());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        System.out.println("Failed to start MainMenuView");
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return true;
+        } else {
+            System.out.println("no user found");
+            return false;
+        }
     }
 }
