@@ -46,7 +46,6 @@ public class QuestionMenuController {
         User user = User.getUserByUsername(username);
         assert user != null;
         user.setPassword(pass);
-        User.setLoggedInUser(user);
         ApplicationController.setLoggedInUser(user);
     }
 }

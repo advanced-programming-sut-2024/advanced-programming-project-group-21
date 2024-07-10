@@ -53,10 +53,16 @@ public class LoginMenuViewController {
                 alert.showAndWait();
             }
         } else {
+//            try {
+//                loginMenuController.sendEmail(username);
+//                authStage = new Stage();
+//                new AuthenticationMenuView().start(authStage);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+            //TODO: remove when releasing
             try {
-                loginMenuController.sendEmail(username);
-                authStage = new Stage();
-                new AuthenticationMenuView().start(authStage);
+                new MainMenuView().start(ApplicationController.getStage());
             } catch (Exception e) {
                 e.printStackTrace();
             }

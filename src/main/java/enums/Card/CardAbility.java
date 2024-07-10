@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public enum CardAbility {
-    COMMANDERS_HORN("Commander's Horn", "Double the strength of all unit cards in the row") {
+    COMMANDERS_HORN("Commander's Horn", "Double the strength of all unit cards in the row","file:src/main/resources/Images/Icons/card_ability_horn.png") {
         @Override
         public void doAbility(AnchorPane card, AnchorPane target) {
             Card cardObject = (Card) card.getUserData();
@@ -39,28 +39,31 @@ public enum CardAbility {
             }
         }
     },
-    DECOY("Decoy", "Return a card to your hand") {
+    DECOY("Decoy", "Return a card to your hand","file:src/main/resources/Images/Icons/card_ability_decoy.png") {
         @Override
         public void doAbility(AnchorPane card, AnchorPane target) {
             Card targetCard = (Card) target.getUserData();
             Player player = ApplicationController.game.getCurrentPlayer();
             if (targetCard.getCardPosition().equals(CardPositions.CLOSED_COMBAT)) {
-                player.addToClosedCombatUnits(target);
+                player.addToClosedCombatUnits(card);
             } else if (targetCard.getCardPosition().equals(CardPositions.RANGED_COMBAT)) {
-                player.addToRangedCombatUnits(target);
+                player.addToRangedCombatUnits(card);
             } else if (targetCard.getCardPosition().equals(CardPositions.SIEGE_COMBAT)) {
-                player.addToSiegeCombatUnits(target);
+                player.addToSiegeCombatUnits(card);
             }
             ApplicationController.game.getCurrentPlayer().getHand().add(target);
         }
     },
-    MEDIC("Medic", "Choose one card from your discard pile and play it instantly") {
+    MEDIC("Medic", "Choose one card from your discard pile and play it instantly","file:src/main/resources/Images/Icons/card_ability_medic.png") {
         @Override
         public void doAbility(AnchorPane card, AnchorPane target) {
             Player player = ApplicationController.game.getCurrentPlayer();
             AnchorPane randomCardPane = getRandomCardFromDiscardPile();
             Card randomCard = (Card) randomCardPane.getUserData();
 
+            if(randomCard==null){
+                return;
+            }
             if (randomCard.getCardPosition().equals(CardPositions.CLOSED_COMBAT)) {
                 player.addToClosedCombatUnits(randomCardPane);
             } else if (randomCard.getCardPosition().equals(CardPositions.RANGED_COMBAT)) {
@@ -80,7 +83,7 @@ public enum CardAbility {
             return discardPile.get(randomIndex);
         }
     },
-    MORALE_BOOST("Morale Boost", "Adds one to the power of all units in the row (excluding itself)") {
+    MORALE_BOOST("Morale Boost", "Adds one to the power of all units in the row (excluding itself)","file:src/main/resources/Images/Icons/card_ability_morale.png") {
         @Override
         public void doAbility(AnchorPane card, AnchorPane target) {
             Card cardObject = (Card) card.getUserData();
@@ -89,28 +92,28 @@ public enum CardAbility {
                 for (AnchorPane unit : player.getClosedCombatUnits()) {
                     if (unit != card) {
                         Card unitCard = (Card) unit.getUserData();
-                        unitCard.setPowerModifier(unitCard.getPowerModifier()+1);
+                        unitCard.setPowerModifier(unitCard.getPowerModifier() + 1);
                     }
                 }
             else if (cardObject.getCardPosition().equals(CardPositions.RANGED_COMBAT))
                 for (AnchorPane unit : player.getRangedCombatUnits()) {
                     if (unit != card) {
                         Card unitCard = (Card) unit.getUserData();
-                        unitCard.setPowerModifier(unitCard.getPowerModifier()+1);
+                        unitCard.setPowerModifier(unitCard.getPowerModifier() + 1);
                     }
                 }
             else if (cardObject.getCardPosition().equals(CardPositions.SIEGE_COMBAT))
                 for (AnchorPane unit : player.getSiegeCombatUnits()) {
                     if (unit != card) {
                         Card unitCard = (Card) unit.getUserData();
-                        unitCard.setPowerModifier(unitCard.getPowerModifier()+1);
+                        unitCard.setPowerModifier(unitCard.getPowerModifier() + 1);
                     }
                 }
 
         }
     },
 
-    MUSTER("Muster", "Play all cards with the same name from your deck and hand instantly") {
+    MUSTER("Muster", "Play all cards with the same name from your deck and hand instantly", "file:src/main/resources/Images/Icons/card_ability_muster.png") {
         @Override
         public void doAbility(AnchorPane card, AnchorPane target) {
             Card cardObject = (Card) card.getUserData();
@@ -160,7 +163,7 @@ public enum CardAbility {
         }
     },
 
-    SPY("Spy", "Place on your opponent's battlefield and get two cards from your deck") {
+    SPY("Spy", "Place on your opponent's battlefield and get two cards from your deck","file:src/main/resources/Images/Icons/card_ability_spy.png") {
         @Override
         public void doAbility(AnchorPane card, AnchorPane target) {
             Player player = ApplicationController.game.getCurrentPlayer();
@@ -171,7 +174,7 @@ public enum CardAbility {
         }
     },
 
-    TIGHT_BOND("Tight Bond", "Place next to a card with the same name to increase the strength of both cards") {
+    TIGHT_BOND("Tight Bond", "Place next to a card with the same name to increase the strength of both cards","file:src/main/resources/Images/Icons/card_ability_bond.png") {
         @Override
         public void doAbility(AnchorPane card, AnchorPane target) {
             Card cardObject = (Card) card.getUserData();
@@ -209,21 +212,21 @@ public enum CardAbility {
                     for (AnchorPane unit : player.getClosedCombatUnits()) {
                         Card unitCard = (Card) unit.getUserData();
                         if (unitCard.getName().equals(key)) {
-                            unitCard.setPowerCoefficient(unitCard.getPowerCoefficient()+cards.get(key));
+                            unitCard.setPowerCoefficient(unitCard.getPowerCoefficient() + cards.get(key));
                         }
                     }
                 } else if (cardObject.getCardPosition().equals(CardPositions.RANGED_COMBAT)) {
                     for (AnchorPane unit : player.getRangedCombatUnits()) {
                         Card unitCard = (Card) unit.getUserData();
                         if (unitCard.getName().equals(key)) {
-                            unitCard.setPowerCoefficient(unitCard.getPowerCoefficient()+cards.get(key));
+                            unitCard.setPowerCoefficient(unitCard.getPowerCoefficient() + cards.get(key));
                         }
                     }
                 } else if (cardObject.getCardPosition().equals(CardPositions.SIEGE_COMBAT)) {
                     for (AnchorPane unit : player.getSiegeCombatUnits()) {
                         Card unitCard = (Card) unit.getUserData();
                         if (unitCard.getName().equals(key)) {
-                            unitCard.setPowerCoefficient(unitCard.getPowerCoefficient()+cards.get(key));
+                            unitCard.setPowerCoefficient(unitCard.getPowerCoefficient() + cards.get(key));
                         }
                     }
                 }
@@ -232,7 +235,7 @@ public enum CardAbility {
         }
     },
 
-    SCORCH("Scorch", "Destroy the strongest cards on the battlefield") {
+    SCORCH("Scorch", "Destroy the strongest cards on the battlefield","file:src/main/resources/Images/Icons/card_ability_scorch.png") {
         @Override
         public void doAbility(AnchorPane card, AnchorPane target) {
             Card cardObject = (Card) card.getUserData();
@@ -316,54 +319,175 @@ public enum CardAbility {
         }
     },
 
-    BERSEKER("Berserker", "Turns to a bear when mardroeme is played on it.") {
+    BERSEKER("Berserker", "Turns to a bear when mardroeme is played on it.","file:src/main/resources/Images/Icons/card_ability_berserker.png") {
         @Override
         public void doAbility(AnchorPane card, AnchorPane target) {
-            // Does nothing by itself
+            Card cardObject = (Card) card.getUserData();
+            AnchorPane bear = createBear(cardObject);
+            if(cardObject.getCardPosition().equals(CardPositions.CLOSED_COMBAT)){
+                for(AnchorPane unit : ApplicationController.game.getCurrentPlayer().getClosedCombatUnits()){
+                    if(((Card) unit.getUserData()).getAbility().equals(CardAbility.MARDOEME)){
+                        ApplicationController.game.getCurrentPlayer().getClosedCombatUnits().remove(card);
+                        ApplicationController.game.getCurrentPlayer().addToClosedCombatUnits(bear);
+                        return;
+                    }
+                }
+            }
+            else if(cardObject.getCardPosition().equals(CardPositions.RANGED_COMBAT)){
+                for(AnchorPane unit : ApplicationController.game.getCurrentPlayer().getRangedCombatUnits()){
+                    if(((Card) unit.getUserData()).getAbility().equals(CardAbility.MARDOEME)){
+                        ApplicationController.game.getCurrentPlayer().getRangedCombatUnits().remove(card);
+                        ApplicationController.game.getCurrentPlayer().addToRangedCombatUnits(bear);
+                        return;
+                    }
+                }
+            }
+            else if(cardObject.getCardPosition().equals(CardPositions.SIEGE_COMBAT)){
+                for(AnchorPane unit : ApplicationController.game.getCurrentPlayer().getSiegeCombatUnits()){
+                    if(((Card) unit.getUserData()).getAbility().equals(CardAbility.MARDOEME)){
+                        ApplicationController.game.getCurrentPlayer().getSiegeCombatUnits().remove(card);
+                        ApplicationController.game.getCurrentPlayer().addToSiegeCombatUnits(bear);
+                        return;
+                    }
+                }
+            }
+            checkInSpecials(card, bear);
         }
-    },
 
-    MARDOEME("Mardroeme", "Turns a berserker to a bear.") {
-        @Override
-        public void doAbility(AnchorPane card, AnchorPane target) {
-            Card cardObject = (Card) target.getUserData();
-            if (cardObject.getType().equals(BERSEKER)) {
-                // TODO: make a bear and set the target as the bear
+        private void checkInSpecials(AnchorPane card, AnchorPane bear) {
+            Player player = ApplicationController.game.getCurrentPlayer();
+            if(player.getClosedCombatSpecial() != null){
+                if(((Card) player.getClosedCombatSpecial().getUserData()).getAbility().equals(CardAbility.MARDOEME)){
+                    player.getSiegeCombatUnits().remove(card);
+                    player.addToClosedCombatUnits(bear);
+                }
+            }
+            else if(player.getRangedCombatSpecial() != null){
+                if(((Card) player.getRangedCombatSpecial().getUserData()).getAbility().equals(CardAbility.MARDOEME)){
+                    player.getSiegeCombatUnits().remove(card);
+                    player.addToRangedCombatUnits(bear);
+                }
+            }
+            else if(player.getSiegeCombatSpecial() != null){
+                if(((Card) player.getSiegeCombatSpecial().getUserData()).getAbility().equals(CardAbility.MARDOEME)){
+                    player.getSiegeCombatUnits().remove(card);
+                    player.addToSiegeCombatUnits(bear);
+                }
             }
         }
+
+        private AnchorPane createBear(Card cardObject) {
+            Card bear = null;
+            if(cardObject.getCardEnum().equals(CardEnum.BERSEERKER)){
+                bear = new Card(CardEnum.VIDKAARL);
+            }
+            else if(cardObject.getCardEnum().equals(CardEnum.YOUNG_BERSERKER)){
+                bear = new Card(CardEnum.YOUNG_VIDKAARL);
+            }
+            return ((new GameMenuViewController()).createCard(bear));
+        }
     },
 
-    TRANSFORMERMS("Transformers", "Transforms into a random card with power 8.") {
+    MARDOEME("Mardroeme", "Turns a berserker to a bear.","file:src/main/resources/Images/Icons/card_ability_mardroeme.png") {
         @Override
         public void doAbility(AnchorPane card, AnchorPane target) {
-            // Does nothing by default
+            Card cardObject = (Card) card.getUserData();
+            AnchorPane bear = createBear(cardObject);
+            if(cardObject.getCardPosition().equals(CardPositions.CLOSED_COMBAT)){
+                for(AnchorPane unit : ApplicationController.game.getCurrentPlayer().getClosedCombatUnits()){
+                    if(((Card) unit.getUserData()).getAbility().equals(CardAbility.BERSEKER)){
+                        ApplicationController.game.getCurrentPlayer().getClosedCombatUnits().remove(unit);
+                        ApplicationController.game.getCurrentPlayer().addToClosedCombatUnits(bear);
+                        return;
+                    }
+                }
+            }
+            else if(cardObject.getCardPosition().equals(CardPositions.RANGED_COMBAT)){
+                for(AnchorPane unit : ApplicationController.game.getCurrentPlayer().getRangedCombatUnits()){
+                    if(((Card) unit.getUserData()).getAbility().equals(CardAbility.BERSEKER)){
+                        ApplicationController.game.getCurrentPlayer().getRangedCombatUnits().remove(unit);
+                        ApplicationController.game.getCurrentPlayer().addToRangedCombatUnits(bear);
+                        return;
+                    }
+                }
+            }
+            else if(cardObject.getCardPosition().equals(CardPositions.SIEGE_COMBAT)){
+                for(AnchorPane unit : ApplicationController.game.getCurrentPlayer().getSiegeCombatUnits()){
+                    if(((Card) unit.getUserData()).getAbility().equals(CardAbility.BERSEKER)){
+                        ApplicationController.game.getCurrentPlayer().getSiegeCombatUnits().remove(unit);
+                        ApplicationController.game.getCurrentPlayer().addToSiegeCombatUnits(bear);
+                        return;
+                    }
+                }
+            }
+            checkInSpecials(card, bear);
+        }
+
+        private void checkInSpecials(AnchorPane card, AnchorPane bear) {
+            Player player = ApplicationController.game.getCurrentPlayer();
+            if(((Card)card.getUserData()).getCardPosition().equals(CardPositions.CLOSED_COMBAT_SPECIAL)) {
+                for (AnchorPane unit : player.getClosedCombatUnits()) {
+                    if (((Card) unit.getUserData()).getAbility().equals(CardAbility.BERSEKER)) {
+                        player.getClosedCombatUnits().remove(unit);
+                        player.addToClosedCombatUnits(bear);
+                    }
+                }
+            }
+            else if(((Card)card.getUserData()).getCardPosition().equals(CardPositions.RANGED_COMBAT_SPECIAL)) {
+                for (AnchorPane unit : player.getRangedCombatUnits()) {
+                    if (((Card) unit.getUserData()).getAbility().equals(CardAbility.BERSEKER)) {
+                        player.getRangedCombatUnits().remove(unit);
+                        player.addToRangedCombatUnits(bear);
+                    }
+                }
+            }
+            else if(((Card)card.getUserData()).getCardPosition().equals(CardPositions.SIEGE_COMBAT_SPECIAL)) {
+                for (AnchorPane unit : player.getSiegeCombatUnits()) {
+                    if (((Card) unit.getUserData()).getAbility().equals(CardAbility.BERSEKER)) {
+                        player.getSiegeCombatUnits().remove(unit);
+                        player.addToSiegeCombatUnits(bear);
+                    }
+                }
+            }
+        }
+
+        private AnchorPane createBear(Card cardObject) {
+            Card bear = null;
+            if(cardObject.getCardEnum().equals(CardEnum.BERSEERKER)){
+                bear = new Card(CardEnum.VIDKAARL);
+            }
+            else if(cardObject.getCardEnum().equals(CardEnum.YOUNG_BERSERKER)){
+                bear = new Card(CardEnum.YOUNG_VIDKAARL);
+            }
+            return ((new GameMenuViewController()).createCard(bear));
+        }
+    },
+
+    TRANSFORMERMS("Transformers", "Transforms into a random card with power 8.","file:src/main/resources/Images/Icons/card_ability_transformer.png") {
+        @Override
+        public void doAbility(AnchorPane card, AnchorPane target) {
+            Card cardObject = (Card) card.getUserData();
+            if (cardObject.getCardPosition().equals(CardPositions.DISCARD_PILE)
+                    && (ApplicationController.game.getGameState().equals(GameStates.ROUND_2_STARTED) ||
+                    ApplicationController.game.getGameState().equals(GameStates.ROUND_3_STARTED))) {
+                transform(card, ApplicationController.game.getCurrentPlayer());
+            }
         }
 
         public void transform(AnchorPane card, Player player) {
-            if (!((Card) card.getUserData()).getAbility().equals(TRANSFORMERMS))
-                return;
             AnchorPane target = getRandomCard();
-            for (AnchorPane unit : player.getClosedCombatUnits()) {
-                if (unit.equals(card)) {
-                    player.getClosedCombatUnits().remove(unit);
-                    player.getClosedCombatUnits().add(target);
-                    return;
-                }
+            Card targetCard = (Card) target.getUserData();
+            player.removeFromDiscardPile(card);
+            if(targetCard.getType().equals(CardType.CLOSED_COMBAT_UNIT) || targetCard.getType().equals(CardType.AGILE_UNIT)){
+                player.addToClosedCombatUnits(target);
             }
-            for (AnchorPane unit : player.getRangedCombatUnits()) {
-                if (unit.equals(card)) {
-                    player.getRangedCombatUnits().remove(unit);
-                    player.getRangedCombatUnits().add(target);
-                    return;
-                }
+            else if(targetCard.getType().equals(CardType.RANGED_UNIT)){
+                player.addToRangedCombatUnits(target);
             }
-            for (AnchorPane unit : player.getSiegeCombatUnits()) {
-                if (unit.equals(card)) {
-                    player.getSiegeCombatUnits().remove(unit);
-                    player.getSiegeCombatUnits().add(target);
-                    return;
-                }
+            else if(targetCard.getType().equals(CardType.SIEGE_UNIT)){
+                player.addToSiegeCombatUnits(target);
             }
+
         }
 
         private AnchorPane getRandomCard() {
@@ -376,7 +500,7 @@ public enum CardAbility {
             return null;
         }
     },
-    NONE("None", "No ability") {
+    NONE("None", "No ability","") {
         @Override
         public void doAbility(AnchorPane card, AnchorPane target) {
             // Does nothing by default
@@ -385,14 +509,13 @@ public enum CardAbility {
 
     private String name;
     private String description;
-//    private String onCardImage; // TODO: Implement this
-//    private String effectImage;
+    private String onCardImage;
 
-    CardAbility(String name, String description) {
+    CardAbility(String name, String description, String onCardImage) {
         this.name = name;
         this.description = description;
-//        this.onCardImage = onCardImage;
-//        this.effectImage = effectImage;
+        this.onCardImage = onCardImage;
+
     }
 
     public abstract void doAbility(AnchorPane card, AnchorPane target);
@@ -403,6 +526,10 @@ public enum CardAbility {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getOnCardImage() {
+        return onCardImage;
     }
 }
 
