@@ -1,6 +1,7 @@
 package view.Pregame;
 
 import controller.ApplicationController;
+import controller.DataBaseController;
 import controller.PreGameController;
 import enums.Card.CardEnum;
 import enums.Card.CardType;
@@ -50,7 +51,7 @@ public class PregameMenuViewController {
     PreGameController controller = new PreGameController();
 
 
-    public void initialize() {
+    public  void initialize() {
         PreGame preGame = ApplicationController.preGame;
         if (preGame == null) {
             preGame = new PreGame();
@@ -500,8 +501,14 @@ public class PregameMenuViewController {
     }
 
     public void downloadDeck(MouseEvent mouseEvent) {
+        //save deck
+        controller.saveToPlayer();
+        DataBaseController.saveDeck();
     }
 
     public void uploadDeck(MouseEvent mouseEvent) {
+        //load deck
+        DataBaseController.loadDeck();
+        loadDeckCards(ApplicationController.preGame.getFaction());
     }
 }
