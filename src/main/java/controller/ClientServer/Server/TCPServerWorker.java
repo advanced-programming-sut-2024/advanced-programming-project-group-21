@@ -3,6 +3,7 @@ package controller.ClientServer.Server;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import controller.ClientServer.MessageClasses.*;
+import controller.LoginMenuController;
 import controller.QuestionMenuController;
 import controller.RegisterMenuController;
 import model.Game;
@@ -223,16 +224,14 @@ public class TCPServerWorker extends Thread {
         String username = msg.getUsername();
         String password = msg.getPassword();
         User user = User.getUserByUsername(username);
-        if (user == null) {
-            sendFailure(INVALID_USERNAME);
-            return;
+        int answer = (new LoginMenuController()).loginUser(username, password);
+        if(answer == 0){
+            user.setCurrentToken(generateNewToken());
+            sendSuccess(user.getCurrentToken());
         }
-        if (!user.getPassword().equals(password)) {
-            sendFailure(WRONG_PASSWORD);
-            return;
+        else{
+            sendFailure(Integer.valueOf(answer).toString());
         }
-        user.setCurrentToken(generateNewToken());
-        sendSuccess(user.getCurrentToken());
     }
 
     private void forgetPassword(ForgetPasswordMessage msg) {
@@ -240,22 +239,8 @@ public class TCPServerWorker extends Thread {
         if (answer == 0) {
             (new QuestionMenuController()).changePassword(msg.getUsername(), msg.getNewPassword());
             sendSuccess("password changed successfully");
-        } else if (answer == 1) {
-            sendFailure("username is empty");
-        } else if (answer == 2) {
-            sendFailure("question is empty");
-        } else if (answer == 3) {
-            sendFailure("answer is empty");
-        } else if (answer == 4) {
-            sendFailure("no user exists with such username");
-        } else if (answer == 5) {
-            sendFailure("question not found for this user");
-        } else if (answer == 6) {
-            sendFailure("wrong answer");
-        } else if (answer == 7) {
-            sendFailure("password is empty");
-        } else if (answer == 8) {
-            sendFailure("password and confirm must be the same");
+        } else{
+            sendFailure(Integer.valueOf(answer).toString());
         }
     }
 

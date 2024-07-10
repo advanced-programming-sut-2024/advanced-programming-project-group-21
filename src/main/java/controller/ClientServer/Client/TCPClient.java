@@ -2,6 +2,7 @@ package controller.ClientServer.Client;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import controller.ClientServer.MessageClasses.LoginMessage;
 import controller.ClientServer.MessageClasses.ServerMessage;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -20,10 +21,18 @@ public class TCPClient {
     private DataOutputStream sendBuffer;
     private Gson gsonAgent;
     private ServerMessage lastServerMessage;
+    private static TCPClient instance = null;
 
     private TCPClient() {
         GsonBuilder builder = new GsonBuilder();
         this.gsonAgent = builder.create();
+    }
+
+    public static TCPClient getInstance(){
+        if(instance == null){
+            instance = new TCPClient();
+        }
+        return instance;
     }
 
     private boolean establishConnection() {
@@ -82,10 +91,25 @@ public class TCPClient {
         });
     }
 
+    // Functions
+    public String login(String username, String password) {
+        LoginMessage loginMessage = new LoginMessage(username, password);
+        establishConnection();
+        sendMessage(gsonAgent.toJson(loginMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
+    }
+
+    public String signup(String username, String password) {
+        return null;
+    }
+
 
     public static void main(String[] args) {
         Application.launch(LoginMenuView.class, args);
-        TCPClient client = new TCPClient();
+        TCPClient client = TCPClient.getInstance();
         client.start();
     }
 }
