@@ -1,9 +1,9 @@
 [
   {
-    "username": "a",
-    "nickname": "a",
-    "password": "a",
-    "email": "a",
+    "username": "sam",
+    "nickname": "sam",
+    "password": "sam",
+    "email": "sam",
     "questions": {},
     "rank": 0,
     "highestScore": 0.0,
@@ -12,7 +12,7 @@
     "lose": 0,
     "draw": 0,
     "gameHistories": [],
-    "isStayingLoggedIn": true,
+    "isStayingLoggedIn": false,
     "friends": []
   }
 ]

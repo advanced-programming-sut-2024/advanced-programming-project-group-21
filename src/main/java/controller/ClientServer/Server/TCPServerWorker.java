@@ -167,7 +167,7 @@ public class TCPServerWorker extends Thread {
         } else if (msg instanceof LogoutMessage) {
             logoutUser((LogoutMessage)msg);
         } else if (msg instanceof MoveCardMessage) {
-            moveCard((MoveCardMessage) msg);
+            //moveCard((MoveCardMessage) msg);
         } else if (msg instanceof PreGameMessage) {
             //do something
         } else if (msg instanceof RequestFriendMessage) {
@@ -197,19 +197,19 @@ public class TCPServerWorker extends Thread {
             sendFailure(INVALID_USERNAME);
             return;
         }
-        Player enemyPlayer = enemyUser.getPlayer();
-        if (enemyPlayer!=null){
-            sendFailure("they are already in a game");
-            return;
-        }
-        if(user.requestGame(enemyUser)){
-            sendSuccess("game requested successfully");
-            return;
-        }
-        else{
-            sendFailure("someone has requested to them already");
-            return;
-        }
+//        Player enemyPlayer = enemyUser.getPlayer();
+//        if (enemyPlayer!=null){
+//            sendFailure("they are already in a game");
+//            return;
+//        }
+//        if(user.requestGame(enemyUser)){
+//            sendSuccess("game requested successfully");
+//            return;
+//        }
+//        else{
+//            sendFailure("someone has requested to them already");
+//            return;
+//        }
     }
 
     private void signupUser(SignupMessage msg) {
@@ -316,21 +316,21 @@ public class TCPServerWorker extends Thread {
         sendSuccess("nickname changed successfully");
     }
 
-    private void moveCard(MoveCardMessage msg) {
-        String token = msg.getToken();
-        User user = User.findUserByToken(token);
-        if (user == null) {
-            sendFailure(INVALID_TOKEN);
-            return;
-        }
-        Player player = user.getPlayer();
-        Game game = player.getGame();
-        if (game == null) {
-            sendFailure("you are not in a game");
-            return;
-        }
-
-    }
+//    private void moveCard(MoveCardMessage msg) {
+//        String token = msg.getToken();
+//        User user = User.findUserByToken(token);
+//        if (user == null) {
+//            sendFailure(INVALID_TOKEN);
+//            return;
+//        }
+//        Player player = user.getPlayer();
+//        Game game = player.getGame();
+//        if (game == null) {
+//            sendFailure("you are not in a game");
+//            return;
+//        }
+//
+//    }
 
     private void changeEmail(ChangeEmailMessage msg) {
         String token = msg.getToken();
