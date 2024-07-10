@@ -173,7 +173,7 @@ public class TCPServerWorker extends Thread {
         } else if (msg instanceof RequestFriendMessage) {
             //do something
         } else if (msg instanceof RequestGameMessage) {
-            //do something
+            requestGame((RequestGameMessage)msg);
         } else if (msg instanceof SignupMessage) {
             signupUser((SignupMessage) msg);
         } else if (msg instanceof SkipTurnMessage) {
@@ -182,6 +182,33 @@ public class TCPServerWorker extends Thread {
             //do something
         } else {
             // do something
+        }
+    }
+
+    private void requestGame(RequestGameMessage msg) {
+        String token = msg.getToken();
+        User user = User.findUserByToken(token);
+        if (user == null) {
+            sendFailure(INVALID_TOKEN);
+            return;
+        }
+        User enemyUser = User.getUserByUsername(msg.getFriendName());
+        if (enemyUser == null) {
+            sendFailure(INVALID_USERNAME);
+            return;
+        }
+        Player enemyPlayer = enemyUser.getPlayer();
+        if (enemyPlayer!=null){
+            sendFailure("they are already in a game");
+            return;
+        }
+        if(user.requestGame(enemyUser)){
+            sendSuccess("game requested successfully");
+            return;
+        }
+        else{
+            sendFailure("someone has requested to them already");
+            return;
         }
     }
 

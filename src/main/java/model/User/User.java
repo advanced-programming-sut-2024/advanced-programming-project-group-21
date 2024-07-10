@@ -38,6 +38,7 @@ public class User {
     private String currentToken;
 
     private static HashMap<String, User> allUsersByToken = new HashMap<String, User>();
+    private User enemyUser = null;
 
     public User(String username, String nickname, String password, String email) {
         this.username = username;
@@ -233,4 +234,11 @@ public class User {
         allUsersByToken.remove(token);
     }
 
+    public boolean requestGame(User enemyUser) {
+        if(this.enemyUser==null){
+            this.enemyUser=enemyUser;
+            return true;
+        }
+        return false;
+    }
 }
