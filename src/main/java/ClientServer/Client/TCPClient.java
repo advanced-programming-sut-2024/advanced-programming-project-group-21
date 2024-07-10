@@ -1,11 +1,8 @@
 package ClientServer.Client;
 
-import ClientServer.MessageClasses.GetUserMessage;
+import ClientServer.MessageClasses.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import ClientServer.MessageClasses.AcceptGameMessage;
-import ClientServer.MessageClasses.LoginMessage;
-import ClientServer.MessageClasses.ServerMessage;
 import controller.ApplicationController;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -18,6 +15,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class TCPClient {
 
@@ -131,7 +130,7 @@ public class TCPClient {
     }
 
     public String acceptGameRequest(String username, String friendName) {
-        AcceptGameMessage acceptGameMessage = new AcceptGameMessage("username", "friendName", true);
+        AcceptGameMessage acceptGameMessage = new AcceptGameMessage(username, friendName, true);
         establishConnection();
         sendMessage(gsonAgent.toJson(acceptGameMessage));
         lastServerMessage = gsonAgent.fromJson(
@@ -140,10 +139,21 @@ public class TCPClient {
         return lastServerMessage.getAdditionalInfo();
     }
 
-    public String rejectGameRequest() {
-        AcceptGameMessage acceptGameMessage = new AcceptGameMessage("username", "friendName", false);
+    public String rejectGameRequest(String username, String friendName) {
+        AcceptGameMessage acceptGameMessage = new AcceptGameMessage(username, friendName, false);
         establishConnection();
         sendMessage(gsonAgent.toJson(acceptGameMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
+    }
+
+    public String getGameRequest(){
+        String enemyName = null;
+        GetRequestGameMessage getRequestGameMessage = new GetRequestGameMessage(ApplicationController.getLoggedInUser().getUsername());
+        establishConnection();
+        sendMessage(gsonAgent.toJson(getRequestGameMessage));
         lastServerMessage = gsonAgent.fromJson(
                 receiveResponse(), ServerMessage.class);
         endConnection();

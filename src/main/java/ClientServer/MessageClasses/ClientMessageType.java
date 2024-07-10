@@ -19,4 +19,6 @@ public enum ClientMessageType {
     moveCard,
     endGame,
     getUser,
+    getRequestGame,
+    getRequestFriend;
 }

@@ -38,6 +38,7 @@ public class User {
     private static HashMap<String, User> allUsersByToken = new HashMap<String, User>();
     private User enemyUser = null;
     private boolean inGame = false;
+    private boolean searchingForGame = false;
 
     public User(String username, String nickname, String password, String email) {
         this.username = username;
@@ -224,14 +225,6 @@ public class User {
         allUsersByToken.remove(token);
     }
 
-    public boolean requestGame(User enemyUser) {
-        if(this.enemyUser==null){
-            this.enemyUser=enemyUser;
-            return true;
-        }
-        return false;
-    }
-
     public boolean isInGame() {
         return inGame;
     }
@@ -240,7 +233,15 @@ public class User {
         this.inGame = inGame;
     }
 
-    public static void addUserToTokenMap(String token,User user){
+    public static void addUserToTokenMap(String token, User user) {
         allUsersByToken.put(token, user);
+    }
+
+    public boolean isSearchingForGame() {
+        return searchingForGame;
+    }
+
+    public void setSearchingForGame(boolean searchingForGame) {
+        this.searchingForGame = searchingForGame;
     }
 }

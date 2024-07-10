@@ -85,4 +85,7 @@ public class MainMenuViewController {
 
     public void sendRequest(MouseEvent mouseEvent) {
     }
+
+    public void cancelRequest(MouseEvent mouseEvent) {
+    }
 }
