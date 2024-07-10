@@ -16,7 +16,6 @@ module witcher {
     opens model.User;
     opens view to javafx.fxml,com.google.gson;
     opens model to com.google.gson;
-
     exports view.Login;
     opens view.Login to javafx.fxml;
     exports view.Main;

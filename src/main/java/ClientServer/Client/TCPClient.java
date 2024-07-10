@@ -28,8 +28,8 @@ public class TCPClient {
         this.gsonAgent = builder.create();
     }
 
-    public static TCPClient getInstance(){
-        if(instance == null){
+    public static TCPClient getInstance() {
+        if (instance == null) {
             instance = new TCPClient();
         }
         return instance;
