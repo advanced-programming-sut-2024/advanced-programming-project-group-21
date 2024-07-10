@@ -32,8 +32,8 @@ module witcher {
     opens view.Faction to javafx.fxml;
     exports view.Commander;
     opens view.Commander to javafx.fxml;
-    exports view.GameHistory;
     opens view.GameHistory to javafx.fxml;
+    exports view.GameHistory;
     exports view.UserInfo;
     opens view.UserInfo to javafx.fxml;
     exports view.Game;

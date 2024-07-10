@@ -288,7 +288,8 @@ public class ProfileMenuViewController {
         try {
             String inputText = gameHistoryNumber.getText();
             if (inputText.isEmpty()) {
-                new view.GameHistory.GameHistoryMenuView().start(ApplicationController.getStage());
+                int numberOfGames = inputText.isEmpty() ? 5 : Integer.parseInt(inputText); // Use 5 as the default value
+                new view.GameHistory.GameHistoryMenuView(numberOfGames).start(ApplicationController.getStage());
             } else {
                 int numberOfGames = Integer.parseInt(inputText);
                 if (numberOfGames == 0) {
@@ -304,7 +305,7 @@ public class ProfileMenuViewController {
                     alert.setContentText("please enter a valid number");
                     alert.showAndWait();
                 } else if (numberOfGames > 1) {
-                    new view.GameHistory.GameHistoryMenuView().start(ApplicationController.getStage());
+                    new view.GameHistory.GameHistoryMenuView(numberOfGames).start(ApplicationController.getStage());
                 }
             }
 

@@ -12,6 +12,15 @@ import java.net.URL;
 
 public class GameHistoryMenuView extends Application {
     GameHistoryMenuViewController controller;
+    private int numberOfGames;
+
+    public GameHistoryMenuView() {
+        this.numberOfGames = 5; // Default value
+    }
+    public GameHistoryMenuView(int numberOfGames) {
+        this.numberOfGames = numberOfGames;
+
+    }
 
     public static void main(String[] args) {
         launch(args);
