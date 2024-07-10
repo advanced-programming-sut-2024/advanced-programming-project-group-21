@@ -21,7 +21,7 @@ public class TCPClient {
     private Gson gsonAgent;
     private ServerMessage lastServerMessage;
 
-    public TCPClient() {
+    private TCPClient() {
         GsonBuilder builder = new GsonBuilder();
         this.gsonAgent = builder.create();
     }
