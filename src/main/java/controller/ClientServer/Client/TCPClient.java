@@ -1,4 +1,4 @@
-package controller.ClientServer;
+package controller.ClientServer.Client;
 
 import javafx.application.Application;
 import javafx.application.Platform;
