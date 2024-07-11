@@ -37,6 +37,7 @@ public class User {
     private User enemyUser = null;
     private boolean inGame = false;
     private boolean searchingForGame = false;
+    private int gameId = 0;
 
     public User(String username, String nickname, String password, String email) {
         this.username = username;
@@ -258,5 +259,8 @@ public class User {
     }
     public void addToFriends(User user) {
         friends.add(user);
+    }
+    public void setGameId(int gameId) {
+        this.gameId = gameId;
     }
 }

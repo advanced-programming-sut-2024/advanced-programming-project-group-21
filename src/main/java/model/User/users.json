@@ -1,5 +1,24 @@
 {
-  "% n`\u0019v`Q-?5R\u0014\u0017P\u000173B}e\u0011o\u0016\bjwNln[.j\u000bBqH8.PpXtPk\u000e^\u0002vy+\u000b\u0019gRaH#\u000febu\u0026\u000f\u0000`YT)\u0004Jy\u001a_IyG[\u0012\u0010y\u0019\u000fwCD\u0006s}]S\"\u00157\u003e.*\u0006^xgE4w(o;eW\u0012\u0027Lz\u0005^$\u001a`3\u001cZt[\b:e}t Ph%;O{eFM`M/k|\b\u0006KHT|Xg!h3Wp?}C\u0012O\u0003H\b `b@?iPrX J\u0019\n\u001aY$p\\-i\u0007mMRr\u0000 \u0003@)yq8\u003eq#,iC\u0004\u001bUYL(!LM\u0015#\u0019WN(\u000b\u0002\u003e\u001b\u003dlTeh!\u003e\"\u0010\u0017\b\u001a0N\"e2\u0013\u0012Vf\u0019\u001cVX.\u0011N\f%\u0005Hg": {
+  "(,\u0017\u0006xx\u0007CC351a8\f|~|\u001a%\u00017\u001c\u0015\u000b\u003dc#n?9\u003cD\u003d4\u0014Ec\u0011Sf\u0013ij 9\u003dOyB;\b\u0001v\u0013\u001f}~\fe\u000bg\u000bAu\u0010\u001d\u0003`x\u001e\tCQI\" Ta\u001fz\u0011\u0006\t.)\u0013Y~F2\u003cWwN9J\u0010}{|\u0016p!\u000b4x@\u000b!W\u0000;\u00071_TE\u0004m_\u000e{\"dE3\u001eT\tm#ke\u000esr\u0026a53[\u000f\u00003\u00136}K\u0014QLSsHvJ\u001a\u0001\u001f\u0003M9\u0011\u00066SNC\u000e@W\u0004\u0017e\u000f\bNXVDQ\u0017kpj\u0001\u0013AA\u0011UE\u001b6(p AZV99\u0004N|NNyBQ%\u0012\r4(,7\u0015A91IwF\rS$p\b`Q$\"K4D3,vV\\\t%\u0027\u0007\"\u0019Me?F OX": {
+    "username": "a",
+    "nickname": "a",
+    "password": "a",
+    "email": "qwwdq@gmail.com",
+    "questions": {},
+    "rank": 0,
+    "highestScore": 0.0,
+    "gamesPlayed": 0,
+    "wins": 0,
+    "lose": 0,
+    "draw": 0,
+    "gameHistories": [],
+    "isStayingLoggedIn": false,
+    "friends": [],
+    "currentToken": "(,\u0017\u0006xx\u0007CC351a8\f|~|\u001a%\u00017\u001c\u0015\u000b\u003dc#n?9\u003cD\u003d4\u0014Ec\u0011Sf\u0013ij 9\u003dOyB;\b\u0001v\u0013\u001f}~\fe\u000bg\u000bAu\u0010\u001d\u0003`x\u001e\tCQI\" Ta\u001fz\u0011\u0006\t.)\u0013Y~F2\u003cWwN9J\u0010}{|\u0016p!\u000b4x@\u000b!W\u0000;\u00071_TE\u0004m_\u000e{\"dE3\u001eT\tm#ke\u000esr\u0026a53[\u000f\u00003\u00136}K\u0014QLSsHvJ\u001a\u0001\u001f\u0003M9\u0011\u00066SNC\u000e@W\u0004\u0017e\u000f\bNXVDQ\u0017kpj\u0001\u0013AA\u0011UE\u001b6(p AZV99\u0004N|NNyBQ%\u0012\r4(,7\u0015A91IwF\rS$p\b`Q$\"K4D3,vV\\\t%\u0027\u0007\"\u0019Me?F OX",
+    "inGame": false,
+    "searchingForGame": false
+  },
+  "% n`\u0019v`Q-?5R\u0014\u0017P\u000173B}e\u0011o\u0016\bjwNln[.j\u000bBqH8.PpXtPk\u000e^\u0002vy+\u000b\u0019gRaH#\u000febu\u0026\u000f\u0000`YT)\u0004Jy\u001a_IyG[\u0012\u0010y\u0019\u000fwCD\u0006s}]S\"\u00157\u003e.*\u0006^xgE4w(o;eW\u0012\u0027Lz\u0005^$\u001a`3\u001cZt[\b:e}t Ph%;O{eFM`M/k|\b\u0006KHT|Xg!h3Wp?}C\u0012O\u0003H\b `b@?iPrX J\u0019\n\u001aY$p\\-i\u0007mMRr\u0000 \u0003@)yq8\u003eq#,iC\u0004\u001bUYL(!LM\u0015#\u0019WN(\u000b\u0002\u003e\u001b\u003dlTeh!\u003e\"\u0010\u0017\b\u001a0N\"e2\u0013\u0012Vf\u0019\u001cVX.\u0011N\f%\u0005Hg": {
     "username": "sam",
     "nickname": "sam",
     "password": "sam",
@@ -14,7 +33,7 @@
     "gameHistories": [],
     "isStayingLoggedIn": false,
     "friends": [],
-    "currentToken": "% n`\u0019v`Q-?5R\u0014\u0017P\u000173B}e\u0011o\u0016\bjwNln[.j\u000bBqH8.PpXtPk\u000e^\u0002vy+\u000b\u0019gRaH#\u000febu\u0026\u000f\u0000`YT)\u0004Jy\u001a_IyG[\u0012\u0010y\u0019\u000fwCD\u0006s}]S\"\u00157\u003e.*\u0006^xgE4w(o;eW\u0012\u0027Lz\u0005^$\u001a`3\u001cZt[\b:e}t Ph%;O{eFM`M/k|\b\u0006KHT|Xg!h3Wp?}C\u0012O\u0003H\b `b@?iPrX J\u0019\n\u001aY$p\\-i\u0007mMRr\u0000 \u0003@)yq8\u003eq#,iC\u0004\u001bUYL(!LM\u0015#\u0019WN(\u000b\u0002\u003e\u001b\u003dlTeh!\u003e\"\u0010\u0017\b\u001a0N\"e2\u0013\u0012Vf\u0019\u001cVX.\u0011N\f%\u0005Hg",
+    "currentToken": "% n`\u0019v`Q-?5R\u0014\u0017P\u000173B}e\u0011o\u0016\bjwNln[.j\u000bBqH8.PpXtPk\u000e^\u0002vy+\u000b\u0019gRaH#\u000febu\u0026\u000f\u0000`YT)\u0004Jy\u001a_IyG[\u0012\u0010y\u0019\u000fwCD\u0006s}]S\"\u00157\u003e.*\u0006^xgE4w(o;eW\u0012\u0027Lz\u0005^$\u001a`3\u001cZt[\b:e}t Ph%;O{eFM`M/k|\b\u0006KHT|Xg!h3Wp?}C\u0012O\u0003H\b `b@?iPrX J\u0019\n\u001aY$p\\-i\u0007mMRr\u0000 \u0003@)yq8\u003eq#,iC\u0004\u001bUYL(!LM\u0015#\u0019WN(\u000b\u0002\u003e\u001b\u003dlTeh!\u003e\"\u0010\u0017\b\u001a0N\"e2\u0013\u0012Vf\u0019\u001cVX.\u0011N\f%\u0005Hg",
     "inGame": false,
     "searchingForGame": false
   }
