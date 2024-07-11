@@ -306,6 +306,7 @@ public class ProfileMenuViewController {
                     alert.showAndWait();
                 } else if (numberOfGames > 1) {
                     new view.GameHistory.GameHistoryMenuView(numberOfGames).start(ApplicationController.getStage());
+
                 }
             }
         } catch (Exception e) {
