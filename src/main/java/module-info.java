@@ -11,6 +11,8 @@ module witcher {
     requires hamcrest.core;
     requires org.slf4j;
 
+    opens view.Friends to javafx.fxml;
+    exports view.Friends to javafx.fxml;
     opens ClientServer.MessageClasses to com.google.gson;
     exports view.AuthenticationCode;
     exports view;

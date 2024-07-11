@@ -3,14 +3,24 @@ package view.Friends;
 import ClientServer.Client.TCPClient;
 import controller.ApplicationController;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import model.User.User;
 import view.Profile.ProfileMenuView;
 
 public class FriendsMenuViewController {
 
     public TextField usernameTextField;
+    public Label usernameLabel;
+    public Label highestScore;
+    public Label gamesPlayed;
+    public VBox friendProfile;
 
+    public void initialize() {
+        friendProfile.setVisible(false);
+    }
     public void back(MouseEvent mouseEvent) {
         try {
             new ProfileMenuView().start(ApplicationController.getStage());
@@ -47,7 +57,11 @@ public class FriendsMenuViewController {
                 alert.showAndWait();
             }
         } else {
-            //TODO show success
+            User user = User.getUserByUsername(username);
+            usernameLabel.setText(username);
+            highestScore.setText(String.valueOf(user.getHighestScore()));
+            gamesPlayed.setText(String.valueOf(user.getGamesPlayed()));
+            friendProfile.setVisible(true);
         }
     }
 }

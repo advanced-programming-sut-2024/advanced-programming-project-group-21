@@ -3,20 +3,20 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1500.0" stylesheets="@../CSS/VboxStyle.css , @../CSS/ScrollPane.css"
-            xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="view.Friends.FriendsMenuViewController">
-    <Button alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="706.0" mnemonicParsing="false"
-            prefHeight="30.0" prefWidth="90.0" text="Back"/>
+<AnchorPane prefHeight="750.0" prefWidth="1500.0" stylesheets="@../CSS/VboxStyle.css , @../CSS/ScrollPane.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Friends.FriendsMenuViewController">
+    <Button alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="706.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" text="Back" />
     <ScrollPane layoutX="1226.0" layoutY="154.0" prefHeight="442.0" prefWidth="200.0" styleClass="scroll-pane">
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0"/>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
     </ScrollPane>
-    <Label alignment="CENTER" layoutX="1281.0" layoutY="108.0" prefHeight="30.0" prefWidth="90.0" styleClass="label"
-           text="Friends"/>
-    <Button onMouseClicked="#find" alignment="CENTER" layoutX="724.0" layoutY="405.0" mnemonicParsing="false"
-            prefHeight="30.0" prefWidth="90.0" styleClass="button" text="Find"/>
-    <TextField fx:id="usernameTextField" layoutX="646.0" layoutY="362.0" prefHeight="25.0" prefWidth="245.0"
-               promptText="Enter username" styleClass="text-field"/>
-    <Label alignment="CENTER" layoutX="724.0" layoutY="307.0" onMouseClicked="#back" prefHeight="30.0" prefWidth="90.0"
-           styleClass="label" text="Find people "/>
+    <Label alignment="CENTER" layoutX="1281.0" layoutY="108.0" prefHeight="30.0" prefWidth="90.0" styleClass="label" text="Friends" />
+    <Button alignment="CENTER" layoutX="724.0" layoutY="405.0" mnemonicParsing="false" onMouseClicked="#find" prefHeight="30.0" prefWidth="90.0" styleClass="button" text="Find" />
+    <TextField fx:id="usernameTextField" layoutX="646.0" layoutY="362.0" prefHeight="25.0" prefWidth="245.0" promptText="Enter username" styleClass="text-field" />
+    <Label alignment="CENTER" layoutX="724.0" layoutY="307.0" onMouseClicked="#back" prefHeight="30.0" prefWidth="90.0" styleClass="label" text="Find people " />
+   <VBox fx:id="friendProfile" alignment="CENTER" layoutX="59.0" layoutY="277.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" styleClass="vbox">
+      <children>
+         <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" text="Label" styleClass="label"/>
+         <Label fx:id="gamesPlayed" text="Label" styleClass="label"/>
+         <Label fx:id="highestScore" lineSpacing="20.0" text="Label" styleClass="label"/>
+      </children>
+   </VBox>
 </AnchorPane>
