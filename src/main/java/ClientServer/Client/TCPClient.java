@@ -103,12 +103,23 @@ public class TCPClient {
         endConnection();
         return lastServerMessage.getAdditionalInfo();
     }
+
     public String logout(String username) {
         LogoutMessage logoutMessage = new LogoutMessage(username);
         establishConnection();
         String token = ApplicationController.getLoggedInUser().getCurrentToken();
         logoutMessage.setToken(token);
         sendMessage(gsonAgent.toJson(logoutMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
+    }
+
+    public String forgetPassword(String username, String question, String answer, String newPass, String confirm) {
+        ForgetPasswordMessage forgetPasswordMessage = new ForgetPasswordMessage(username, question, answer, newPass, confirm);
+        establishConnection();
+        sendMessage(gsonAgent.toJson(forgetPasswordMessage));
         lastServerMessage = gsonAgent.fromJson(
                 receiveResponse(), ServerMessage.class);
         endConnection();
@@ -166,7 +177,7 @@ public class TCPClient {
         return lastServerMessage.getAdditionalInfo();
     }
 
-    public String getGameRequest(){
+    public String getGameRequest() {
         String enemyName = null;
         GetRequestGameMessage getRequestGameMessage = new GetRequestGameMessage(ApplicationController.getLoggedInUser().getUsername());
         establishConnection();

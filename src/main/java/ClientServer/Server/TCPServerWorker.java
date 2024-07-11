@@ -310,7 +310,7 @@ public class TCPServerWorker extends Thread {
         int answer = (new QuestionMenuController()).submitAnswer(msg.getUsername(), msg.getQuestion(), msg.getAnswer(), msg.getNewPassword(), msg.getConfirmPassword());
         if (answer == 0) {
             (new QuestionMenuController()).changePassword(msg.getUsername(), msg.getNewPassword());
-            sendSuccess("password changed successfully");
+            sendSuccess("0");
         } else {
             sendFailure(Integer.valueOf(answer).toString());
         }

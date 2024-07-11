@@ -1,5 +1,6 @@
 package view.ForgetPassword;
 
+import ClientServer.Client.TCPClient;
 import controller.ApplicationController;
 import controller.QuestionMenuController;
 import enums.SecurityQuestions;
@@ -46,9 +47,9 @@ public class ForgetPasswordMenuViewController {
         String username = usernameField.getText();
         String question = securityQuestionChoiceBox.getValue();
         String answer = securityAnswerField.getText().strip().toLowerCase();
-        String pass = passwordField.getText().strip().toLowerCase();
+        String newPass = passwordField.getText().strip().toLowerCase();
         String confirm = ConfirmPasswordField.getText().strip().toLowerCase();
-        int result = controller.submitAnswer(username, question, answer, pass, confirm);
+        int result = Integer.parseInt(TCPClient.getInstance().forgetPassword(username, question, answer, newPass, confirm));
         if (result != 0) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             if (result == 1) {
@@ -69,7 +70,7 @@ public class ForgetPasswordMenuViewController {
                 passNotSame(alert);
             }
         } else {
-            controller.changePassword(username,pass);
+            controller.changePassword(username,newPass);
             enterMainMenu();
         }
     }

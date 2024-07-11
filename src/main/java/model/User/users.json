@@ -1,27 +1,9 @@
-[
-  {
-    "username": "a",
-    "nickname": "a",
-    "password": "a",
-    "email": "abc@gmail.com",
-    "questions": {},
-    "rank": 0,
-    "highestScore": 0.0,
-    "gamesPlayed": 0,
-    "wins": 0,
-    "lose": 0,
-    "draw": 0,
-    "gameHistories": [],
-    "isStayingLoggedIn": false,
-    "friends": [],
-    "inGame": false,
-    "searchingForGame": false
-  },
-  {
-    "username": "sammy",
+{
+  "% n`\u0019v`Q-?5R\u0014\u0017P\u000173B}e\u0011o\u0016\bjwNln[.j\u000bBqH8.PpXtPk\u000e^\u0002vy+\u000b\u0019gRaH#\u000febu\u0026\u000f\u0000`YT)\u0004Jy\u001a_IyG[\u0012\u0010y\u0019\u000fwCD\u0006s}]S\"\u00157\u003e.*\u0006^xgE4w(o;eW\u0012\u0027Lz\u0005^$\u001a`3\u001cZt[\b:e}t Ph%;O{eFM`M/k|\b\u0006KHT|Xg!h3Wp?}C\u0012O\u0003H\b `b@?iPrX J\u0019\n\u001aY$p\\-i\u0007mMRr\u0000 \u0003@)yq8\u003eq#,iC\u0004\u001bUYL(!LM\u0015#\u0019WN(\u000b\u0002\u003e\u001b\u003dlTeh!\u003e\"\u0010\u0017\b\u001a0N\"e2\u0013\u0012Vf\u0019\u001cVX.\u0011N\f%\u0005Hg": {
+    "username": "sam",
     "nickname": "sam",
-    "password": "Sam!Sam!1",
-    "email": "arshiasamiezad@gmail.com",
+    "password": "sam",
+    "email": "sam@gmail.com",
     "questions": {},
     "rank": 0,
     "highestScore": 0.0,
@@ -32,7 +14,8 @@
     "gameHistories": [],
     "isStayingLoggedIn": false,
     "friends": [],
+    "currentToken": "% n`\u0019v`Q-?5R\u0014\u0017P\u000173B}e\u0011o\u0016\bjwNln[.j\u000bBqH8.PpXtPk\u000e^\u0002vy+\u000b\u0019gRaH#\u000febu\u0026\u000f\u0000`YT)\u0004Jy\u001a_IyG[\u0012\u0010y\u0019\u000fwCD\u0006s}]S\"\u00157\u003e.*\u0006^xgE4w(o;eW\u0012\u0027Lz\u0005^$\u001a`3\u001cZt[\b:e}t Ph%;O{eFM`M/k|\b\u0006KHT|Xg!h3Wp?}C\u0012O\u0003H\b `b@?iPrX J\u0019\n\u001aY$p\\-i\u0007mMRr\u0000 \u0003@)yq8\u003eq#,iC\u0004\u001bUYL(!LM\u0015#\u0019WN(\u000b\u0002\u003e\u001b\u003dlTeh!\u003e\"\u0010\u0017\b\u001a0N\"e2\u0013\u0012Vf\u0019\u001cVX.\u0011N\f%\u0005Hg",
     "inGame": false,
     "searchingForGame": false
   }
-]
+}
