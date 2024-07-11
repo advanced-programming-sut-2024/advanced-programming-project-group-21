@@ -4,10 +4,7 @@ import ClientServer.MessageClasses.*;
 import ClientServer.Server.model.Lobby;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import controller.DataBaseController;
-import controller.LoginMenuController;
-import controller.QuestionMenuController;
-import controller.RegisterMenuController;
+import controller.*;
 import model.User.User;
 
 import java.io.*;
@@ -289,7 +286,6 @@ public class TCPServerWorker extends Thread {
         DataBaseController.loadUsersFromJson();
         String username = msg.getUsername();
         String password = msg.getPassword();
-        User user = User.getUserByUsername(username);
         int answer = (new LoginMenuController()).loginUser(username, password);
         if(answer == 0){
             sendSuccess("0");
@@ -306,8 +302,7 @@ public class TCPServerWorker extends Thread {
             sendFailure(INVALID_TOKEN);
             return;
         }
-        user.removeUserFromTokenMap(token);
-        user.setCurrentToken(null);
+        ApplicationController.setLoggedInUser(null);
         sendSuccess("logged out successfully");
     }
 

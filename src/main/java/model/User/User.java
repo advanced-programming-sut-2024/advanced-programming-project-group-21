@@ -33,7 +33,7 @@ public class User {
     public static final String USERS_DATABASE_PATH = "src/main/java/model/User/users.json";
 
     private String currentToken = null;
-
+    private static ArrayList<User> users = new ArrayList<>();
     private static HashMap<String, User> allUsersByToken = new HashMap<String, User>();
     private User enemyUser = null;
     private boolean inGame = false;

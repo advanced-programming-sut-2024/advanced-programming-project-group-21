@@ -7,20 +7,19 @@ import controller.ApplicationController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import model.App;
 import model.User.User;
-import org.hamcrest.core.StringEndsWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import view.Login.LoginMenuView;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class TCPClient {
 
+    private static final Logger log = LoggerFactory.getLogger(TCPClient.class);
     private Socket socket;
     private DataInputStream receiveBuffer;
     private DataOutputStream sendBuffer;
@@ -109,6 +108,8 @@ public class TCPClient {
     public String logout(String username) {
         LogoutMessage logoutMessage = new LogoutMessage(username);
         establishConnection();
+        String token = ApplicationController.getLoggedInUser().getCurrentToken();
+        logoutMessage.setToken(token);
         sendMessage(gsonAgent.toJson(logoutMessage));
         lastServerMessage = gsonAgent.fromJson(
                 receiveResponse(), ServerMessage.class);
@@ -178,9 +179,9 @@ public class TCPClient {
         return lastServerMessage.getAdditionalInfo();
     }
 
-    public String requestGame(String username, String friendName, String token) {
+    public String requestGame(String username, String friendName) {
         RequestGameMessage requestGameMessage = new RequestGameMessage(username, friendName);
-        requestGameMessage.setToken(token);
+//        requestGameMessage.setToken(token);
         establishConnection();
         sendMessage(gsonAgent.toJson(requestGameMessage));
         lastServerMessage = gsonAgent.fromJson(

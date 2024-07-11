@@ -51,7 +51,6 @@ public class MainMenuViewController {
     public void logout(MouseEvent mouseEvent) {
         String result = TCPClient.getInstance().logout(ApplicationController.getLoggedInUser().getUsername());
         if (result.equals("logged out successfully")) {
-            ApplicationController.setLoggedInUser(null);
             DataBaseController.saveUsersToJson();
             try {
                 new LoginMenuView().start(ApplicationController.getStage());
