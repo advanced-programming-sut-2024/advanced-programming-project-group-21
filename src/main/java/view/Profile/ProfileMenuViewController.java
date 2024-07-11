@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import model.App;
 import model.PreGame;
 import model.User.User;
+import view.Friends.FriendsMenuView;
 import view.Main.MainMenuView;
 import view.Question.QuestionMenuView;
 import view.UserInfo.UserInfoMenuView;
@@ -320,6 +321,14 @@ public class ProfileMenuViewController {
         } else {
             ApplicationController.getLoggedInUser().setStayingLoggedIn(false);
             controller.clearLoggedInUser();
+        }
+    }
+
+    public void goToFriendsMenu(MouseEvent mouseEvent) {
+        try {
+            new FriendsMenuView().start(ApplicationController.getStage());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

@@ -6,7 +6,10 @@ import ClientServer.Server.model.Lobby;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import controller.*;
+import javafx.stage.Stage;
 import model.User.User;
+import view.AuthenticationCode.AuthenticationMenuView;
+import view.Login.LoginMenuViewController;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -156,7 +159,7 @@ public class TCPServerWorker extends Thread {
         }
     }
 
-    private void doMessageFunctions(ClientMessage msg) throws IOException {
+    private void doMessageFunctions(ClientMessage msg) throws Exception {
         if (msg instanceof AcceptFriendMessage) {
             //do something
         } else if (msg instanceof AcceptGameMessage) {
@@ -225,6 +228,7 @@ public class TCPServerWorker extends Thread {
             sendFailure("4"); // already requested
             return;
         }
+        friendUser.addToPendingFriendRequests(user);
         sendSuccess("0");
     }
 
@@ -358,7 +362,7 @@ public class TCPServerWorker extends Thread {
         }
     }
 
-    private void loginUser(LoginMessage msg) {
+    private void loginUser(LoginMessage msg) throws Exception {
         DataBaseController.loadUsersFromJson();
         String username = msg.getUsername();
         String password = msg.getPassword();
