@@ -1,6 +1,7 @@
 package ClientServer.Server;
 
 import ClientServer.MessageClasses.*;
+import ClientServer.Server.model.Lobby;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import controller.DataBaseController;
@@ -105,6 +106,10 @@ public class TCPServerWorker extends Thread {
                     return gsonAgent.fromJson(clientStr, VetoMessage.class);
                 case getUser:
                     return gsonAgent.fromJson(clientStr, GetUserMessage.class);
+                case getRequestFriend:
+                    return gsonAgent.fromJson(clientStr, GetRequestFriendMessages.class);
+                case getRequestGame:
+                    return gsonAgent.fromJson(clientStr, GetRequestGameMessage.class);
                 default:
                     return null;
             }
@@ -152,7 +157,7 @@ public class TCPServerWorker extends Thread {
         if (msg instanceof AcceptFriendMessage) {
             //do something
         } else if (msg instanceof AcceptGameMessage) {
-            //do something
+            acceptGame((AcceptGameMessage) msg);
         } else if (msg instanceof ChangeEmailMessage) {
             changeEmail((ChangeEmailMessage) msg);
         } else if (msg instanceof ChangeNicknameMessage) {
@@ -176,18 +181,68 @@ public class TCPServerWorker extends Thread {
         } else if (msg instanceof RequestFriendMessage) {
             //do something
         } else if (msg instanceof RequestGameMessage) {
-            requestGame((RequestGameMessage) msg);
+            requestGame((RequestGameMessage)msg);
         } else if (msg instanceof SignupMessage) {
             signupUser((SignupMessage) msg);
         } else if (msg instanceof SkipTurnMessage) {
             //do something
         } else if (msg instanceof VetoMessage) {
             //do something
-        } else if (msg instanceof GetUserMessage) {
+        }else if(msg instanceof GetUserMessage){
             getUser((GetUserMessage) msg);
-        } else {
+        }else if(msg instanceof GetRequestFriendMessages){
+        }
+        else if(msg instanceof GetRequestGameMessage){
+            getRequestGame((GetRequestGameMessage) msg);
+        }
+        else {
             // do something
         }
+    }
+
+    private void acceptGame(AcceptGameMessage msg) {
+        String token = msg.getToken();
+        User user = User.findUserByToken(token);
+        if (user == null) {
+            sendFailure("1"); // invalid token
+            return;
+        }
+        String requester = msg.getFriendName();
+        if (requester == null) {
+            sendFailure("2"); // no request exists
+            return;
+        }
+        User enemyUser = User.getUserByUsername(requester);
+        if (enemyUser == null) {
+            sendFailure("3"); // no user exists with such username
+            return;
+        }
+        if (msg.isAccept()) {
+            user.setEnemyUser(enemyUser);
+            user.setSearchingForGame(false);
+        }
+        Lobby.getInstance().removeRequest(enemyUser.getUsername());
+        sendSuccess("0");
+    }
+
+    private void getRequestGame(GetRequestGameMessage msg) {
+        String token = msg.getToken();
+        User user = User.findUserByToken(token);
+        if (user == null) {
+            sendFailure("1"); // invalid token
+            return;
+        }
+        String requester = Lobby.getInstance().getRequester(user.getUsername());
+        if (requester == null) {
+            sendFailure("2"); // no request exists
+            return;
+        }
+        User enemyUser = User.getUserByUsername(requester);
+        if (enemyUser == null) {
+            sendFailure("3"); // no user exists with such username
+            return;
+        }
+        sendSuccess(enemyUser.getUsername());
     }
 
     private void getUser(GetUserMessage msg) {
@@ -203,14 +258,20 @@ public class TCPServerWorker extends Thread {
         String token = msg.getToken();
         User user = User.findUserByToken(token);
         if (user == null) {
-            sendFailure(INVALID_TOKEN);
+            sendFailure("1"); // invalid token
             return;
         }
         User enemyUser = User.getUserByUsername(msg.getFriendUsername());
         if (enemyUser == null) {
-            sendFailure(INVALID_USERNAME);
+            sendFailure("2"); // no user exists with such username
             return;
         }
+        if(enemyUser.isInGame() || !enemyUser.isSearchingForGame()){
+            sendFailure("3"); // user is in a game
+            return;
+        }
+        Lobby.getInstance().addRequest(user.getUsername(), enemyUser.getUsername());
+        sendSuccess("0");
     }
 
     private void signupUser(SignupMessage msg) {
@@ -230,12 +291,10 @@ public class TCPServerWorker extends Thread {
         String password = msg.getPassword();
         User user = User.getUserByUsername(username);
         int answer = (new LoginMenuController()).loginUser(username, password);
-        if (answer == 0) {
-            user.setCurrentToken(generateNewToken());
-            System.out.println(user.getCurrentToken());
-            User.addUserToTokenMap(user.getCurrentToken(), user);
+        if(answer == 0){
             sendSuccess("0");
-        } else {
+        }
+        else{
             sendFailure(Integer.valueOf(answer).toString());
         }
     }

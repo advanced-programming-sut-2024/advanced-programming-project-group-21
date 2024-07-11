@@ -1,5 +1,6 @@
-package ClientServer.Server;
+package ClientServer.Server.model;
 
+import ClientServer.Server.TCPServerWorker;
 import model.Game;
 
 import java.io.IOException;

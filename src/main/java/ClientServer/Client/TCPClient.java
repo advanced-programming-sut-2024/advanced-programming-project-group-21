@@ -16,6 +16,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class TCPClient {
 
@@ -146,7 +148,7 @@ public class TCPClient {
     }
 
     public String acceptGameRequest(String username, String friendName) {
-        AcceptGameMessage acceptGameMessage = new AcceptGameMessage("username", "friendName", true);
+        AcceptGameMessage acceptGameMessage = new AcceptGameMessage(username, friendName, true);
         establishConnection();
         sendMessage(gsonAgent.toJson(acceptGameMessage));
         lastServerMessage = gsonAgent.fromJson(
@@ -155,8 +157,8 @@ public class TCPClient {
         return lastServerMessage.getAdditionalInfo();
     }
 
-    public String rejectGameRequest() {
-        AcceptGameMessage acceptGameMessage = new AcceptGameMessage("username", "friendName", false);
+    public String rejectGameRequest(String username, String friendName) {
+        AcceptGameMessage acceptGameMessage = new AcceptGameMessage(username, friendName, false);
         establishConnection();
         sendMessage(gsonAgent.toJson(acceptGameMessage));
         lastServerMessage = gsonAgent.fromJson(
@@ -165,7 +167,25 @@ public class TCPClient {
         return lastServerMessage.getAdditionalInfo();
     }
 
-    public String requestGame(String username, String friendName) {
-        return null;
+    public String getGameRequest(){
+        String enemyName = null;
+        GetRequestGameMessage getRequestGameMessage = new GetRequestGameMessage(ApplicationController.getLoggedInUser().getUsername());
+        establishConnection();
+        sendMessage(gsonAgent.toJson(getRequestGameMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
+    }
+
+    public String requestGame(String username, String friendName, String token) {
+        RequestGameMessage requestGameMessage = new RequestGameMessage(username, friendName);
+        requestGameMessage.setToken(token);
+        establishConnection();
+        sendMessage(gsonAgent.toJson(requestGameMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
     }
 }
