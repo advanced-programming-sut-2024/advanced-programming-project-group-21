@@ -54,17 +54,10 @@ public class LoginMenuViewController {
                 alert.showAndWait();
             }
         } else {
-//            try {
-//                loginMenuController.sendEmail(username);
-//                authStage = new Stage();
-//                new AuthenticationMenuView().start(authStage);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-            //TODO: remove when releasing
-            ApplicationController.setLoggedInUser(TCPClient.getInstance().getUserFromUsername(username));
             try {
-                new MainMenuView().start(ApplicationController.getStage());
+                loginMenuController.sendEmail(username);
+                authStage = new Stage();
+                new AuthenticationMenuView().start(authStage);
             } catch (Exception e) {
                 e.printStackTrace();
             }

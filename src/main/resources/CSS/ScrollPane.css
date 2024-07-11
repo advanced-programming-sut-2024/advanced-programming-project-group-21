@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+
+.root {
+    -fx-font-family: 'MedievalSharp', cursive;
+}
 .scroll-pane {
     -fx-background: rgba(0, 0, 0, 0.3); /* More transparent dark overlay */
     -fx-padding: 20;

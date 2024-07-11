@@ -158,7 +158,7 @@ public class TCPServerWorker extends Thread {
         }
     }
 
-    private void doMessageFunctions(ClientMessage msg) throws IOException {
+    private void doMessageFunctions(ClientMessage msg) {
         if (msg instanceof AcceptFriendMessage) {
             //do something
         } else if (msg instanceof AcceptGameMessage) {
