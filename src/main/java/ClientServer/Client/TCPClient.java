@@ -178,9 +178,9 @@ public class TCPClient {
         return lastServerMessage.getAdditionalInfo();
     }
 
-    public String requestGame(String username, String friendName, String token) {
+    public String requestGame(String username, String friendName) {
         RequestGameMessage requestGameMessage = new RequestGameMessage(username, friendName);
-        requestGameMessage.setToken(token);
+        requestGameMessage.setToken(ApplicationController.getLoggedInUser().getCurrentToken());
         establishConnection();
         sendMessage(gsonAgent.toJson(requestGameMessage));
         lastServerMessage = gsonAgent.fromJson(
