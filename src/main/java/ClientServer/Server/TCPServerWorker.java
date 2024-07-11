@@ -1,6 +1,7 @@
 package ClientServer.Server;
 
 import ClientServer.MessageClasses.*;
+import ClientServer.Server.model.GameServer;
 import ClientServer.Server.model.Lobby;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -110,6 +111,10 @@ public class TCPServerWorker extends Thread {
                     return gsonAgent.fromJson(clientStr, GetRequestFriendMessages.class);
                 case getRequestGame:
                     return gsonAgent.fromJson(clientStr, GetRequestGameMessage.class);
+                case findGameServer:
+                    return gsonAgent.fromJson(clientStr, FindGameServerMessage.class);
+                case canGoToNextPhase:
+                    return gsonAgent.fromJson(clientStr, CanGoToNextPhaseMessage.class);
                 default:
                     return null;
             }
@@ -123,6 +128,7 @@ public class TCPServerWorker extends Thread {
         while (true) {
             socket = server.accept();
             synchronized (connections) {
+                System.out.println("CONNECTION DETECTED");
                 connections.add(socket);
                 connections.notify();
             }
@@ -181,23 +187,68 @@ public class TCPServerWorker extends Thread {
         } else if (msg instanceof RequestFriendMessage) {
             //do something
         } else if (msg instanceof RequestGameMessage) {
-            requestGame((RequestGameMessage)msg);
+            requestGame((RequestGameMessage) msg);
         } else if (msg instanceof SignupMessage) {
             signupUser((SignupMessage) msg);
         } else if (msg instanceof SkipTurnMessage) {
             //do something
         } else if (msg instanceof VetoMessage) {
             //do something
-        }else if(msg instanceof GetUserMessage){
+        } else if (msg instanceof GetUserMessage) {
             getUser((GetUserMessage) msg);
-        }else if(msg instanceof GetRequestFriendMessages){
-        }
-        else if(msg instanceof GetRequestGameMessage){
+        } else if (msg instanceof GetRequestFriendMessages) {
+        } else if (msg instanceof GetRequestGameMessage) {
             getRequestGame((GetRequestGameMessage) msg);
-        }
-        else {
+        } else if (msg instanceof FindGameServerMessage) {
+            findGameServer((FindGameServerMessage) msg);
+        } else if (msg instanceof CanGoToNextPhaseMessage) {
+            canGoToNextPhase((CanGoToNextPhaseMessage) msg);
+        } else {
             // do something
         }
+    }
+
+    private void canGoToNextPhase(CanGoToNextPhaseMessage msg) {
+        String token = msg.getToken();
+        User user = User.findUserByToken(token);
+        GameServer gameServer = GameServer.getGame(user.getGameId());
+        if (gameServer.getUser1().equals(user)) {
+            if (gameServer.getUser2() != null) {
+                sendSuccess("true");
+                System.out.println("user 1 is: "+gameServer.getUser1().getUsername() + " user 2 is: "+gameServer.getUser2().getUsername());
+                return;
+            }
+            System.out.println("user 1 is: "+gameServer.getUser1().getUsername());
+
+            sendFailure("false");
+            return;
+        } else if (gameServer.getUser2().equals(user)) {
+            System.out.println("user 1 is: "+gameServer.getUser1().getUsername() + " user 2 is: "+gameServer.getUser2().getUsername());
+
+            sendSuccess("true");
+            return;
+        }
+    }
+
+    private void findGameServer(FindGameServerMessage msg) {
+        String token = msg.getToken();
+        User user = User.findUserByToken(token);
+        User enemy = user.getEnemyUser();
+        if (GameServer.getGames() != null)
+            for (GameServer gameServer : GameServer.getGames().values()) {
+                if (gameServer.getUser1().getCurrentToken().equals(enemy.getCurrentToken())) {
+                    gameServer.setUser2(user);
+                    user.setGameId(gameServer.getId());
+                    gameServer.setDeckCards2(msg.getDeckCards());
+                    sendSuccess(String.valueOf(gameServer.getId()));
+                    return;
+                }
+            }
+        GameServer gameServer = new GameServer();
+        gameServer.setUser1(user);
+        user.setGameId(gameServer.getId());
+        gameServer.setDeckCards1(msg.getDeckCards());
+        sendSuccess(String.valueOf(gameServer.getId()));
     }
 
     private void acceptGame(AcceptGameMessage msg) {
@@ -219,7 +270,9 @@ public class TCPServerWorker extends Thread {
         }
         if (msg.isAccept()) {
             user.setEnemyUser(enemyUser);
-            user.setSearchingForGame(false);
+            user.setInGame(true);
+            enemyUser.setEnemyUser(user);
+            enemyUser.setInGame(true);
         }
         Lobby.getInstance().removeRequest(enemyUser.getUsername());
         sendSuccess("0");
@@ -266,7 +319,7 @@ public class TCPServerWorker extends Thread {
             sendFailure("2"); // no user exists with such username
             return;
         }
-        if(enemyUser.isInGame() || !enemyUser.isSearchingForGame()){
+        if (enemyUser.isInGame()) {
             sendFailure("3"); // user is in a game
             return;
         }
@@ -276,7 +329,7 @@ public class TCPServerWorker extends Thread {
 
     private void signupUser(SignupMessage msg) {
         int result = (new RegisterMenuController()).register(msg.getNickname(), msg.getUsername(),
-                msg.getEmail(), msg.getPassword(), msg.getConfirmPassword(),generateNewToken());
+                msg.getEmail(), msg.getPassword(), msg.getConfirmPassword(), generateNewToken());
 
         if (result == 0) {
             sendSuccess("0");
@@ -291,10 +344,9 @@ public class TCPServerWorker extends Thread {
         String password = msg.getPassword();
         User user = User.getUserByUsername(username);
         int answer = (new LoginMenuController()).loginUser(username, password);
-        if(answer == 0){
+        if (answer == 0) {
             sendSuccess("0");
-        }
-        else{
+        } else {
             sendFailure(Integer.valueOf(answer).toString());
         }
     }

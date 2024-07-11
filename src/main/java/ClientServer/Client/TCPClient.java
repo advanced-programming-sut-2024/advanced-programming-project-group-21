@@ -7,17 +7,15 @@ import controller.ApplicationController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import model.App;
+import model.Card;
 import model.User.User;
-import org.hamcrest.core.StringEndsWith;
 import view.Login.LoginMenuView;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.ArrayList;
 
 public class TCPClient {
 
@@ -108,6 +106,7 @@ public class TCPClient {
     }
     public String logout(String username) {
         LogoutMessage logoutMessage = new LogoutMessage(username);
+        logoutMessage.setToken(ApplicationController.getLoggedInUser().getCurrentToken());
         establishConnection();
         sendMessage(gsonAgent.toJson(logoutMessage));
         lastServerMessage = gsonAgent.fromJson(
@@ -149,6 +148,7 @@ public class TCPClient {
 
     public String acceptGameRequest(String username, String friendName) {
         AcceptGameMessage acceptGameMessage = new AcceptGameMessage(username, friendName, true);
+        acceptGameMessage.setToken(ApplicationController.getLoggedInUser().getCurrentToken());
         establishConnection();
         sendMessage(gsonAgent.toJson(acceptGameMessage));
         lastServerMessage = gsonAgent.fromJson(
@@ -159,6 +159,7 @@ public class TCPClient {
 
     public String rejectGameRequest(String username, String friendName) {
         AcceptGameMessage acceptGameMessage = new AcceptGameMessage(username, friendName, false);
+        acceptGameMessage.setToken(ApplicationController.getLoggedInUser().getCurrentToken());
         establishConnection();
         sendMessage(gsonAgent.toJson(acceptGameMessage));
         lastServerMessage = gsonAgent.fromJson(
@@ -168,8 +169,8 @@ public class TCPClient {
     }
 
     public String getGameRequest(){
-        String enemyName = null;
         GetRequestGameMessage getRequestGameMessage = new GetRequestGameMessage(ApplicationController.getLoggedInUser().getUsername());
+        getRequestGameMessage.setToken(ApplicationController.getLoggedInUser().getCurrentToken());
         establishConnection();
         sendMessage(gsonAgent.toJson(getRequestGameMessage));
         lastServerMessage = gsonAgent.fromJson(
@@ -187,5 +188,27 @@ public class TCPClient {
                 receiveResponse(), ServerMessage.class);
         endConnection();
         return lastServerMessage.getAdditionalInfo();
+    }
+
+    public int findGameServer(ArrayList<Card> deckCards) {
+        FindGameServerMessage findGameServerMessage = new FindGameServerMessage(deckCards);
+        findGameServerMessage.setToken(ApplicationController.getLoggedInUser().getCurrentToken());
+        establishConnection();
+        sendMessage(gsonAgent.toJson(findGameServerMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return Integer.parseInt(lastServerMessage.getAdditionalInfo());
+    }
+
+    public boolean canGoToNextPhase() {
+        CanGoToNextPhaseMessage canGoToNextPhaseMessage = new CanGoToNextPhaseMessage();
+        canGoToNextPhaseMessage.setToken(ApplicationController.getLoggedInUser().getCurrentToken());
+        establishConnection();
+        sendMessage(gsonAgent.toJson(canGoToNextPhaseMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.isSuccessful();
     }
 }

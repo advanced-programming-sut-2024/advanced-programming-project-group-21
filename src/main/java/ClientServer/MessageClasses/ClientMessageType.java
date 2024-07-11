@@ -20,5 +20,7 @@ public enum ClientMessageType {
     endGame,
     getUser,
     getRequestGame,
-    getRequestFriend;
+    getRequestFriend,
+    findGameServer,
+    canGoToNextPhase;
 }

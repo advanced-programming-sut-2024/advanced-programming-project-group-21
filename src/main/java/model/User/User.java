@@ -37,7 +37,7 @@ public class User {
     private static HashMap<String, User> allUsersByToken = new HashMap<String, User>();
     private User enemyUser = null;
     private boolean inGame = false;
-    private boolean searchingForGame = false;
+    private int gameId=0;
 
     public User(String username, String nickname, String password, String email) {
         this.username = username;
@@ -236,12 +236,12 @@ public class User {
         allUsersByToken.put(token, user);
     }
 
-    public boolean isSearchingForGame() {
-        return searchingForGame;
+
+    public int getGameId() {
+        return gameId;
     }
 
-    public void setSearchingForGame(boolean searchingForGame) {
-        this.searchingForGame = searchingForGame;
+    public void setGameId(int gameId) {
+        this.gameId = gameId;
     }
-
 }

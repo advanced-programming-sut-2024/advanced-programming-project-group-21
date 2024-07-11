@@ -1,5 +1,7 @@
 package view.Pregame;
 
+import ClientServer.Client.TCPClient;
+import ClientServer.Server.model.GameServer;
 import controller.ApplicationController;
 import controller.DataBaseController;
 import controller.PreGameController;
@@ -9,10 +11,7 @@ import enums.Card.CommandersEnum;
 import enums.Card.FactionsEnum;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -20,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import model.App;
 import model.Card;
 import model.Player;
 import model.PreGame;
@@ -449,8 +449,7 @@ public class PregameMenuViewController {
 
     public void nextPhase(MouseEvent mouseEvent) {
         PreGame preGame = ApplicationController.preGame;
-        controller.saveToPlayer();
-        if(preGame.getDeckCards().size()<10){ // TODO: change to 22
+        if (preGame.getDeckCards().size() < 10) { // TODO: change to 22
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Not enough cards");
             alert.setHeaderText("Deck is not full");
@@ -458,21 +457,13 @@ public class PregameMenuViewController {
             alert.showAndWait();
             return;
         }
-        if (preGame.isFirstPlayer()) {
-            if(nextPlayerField.getText().length()==0){
-                noUsernameError();
-                return;
-            }
-            controller.createPlayer2(nextPlayerField.getText());
-            preGame.setFirstPlayer(false);
-            cleanPregame();
-            nextPlayerField.setVisible(false);
-            try {
-                new PregameMenuView().start(ApplicationController.getStage());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
+        if(ApplicationController.getLoggedInUser().getGameId()==0) {
+            controller.saveToPlayer();
+            int gameId = TCPClient.getInstance().findGameServer(preGame.getDeckCards());
+            ApplicationController.getLoggedInUser().setGameId(gameId);
+        }
+        else if(TCPClient.getInstance().canGoToNextPhase()){
+            ApplicationController.preGame.setPlayer2(new Player(null));
             try{
                 new GameMenuView().start(ApplicationController.getStage());
             } catch (Exception e) {
@@ -480,6 +471,7 @@ public class PregameMenuViewController {
             }
         }
     }
+
 
     public void noUsernameError(){
         nextPlayerField.setPromptText("Enter username first!");

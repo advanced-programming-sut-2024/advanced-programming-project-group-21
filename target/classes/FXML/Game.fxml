@@ -24,23 +24,23 @@
          </image>
       </ImageView>
       <Rectangle fx:id="cheatBackGround" fill="#865d46" height="473.0" layoutX="1368.0" layoutY="110.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="102.0" />
-      <VBox fx:id="cheatButtons" alignment="CENTER" layoutX="1371.0" layoutY="111.0" prefHeight="471.0" prefWidth="95.0" spacing="40.0" visible="false">
+      <VBox fx:id="cheatButtons" alignment="CENTER" layoutX="1365.0" layoutY="111.0" prefHeight="471.0" prefWidth="108.0" spacing="40.0" visible="false">
          <children>
-            <Button mnemonicParsing="false" styleClass="button" text="Three-horn" />
-            <Button mnemonicParsing="false" styleClass="button" text="Destroy morale">
+            <Button mnemonicParsing="false" onMouseClicked="#threeHornCheat" styleClass="button" text="Three-horn" />
+            <Button mnemonicParsing="false" onMouseClicked="#destroyMoraleCheat" prefHeight="29.0" prefWidth="101.0" styleClass="button" text="Destroy morale">
                <font>
                   <Font size="11.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" styleClass="button" text="Zombieland" />
-            <Button mnemonicParsing="false" styleClass="button" text="Phoenix" />
-            <Button mnemonicParsing="false" styleClass="button" text="Reinforcements">
+            <Button mnemonicParsing="false" onMouseClicked="#zombieLandCheat" styleClass="button" text="Zombieland" />
+            <Button mnemonicParsing="false" onMouseClicked="#phoenixCheat" styleClass="button" text="Phoenix" />
+            <Button mnemonicParsing="false" onMouseClicked="#reinforcementsCheat" styleClass="button" text="Reinforcements">
                <font>
                   <Font size="11.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" styleClass="button" text="Hail king" />
-            <Button mnemonicParsing="false" styleClass="button" text="Chicken dinner" />
+            <Button mnemonicParsing="false" onMouseClicked="#hailKingCheat" styleClass="button" text="Hail king" />
+            <Button mnemonicParsing="false" onMouseClicked="#chickenDinnerCheat" styleClass="button" text="Chicken dinner" />
          </children>
       </VBox>
       <HBox fx:id="enemyCommanderHBox" alignment="CENTER_LEFT" layoutX="97.0" layoutY="58.0" prefHeight="91.0" prefWidth="108.0" spacing="12.0">
