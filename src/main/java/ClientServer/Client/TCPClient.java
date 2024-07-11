@@ -7,6 +7,7 @@ import controller.ApplicationController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import model.Card;
 import model.User.User;
 import org.hamcrest.core.StringEndsWith;
 import view.Login.LoginMenuView;
@@ -15,6 +16,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class TCPClient {
 
@@ -208,5 +210,27 @@ public class TCPClient {
                 receiveResponse(), ServerMessage.class);
         endConnection();
         return lastServerMessage.getAdditionalInfo();
+    }
+
+    public int findGameServer(ArrayList<Card> deckCards) {
+        FindGameServerMessage findGameServerMessage = new FindGameServerMessage(deckCards);
+        findGameServerMessage.setToken(ApplicationController.getLoggedInUser().getCurrentToken());
+        establishConnection();
+        sendMessage(gsonAgent.toJson(findGameServerMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return Integer.parseInt(lastServerMessage.getAdditionalInfo());
+    }
+
+    public boolean canGoToNextPhase() {
+        CanGoToNextPhaseMessage canGoToNextPhaseMessage = new CanGoToNextPhaseMessage();
+        canGoToNextPhaseMessage.setToken(ApplicationController.getLoggedInUser().getCurrentToken());
+        establishConnection();
+        sendMessage(gsonAgent.toJson(canGoToNextPhaseMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.isSuccessful();
     }
 }
