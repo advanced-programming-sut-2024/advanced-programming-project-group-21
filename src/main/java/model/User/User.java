@@ -1,5 +1,6 @@
 package model.User;
 
+import ClientServer.Client.TCPClient;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -34,7 +35,7 @@ public class User {
     private String currentToken = null;
     private static HashMap<String, User> allUsersByToken = new HashMap<String, User>();
     private ArrayList<User> pendingFriendRequests = new ArrayList<>();
-    private User enemyUser = null;
+    private String enemyUsername = null;
     private boolean inGame = false;
     private boolean searchingForGame = false;
     private int gameId = 0;
@@ -217,11 +218,11 @@ public class User {
     }
 
     public User getEnemyUser() {
-        return enemyUser;
+        return TCPClient.getInstance().getUserFromUsername(enemyUsername);
     }
 
     public void setEnemyUser(User enemyUser) {
-        this.enemyUser = enemyUser;
+        this.enemyUsername = enemyUser.getUsername();
     }
 
     public void removeUserFromTokenMap(String token) {

@@ -1,6 +1,8 @@
 package ClientServer.Server.model;
 
 import ClientServer.Server.TCPServerWorker;
+import enums.Card.CommandersEnum;
+import enums.Card.FactionsEnum;
 import model.Card;
 import model.Game;
 import model.User.User;
@@ -16,6 +18,10 @@ public class GameServer {
     private User user2;
     private ArrayList<Card> deckCards1;
     private ArrayList<Card> deckCards2;
+    private FactionsEnum faction1;
+    private FactionsEnum faction2;
+    private CommandersEnum commander1;
+    private CommandersEnum commander2;
     private int id;
 
     public GameServer() {
@@ -87,5 +93,37 @@ public class GameServer {
 
     public ArrayList<Card> getDeckCards2() {
         return deckCards2;
+    }
+
+    public FactionsEnum getFaction1() {
+        return faction1;
+    }
+
+    public void setFaction1(FactionsEnum faction1) {
+        this.faction1 = faction1;
+    }
+
+    public FactionsEnum getFaction2() {
+        return faction2;
+    }
+
+    public void setFaction2(FactionsEnum faction2) {
+        this.faction2 = faction2;
+    }
+
+    public CommandersEnum getCommander1() {
+        return commander1;
+    }
+
+    public void setCommander1(CommandersEnum commander1) {
+        this.commander1 = commander1;
+    }
+
+    public CommandersEnum getCommander2() {
+        return commander2;
+    }
+
+    public void setCommander2(CommandersEnum commander2) {
+        this.commander2 = commander2;
     }
 }

@@ -95,9 +95,9 @@ public class MainMenuViewController {
 
     public void checkForGameRequests(MouseEvent mouseEvent) {
         String response = TCPClient.getInstance().getGameRequest();
-        if (!response.equals("1") && !response.equals("2") && !response.equals("3")) {
+        //if (!response.equals("1") && !response.equals("2") && !response.equals("3"))
             requestedPlayer.setText(response);
-        }
+
     }
 
     public void sendRequest(MouseEvent mouseEvent) {

@@ -463,7 +463,10 @@ public class PregameMenuViewController {
             ApplicationController.getLoggedInUser().setGameId(gameId);
         }
         else if(TCPClient.getInstance().canGoToNextPhase()){
-            ApplicationController.preGame.setPlayer2(new Player(null));
+            ApplicationController.preGame.setPlayer2(new Player(TCPClient.getInstance().getEnemy()));
+            ApplicationController.preGame.getPlayer2().setDeck(TCPClient.getInstance().getEnemyDeck());
+            ApplicationController.preGame.getPlayer2().setCommander(TCPClient.getInstance().getEnemyCommander());
+            ApplicationController.preGame.getPlayer2().setCurrentFaction(TCPClient.getInstance().getEnemyFaction());
             try{
                 new GameMenuView().start(ApplicationController.getStage());
             } catch (Exception e) {
