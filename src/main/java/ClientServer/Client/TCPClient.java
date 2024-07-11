@@ -3,7 +3,10 @@ package ClientServer.Client;
 import ClientServer.MessageClasses.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import controller.ApplicationController;
+import enums.Card.CommandersEnum;
+import enums.Card.FactionsEnum;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -15,6 +18,7 @@ import view.Login.LoginMenuView;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -161,6 +165,7 @@ public class TCPClient {
 
     public String acceptGameRequest(String username, String friendName) {
         AcceptGameMessage acceptGameMessage = new AcceptGameMessage(username, friendName, true);
+        acceptGameMessage.setToken(ApplicationController.getLoggedInUser().getCurrentToken());
         establishConnection();
         sendMessage(gsonAgent.toJson(acceptGameMessage));
         lastServerMessage = gsonAgent.fromJson(
@@ -171,6 +176,8 @@ public class TCPClient {
 
     public String rejectGameRequest(String username, String friendName) {
         AcceptGameMessage acceptGameMessage = new AcceptGameMessage(username, friendName, false);
+        acceptGameMessage.setToken(ApplicationController.getLoggedInUser().getCurrentToken());
+
         establishConnection();
         sendMessage(gsonAgent.toJson(acceptGameMessage));
         lastServerMessage = gsonAgent.fromJson(
@@ -180,8 +187,8 @@ public class TCPClient {
     }
 
     public String getGameRequest() {
-        String enemyName = null;
         GetRequestGameMessage getRequestGameMessage = new GetRequestGameMessage(ApplicationController.getLoggedInUser().getUsername());
+        getRequestGameMessage.setToken(ApplicationController.getLoggedInUser().getCurrentToken());
         establishConnection();
         sendMessage(gsonAgent.toJson(getRequestGameMessage));
         lastServerMessage = gsonAgent.fromJson(
@@ -240,5 +247,53 @@ public class TCPClient {
         establishConnection();
         sendMessage(gsonAgent.toJson(sendMessageToPlayerMessage));
         endConnection();
+    }
+
+    public User getEnemy() {
+        GetUserMessage getUserMessage = new GetUserMessage(ApplicationController.getLoggedInUser().getUsername());
+        getUserMessage.setToken(ApplicationController.getLoggedInUser().getCurrentToken());
+        establishConnection();
+        sendMessage(gsonAgent.toJson(getUserMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        if (lastServerMessage.getAdditionalInfo().equals("no enemy")) return null;
+        // turn info to gson of user
+        return gsonAgent.fromJson(lastServerMessage.getAdditionalInfo(), User.class);
+    }
+
+    public ArrayList<Card> getEnemyDeck() {
+        GetEnemyDeckMessage getEnemyDeckMessage = new GetEnemyDeckMessage();
+        getEnemyDeckMessage.setToken(ApplicationController.getLoggedInUser().getCurrentToken());
+        establishConnection();
+        sendMessage(gsonAgent.toJson(getEnemyDeckMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        Type listType = new TypeToken<ArrayList<Card>>() {
+        }.getType();
+        return gsonAgent.fromJson(lastServerMessage.getAdditionalInfo(), listType);
+    }
+
+    public CommandersEnum getEnemyCommander() {
+        GetEnemyCommanderMessage getEnemyCommanderMessage = new GetEnemyCommanderMessage();
+        getEnemyCommanderMessage.setToken(ApplicationController.getLoggedInUser().getCurrentToken());
+        establishConnection();
+        sendMessage(gsonAgent.toJson(getEnemyCommanderMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return gsonAgent.fromJson(lastServerMessage.getAdditionalInfo(), CommandersEnum.class);
+    }
+
+    public FactionsEnum getEnemyFaction() {
+        GetEnemyFactionMessage getEnemyFactionMessage = new GetEnemyFactionMessage();
+        getEnemyFactionMessage.setToken(ApplicationController.getLoggedInUser().getCurrentToken());
+        establishConnection();
+        sendMessage(gsonAgent.toJson(getEnemyFactionMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return gsonAgent.fromJson(lastServerMessage.getAdditionalInfo(), FactionsEnum.class);
     }
 }

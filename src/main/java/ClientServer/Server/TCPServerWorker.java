@@ -114,6 +114,16 @@ public class TCPServerWorker extends Thread {
                     return gsonAgent.fromJson(clientStr, FindGameServerMessage.class);
                 case canGoToNextPhase:
                     return gsonAgent.fromJson(clientStr, CanGoToNextPhaseMessage.class);
+                case sendMessageToPlayer:
+                    return gsonAgent.fromJson(clientStr, SendMessageToPlayerMessage.class);
+                case getEnemy:
+                    return gsonAgent.fromJson(clientStr, GetEnemyMessage.class);
+                case getEnemyDeck:
+                    return gsonAgent.fromJson(clientStr, GetEnemyDeckMessage.class);
+                case getEnemyFaction:
+                    return gsonAgent.fromJson(clientStr, GetEnemyFactionMessage.class);
+                case getEnemyCommander:
+                    return gsonAgent.fromJson(clientStr, GetEnemyCommanderMessage.class);
                 default:
                     return null;
             }
@@ -204,9 +214,91 @@ public class TCPServerWorker extends Thread {
             canGoToNextPhase((CanGoToNextPhaseMessage) msg);
         } else if (msg instanceof SendMessageToPlayerMessage) {
             sendMessageToPlayer((SendMessageToPlayerMessage) msg);
-        } else {
-            // do something
+        } else if (msg instanceof GetEnemyMessage) {
+            getEnemy((GetEnemyMessage) msg);
+        } else if (msg instanceof GetEnemyDeckMessage) {
+            getEnemyDeck((GetEnemyDeckMessage) msg);
+
+        } else if (msg instanceof GetEnemyFactionMessage) {
+            getEnemyFaction((GetEnemyFactionMessage) msg);
+        } else if (msg instanceof GetEnemyCommanderMessage) {
+            getEnemyCommander((GetEnemyCommanderMessage) msg);
         }
+        else {
+            sendFailure(INTERNAL_ERROR);
+        }
+    }
+
+    private void getEnemyFaction(GetEnemyFactionMessage msg) {
+        String token = msg.getToken();
+        User user = User.findUserByToken(token);
+        if (user == null) {
+            sendFailure(INVALID_USERNAME);
+            return;
+        }
+        User enemy = user.getEnemyUser();
+        if (enemy == null) {
+            sendFailure("no enemy");
+            return;
+        }
+        GameServer gameServer = GameServer.getGame(user.getGameId());
+        if (gameServer.getUser1().equals(user))
+            sendSuccess(gsonAgent.toJson(gameServer.getFaction2()));
+        else
+            sendSuccess(gsonAgent.toJson(gameServer.getFaction1()));
+    }
+
+    private void getEnemyCommander(GetEnemyCommanderMessage msg) {
+        String token = msg.getToken();
+        User user = User.findUserByToken(token);
+        if (user == null) {
+            sendFailure(INVALID_USERNAME);
+            return;
+        }
+        User enemy = user.getEnemyUser();
+        if (enemy == null) {
+            sendFailure("no enemy");
+            return;
+        }
+        GameServer gameServer = GameServer.getGame(user.getGameId());
+        if (gameServer.getUser1().equals(user))
+            sendSuccess(gsonAgent.toJson(gameServer.getCommander2()));
+        else
+            sendSuccess(gsonAgent.toJson(gameServer.getCommander1()));
+    }
+
+    private void getEnemyDeck(GetEnemyDeckMessage msg) {
+        String token = msg.getToken();
+        User user = User.findUserByToken(token);
+        if (user == null) {
+            sendFailure(INVALID_USERNAME);
+            return;
+        }
+        User enemy = user.getEnemyUser();
+        if (enemy == null) {
+            sendFailure("no enemy");
+            return;
+        }
+        GameServer gameServer = GameServer.getGame(user.getGameId());
+        if (gameServer.getUser1().equals(user))
+            sendSuccess(gsonAgent.toJson(gameServer.getDeckCards2()));
+        else
+            sendSuccess(gsonAgent.toJson(gameServer.getDeckCards1()));
+    }
+
+    private void getEnemy(GetEnemyMessage msg) {
+        String token = msg.getToken();
+        User user = User.findUserByToken(token);
+        if (user == null) {
+            sendFailure(INVALID_USERNAME);
+            return;
+        }
+        User enemy = user.getEnemyUser();
+        if (enemy == null) {
+            sendFailure("no enemy");
+            return;
+        }
+        sendSuccess(gsonAgent.toJson(enemy));
     }
 
     private void sendMessageToPlayer(SendMessageToPlayerMessage msg) {
@@ -252,15 +344,15 @@ public class TCPServerWorker extends Thread {
         if (gameServer.getUser1().equals(user)) {
             if (gameServer.getUser2() != null) {
                 sendSuccess("true");
-                System.out.println("user 1 is: "+gameServer.getUser1().getUsername() + " user 2 is: "+gameServer.getUser2().getUsername());
+                System.out.println("user 1 is: " + gameServer.getUser1().getUsername() + " user 2 is: " + gameServer.getUser2().getUsername());
                 return;
             }
-            System.out.println("user 1 is: "+gameServer.getUser1().getUsername());
+            System.out.println("user 1 is: " + gameServer.getUser1().getUsername());
 
             sendFailure("false");
             return;
         } else if (gameServer.getUser2().equals(user)) {
-            System.out.println("user 1 is: "+gameServer.getUser1().getUsername() + " user 2 is: "+gameServer.getUser2().getUsername());
+            System.out.println("user 1 is: " + gameServer.getUser1().getUsername() + " user 2 is: " + gameServer.getUser2().getUsername());
 
             sendSuccess("true");
             return;
