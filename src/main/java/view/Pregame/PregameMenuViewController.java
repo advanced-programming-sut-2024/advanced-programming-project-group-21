@@ -19,13 +19,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import model.App;
 import model.Card;
 import model.Player;
 import model.PreGame;
+import view.Chat.ChatMenuView;
 import view.Commander.CommanderMenuView;
 import view.Faction.FactionMenu;
 import view.Faction.FactionMenuView;
+import view.Friends.FriendsMenuView;
 import view.Game.GameMenuView;
 
 import java.util.ArrayList;
@@ -502,5 +505,13 @@ public class PregameMenuViewController {
         //load deck
         DataBaseController.loadDeck();
         loadDeckCards(ApplicationController.preGame.getFaction());
+    }
+
+    public void goToChatMenu(MouseEvent mouseEvent) {
+        try {
+            new ChatMenuView().start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

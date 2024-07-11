@@ -1,5 +1,6 @@
 package ClientServer.Server;
 
+import ClientServer.Client.TCPClient;
 import ClientServer.MessageClasses.*;
 import ClientServer.Server.model.GameServer;
 import ClientServer.Server.model.Lobby;
@@ -210,8 +211,8 @@ public class TCPServerWorker extends Thread {
     }
 
     private void sendMessageToPlayer(SendMessageToPlayerMessage msg) {
-        User sender = User.getUserFromToken(msg.getToken());
-        User receiver = User.getUserByUsername(msg.getEnemyUsername());
+        User sender = TCPClient.getInstance().getUserFromUsername(ApplicationController.getLoggedInUser().getUsername());
+        User receiver = TCPClient.getInstance().getUserFromUsername(msg.getEnemyUsername());
         String receiverToken = receiver.getCurrentToken();
         if (receiverToken == null || receiverToken == null) {
             sendFailure(INVALID_SENDER_OR_RECEIVER);
