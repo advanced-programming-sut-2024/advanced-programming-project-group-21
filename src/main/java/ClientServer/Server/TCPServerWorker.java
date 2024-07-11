@@ -315,8 +315,6 @@ public class TCPServerWorker extends Thread {
         User user = User.getUserByUsername(username);
         int answer = (new LoginMenuController()).loginUser(username, password);
         if(answer == 0){
-            user.setCurrentToken(generateNewToken());
-            User.addUserToTokenMap(user.getCurrentToken(), user);
             sendSuccess("0");
         }
         else{

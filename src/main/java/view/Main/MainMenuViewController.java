@@ -72,20 +72,41 @@ public class MainMenuViewController {
     }
 
     public void acceptGameRequest(MouseEvent mouseEvent) {
-        //TCPClient.getInstance().acceptGameRequest();
+        if (requestedPlayer.getText().equals("...")) return;
+        int answer = Integer.parseInt(TCPClient.getInstance().acceptGameRequest(ApplicationController.getLoggedInUser().getUsername(),
+                requestedPlayer.getText()));
+        if(answer==0){
+            requestStatus.setText("ENTER GAME");
+        }
     }
 
     public void rejectGameRequest(MouseEvent mouseEvent) {
-        //TCPClient.getInstance().rejectGameRequest();
+        if (requestedPlayer.getText().equals("...")) return;
+        int answer = Integer.parseInt(TCPClient.getInstance().rejectGameRequest(ApplicationController.getLoggedInUser().getUsername(),
+                requestedPlayer.getText()));
+        if(answer==0){
+            requestStatus.setText("...");
+        }
     }
 
     public void checkForGameRequests(MouseEvent mouseEvent) {
-        //TCPClient.getInstance().checkForGameRequest();
+        String response = TCPClient.getInstance().getGameRequest();
+        if (!response.equals("1") && !response.equals("2") && !response.equals("3")) {
+            requestedPlayer.setText(response);
+        }
     }
 
     public void sendRequest(MouseEvent mouseEvent) {
-    }
-
-    public void cancelRequest(MouseEvent mouseEvent) {
+        int answer = Integer.parseInt(TCPClient.getInstance().requestGame(ApplicationController.getLoggedInUser().getUsername(),
+                playerToRequest.getText()));
+        if (answer == 1) {
+            requestStatus.setText("Invalid token");
+        } else if (answer == 2) {
+            requestStatus.setText("No user found");
+        } else if (answer == 3) {
+            requestStatus.setText("User is in game");
+        } else {
+            requestStatus.setText("Request sent");
+        }
     }
 }

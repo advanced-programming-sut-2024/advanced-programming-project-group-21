@@ -29,11 +29,10 @@ public class User {
     private int draw = 0;
     private ArrayList<HashMap<String, String>> gameHistories = null;
     private boolean isStayingLoggedIn;
-    private static ArrayList<User> users = new ArrayList<>();
     private ArrayList<User> friends = new ArrayList<>();
     public static final String USERS_DATABASE_PATH = "src/main/java/model/User/users.json";
 
-    private String currentToken;
+    private String currentToken = null;
 
     private static HashMap<String, User> allUsersByToken = new HashMap<String, User>();
     private User enemyUser = null;
@@ -49,6 +48,10 @@ public class User {
     }
 
     public static ArrayList<User> getUsers() {
+        ArrayList<User> users = new ArrayList<>();
+        for(User user : allUsersByToken.values()) {
+            users.add(user);
+        }
         return users;
     }
 
@@ -147,10 +150,10 @@ public class User {
 
     public static User getUserByUsername(String username) {
         User intendedUser = null;
-        if (users == null) {
+        if (allUsersByToken == null) {
             return null;
         }
-        for (User item : users) {
+        for (User item : allUsersByToken.values()) {
             if (item.getUsername().equals(username)) {
                 intendedUser = item;
             }

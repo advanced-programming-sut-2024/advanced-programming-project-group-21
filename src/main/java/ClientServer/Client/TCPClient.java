@@ -160,7 +160,14 @@ public class TCPClient {
         return lastServerMessage.getAdditionalInfo();
     }
 
-    public String requestGame(String username, String friendName) {
-        return null;
+    public String requestGame(String username, String friendName, String token) {
+        RequestGameMessage requestGameMessage = new RequestGameMessage(username, friendName);
+        requestGameMessage.setToken(token);
+        establishConnection();
+        sendMessage(gsonAgent.toJson(requestGameMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
     }
 }

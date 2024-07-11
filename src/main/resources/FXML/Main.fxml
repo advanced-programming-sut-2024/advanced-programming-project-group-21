@@ -38,5 +38,5 @@
          </HBox>
       </children>
    </HBox>
-   <Label fx:id="requestStatus" alignment="CENTER" layoutX="1182.0" layoutY="363.0" minWidth="80.0" text="Status" />
+   <Label fx:id="requestStatus" alignment="CENTER" layoutX="1125.0" layoutY="363.0" minWidth="80.0" prefHeight="24.0" prefWidth="194.0" text="Status" />
 </AnchorPane>
