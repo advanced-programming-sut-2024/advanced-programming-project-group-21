@@ -6,10 +6,8 @@ import ClientServer.Server.model.Lobby;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import controller.*;
-import javafx.stage.Stage;
 import model.User.User;
-import view.AuthenticationCode.AuthenticationMenuView;
-import view.Login.LoginMenuViewController;
+import view.Chat.ChatMenuViewController;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -27,6 +25,7 @@ public class TCPServerWorker extends Thread {
     private static final String INVALID_TOKEN = "this token belongs to no user";
     private static final String WRONG_PASSWORD = "wrong password";
     private static final String SAME_EMAIL = "new email is the same as the old one";
+    private static final String INVALID_SENDER_OR_RECEIVER = "invalid sender or receiver";
 
     public static ArrayList<Socket> connections;
 
@@ -159,7 +158,7 @@ public class TCPServerWorker extends Thread {
         }
     }
 
-    private void doMessageFunctions(ClientMessage msg) throws Exception {
+    private void doMessageFunctions(ClientMessage msg) throws IOException {
         if (msg instanceof AcceptFriendMessage) {
             //do something
         } else if (msg instanceof AcceptGameMessage) {
@@ -203,9 +202,23 @@ public class TCPServerWorker extends Thread {
             findGameServer((FindGameServerMessage) msg);
         } else if (msg instanceof CanGoToNextPhaseMessage) {
             canGoToNextPhase((CanGoToNextPhaseMessage) msg);
+        } else if (msg instanceof SendMessageToPlayerMessage) {
+            sendMessageToPlayer((SendMessageToPlayerMessage) msg);
         } else {
             // do something
         }
+    }
+
+    private void sendMessageToPlayer(SendMessageToPlayerMessage msg) {
+        User sender = User.getUserFromToken(msg.getToken());
+        User receiver = User.getUserByUsername(msg.getEnemyUsername());
+        String receiverToken = receiver.getCurrentToken();
+        if (receiverToken == null || receiverToken == null) {
+            sendFailure(INVALID_SENDER_OR_RECEIVER);
+            return;
+        }
+        ChatMenuViewController chatMenuViewController = new ChatMenuViewController();
+        chatMenuViewController.sendMessage(sender, receiver, msg.getMessage());
     }
 
     private void friendRequest(RequestFriendMessage msg) {
@@ -362,7 +375,7 @@ public class TCPServerWorker extends Thread {
         }
     }
 
-    private void loginUser(LoginMessage msg) throws Exception {
+    private void loginUser(LoginMessage msg) {
         DataBaseController.loadUsersFromJson();
         String username = msg.getUsername();
         String password = msg.getPassword();
