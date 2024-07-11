@@ -8,8 +8,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import model.User.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.hamcrest.core.StringEndsWith;
 import view.Login.LoginMenuView;
 
 import java.io.DataInputStream;
@@ -19,7 +18,6 @@ import java.net.Socket;
 
 public class TCPClient {
 
-    private static final Logger log = LoggerFactory.getLogger(TCPClient.class);
     private Socket socket;
     private DataInputStream receiveBuffer;
     private DataOutputStream sendBuffer;
@@ -181,7 +179,7 @@ public class TCPClient {
 
     public String requestGame(String username, String friendName) {
         RequestGameMessage requestGameMessage = new RequestGameMessage(username, friendName);
-//        requestGameMessage.setToken(token);
+        requestGameMessage.setToken(ApplicationController.getLoggedInUser().getCurrentToken());
         establishConnection();
         sendMessage(gsonAgent.toJson(requestGameMessage));
         lastServerMessage = gsonAgent.fromJson(

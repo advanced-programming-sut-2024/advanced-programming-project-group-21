@@ -273,7 +273,7 @@ public class TCPServerWorker extends Thread {
 
     private void signupUser(SignupMessage msg) {
         int result = (new RegisterMenuController()).register(msg.getNickname(), msg.getUsername(),
-                msg.getEmail(), msg.getPassword(), msg.getConfirmPassword());
+                msg.getEmail(), msg.getPassword(), msg.getConfirmPassword(),generateNewToken());
 
         if (result == 0) {
             sendSuccess("0");

@@ -18,12 +18,13 @@ public class RegisterMenuController {
         return User.getUserByUsername(username) != null;
     }
 
-    public int register(String nickname, String username, String email, String password, String confirmPassword) {
+    public int register(String nickname, String username, String email, String password, String confirmPassword, String token) {
         int result = isRegisterValid(username, password, confirmPassword, nickname, email);
         if (result != 0)
             return result;
         User user = new User(username, nickname, password, email);
-        User.addUserToUsers(user);
+        user.setCurrentToken(token);
+        User.addUserToUsers(token,user);
         DataBaseController.saveUsersToJson();
         return 0;
     }

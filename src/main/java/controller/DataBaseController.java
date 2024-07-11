@@ -16,6 +16,7 @@ import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class DataBaseController {
@@ -26,7 +27,7 @@ public class DataBaseController {
         try {
             Gson gson = new Gson();
             String text = new String(Files.readAllBytes(Paths.get(USERS_DATABASE_PATH)));
-            ArrayList<User> users = gson.fromJson(text, new TypeToken<List<User>>() {
+            HashMap<String,User> users = gson.fromJson(text, new TypeToken<HashMap<String,User>>() {
             }.getType());
             if (users != null) {
                 User.setUsers(users);

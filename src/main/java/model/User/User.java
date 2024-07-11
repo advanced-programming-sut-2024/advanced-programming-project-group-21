@@ -47,20 +47,16 @@ public class User {
         this.gameHistories = new ArrayList<>();
     }
 
-    public static ArrayList<User> getUsers() {
-        ArrayList<User> users = new ArrayList<>();
-        for(User user : allUsersByToken.values()) {
-            users.add(user);
-        }
-        return users;
+    public static HashMap<String,User> getUsers() {
+        return allUsersByToken;
     }
 
-    public static void addUserToUsers(User user) {
-        users.add(user);
+    public static void addUserToUsers(String token, User user) {
+        allUsersByToken.put(token, user);
     }
 
-    public static void setUsers(ArrayList<User> users) {
-        User.users = users;
+    public static void setUsers(HashMap<String,User> users) {
+        User.allUsersByToken = users;
     }
 
     public static User findUserByToken(String token) {
@@ -247,4 +243,5 @@ public class User {
     public void setSearchingForGame(boolean searchingForGame) {
         this.searchingForGame = searchingForGame;
     }
+
 }
