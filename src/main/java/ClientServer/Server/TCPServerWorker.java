@@ -176,7 +176,7 @@ public class TCPServerWorker extends Thread {
         } else if (msg instanceof PreGameMessage) {
             //do something
         } else if (msg instanceof RequestFriendMessage) {
-            //do something
+            friendRequest((RequestFriendMessage) msg);
         } else if (msg instanceof RequestGameMessage) {
             requestGame((RequestGameMessage)msg);
         } else if (msg instanceof SignupMessage) {
@@ -195,6 +195,29 @@ public class TCPServerWorker extends Thread {
         else {
             // do something
         }
+    }
+
+    private void friendRequest(RequestFriendMessage msg) {
+        String token = msg.getToken();
+        User user = User.findUserByToken(token);
+        if (user == null) {
+            sendFailure("1"); // invalid token
+            return;
+        }
+        User friendUser = User.getUserByUsername(msg.getFriendUsername());
+        if (friendUser == null) {
+            sendFailure("2"); // no user exists with such username
+            return;
+        }
+        if (user.getFriends().contains(friendUser)) {
+            sendFailure("3"); // already friends
+            return;
+        }
+        if (user.getFriendRequests().contains(friendUser)) {
+            sendFailure("4"); // already requested
+            return;
+        }
+        sendSuccess("0");
     }
 
     private void acceptGame(AcceptGameMessage msg) {

@@ -30,11 +30,10 @@ public class User {
     private ArrayList<HashMap<String, String>> gameHistories = null;
     private boolean isStayingLoggedIn;
     private ArrayList<User> friends = new ArrayList<>();
-    public static final String USERS_DATABASE_PATH = "src/main/java/model/User/users.json";
 
     private String currentToken = null;
-    private static ArrayList<User> users = new ArrayList<>();
     private static HashMap<String, User> allUsersByToken = new HashMap<String, User>();
+    private ArrayList<User> pendingFriendRequests = new ArrayList<>();
     private User enemyUser = null;
     private boolean inGame = false;
     private boolean searchingForGame = false;
@@ -244,4 +243,20 @@ public class User {
         this.searchingForGame = searchingForGame;
     }
 
+    public ArrayList<User> getFriendRequests() {
+        return pendingFriendRequests;
+    }
+
+    public void setPendingFriendRequests(ArrayList<User> friendRequests) {
+        this.pendingFriendRequests = friendRequests;
+    }
+    public void addToPendingFriendRequests(User user) {
+        pendingFriendRequests.add(user);
+    }
+    public void removeFromFriendRequests(User user) {
+        pendingFriendRequests.remove(user);
+    }
+    public void addToFriends(User user) {
+        friends.add(user);
+    }
 }

@@ -198,4 +198,15 @@ public class TCPClient {
         endConnection();
         return lastServerMessage.getAdditionalInfo();
     }
+
+    public String friendRequest(String username, String friendName) {
+        RequestFriendMessage friendRequestMessage = new RequestFriendMessage(username, friendName);
+        friendRequestMessage.setToken(ApplicationController.getLoggedInUser().getCurrentToken());
+        establishConnection();
+        sendMessage(gsonAgent.toJson(friendRequestMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
+    }
 }
