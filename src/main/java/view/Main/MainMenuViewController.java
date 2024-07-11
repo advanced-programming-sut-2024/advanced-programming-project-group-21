@@ -46,12 +46,17 @@ public class MainMenuViewController {
     }
 
     public void logout(MouseEvent mouseEvent) {
-        ApplicationController.setLoggedInUser(null);
-        DataBaseController.saveUsersToJson();
-        try {
-            new LoginMenuView().start(ApplicationController.getStage());
-        } catch (Exception e) {
-            e.printStackTrace();
+        String result = TCPClient.getInstance().logout(ApplicationController.getLoggedInUser().getUsername());
+        if (result.equals("logged out successfully")) {
+            ApplicationController.setLoggedInUser(null);
+            DataBaseController.saveUsersToJson();
+            try {
+                new LoginMenuView().start(ApplicationController.getStage());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("!");
         }
     }
 

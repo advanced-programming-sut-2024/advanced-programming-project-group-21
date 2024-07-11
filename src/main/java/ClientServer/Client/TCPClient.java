@@ -104,6 +104,15 @@ public class TCPClient {
         endConnection();
         return lastServerMessage.getAdditionalInfo();
     }
+    public String logout(String username) {
+        LogoutMessage logoutMessage = new LogoutMessage(username);
+        establishConnection();
+        sendMessage(gsonAgent.toJson(logoutMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
+    }
 
     public User getUserFromUsername(String username) {
         GetUserMessage getUserMessage = new GetUserMessage(username);

@@ -232,6 +232,7 @@ public class TCPServerWorker extends Thread {
         int answer = (new LoginMenuController()).loginUser(username, password);
         if (answer == 0) {
             user.setCurrentToken(generateNewToken());
+            System.out.println(user.getCurrentToken());
             User.addUserToTokenMap(user.getCurrentToken(), user);
             sendSuccess("0");
         } else {
@@ -240,7 +241,6 @@ public class TCPServerWorker extends Thread {
     }
 
     private void logoutUser(LogoutMessage msg) {
-        DataBaseController.saveUsersToJson();
         String token = msg.getToken();
         User user = User.findUserByToken(token);
         if (user == null) {
