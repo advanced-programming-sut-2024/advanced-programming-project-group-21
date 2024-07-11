@@ -5,10 +5,7 @@ import ClientServer.Server.model.GameServer;
 import ClientServer.Server.model.Lobby;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import controller.DataBaseController;
-import controller.LoginMenuController;
-import controller.QuestionMenuController;
-import controller.RegisterMenuController;
+import controller.*;
 import model.User.User;
 
 import java.io.*;
@@ -185,7 +182,7 @@ public class TCPServerWorker extends Thread {
         } else if (msg instanceof PreGameMessage) {
             //do something
         } else if (msg instanceof RequestFriendMessage) {
-            //do something
+            friendRequest((RequestFriendMessage) msg);
         } else if (msg instanceof RequestGameMessage) {
             requestGame((RequestGameMessage) msg);
         } else if (msg instanceof SignupMessage) {
@@ -206,6 +203,29 @@ public class TCPServerWorker extends Thread {
         } else {
             // do something
         }
+    }
+
+    private void friendRequest(RequestFriendMessage msg) {
+        String token = msg.getToken();
+        User user = User.findUserByToken(token);
+        if (user == null) {
+            sendFailure("1"); // invalid token
+            return;
+        }
+        User friendUser = User.getUserByUsername(msg.getFriendUsername());
+        if (friendUser == null) {
+            sendFailure("2"); // no user exists with such username
+            return;
+        }
+        if (user.getFriends().contains(friendUser)) {
+            sendFailure("3"); // already friends
+            return;
+        }
+        if (user.getFriendRequests().contains(friendUser)) {
+            sendFailure("4"); // already requested
+            return;
+        }
+        sendSuccess("0");
     }
 
     private void canGoToNextPhase(CanGoToNextPhaseMessage msg) {
@@ -342,7 +362,6 @@ public class TCPServerWorker extends Thread {
         DataBaseController.loadUsersFromJson();
         String username = msg.getUsername();
         String password = msg.getPassword();
-        User user = User.getUserByUsername(username);
         int answer = (new LoginMenuController()).loginUser(username, password);
         if (answer == 0) {
             sendSuccess("0");
@@ -358,8 +377,7 @@ public class TCPServerWorker extends Thread {
             sendFailure(INVALID_TOKEN);
             return;
         }
-        user.removeUserFromTokenMap(token);
-        user.setCurrentToken(null);
+        ApplicationController.setLoggedInUser(null);
         sendSuccess("logged out successfully");
     }
 
@@ -367,7 +385,7 @@ public class TCPServerWorker extends Thread {
         int answer = (new QuestionMenuController()).submitAnswer(msg.getUsername(), msg.getQuestion(), msg.getAnswer(), msg.getNewPassword(), msg.getConfirmPassword());
         if (answer == 0) {
             (new QuestionMenuController()).changePassword(msg.getUsername(), msg.getNewPassword());
-            sendSuccess("password changed successfully");
+            sendSuccess("0");
         } else {
             sendFailure(Integer.valueOf(answer).toString());
         }

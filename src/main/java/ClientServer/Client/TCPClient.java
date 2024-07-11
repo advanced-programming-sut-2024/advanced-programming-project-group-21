@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 import model.Card;
 import model.User.User;
+import org.hamcrest.core.StringEndsWith;
 import view.Login.LoginMenuView;
 
 import java.io.DataInputStream;
@@ -104,11 +105,23 @@ public class TCPClient {
         endConnection();
         return lastServerMessage.getAdditionalInfo();
     }
+
     public String logout(String username) {
         LogoutMessage logoutMessage = new LogoutMessage(username);
-        logoutMessage.setToken(ApplicationController.getLoggedInUser().getCurrentToken());
         establishConnection();
+        String token = ApplicationController.getLoggedInUser().getCurrentToken();
+        logoutMessage.setToken(token);
         sendMessage(gsonAgent.toJson(logoutMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
+    }
+
+    public String forgetPassword(String username, String question, String answer, String newPass, String confirm) {
+        ForgetPasswordMessage forgetPasswordMessage = new ForgetPasswordMessage(username, question, answer, newPass, confirm);
+        establishConnection();
+        sendMessage(gsonAgent.toJson(forgetPasswordMessage));
         lastServerMessage = gsonAgent.fromJson(
                 receiveResponse(), ServerMessage.class);
         endConnection();
@@ -148,7 +161,6 @@ public class TCPClient {
 
     public String acceptGameRequest(String username, String friendName) {
         AcceptGameMessage acceptGameMessage = new AcceptGameMessage(username, friendName, true);
-        acceptGameMessage.setToken(ApplicationController.getLoggedInUser().getCurrentToken());
         establishConnection();
         sendMessage(gsonAgent.toJson(acceptGameMessage));
         lastServerMessage = gsonAgent.fromJson(
@@ -159,7 +171,6 @@ public class TCPClient {
 
     public String rejectGameRequest(String username, String friendName) {
         AcceptGameMessage acceptGameMessage = new AcceptGameMessage(username, friendName, false);
-        acceptGameMessage.setToken(ApplicationController.getLoggedInUser().getCurrentToken());
         establishConnection();
         sendMessage(gsonAgent.toJson(acceptGameMessage));
         lastServerMessage = gsonAgent.fromJson(
@@ -168,9 +179,9 @@ public class TCPClient {
         return lastServerMessage.getAdditionalInfo();
     }
 
-    public String getGameRequest(){
+    public String getGameRequest() {
+        String enemyName = null;
         GetRequestGameMessage getRequestGameMessage = new GetRequestGameMessage(ApplicationController.getLoggedInUser().getUsername());
-        getRequestGameMessage.setToken(ApplicationController.getLoggedInUser().getCurrentToken());
         establishConnection();
         sendMessage(gsonAgent.toJson(getRequestGameMessage));
         lastServerMessage = gsonAgent.fromJson(
@@ -184,6 +195,17 @@ public class TCPClient {
         requestGameMessage.setToken(ApplicationController.getLoggedInUser().getCurrentToken());
         establishConnection();
         sendMessage(gsonAgent.toJson(requestGameMessage));
+        lastServerMessage = gsonAgent.fromJson(
+                receiveResponse(), ServerMessage.class);
+        endConnection();
+        return lastServerMessage.getAdditionalInfo();
+    }
+
+    public String friendRequest(String username, String friendName) {
+        RequestFriendMessage friendRequestMessage = new RequestFriendMessage(username, friendName);
+        friendRequestMessage.setToken(ApplicationController.getLoggedInUser().getCurrentToken());
+        establishConnection();
+        sendMessage(gsonAgent.toJson(friendRequestMessage));
         lastServerMessage = gsonAgent.fromJson(
                 receiveResponse(), ServerMessage.class);
         endConnection();

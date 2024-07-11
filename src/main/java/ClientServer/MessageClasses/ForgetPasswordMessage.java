@@ -7,7 +7,7 @@ public class ForgetPasswordMessage extends ClientMessage {
     private String newPassword;
     private String confirmPassword;
 
-    public ForgetPasswordMessage(String username, String question, String answer, String newPassword) {
+    public ForgetPasswordMessage(String username, String question, String answer,String newPassword, String confirmPassword) {
         this.type = ClientMessageType.forgetPassword;
         this.username = username;
         this.question = question;

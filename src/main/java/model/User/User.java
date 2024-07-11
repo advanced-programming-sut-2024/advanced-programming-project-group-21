@@ -30,14 +30,14 @@ public class User {
     private ArrayList<HashMap<String, String>> gameHistories = null;
     private boolean isStayingLoggedIn;
     private ArrayList<User> friends = new ArrayList<>();
-    public static final String USERS_DATABASE_PATH = "src/main/java/model/User/users.json";
 
     private String currentToken = null;
-
     private static HashMap<String, User> allUsersByToken = new HashMap<String, User>();
+    private ArrayList<User> pendingFriendRequests = new ArrayList<>();
     private User enemyUser = null;
     private boolean inGame = false;
-    private int gameId=0;
+    private boolean searchingForGame = false;
+    private int gameId = 0;
 
     public User(String username, String nickname, String password, String email) {
         this.username = username;
@@ -236,12 +236,35 @@ public class User {
         allUsersByToken.put(token, user);
     }
 
+    public boolean isSearchingForGame() {
+        return searchingForGame;
+    }
+
+    public void setSearchingForGame(boolean searchingForGame) {
+        this.searchingForGame = searchingForGame;
+    }
+
+    public ArrayList<User> getFriendRequests() {
+        return pendingFriendRequests;
+    }
+
+    public void setPendingFriendRequests(ArrayList<User> friendRequests) {
+        this.pendingFriendRequests = friendRequests;
+    }
+    public void addToPendingFriendRequests(User user) {
+        pendingFriendRequests.add(user);
+    }
+    public void removeFromFriendRequests(User user) {
+        pendingFriendRequests.remove(user);
+    }
+    public void addToFriends(User user) {
+        friends.add(user);
+    }
+    public void setGameId(int gameId) {
+        this.gameId = gameId;
+    }
 
     public int getGameId() {
         return gameId;
-    }
-
-    public void setGameId(int gameId) {
-        this.gameId = gameId;
     }
 }
