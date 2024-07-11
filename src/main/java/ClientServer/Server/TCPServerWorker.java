@@ -7,6 +7,7 @@ import controller.LoginMenuController;
 import controller.QuestionMenuController;
 import controller.RegisterMenuController;
 import model.User.User;
+import view.Chat.ChatMenuViewController;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -24,6 +25,7 @@ public class TCPServerWorker extends Thread {
     private static final String INVALID_TOKEN = "this token belongs to no user";
     private static final String WRONG_PASSWORD = "wrong password";
     private static final String SAME_EMAIL = "new email is the same as the old one";
+    private static final String INVALID_SENDER_OR_RECEIVER = "invalid sender or receiver";
 
     public static ArrayList<Socket> connections;
 
@@ -182,10 +184,23 @@ public class TCPServerWorker extends Thread {
             //do something
         }else if(msg instanceof GetUserMessage){
             getUser((GetUserMessage) msg);
+        }else if(msg instanceof SendMessageToPlayerMessage){
+            sendMessageToPlayer((SendMessageToPlayerMessage) msg);
         }else {
             // do something
         }
     }
+    private void sendMessageToPlayer(SendMessageToPlayerMessage msg) {
+        User sender = User.getUserFromToken(msg.getToken());
+        User receiver = User.getUserByUsername(msg.getEnemyUsername());
+        String receiverToken = receiver.getCurrentToken();
+        if (receiverToken == null || receiverToken == null){
+            sendFailure(INVALID_SENDER_OR_RECEIVER);
+            return;
+        }
+        ChatMenuViewController chatMenuViewController = new ChatMenuViewController();
+        chatMenuViewController.sendMessage(sender, receiver, msg.getMessage());
+        }
 
     private void getUser(GetUserMessage msg) {
         User user = User.getUserByUsername(msg.getUsername());

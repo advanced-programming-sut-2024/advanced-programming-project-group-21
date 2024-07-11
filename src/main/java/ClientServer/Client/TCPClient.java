@@ -306,4 +306,11 @@ public class TCPClient {
         endConnection();
         return gsonAgent.fromJson(lastServerMessage.getAdditionalInfo(), User.class);
     }
+
+    public void sendMessageToPlayer(String token, String enemyUsername, String message) {
+        SendMessageToPlayerMessage sendMessageToPlayerMessage = new SendMessageToPlayerMessage(token, enemyUsername, message);
+        establishConnection();
+        sendMessage(gsonAgent.toJson(sendMessageToPlayerMessage));
+        endConnection();
+    }
 }

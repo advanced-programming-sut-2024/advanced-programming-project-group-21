@@ -63,6 +63,10 @@ public class User {
         return allUsersByToken.get(token);
     }
 
+    public static User getUserFromToken(String token) {
+        return allUsersByToken.get(token);
+    }
+
 
     public int getGamesPlayed() {
         return gamesPlayed;
