@@ -3,51 +3,35 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="pane" prefHeight="750" prefWidth="1500" stylesheets="@../CSS/VboxStyle.css"
-            xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="view.Profile.ProfileMenuViewController">
-    <VBox fx:id="vbox" alignment="BOTTOM_CENTER" layoutX="648.0" layoutY="94.0" prefHeight="562.0" prefWidth="218.0"
-          spacing="50.0" styleClass="vbox">
-        <CheckBox fx:id="loggedInCheckBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
-                  prefHeight="30.0" prefWidth="120.0" text="Stay logged in" textAlignment="CENTER" styleClass="label"
-                  onAction="#stayLoggedIn"/>
+<AnchorPane fx:id="pane" prefHeight="750" prefWidth="1500" stylesheets="@../CSS/VboxStyle.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Profile.ProfileMenuViewController">
+    <VBox fx:id="vbox" alignment="BOTTOM_CENTER" layoutX="648.0" layoutY="94.0" prefHeight="562.0" prefWidth="218.0" spacing="50.0" styleClass="vbox">
+        <CheckBox fx:id="loggedInCheckBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#stayLoggedIn" prefHeight="30.0" prefWidth="120.0" styleClass="label" text="Stay logged in" textAlignment="CENTER" />
         <VBox alignment="CENTER" prefHeight="313.0" prefWidth="218.0" spacing="20.0">
-            <Label alignment="CENTER" prefHeight="23.0" prefWidth="199.0" text="Change info"/>
+            <Label alignment="CENTER" prefHeight="23.0" prefWidth="199.0" text="Change info" />
             <VBox alignment="TOP_CENTER" prefHeight="106.0" prefWidth="148.0" spacing="7.0">
-                <Button fx:id="usernameButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false"
-                        onMouseClicked="#openChangeUsername" prefWidth="120.0" styleClass="button"
-                        text="Change username"/>
-                <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false"
-                        onMouseClicked="#openChangeNickname" prefWidth="120.0" styleClass="button"
-                        text="Change nickname"/>
-                <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false"
-                        onMouseClicked="#openChangeEmail" prefHeight="30.0" prefWidth="120.0" styleClass="button"
-                        text="Change email"/>
-                <Button contentDisplay="RIGHT" mnemonicParsing="false" onMouseClicked="#openChangePassword"
-                        prefHeight="30.0" prefWidth="120.0" styleClass="button" text="Change password"/>
+                <Button fx:id="usernameButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onMouseClicked="#openChangeUsername" prefWidth="120.0" styleClass="button" text="Change username" />
+                <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onMouseClicked="#openChangeNickname" prefWidth="120.0" styleClass="button" text="Change nickname" />
+                <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onMouseClicked="#openChangeEmail" prefHeight="30.0" prefWidth="120.0" styleClass="button" text="Change email" />
+                <Button contentDisplay="RIGHT" mnemonicParsing="false" onMouseClicked="#openChangePassword" prefHeight="30.0" prefWidth="120.0" styleClass="button" text="Change password" />
             </VBox>
         </VBox>
         <VBox alignment="TOP_CENTER" prefHeight="193.0" prefWidth="218.0" spacing="10.0">
-            <Label alignment="CENTER" prefHeight="23.0" prefWidth="187.0" text="Answer security questions"/>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="7.0"/>
-            <Button mnemonicParsing="false" onMouseClicked="#goToQuestionMenu" prefHeight="30.0" prefWidth="120.0"
-                    styleClass="button" text="Enter menu"/>
+            <Label alignment="CENTER" prefHeight="23.0" prefWidth="187.0" text="Answer security questions" />
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="7.0" />
+            <Button mnemonicParsing="false" onMouseClicked="#goToQuestionMenu" prefHeight="30.0" prefWidth="120.0" styleClass="button" text="Enter menu" />
         </VBox>
         <VBox alignment="TOP_CENTER" prefHeight="79.0" prefWidth="218.0" spacing="10.0">
-            <Label alignment="CENTER" prefHeight="23.0" prefWidth="195.0" styleClass="label"
-                   text="Accessing information"/>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="7.0"/>
-            <Button mnemonicParsing="false" onMouseClicked="#goToUserInfoMenu" prefWidth="120.0" styleClass="button"
-                    text="Enter menu"/>
+            <Label alignment="CENTER" prefHeight="23.0" prefWidth="195.0" styleClass="label" text="Accessing information" />
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="7.0" />
+            <Button mnemonicParsing="false" onMouseClicked="#goToUserInfoMenu" prefWidth="120.0" styleClass="button" text="Enter menu" />
         </VBox>
         <VBox alignment="TOP_CENTER" prefHeight="122.0" prefWidth="218.0" spacing="10.0">
-            <Label alignment="CENTER" prefHeight="23.0" prefWidth="193.0" styleClass="label" text="Game history"/>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="7.0"/>
-            <TextField prefHeight="26.0" prefWidth="100.0" promptText="enter number of games " styleClass="text-field"/>
-            <Button mnemonicParsing="false" onMouseClicked="#goToGameHistoryInfoMenu" prefWidth="120.0"
-                    styleClass="button" text="Enter menu"/>
+            <Label alignment="CENTER" prefHeight="23.0" prefWidth="193.0" styleClass="label" text="Game history" />
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="7.0" />
+            <TextField prefHeight="26.0" prefWidth="100.0" promptText="enter number of games " styleClass="text-field" />
+            <Button mnemonicParsing="false" onMouseClicked="#goToGameHistoryInfoMenu" prefHeight="30.0" prefWidth="120.0" styleClass="button" text="Enter menu" />
         </VBox>
+      <Button alignment="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Friends" onMouseClicked="#goToFriendsMenu" />
     </VBox>
-    <Button layoutX="14.0" layoutY="709.0" mnemonicParsing="false" onMouseClicked="#goToMainMenu" prefHeight="26.0"
-            prefWidth="110.0" styleClass="button" text="Back"/>
+    <Button layoutX="14.0" layoutY="709.0" mnemonicParsing="false" onMouseClicked="#goToMainMenu" prefHeight="26.0" prefWidth="110.0" styleClass="button" text="Back" />
 </AnchorPane>
